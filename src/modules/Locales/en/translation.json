@@ -1,5 +1,37 @@
 {
     "welcome": "Welcome to the app!",
-    "logout": "Logout"
+    "logout": "Logout",
+      "validation": {
+        "email_required": "Email is required",
+        "email_invalid": "Invalid email format",
+        "password_required": "Password is required",
+        "password_pattern": "Must be 6+ chars, 1 uppercase, 1 lowercase, 1 digit & 1 special char",
+        "otp_required": "OTP is required",
+        "confirm_password_required": "Confirm Password is required",
+        "passwords_do_not_match": "Passwords do not match",
+        "generic_required": "{{field}} is required",
+        "username_required": "Username is required",
+        "username_pattern": "Must be 4–8 chars, include letters, and end with numbers.",
+        "country_required": "Country is required",
+        "country_invalid": "Enter a valid country",
+        "phone_required": "Phone is required",
+        "phone_invalid": "Invalid phone format"
+      },
+      "register": {
+    "heading": "Sign up",
+    "already_have_account": "If you already have an account, you can",
+    "login_here": "Login here!"
+  },
+  "form": {
+    "placeholder": "Please enter your {{field}}",
+    "username": "User Name",
+    "phone": "Phone Number",
+    "country": "Country",
+    "email": "Email Address",
+    "password": "Password",
+    "confirmpassword": "Confirm Password",
+    "sign_up": "Sign Up"
   }
+    }
+    
   
