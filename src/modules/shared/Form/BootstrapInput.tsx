@@ -1,4 +1,3 @@
-// components/BootstrapInput.ts
 import { InputBase, styled, alpha } from '@mui/material';
 
 const BootstrapInput = styled(InputBase)(({ theme, error }) => ({
@@ -8,9 +7,9 @@ const BootstrapInput = styled(InputBase)(({ theme, error }) => ({
   '& .MuiInputBase-input': {
     borderRadius: 4,
     position: 'relative',
-    backgroundColor: '#F3F6F9',
+    backgroundColor: theme.palette.background.paper,  // Use background paper from theme
     border: '1px solid',
-    borderColor: error ? '#f44336' : '#E0E3E7', // Red color for error
+    borderColor: error ? theme.palette.error.main : theme.palette.divider, // Use theme colors for border
     fontSize: 16,
     width: '100%',
     padding: '10px 12px',
@@ -34,9 +33,9 @@ const BootstrapInput = styled(InputBase)(({ theme, error }) => ({
     // Change box-shadow when focused and error occurs
     '&:focus': {
       boxShadow: error
-        ? '0 0 0 0.2rem rgba(244, 67, 54, 0.25)' // Red box-shadow for error
+        ? `0 0 0 0.2rem rgba(244, 67, 54, 0.25)` // Red box-shadow for error
         : `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`, // Primary color focus
-      borderColor: error ? '#f44336' : theme.palette.primary.main, // Red border for error focus
+      borderColor: error ? theme.palette.error.main : theme.palette.primary.main, // Border color based on theme
     },
   },
 }));

@@ -1,34 +1,44 @@
-
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
-import translationEN from "./en/translation.json";
-import translationAR from "./ar/translation.json";
+import translationEN from './en/translation.json';
+import translationAR from './ar/translation.json';
+
 const resources = {
-    en: { translation: translationEN },
-    ar: { translation: translationAR },
-  }
+  en: { translation: translationEN },
+  ar: { translation: translationAR },
+};
 
 i18n
-  // detect user language
-  // learn more: https://github.com/i18next/i18next-browser-languageDetector
   .use(LanguageDetector)
-  // pass the i18n instance to react-i18next.
   .use(initReactI18next)
-  // init i18next
-  // for all options read: https://www.i18next.com/overview/configuration-options
   .init({
-    debug: true,
+    debug: false, // Set to false for production
     fallbackLng: 'en',
     interpolation: {
-      escapeValue: false, // not needed for react as it escapes by default
+      escapeValue: false, // No need for escaping in React
     },
-    resources
+    resources,
+    react: {
+      useSuspense: false, // Disable suspense to improve performance
+    },
   });
 
-export default i18n;
-
+// Save language preference and update the direction
 export const changeLanguage = (lng: string) => {
+  // Change the language
   i18n.changeLanguage(lng);
-  document.dir = lng === "ar" ? "rtl" : "ltr";
+
+  // Save the language to localStorage for persistence
+  localStorage.setItem('language', lng);
+
+  // Set text direction for RTL or LTR based on language
+  const direction = lng === 'ar' ? 'rtl' : 'ltr';
+  document.documentElement.setAttribute('dir', direction);
 };
+
+// Load the language from localStorage on initial load
+const storedLanguage = localStorage.getItem('language') || 'en';
+changeLanguage(storedLanguage);
+
+export default i18n;
