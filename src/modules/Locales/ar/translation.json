@@ -20,16 +20,22 @@
   "register": {
     "heading": "إنشاء حساب",
     "already_have_account": "إذا كان لديك حساب بالفعل، يمكنك",
-    "login_here": "تسجيل الدخول من هنا!"
+    "login_here": "تسجيل الدخول من هنا!",
+    "success_message": "تم التسجيل بنجاح! جارٍ إعادة التوجيه إلى صفحة تسجيل الدخول...",
+    "error_message": "فشل التسجيل. يرجى المحاولة مرة أخرى."
   },
   "form": {
     "placeholder": "يرجى إدخال {{field}}",
     "username": "اسم المستخدم",
-    "phone": "رقم الهاتف",
+    "phonenumber": "رقم الهاتف",
     "country": "الدولة",
     "email": "عنوان البريد الإلكتروني",
+    "profileimage": "صورة الملف الشخصي",
     "password": "كلمة المرور",
     "confirmpassword": "تأكيد كلمة المرور",
-    "sign_up": "إنشاء حساب"
+    "sign_up": "إنشاء حساب",
+    "uploadimage": "تحميل صورة",
+    "image_required": "الصورة مطلوبة",
+    "invalid_image_type": "يُسمح فقط بصيغ JPEG و PNG و GIF"
   }
 }

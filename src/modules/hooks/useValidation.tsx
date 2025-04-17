@@ -1,4 +1,6 @@
+import { RegisterOptions } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { RegisterFormInputs } from "../interfaces/AuthInterfaces";
 
 export const useValidation = () => {
   const { t } = useTranslation();
@@ -24,11 +26,13 @@ export const useValidation = () => {
       required: t('validation.otp_required'),
     },
 
-    CONFIRM_PASS_VALIDATION: (password: string) => ({
+    CONFIRM_PASS_VALIDATION :(password: string): RegisterOptions<RegisterFormInputs> => ({
       required: t('validation.confirm_password_required'),
-      validate: (value: string) =>
-        value === password || t('validation.passwords_do_not_match'),
-    }),
+      validate: (value: string | FileList | undefined) =>
+        typeof value === 'string' && value === password
+          ? true
+          : 'Passwords do not match',})
+    ,
 
     REQUIRED_VALIDATION: (input: string) => ({
       required: t('validation.generic_required', { field: input }),

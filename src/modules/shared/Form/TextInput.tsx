@@ -1,22 +1,39 @@
 import React from 'react';
-import {InputLabel,FormControl,InputAdornment,IconButton,FormHelperText} from '@mui/material';
-import { UseFormRegister, FieldValues, RegisterOptions, FieldErrors } from 'react-hook-form';
+import {
+  InputLabel,
+  FormControl,
+  InputAdornment,
+  IconButton,
+  FormHelperText,
+} from '@mui/material';
+import {
+  UseFormRegister,
+  RegisterOptions,
+  FieldErrors,
+  Path,
+} from 'react-hook-form';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import useTogglePassword from '../../hooks/useTogglePassword';
 import BootstrapInput from './BootstrapInput';
 import { useTranslation } from 'react-i18next';
+import { RegisterFormInputs } from '../../interfaces/AuthInterfaces';
 
+// 👇 Extend errors to include oldPassword explicitly
+type ExtendedFieldErrors = FieldErrors<RegisterFormInputs> & {
+  oldPassword?: { message?: string };
+};
 interface TextInputProps {
-  name: string;
+  name: Path<RegisterFormInputs> | 'oldPassword'; // support both form keys and custom keys
   label?: string;
   placeholder?: string;
   id?: string;
-  register: UseFormRegister<FieldValues>;
-  validation?: RegisterOptions;
+  register: UseFormRegister<RegisterFormInputs>;
+  validation?: RegisterOptions<RegisterFormInputs, Path<RegisterFormInputs>>;
   type: string;
-  errors?: FieldErrors;
+  errors?: any;
 }
+
 
 const TextInput: React.FC<TextInputProps> = ({
   name,
@@ -29,7 +46,18 @@ const TextInput: React.FC<TextInputProps> = ({
   errors = {},
 }) => {
   const { t } = useTranslation();
-  const {showPass,handleShowPass,showConfirmPass,handleConfirmPass,showOldPass,handleOldPass} = useTogglePassword();
+
+  const {
+    showPass,
+    handleShowPass,
+    showConfirmPass,
+    handleConfirmPass,
+    showOldPass,
+    handleOldPass,
+  } = useTogglePassword();
+
+  const hasError = !!errors[name];
+  const errorMessage = errors[name]?.message as string;
 
   const getPasswordToggle = () => {
     let isVisible = false;
@@ -55,19 +83,23 @@ const TextInput: React.FC<TextInputProps> = ({
     );
   };
 
-  const hasError = !!errors[name];
-  const errorMessage = errors[name]?.message as string;
-
   return (
     <FormControl variant="standard" fullWidth error={hasError}>
-      <InputLabel shrink htmlFor={id || name} sx={{ color: '#152C5B' , fontSize: '16px' , fontWeight: 400 }}>
+      <InputLabel
+        shrink
+        htmlFor={id || name}
+        sx={{ color: '#152C5B', fontSize: '16px', fontWeight: 400 }}
+      >
         {label || t(`form.${name.toLocaleLowerCase()}`, name)}
       </InputLabel>
 
       <BootstrapInput
         id={id || name}
         placeholder={
-          placeholder || t('form.placeholder', { field: t(`form.${name.toLocaleLowerCase()}`, name) })
+          placeholder ||
+          t('form.placeholder', {
+            field: t(`form.${name.toLocaleLowerCase()}`, name),
+          })
         }
         type={
           type === 'password' && name === 'password' && !showPass
@@ -78,7 +110,7 @@ const TextInput: React.FC<TextInputProps> = ({
             ? 'password'
             : 'text'
         }
-        {...register(name, validation)}
+        {...register(name as keyof RegisterFormInputs, validation)}
         endAdornment={
           name === 'password' || name === 'confirmPassword' || name === 'oldPassword'
             ? getPasswordToggle()

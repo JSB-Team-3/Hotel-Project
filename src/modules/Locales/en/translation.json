@@ -20,17 +20,23 @@
       "register": {
     "heading": "Sign up",
     "already_have_account": "If you already have an account, you can",
-    "login_here": "Login here!"
+    "login_here": "Login here!",
+       "success_message": "Registration successful! Redirecting to login...",
+    "error_message": "Registration failed. Please try again."
   },
   "form": {
     "placeholder": "Please enter your {{field}}",
     "username": "User Name",
-    "phone": "Phone Number",
+    "phonenumber": "Phone Number",
     "country": "Country",
     "email": "Email Address",
+    "profileimage": "Profile Image",
     "password": "Password",
     "confirmpassword": "Confirm Password",
-    "sign_up": "Sign Up"
+    "sign_up": "Sign Up",
+    "uploadimage": "Upload an image",
+    "image_required": "Image is required",
+    "invalid_image_type": "Only JPEG, PNG, and GIF are allowed"
   }
     }
     

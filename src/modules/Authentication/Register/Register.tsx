@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
-import { Grid, Typography, Link } from '@mui/material';
+import { Grid, Typography, Link} from '@mui/material';
 import { useForm } from 'react-hook-form';
 import TextInput from '../../shared/Form/TextInput';
 import FormButton from '../../shared/Form/FormButton';
@@ -8,49 +8,66 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useValidation } from '../../hooks/useValidation';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import axios from 'axios';
-import { puplicAxiosInstance } from '../../services/api/apiInstance';
+import { AppDispatch, RootState } from '../../store/auth/AuthConfig';
+import { useDispatch, useSelector } from 'react-redux';
+import { register as registerThunk } from '../../store/auth/authThunks';
+import { RegisterFormInputs } from '../../interfaces/AuthInterfaces';
+import FileUpload from '../../shared/Form/FileUpload';
+
 const Register = () => {
-  const { t } = useTranslation();
-  const { CONFIRM_PASS_VALIDATION,COUNTRY_VALIDATION,EMAIL_VALIDATION,PASSWORD_VALIDATION,PHONE_VALIDATION,
+  const { t } = useTranslation();  // Translation hook
+  const dispatch = useDispatch<AppDispatch>();
+  const { loading, error, user } = useSelector((state: RootState) => state.auth);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+  const {
+    CONFIRM_PASS_VALIDATION,
+    COUNTRY_VALIDATION,
+    EMAIL_VALIDATION,
+    PASSWORD_VALIDATION,
+    PHONE_VALIDATION,
     USERNAME_VALIDATION,
   } = useValidation();
+
   const navigate = useNavigate();
 
-  const {register,handleSubmit,formState: { errors, isSubmitting },getValues,
-  } = useForm({ mode: 'onChange' });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    getValues,
+  } = useForm<RegisterFormInputs>({ mode: 'onChange' });
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: RegisterFormInputs) => {
+    if (!selectedFile) return toast.error(t('form.image_required'));  // Error message
     try {
-      const res = await puplicAxiosInstance.post("/register", data);
-      toast.success(res?.data?.message || '🦄 User Registered!');
-      navigate('/login', { state: { email: data.email } });
-    } catch (error: unknown) {
-      if (axios.isAxiosError(error)) {
-        toast.error(error.response?.data?.message || '🦄 Something went wrong!');
-      } else {
-        toast.error('An unexpected error occurred!');
-      }
+      await dispatch(registerThunk({
+        ...data,
+        role: 'user',
+        profileImage: selectedFile,
+      })).unwrap();
+      // enqueueSnackbar(response?.message || t('register.success_message'), { variant: 'success' });
+      navigate('/login');
+    } catch (error) {
+      // enqueueSnackbar(error as string || t('register.error_message'), { variant: 'error' });
+
     }
   };
 
   return (
-    <Box component="section"  sx={{ p: { xs: 0, sm: 10 } }} >
-      <Typography variant="h4" component="h2" gutterBottom sx={{mb: 2}}>
+    <Box component="section" >
+      <Typography variant="h4" gutterBottom sx={{ mb: 2 }}>
         {t('register.heading')}
       </Typography>
 
-      <Typography variant="body1"  color="#000000" sx={{ maxWidth: 300 ,mb: 2}}>
-        {t('register.already_have_account')}
-        <Typography component="span" variant="body2" color="red">
-          {' '}
-          <Link component={RouterLink} to="/login" underline="hover" color="red">
-            {t('register.login_here')}
-          </Link>
-        </Typography>
+      <Typography variant="body1" sx={{ maxWidth: 300, mb: 2 }}>
+        {t('register.already_have_account')}{' '}
+        <Link component={RouterLink} to="/login" underline="hover" color="red">
+          {t('register.login_here')}
+        </Link>
       </Typography>
 
-      <form onSubmit={handleSubmit(onSubmit)} >
+      <form onSubmit={handleSubmit(onSubmit)}>
         <Grid container spacing={2}>
           <TextInput
             name="userName"
@@ -62,11 +79,11 @@ const Register = () => {
             errors={errors}
           />
 
-          <Grid  size={{xs: 12, sm: 6}} >
+          <Grid size={{ xs: 12, sm: 6 }} >
             <TextInput
-              name="phone"
+              name="phoneNumber"
               id="phone"
-              label={t('form.phone')}
+              label={t('form.phonenumber')}
               register={register}
               validation={PHONE_VALIDATION}
               type="text"
@@ -74,7 +91,7 @@ const Register = () => {
             />
           </Grid>
 
-          <Grid size={{xs: 12, sm: 6}}>
+          <Grid size={{ xs: 12, sm: 6 }} >
             <TextInput
               name="country"
               id="country"
@@ -94,6 +111,15 @@ const Register = () => {
             validation={EMAIL_VALIDATION}
             type="text"
             errors={errors}
+          />
+
+          {/* File Upload Component */}
+          <FileUpload
+            selectedFile={selectedFile}
+            setSelectedFile={setSelectedFile}
+            register={register}
+            errors={errors}
+            t={t}
           />
 
           <TextInput
@@ -117,7 +143,7 @@ const Register = () => {
           />
         </Grid>
 
-        <FormButton isSubmitting={isSubmitting} color="primary" name={t('form.sign_up')}/>
+        <FormButton isSubmitting={loading} color="primary" name={t('form.sign_up')} />
       </form>
     </Box>
   );
