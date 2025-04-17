@@ -38,7 +38,7 @@ export interface ResetPasswordData {
 }
 
 export interface ChangePasswordData {
-  currentPass: string;
-  newPass: string;
-  confirmNewPass: string;
+  oldPassword: string;
+  newPassword: string;
+  confirmPassword: string;
 }

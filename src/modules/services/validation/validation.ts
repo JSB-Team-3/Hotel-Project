@@ -10,8 +10,8 @@ export const PASSWORD_VALIDATION :{required:string,pattern:pattern} =
 {
     required: 'password is required',
     pattern: {
-        value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/,
-        message: "Must be 6+ chars, 1 uppercase, 1 lowercase, 1 digit & 1 special char",
+        value: /^(?=.*[a-z A-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/,
+        message: "Must be 6+ chars, 1 letter, 1 digit & 1 special char",
     }
 }
 export const OTP_VALIDATION : {required:string} =

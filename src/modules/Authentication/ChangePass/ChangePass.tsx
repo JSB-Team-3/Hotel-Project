@@ -11,20 +11,25 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import useTogglePassword, { ChangePassPayload, maodalStyles } from './ChangePasswordUtilities';
+import useTogglePassword, { maodalStyles } from './ChangePasswordUtilities';
 import { CONFIRM_PASS_VALIDATION, PASSWORD_VALIDATION } from '../../services/validation/validation';
 import { useSnackbar } from 'notistack';
-import { USER_URLS } from '../../services/api/apiConfig';
-import { privateAxiosInstance } from '../../services/api/apiInstance';
-import axios from 'axios';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../store/auth/AuthConfig';
+import { changePassword } from '../../store/auth/authThunks';
+import { ChangePasswordData } from '../../store/auth/interfaces/authType';
+import { CircularProgress } from '@mui/material';
 
 const ChangePass = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const { enqueueSnackbar } = useSnackbar();
-  
+  const dispatch = useDispatch<AppDispatch>()
+  const { loading } = useSelector((state: RootState) => ({
+    loading: state.auth.loading,
+  }));
+
   const {
     showPass,
     showConfirmPass,
@@ -40,25 +45,22 @@ const ChangePass = () => {
     reset,
     formState: { errors },
     watch
-  } = useForm<ChangePassPayload>({ mode: "onChange" });
+  } = useForm<ChangePasswordData>({ mode: "onChange" });
 
   const watchNewPassword = watch("newPassword");
-  
-  const onSubmit = async (data: ChangePassPayload) => {
+
+  const onSubmit = async (data: ChangePasswordData) => {
     try {
-      const response = await privateAxiosInstance.put(USER_URLS.CHANGE_PASS, data);
-      enqueueSnackbar(response?.data?.message || 'Password Updated successfully!', { variant: 'success' });
+      const response = await dispatch(changePassword(data)).unwrap();
+      enqueueSnackbar(response?.message || 'Password updated successfully!', { variant: 'success' });
       reset();
-    } catch (error: unknown) {
-      if (axios.isAxiosError(error)) {
-        enqueueSnackbar(error.response?.data?.message || '🦄 Something went wrong!', { variant: 'error' });
-      } else {
-        enqueueSnackbar('An unexpected error occurred!', { variant: 'error' });
-      }
+      handleClose()
+    } catch (err) {
+      enqueueSnackbar(err as string , { variant: 'error' });
     }
-    handleClose();
   };
   
+
   return (
     <div>
       <Button onClick={handleOpen} variant="contained" color="primary">Change Password</Button>
@@ -91,79 +93,79 @@ const ChangePass = () => {
               autoComplete="off"
             >
               <TextField
-              {...register('oldPassword',PASSWORD_VALIDATION)}
+                {...register('oldPassword', PASSWORD_VALIDATION)}
                 id="oldPassword"
                 error={!!errors.oldPassword}
                 label="Current Password"
-                type={showOldPass?'text':'password'}
+                type={showOldPass ? 'text' : 'password'}
                 helperText={errors.oldPassword?.message}
                 margin='normal'
                 slotProps={{
-                  input:{
+                  input: {
                     endAdornment: (
-                     <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleOldPass}
-                        edge="end"
-                      >
-                        {showOldPass ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleOldPass}
+                          edge="end"
+                        >
+                          {showOldPass ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }
                 }}
                 fullWidth
                 autoComplete="current-password"
               />
               <TextField
-              {...register('newPassword',PASSWORD_VALIDATION)}
+                {...register('newPassword', PASSWORD_VALIDATION)}
                 id="newPassword"
                 error={!!errors.newPassword}
                 label="New Password"
-                type={showPass?'text':'password'}
+                type={showPass ? 'text' : 'password'}
                 helperText={errors.newPassword?.message}
                 margin='normal'
                 slotProps={{
-                  input:{
+                  input: {
                     endAdornment: (
-                     <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleShowPass}
-                        edge="end"
-                      >
-                        {showPass ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleShowPass}
+                          edge="end"
+                        >
+                          {showPass ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }
                 }}
                 fullWidth
                 autoComplete="current-password"
               />
               <TextField
-              {...register('confirmNewPassword',CONFIRM_PASS_VALIDATION(watchNewPassword))}
-                id="confirmNewPassword"
-                error={!!errors.confirmNewPassword}
+                {...register('confirmPassword', CONFIRM_PASS_VALIDATION(watchNewPassword))}
+                id="confirmPassword"
+                error={!!errors.confirmPassword}
                 label="Current Password"
-                type={showConfirmPass?'text':'password'}
-                helperText={errors.confirmNewPassword?.message}
+                type={showConfirmPass ? 'text' : 'password'}
+                helperText={errors.confirmPassword?.message}
                 margin='normal'
                 slotProps={{
-                  input:{
+                  input: {
                     endAdornment: (
-                     <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleConfirmPass}
-                        edge="end"
-                      >
-                        {showConfirmPass ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleConfirmPass}
+                          edge="end"
+                        >
+                          {showConfirmPass ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }
                 }}
                 fullWidth
                 autoComplete="current-password"
@@ -173,7 +175,7 @@ const ChangePass = () => {
                   Cancel
                 </Button>
                 <Button type="submit" variant="contained" color="primary">
-                  Change Password
+                  {loading ? <CircularProgress color="inherit" size={24} sx={{ color: 'white' }} /> : "Change Password"}
                 </Button>
               </Box>
             </Box>

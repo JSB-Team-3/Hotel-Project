@@ -9,11 +9,6 @@ function useTogglePassword() {
     const handleOldPass = (): void => setOldPass((prev) => !prev);
     return{showPass,showConfirmPass,showOldPass,handleShowPass,handleConfirmPass,handleOldPass}
 }
-export interface ChangePassPayload {
-    oldPassword: string;
-    newPassword: string;
-    confirmNewPassword: string;
-  }
 export default useTogglePassword
 export const  maodalStyles = {
     position: 'absolute',
