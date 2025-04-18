@@ -9,12 +9,22 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { Provider } from "react-redux";
 import { store } from "./modules/store/auth/AuthConfig.ts";
+import { Snackbar } from '@mui/material';
+import { SnackbarProvider } from 'notistack';
 
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Provider store={store}>
-      <App />
+      <SnackbarProvider
+        maxSnack={3}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+      >
+        <App />
+      </SnackbarProvider>
     </Provider>
   </StrictMode>
 );
