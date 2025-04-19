@@ -2,10 +2,22 @@
 
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./authSlice";
+import roomsReducer from "../rooms/roomsSlice";
+import facilitiesReducer from "../facilities/facilitiesSlice";
+import bookingsReducers from "../booking/bookingsSlice";
+import adsReducers from "../ads/adsSlice";
+import usersReducers from "../users/userSlice";
+import chartReducer from "../chart/chartSlice";
 
 export const store = configureStore({
     reducer: {
         auth: authReducer,
+        rooms: roomsReducer,
+        facilities: facilitiesReducer,
+        bookings: bookingsReducers,
+        ads:adsReducers,
+        users:usersReducers,
+        chart: chartReducer,
     },
 });
 
