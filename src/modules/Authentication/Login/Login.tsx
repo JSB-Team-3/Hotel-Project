@@ -1,5 +1,6 @@
 
 import React from 'react'
+import ChangePass from '../ChangePass/ChangePass'
 const Login = () => {
 
   return (<>

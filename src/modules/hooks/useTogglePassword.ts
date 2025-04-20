@@ -1,13 +1,37 @@
-import React, { useState } from 'react'
+import { useState } from 'react';
 
-function useTogglePassword() {
-    const [showPass, setShowPass] = useState<boolean>(false);
-    const [showConfirmPass, setConfirmPass] = useState<boolean>(false);
-    const [showOldPass, setOldPass] = useState<boolean>(false);
-    const handleShowPass = (): void => setShowPass((prev) => !prev);
-    const handleConfirmPass = (): void => setConfirmPass((prev) => !prev);
-    const handleOldPass = (): void => setOldPass((prev) => !prev);
-    return{showPass,showConfirmPass,showOldPass,handleShowPass,handleConfirmPass,handleOldPass}
-}
+const useTogglePassword = () => {
+  const [showPass, setShowPass] = useState(false);
+  const [showConfirmPass, setShowConfirmPass] = useState(false);
+  const [showOldPass, setShowOldPass] = useState(false);
+  const [showNewPass, setShowNewPass] = useState(false);
 
-export default useTogglePassword
+  const handleShowPass = () => {
+    setShowPass(!showPass);
+  };
+
+  const handleConfirmPass = () => {
+    setShowConfirmPass(!showConfirmPass);
+  };
+
+  const handleOldPass = () => {
+    setShowOldPass(!showOldPass);
+  };
+  
+  const handleNewPass = () => {
+    setShowNewPass(!showNewPass);
+  };
+
+  return {
+    showPass,
+    handleShowPass,
+    showConfirmPass,
+    handleConfirmPass,
+    showOldPass,
+    handleOldPass,
+    showNewPass,
+    handleNewPass,
+  };
+};
+
+export default useTogglePassword;

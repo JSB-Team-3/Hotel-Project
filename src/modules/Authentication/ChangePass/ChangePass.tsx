@@ -4,23 +4,23 @@ import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
-import IconButton from '@mui/material/IconButton';
-import InputAdornment from '@mui/material/InputAdornment';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { useState } from 'react';
+
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import useTogglePassword, { maodalStyles } from './ChangePasswordUtilities';
-import { CONFIRM_PASS_VALIDATION, PASSWORD_VALIDATION } from '../../services/validation/validation';
+import { maodalStyles } from './ChangePasswordUtilities';
 import { useSnackbar } from 'notistack';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store/auth/AuthConfig';
 import { changePassword } from '../../store/auth/authThunks';
 import { ChangePasswordData } from '../../store/auth/interfaces/authType';
 import { CircularProgress } from '@mui/material';
+import { useValidation } from '../../hooks/useValidation';
+import { useTranslation } from 'react-i18next';
+import TextInput from '../../shared/Form/TextInput';
 
 const ChangePass = () => {
+  const { t } = useTranslation();  // Translation hook
+  const { PASSWORD_VALIDATION, CONFIRM_PASS_VALIDATION } = useValidation();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -30,40 +30,37 @@ const ChangePass = () => {
     loading: state.auth.loading,
   }));
 
-  const {
-    showPass,
-    showConfirmPass,
-    showOldPass,
-    handleShowPass,
-    handleConfirmPass,
-    handleOldPass
-  } = useTogglePassword();
-
-  const {
+ const {
     register,
     handleSubmit,
     reset,
+    watch,
+    trigger,
     formState: { errors },
-    watch
   } = useForm<ChangePasswordData>({ mode: "onChange" });
-
-  const watchNewPassword = watch("newPassword");
-
+  
   const onSubmit = async (data: ChangePasswordData) => {
     try {
       const response = await dispatch(changePassword(data)).unwrap();
-      enqueueSnackbar(response?.message || 'Password updated successfully!', { variant: 'success' });
+      enqueueSnackbar(response?.message || t('password.successMessage'), { variant: 'success' });
       reset();
       handleClose()
     } catch (err) {
-      enqueueSnackbar(err as string , { variant: 'error' });
+      enqueueSnackbar(err as string, { variant: 'error' });
     }
   };
-  
-
+  const newPassword = watch('newPassword');
+  const confirmPassword = watch('confirmPassword');
+  useEffect(() => {
+    if (confirmPassword) {
+      trigger('confirmPassword');
+    }
+  }, [newPassword, confirmPassword, trigger]);
   return (
     <div>
-      <Button onClick={handleOpen} variant="contained" color="primary">Change Password</Button>
+      <Button onClick={handleOpen} variant="contained" color="primary">
+        {t('password.changeButton')}
+      </Button>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -80,10 +77,10 @@ const ChangePass = () => {
         <Fade in={open}>
           <Box sx={maodalStyles}>
             <Typography id="transition-modal-title" variant="h6" component="h2" sx={{ mb: 2 }}>
-              Change Password
+              {t('password.modalTitle')}
             </Typography>
             <Typography id="transition-modal-description" sx={{ mb: 3 }}>
-              Ready to set a new password?
+              {t('password.modalDescription')}
             </Typography>
 
             <Box
@@ -92,90 +89,40 @@ const ChangePass = () => {
               noValidate
               autoComplete="off"
             >
-              <TextField
-                {...register('oldPassword', PASSWORD_VALIDATION)}
+              <TextInput<ChangePasswordData>
+                name="oldPassword"
                 id="oldPassword"
-                error={!!errors.oldPassword}
-                label="Current Password"
-                type={showOldPass ? 'text' : 'password'}
-                helperText={errors.oldPassword?.message}
-                margin='normal'
-                slotProps={{
-                  input: {
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton
-                          aria-label="toggle password visibility"
-                          onClick={handleOldPass}
-                          edge="end"
-                        >
-                          {showOldPass ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                      </InputAdornment>
-                    ),
-                  }
-                }}
-                fullWidth
-                autoComplete="current-password"
+                label={t('form.oldPassword')}
+                register={register}
+                validation={PASSWORD_VALIDATION}
+                type="password"
+                errors={errors}
               />
-              <TextField
-                {...register('newPassword', PASSWORD_VALIDATION)}
+              <TextInput<ChangePasswordData>
+                name="newPassword"
                 id="newPassword"
-                error={!!errors.newPassword}
-                label="New Password"
-                type={showPass ? 'text' : 'password'}
-                helperText={errors.newPassword?.message}
-                margin='normal'
-                slotProps={{
-                  input: {
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton
-                          aria-label="toggle password visibility"
-                          onClick={handleShowPass}
-                          edge="end"
-                        >
-                          {showPass ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                      </InputAdornment>
-                    ),
-                  }
-                }}
-                fullWidth
-                autoComplete="current-password"
+                label={t('form.newPassword')}
+                register={register}
+                validation={PASSWORD_VALIDATION}
+                type="password"
+                errors={errors}
               />
-              <TextField
-                {...register('confirmPassword', CONFIRM_PASS_VALIDATION(watchNewPassword))}
+
+              <TextInput<ChangePasswordData>
+                name="confirmPassword"
                 id="confirmPassword"
-                error={!!errors.confirmPassword}
-                label="Current Password"
-                type={showConfirmPass ? 'text' : 'password'}
-                helperText={errors.confirmPassword?.message}
-                margin='normal'
-                slotProps={{
-                  input: {
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton
-                          aria-label="toggle password visibility"
-                          onClick={handleConfirmPass}
-                          edge="end"
-                        >
-                          {showConfirmPass ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                      </InputAdornment>
-                    ),
-                  }
-                }}
-                fullWidth
-                autoComplete="current-password"
+                label={t('form.confirmPassword')}
+                register={register}
+                validation={CONFIRM_PASS_VALIDATION((newPassword))}
+                type="password"
+                errors={errors}
               />
               <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 3, gap: 2 }}>
                 <Button variant="outlined" onClick={handleClose}>
-                  Cancel
+                  {t('common.cancel')}
                 </Button>
                 <Button type="submit" variant="contained" color="primary">
-                  {loading ? <CircularProgress color="inherit" size={24} sx={{ color: 'white' }} /> : "Change Password"}
+                  {loading ? <CircularProgress color="inherit" size={24} sx={{ color: 'white' }} /> : t('password.changeButton')}
                 </Button>
               </Box>
             </Box>
