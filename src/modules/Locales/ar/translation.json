@@ -1,5 +1,41 @@
 {
-    "welcome": "مرحبًا بك في التطبيق!",
-    "logout": "تسجيل الخروج"
+  "welcome": "مرحبًا بك في التطبيق!",
+  "logout": "تسجيل الخروج",
+  "validation": {
+    "email_required": "البريد الإلكتروني مطلوب",
+    "email_invalid": "تنسيق البريد الإلكتروني غير صالح",
+    "password_required": "كلمة المرور مطلوبة",
+    "password_pattern": "يجب أن تكون 6 أحرف أو أكثر، تحتوي على حرف كبير وصغير، رقم، ورمز خاص",
+    "otp_required": "رمز التحقق مطلوب",
+    "confirm_password_required": "تأكيد كلمة المرور مطلوب",
+    "passwords_do_not_match": "كلمتا المرور غير متطابقتين",
+    "generic_required": "حقل {{field}} مطلوب",
+    "username_required": "اسم المستخدم مطلوب",
+    "username_pattern": "يجب أن يتكون من 4 إلى 8 أحرف، يحتوي على أحرف وينتهي بأرقام",
+    "country_required": "الدولة مطلوبة",
+    "country_invalid": "يرجى إدخال دولة صالحة",
+    "phone_required": "رقم الهاتف مطلوب",
+    "phone_invalid": "تنسيق رقم الهاتف غير صالح"
+  },
+  "register": {
+    "heading": "إنشاء حساب",
+    "already_have_account": "إذا كان لديك حساب بالفعل، يمكنك",
+    "login_here": "تسجيل الدخول من هنا!",
+    "success_message": "تم التسجيل بنجاح! جارٍ إعادة التوجيه إلى صفحة تسجيل الدخول...",
+    "error_message": "فشل التسجيل. يرجى المحاولة مرة أخرى."
+  },
+  "form": {
+    "placeholder": "يرجى إدخال {{field}}",
+    "username": "اسم المستخدم",
+    "phonenumber": "رقم الهاتف",
+    "country": "الدولة",
+    "email": "عنوان البريد الإلكتروني",
+    "profileimage": "صورة الملف الشخصي",
+    "password": "كلمة المرور",
+    "confirmpassword": "تأكيد كلمة المرور",
+    "sign_up": "إنشاء حساب",
+    "uploadimage": "تحميل صورة",
+    "image_required": "الصورة مطلوبة",
+    "invalid_image_type": "يُسمح فقط بصيغ JPEG و PNG و GIF"
   }
-  
+}
