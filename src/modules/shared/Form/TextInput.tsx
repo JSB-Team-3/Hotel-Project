@@ -19,12 +19,12 @@ import BootstrapInput from './BootstrapInput';
 import { useTranslation } from 'react-i18next';
 import { RegisterFormInputs } from '../../interfaces/AuthInterfaces';
 
-// 👇 Extend errors to include oldPassword explicitly
 type ExtendedFieldErrors = FieldErrors<RegisterFormInputs> & {
   oldPassword?: { message?: string };
 };
+
 interface TextInputProps {
-  name: Path<RegisterFormInputs> | 'oldPassword'; // support both form keys and custom keys
+  name: Path<RegisterFormInputs> | 'oldPassword';
   label?: string;
   placeholder?: string;
   id?: string;
@@ -33,7 +33,6 @@ interface TextInputProps {
   type: string;
   errors?: any;
 }
-
 
 const TextInput: React.FC<TextInputProps> = ({
   name,
@@ -46,7 +45,6 @@ const TextInput: React.FC<TextInputProps> = ({
   errors = {},
 }) => {
   const { t } = useTranslation();
-
   const {
     showPass,
     handleShowPass,
@@ -74,8 +72,14 @@ const TextInput: React.FC<TextInputProps> = ({
       handleToggle = handleOldPass;
     }
 
+    // Get current document direction to determine RTL or LTR
+    const isRtl = document.documentElement.getAttribute('dir') === 'rtl';
+
+    // Adjust position of the icon for RTL or LTR
+    const iconPosition = isRtl ? 'left' : 'right';
+
     return (
-      <InputAdornment sx={{ position: 'absolute', right: 15 }} position="end">
+      <InputAdornment sx={{ position: 'absolute', [iconPosition]: 15 }} position="end">
         <IconButton onClick={handleToggle} edge="end" size="small">
           {isVisible ? <VisibilityOff /> : <Visibility />}
         </IconButton>
@@ -88,7 +92,7 @@ const TextInput: React.FC<TextInputProps> = ({
       <InputLabel
         shrink
         htmlFor={id || name}
-        sx={{ color: '#152C5B', fontSize: '16px', fontWeight: 400 }}
+        sx={{ color: theme => theme.palette.text.primary, fontSize: '16px', fontWeight: 400 }}
       >
         {label || t(`form.${name.toLocaleLowerCase()}`, name)}
       </InputLabel>

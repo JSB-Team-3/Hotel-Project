@@ -1,43 +1,80 @@
 {
-    "welcome": "Welcome to the app!",
-    "logout": "Logout",
-      "validation": {
-        "email_required": "Email is required",
-        "email_invalid": "Invalid email format",
-        "password_required": "Password is required",
-        "password_pattern": "Must be 6+ chars, 1 uppercase, 1 lowercase, 1 digit & 1 special char",
-        "otp_required": "OTP is required",
-        "confirm_password_required": "Confirm Password is required",
-        "passwords_do_not_match": "Passwords do not match",
-        "generic_required": "{{field}} is required",
-        "username_required": "Username is required",
-        "username_pattern": "Must be 4–8 chars, include letters, and end with numbers.",
-        "country_required": "Country is required",
-        "country_invalid": "Enter a valid country",
-        "phone_required": "Phone is required",
-        "phone_invalid": "Invalid phone format"
-      },
-      "register": {
-    "heading": "Sign up",
+  "welcome": "Welcome to the app!",
+  "logout": "Logout",
+  "validation": {
+    "email_required": "Email is required",
+    "email_invalid": "Invalid email format",
+    "password_required": "Password is required",
+    "password_pattern": "Password must be at least 6 characters, contain both uppercase and lowercase letters, a number, and a special character",
+    "otp_required": "OTP is required",
+    "confirm_password_required": "Confirm password is required",
+    "passwords_do_not_match": "Passwords do not match",
+    "generic_required": "The {{field}} field is required",
+    "username_required": "Username is required",
+    "username_pattern": "Username must be between 4 to 8 characters, contain letters, and end with numbers",
+    "country_required": "Country is required",
+    "country_invalid": "Please enter a valid country",
+    "phone_required": "Phone number is required",
+    "phone_invalid": "Invalid phone number format"
+  },
+  "register": {
+    "heading": "Create Account",
     "already_have_account": "If you already have an account, you can",
     "login_here": "Login here!",
-       "success_message": "Registration successful! Redirecting to login...",
+    "success_message": "Registration successful! Redirecting to the login page...",
     "error_message": "Registration failed. Please try again."
   },
+  "login": {
+    "title": "Sign in to Roamhome"
+  }, 
+  "signup": {
+    "title": "Sign up to Roamhome"
+  },
+  "verify_account": {
+    "title": "Verify Account"
+  },
+  "forget_password": {
+    "title": "Forget Password"
+  },
+  "reset_password": {
+    "title": "Reset Password"
+  },
   "form": {
-    "placeholder": "Please enter your {{field}}",
-    "username": "User Name",
-    "phonenumber": "Phone Number",
+    "placeholder": "Please enter {{field}}",
+    "username": "Username",
+    "phonenumber": "Phone number",
     "country": "Country",
-    "email": "Email Address",
-    "profileimage": "Profile Image",
+    "email": "Email address",
+    "profileimage": "Profile image",
     "password": "Password",
-    "confirmpassword": "Confirm Password",
-    "sign_up": "Sign Up",
-    "uploadimage": "Upload an image",
+    "confirmpassword": "Confirm password",
+    "sign_up": "Sign up",
+    "uploadimage": "Upload image",
     "image_required": "Image is required",
-    "invalid_image_type": "Only JPEG, PNG, and GIF are allowed"
+    "invalid_image_type": "Only JPEG, PNG, and GIF formats are allowed",
+    "no_file": "No file selected",
+    "uploading": "Uploading...",
+    "upload_success": "Upload successful!",
+    "change_image": "Change",
+    "select_image": "Select image",
+    "upload_title": "Upload Image",
+    "upload_supported_formats": "Supported formats",
+    "drag_drop_supported": "Or drag and drop an image here",
+    "file_too_large": "The file is too large. The maximum size is {{size}} MB",
+    "subtitle": "Homes as unique as you."
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "submit": "Submit",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next"
+  },
+  "language": {
+    "select": "Select Language",
+    "current": "Current Language"
   }
-    }
-    
-  
+}
