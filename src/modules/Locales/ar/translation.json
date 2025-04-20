@@ -61,7 +61,13 @@
     "upload_supported_formats": "الصيغ المدعومة",
     "drag_drop_supported": "أو اسحب وأفلت الصورة هنا",
     "file_too_large": "الملف كبير جدًا. الحجم الأقصى هو {{size}} ميغابايت",
-    "subtitle": "منازل فريدة مثلك."
+    "subtitle": "منازل فريدة مثلك.",
+    "oldPassword": "كلمة المرور الحالية",
+    "newPassword": "كلمة المرور الجديدة",
+    "confirmPassword": "تأكيد كلمة المرور",
+    "required": "هذا الحقل مطلوب",
+    "passwordMismatch": "كلمات المرور غير متطابقة"
+
   },
   "common": {
     "save": "حفظ",
@@ -76,5 +82,11 @@
   "language": {
     "select": "اختيار اللغة",
     "current": "اللغة الحالية"
-  }
+  },
+    "password": {
+      "changeButton": "تغيير كلمة المرور",
+      "modalTitle": "تغيير كلمة المرور",
+      "modalDescription": "هل أنت مستعد لتعيين كلمة مرور جديدة؟",
+      "successMessage": "تم تحديث كلمة المرور بنجاح!"
+    }
 }

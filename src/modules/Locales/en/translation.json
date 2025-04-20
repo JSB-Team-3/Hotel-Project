@@ -61,7 +61,12 @@
     "upload_supported_formats": "Supported formats",
     "drag_drop_supported": "Or drag and drop an image here",
     "file_too_large": "The file is too large. The maximum size is {{size}} MB",
-    "subtitle": "Homes as unique as you."
+    "subtitle": "Homes as unique as you.",
+    "oldPassword": "Current Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm Password",
+    "required": "This field is required",
+    "passwordMismatch": "Passwords don't match"
   },
   "common": {
     "save": "Save",
@@ -76,5 +81,11 @@
   "language": {
     "select": "Select Language",
     "current": "Current Language"
-  }
+  },
+    "password": {
+      "changeButton": "Change Password",
+      "modalTitle": "Change Password",
+      "modalDescription": "Ready to set a new password?",
+      "successMessage": "Password updated successfully!"
+    }
 }
