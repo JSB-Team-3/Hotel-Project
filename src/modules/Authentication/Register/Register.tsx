@@ -69,7 +69,7 @@ const Register = () => {
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <Grid container spacing={2}>
-          <TextInput
+          <TextInput<RegisterFormInputs>
             name="userName"
             id="username"
             label={t('form.username')}
@@ -80,7 +80,7 @@ const Register = () => {
           />
 
           <Grid size={{ xs: 12, sm: 6 }} >
-            <TextInput
+            <TextInput<RegisterFormInputs>
               name="phoneNumber"
               id="phone"
               label={t('form.phonenumber')}
@@ -92,7 +92,7 @@ const Register = () => {
           </Grid>
 
           <Grid size={{ xs: 12, sm: 6 }} >
-            <TextInput
+            <TextInput<RegisterFormInputs>
               name="country"
               id="country"
               label={t('form.country')}
@@ -103,7 +103,7 @@ const Register = () => {
             />
           </Grid>
 
-          <TextInput
+          <TextInput<RegisterFormInputs>
             name="email"
             id="email"
             label={t('form.email')}
@@ -122,7 +122,7 @@ const Register = () => {
             t={t}
           />
 
-          <TextInput
+          <TextInput<RegisterFormInputs>
             name="password"
             id="password"
             label={t('form.password')}
@@ -132,7 +132,7 @@ const Register = () => {
             errors={errors}
           />
 
-          <TextInput
+          <TextInput<RegisterFormInputs>
             name="confirmPassword"
             id="confirmPassword"
             label={t('form.confirmpassword')}

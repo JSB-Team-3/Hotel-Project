@@ -56,4 +56,5 @@ import { pattern } from "../../interfaces/AuthInterfaces";
         message: t('validation.phone_invalid'),
       },
     }
+
  

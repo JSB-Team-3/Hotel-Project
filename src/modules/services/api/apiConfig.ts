@@ -1,5 +1,6 @@
 export const baseURL= "https://upskilling-egypt.com:3000/api/v0"
-export const imgURL="https://upskilling-egypt.com:3000/"
+export const imgURL="https://upskilling-egypt.com:3003/"
+
 
 
 export const USER_URLS={
@@ -8,6 +9,7 @@ export const USER_URLS={
     FORGET_PASS:`/portal/users/forgot-password`,
     RESET_PASS:`/admin/users/reset-password`,
     CHANGE_PASS:`/admin/users/change-password`,
+
 }
 
 export const ADMIN_USERS_URLS = {

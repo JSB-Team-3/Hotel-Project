@@ -11,6 +11,7 @@ import {
   RegisterOptions,
   FieldErrors,
   Path,
+  FieldValues,
 } from 'react-hook-form';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
@@ -21,20 +22,21 @@ import { RegisterFormInputs } from '../../interfaces/AuthInterfaces';
 
 type ExtendedFieldErrors = FieldErrors<RegisterFormInputs> & {
   oldPassword?: { message?: string };
+  newPassword?: { message?: string };
 };
 
-interface TextInputProps {
-  name: Path<RegisterFormInputs> | 'oldPassword';
+interface TextInputProps<T extends FieldValues> {
+  name: Path<T>;
   label?: string;
   placeholder?: string;
   id?: string;
-  register: UseFormRegister<RegisterFormInputs>;
-  validation?: RegisterOptions<RegisterFormInputs, Path<RegisterFormInputs>>;
+  register: UseFormRegister<T>;
+  validation?: RegisterOptions<T, Path<T>>;
   type: string;
   errors?: any;
 }
 
-const TextInput: React.FC<TextInputProps> = ({
+const TextInput = <T extends FieldValues>({
   name,
   label,
   id,
@@ -43,7 +45,7 @@ const TextInput: React.FC<TextInputProps> = ({
   validation,
   type,
   errors = {},
-}) => {
+}: TextInputProps<T>) => {
   const { t } = useTranslation();
   const {
     showPass,
@@ -52,6 +54,8 @@ const TextInput: React.FC<TextInputProps> = ({
     handleConfirmPass,
     showOldPass,
     handleOldPass,
+    showNewPass,
+    handleNewPass,
   } = useTogglePassword();
 
   const hasError = !!errors[name];
@@ -70,6 +74,9 @@ const TextInput: React.FC<TextInputProps> = ({
     } else if (name === 'oldPassword') {
       isVisible = showOldPass;
       handleToggle = handleOldPass;
+    } else if (name === 'newPassword') {
+      isVisible = showNewPass;
+      handleToggle = handleNewPass;
     }
 
     // Get current document direction to determine RTL or LTR
@@ -85,6 +92,24 @@ const TextInput: React.FC<TextInputProps> = ({
         </IconButton>
       </InputAdornment>
     );
+  };
+
+  // Determine the input type based on the field name and visibility state
+  const getInputType = () => {
+    if (type !== 'password') return type;
+    
+    switch (name) {
+      case 'password':
+        return showPass ? 'text' : 'password';
+      case 'confirmPassword':
+        return showConfirmPass ? 'text' : 'password';
+      case 'oldPassword':
+        return showOldPass ? 'text' : 'password';
+      case 'newPassword':
+        return showNewPass ? 'text' : 'password';
+      default:
+        return 'password';
+    }
   };
 
   return (
@@ -105,20 +130,10 @@ const TextInput: React.FC<TextInputProps> = ({
             field: t(`form.${name.toLocaleLowerCase()}`, name),
           })
         }
-        type={
-          type === 'password' && name === 'password' && !showPass
-            ? 'password'
-            : type === 'password' && name === 'confirmPassword' && !showConfirmPass
-            ? 'password'
-            : type === 'password' && name === 'oldPassword' && !showOldPass
-            ? 'password'
-            : 'text'
-        }
-        {...register(name as keyof RegisterFormInputs, validation)}
+        type={getInputType()}
+        {...register(name, validation)}
         endAdornment={
-          name === 'password' || name === 'confirmPassword' || name === 'oldPassword'
-            ? getPasswordToggle()
-            : undefined
+          type === 'password' ? getPasswordToggle() : undefined
         }
         error={hasError}
       />

@@ -4,6 +4,7 @@ import {privateAxiosInstance, puplicAxiosInstance} from '../../services/api/apiI
 import {LoginData, RegisterData, ForgotPasswordData, ResetPasswordData, ChangePasswordData} from './interfaces/authType'
 import { handleThunkError } from "../../../utilities/handleThunkError";
 
+
 export const login = createAsyncThunk('auth/login', async(data: LoginData, thunkAPI) =>{
     try{
         const response = await puplicAxiosInstance.post(USER_URLS.LOGIN, data)
@@ -15,6 +16,7 @@ export const login = createAsyncThunk('auth/login', async(data: LoginData, thunk
 
 export const register = createAsyncThunk('auth/register', async(data: RegisterData, thunkAPI) =>{
     try{
+
         const Response = await puplicAxiosInstance.post(USER_URLS.REGISTER, data,{headers: {
             'Content-Type': 'multipart/form-data',
           }},)
