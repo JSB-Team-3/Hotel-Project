@@ -2,9 +2,10 @@ export const baseURL= "https://upskilling-egypt.com:3000/api/v0"
 export const imgURL="https://upskilling-egypt.com:3003/"
 
 
+
 export const USER_URLS={
     LOGIN:`/Users/Login`,
-    REGISTER:`/Users/Register`,
+    REGISTER:`/portal/users`,
     FORGET_PASS:`/Users/Reset/Request`,
     RESET_PASS:`/Users/Reset`,
     CHANGE_PASS:`/portal/users/change-password`,
