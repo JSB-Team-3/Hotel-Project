@@ -2,7 +2,8 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { USER_URLS } from "../../services/api/apiConfig";
 import {privateAxiosInstance, puplicAxiosInstance} from '../../services/api/apiInstance'
 import {LoginData, RegisterData, ForgotPasswordData, ResetPasswordData, ChangePasswordData} from './interfaces/authType'
-import { handleThunkError } from "./handleThunkError";
+import { handleThunkError } from "../../../utilities/handleThunkError";
+
 
 export const login = createAsyncThunk('auth/login', async(data: LoginData, thunkAPI) =>{
     try{
@@ -52,4 +53,3 @@ export const changePassword = createAsyncThunk('auth/changePass', async(data: Ch
         return thunkAPI.rejectWithValue(handleThunkError(error, 'Failed to change password'));
     }
 })
-
