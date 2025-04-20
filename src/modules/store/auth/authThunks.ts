@@ -15,10 +15,13 @@ export const login = createAsyncThunk('auth/login', async(data: LoginData, thunk
 
 export const register = createAsyncThunk('auth/register', async(data: RegisterData, thunkAPI) =>{
     try{
-        const response = await puplicAxiosInstance.post(USER_URLS.REGISTER, data)
-        return response.data
-    }catch(err){
-        return thunkAPI.rejectWithValue(handleThunkError(err, 'Failed to register'));
+        const Response = await puplicAxiosInstance.post(USER_URLS.REGISTER, data,{headers: {
+            'Content-Type': 'multipart/form-data',
+          }},)
+          
+        return Response.data
+    }catch(err: any){
+        return thunkAPI.rejectWithValue(err.response.data.message);
     }
 })
 

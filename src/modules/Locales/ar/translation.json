@@ -1,5 +1,80 @@
 {
-    "welcome": "مرحبًا بك في التطبيق!",
-    "logout": "تسجيل الخروج"
+  "welcome": "مرحبًا بك في التطبيق!",
+  "logout": "تسجيل الخروج",
+  "validation": {
+    "email_required": "البريد الإلكتروني مطلوب",
+    "email_invalid": "صيغة البريد الإلكتروني غير صحيحة",
+    "password_required": "كلمة المرور مطلوبة",
+    "password_pattern": "يجب أن تحتوي كلمة المرور على 6 أحرف على الأقل، وحروف كبيرة وصغيرة، ورقم، ورمز خاص",
+    "otp_required": "الرمز المؤقت مطلوب",
+    "confirm_password_required": "تأكيد كلمة المرور مطلوب",
+    "passwords_do_not_match": "كلمات المرور غير متطابقة",
+    "generic_required": "حقل {{field}} مطلوب",
+    "username_required": "اسم المستخدم مطلوب",
+    "username_pattern": "يجب أن يتكون اسم المستخدم من 4 إلى 8 أحرف، ويحتوي على حروف وينتهي بأرقام",
+    "country_required": "الدولة مطلوبة",
+    "country_invalid": "يرجى إدخال دولة صالحة",
+    "phone_required": "رقم الهاتف مطلوب",
+    "phone_invalid": "صيغة رقم الهاتف غير صحيحة"
+  },
+  "register": {
+    "heading": "إنشاء حساب",
+    "already_have_account": "إذا كان لديك حساب بالفعل، يمكنك",
+    "login_here": "تسجيل الدخول هنا!",
+    "success_message": "تم التسجيل بنجاح! جارٍ التوجيه إلى صفحة تسجيل الدخول...",
+    "error_message": "فشل التسجيل. يرجى المحاولة مرة أخرى."
+  },
+  "login": {
+    "title": "تسجيل الدخول إلى روم هوم"
+  },
+  "signup": {
+    "title": "تسجيل حساب في روم هوم"
+  },
+  "verify_account": {
+    "title": "التحقق من الحساب"
+  },
+  "forget_password": {
+    "title": "نسيت كلمة المرور"
+  },
+  "reset_password": {
+    "title": "إعادة تعيين كلمة المرور"
+  },
+  "form": {
+    "placeholder": "يرجى إدخال {{field}}",
+    "username": "اسم المستخدم",
+    "phonenumber": "رقم الهاتف",
+    "country": "الدولة",
+    "email": "عنوان البريد الإلكتروني",
+    "profileimage": "صورة الملف الشخصي",
+    "password": "كلمة المرور",
+    "confirmpassword": "تأكيد كلمة المرور",
+    "sign_up": "إنشاء حساب",
+    "uploadimage": "تحميل صورة",
+    "image_required": "الصورة مطلوبة",
+    "invalid_image_type": "يُسمح فقط بصيغة JPEG و PNG و GIF",
+    "no_file": "لم يتم اختيار أي ملف",
+    "uploading": "جارٍ التحميل...",
+    "upload_success": "تم التحميل بنجاح!",
+    "change_image": "تغيير",
+    "select_image": "اختيار صورة",
+    "upload_title": "تحميل صورة",
+    "upload_supported_formats": "الصيغ المدعومة",
+    "drag_drop_supported": "أو اسحب وأفلت الصورة هنا",
+    "file_too_large": "الملف كبير جدًا. الحجم الأقصى هو {{size}} ميغابايت",
+    "subtitle": "منازل فريدة مثلك."
+  },
+  "common": {
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "submit": "إرسال",
+    "close": "إغلاق",
+    "back": "رجوع",
+    "next": "التالي"
+  },
+  "language": {
+    "select": "اختيار اللغة",
+    "current": "اللغة الحالية"
   }
-  
+}

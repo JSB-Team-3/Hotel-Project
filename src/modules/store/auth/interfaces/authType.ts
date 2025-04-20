@@ -18,12 +18,14 @@ export interface LoginData {
 }
 
 export interface RegisterData {
-  name: string;
-  phone: string;
-  country: string;
+  userName: string;
   email: string;
+  phoneNumber: string;
+  country: string;
   password: string;
   confirmPassword: string;
+  profileImage: File | null;
+  role: string;
 }
 
 export interface ForgotPasswordData {
