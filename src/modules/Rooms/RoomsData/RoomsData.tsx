@@ -68,14 +68,29 @@ export default function RoomsData() {
 
   const onSubmit = async (data: RoomPayload) => {
     try {
-      // Create the payload with the facilities array and selected file
-      const payload = {
-        ...data,
-        facilities: selectedFacilities,
-        images: selectedFile ? [selectedFile] : []
-      };
-      log
-      const response = await dispatch(createRoom(payload)).unwrap();
+      
+  
+      const formData = new FormData();
+  
+      // Append text fields
+      formData.append('roomNumber', data.roomNumber);
+      formData.append('price', data.price.toString());
+      formData.append('capacity', data.capacity.toString());
+      formData.append('discount', data.discount.toString());
+  
+      // Append facilities (array)
+      selectedFacilities.forEach((facilityId) => {
+        formData.append('facilities', facilityId);
+      });
+  
+      // Append images (array)
+      if (selectedFile) {
+        formData.append('imgs', selectedFile); // Notice imgs[] not imgs
+      }
+  
+      console.log([...formData.entries()]); // to see what's inside
+  
+      const response = await dispatch(createRoom(formData)).unwrap();
       enqueueSnackbar(response?.message || t('password.successMessage'), { variant: 'success' });
       reset();
       setSelectedFacilities([]);
@@ -83,7 +98,7 @@ export default function RoomsData() {
     } catch (err) {
       enqueueSnackbar(err as string, { variant: 'error' });
     }
-  };
+  }
 
   // Safely convert facilities to an array
   const facilitiesArray = Array.isArray(facilities) ? facilities : [];
@@ -126,7 +141,7 @@ export default function RoomsData() {
           errors={errors}
         />
       </Box>
-      <Box sx={{ display: 'flex', gap: 2, mt: 1 }}>
+      <Box sx={{ display: 'flex', gap: 2, alignItems:"center", mt: 1 ,mb:1 }}>
         <TextInput<RoomPayload>
           name="discount"
           id="discount"
@@ -136,11 +151,13 @@ export default function RoomsData() {
           type="number"
           errors={errors}
         />
-        <FormControl sx={{ m: 1, width: 300 }}>
+        <FormControl fullWidth>
           <Select
             displayEmpty
+            fullWidth
             labelId="facilities-checkbox-label"
             id="facilities-checkbox"
+            sx={{padding: 0}}
             multiple
             value={selectedFacilities}
             onChange={handleFacilitiesChange}

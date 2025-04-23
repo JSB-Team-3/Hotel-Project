@@ -2,12 +2,14 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ADMIN_ROOMS_URLS } from "../../services/api/apiConfig";
 import { privateAxiosInstance } from "../../services/api/apiInstance";
 import { handleThunkError } from "../../../utilities/handleThunkError";
-import { GetAllRoomsParams, RoomPayload, UpdateRoomPayload } from "../../../Interfaces/rooms.interface";
+import { GetAllRoomsParams, UpdateRoomPayload } from "../../../Interfaces/rooms.interface";
 
-export const createRoom = createAsyncThunk('room/create', async(payload:RoomPayload, thunkAPI) =>{
+export const createRoom = createAsyncThunk('room/create', async(payload:FormData, thunkAPI) =>{
     try{
-        const response = await privateAxiosInstance.post(ADMIN_ROOMS_URLS.CREATE_ROOM, payload)
-        return response.data
+        const response = await privateAxiosInstance.post(ADMIN_ROOMS_URLS.CREATE_ROOM, payload,{headers: {
+            'Content-Type': 'multipart/form-data',
+          }},)
+          return response?.data
     }catch (err) {
         return thunkAPI.rejectWithValue(handleThunkError(err, 'Failed to create the room'));
     }
