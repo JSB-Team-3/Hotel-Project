@@ -27,7 +27,7 @@ const ChangePass = () => {
   const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch<AppDispatch>()
   const { loading } = useSelector((state: RootState) => ({
-    loading: state.auth.loading,
+    loading: state?.auth?.loading,
   }));
 
  const {

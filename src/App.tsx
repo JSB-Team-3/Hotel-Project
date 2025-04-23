@@ -8,6 +8,8 @@ import VerifyAccount from './modules/Authentication/VerifyAccount/VerifyAccount'
 import Register from './modules/Authentication/Register/Register';
 import NotFound from './modules/shared/NotFound/NotFound'
 import AuthLayout from './modules/shared/AuthLayout/AuthLayout'
+import RoomsList from './modules/Rooms/RoomsList/RoomsList';
+import RoomsData from './modules/Rooms/RoomsData/RoomsData';
 function App() {
 const routes=createBrowserRouter([
   {path:"",element:<AuthLayout/>,errorElement:<NotFound/>,
@@ -19,8 +21,13 @@ const routes=createBrowserRouter([
       { path: "reset-password", element: <ResetPass /> },
       { path: "verify-account", element: <VerifyAccount /> },
     ]},
-    { path:'dashboard', element:<MasterLayout/>,errorElement:<NotFound/>,
-      children:[ ]
+    { path:'dashboard', element:<MasterLayout/>,
+      errorElement:<NotFound/>,
+      children:[
+        {path:"rooms",element:<RoomsList/>},
+        {path:"room-data/new-Rooms",element:<RoomsData/>},
+        {path:"room-data/:roomId",element:<RoomsData/>}
+      ]
     }
 ])
   return (
