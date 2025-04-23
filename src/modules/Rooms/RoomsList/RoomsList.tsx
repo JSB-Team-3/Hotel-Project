@@ -1,48 +1,20 @@
-import { styled } from '@mui/material/styles';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import TablePagination from '@mui/material/TablePagination';
+
 import { AppDispatch, RootState } from '../../store/auth/AuthConfig';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { useSnackbar } from 'notistack';
 import { deleteRoom, getAllRooms } from '../../store/rooms/roomsThunk';
 import { useEffect, useState } from 'react';
-import { Box, Button, Typography } from '@mui/material';
-import LoadingScreen from '../../shared/LoadingScreen/LoadingScreen';
-import TableActions from '../../shared/TableActions/TableActions';
+import { Box } from '@mui/material';
 import DeleteConfirmation from '../../shared/DeleteConfirmation/DeleteConfirmation';
-import { Link } from 'react-router-dom';
-
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.head}`]: {
-    backgroundColor: '#203FC7',
-    color: theme.palette.common.white,
-  },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
-  },
-}));
-
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(odd)': {
-    backgroundColor: theme.palette.action.hover,
-  },
-  // hide last border
-  '&:last-child td, &:last-child th': {
-    border: 0,
-  },
-}));
-
+import DataTable from '../../shared/DataTable/DataTable';
+import { Room } from '../../../Interfaces/rooms.interface';
+import { StyledTableCell, StyledTableRow } from '../../shared/StyledTable/StyledTable';
+import TableActions from '../../shared/TableActions/TableActions';
+import Header from '../../shared/Header/Header';
 export default function RoomsList() {
   const [itemToDeleteId, setItemToDeleteId] = useState<string>('');
   const [itemToDeleteNumber, setItemToDeleteNumber] = useState<string>('');
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
-  
   // Pagination state
   const [page, setPage] = useState<number>(0);
   const [size, setSize] = useState<number>(5);  
@@ -85,7 +57,24 @@ export default function RoomsList() {
       enqueueSnackbar(err as string || 'failed to delete room', { variant: 'error' });
     }
   };
-
+const renderRow = (room: Room) => {
+  return (
+      <StyledTableRow key={room?._id}>
+      <StyledTableCell component="th" scope="row">{room.roomNumber}</StyledTableCell>
+      <StyledTableCell>
+        <Box component="img" src={room?.images?.[0]} sx={{ width: '50px', height: '50px', borderRadius: '5px' }} />
+      </StyledTableCell>
+      <StyledTableCell>{room?.price}</StyledTableCell>
+      <StyledTableCell>{room?.discount}</StyledTableCell>
+      <StyledTableCell>{room?.capacity}</StyledTableCell>
+      <StyledTableCell>{room?.facilities?.map(f => f.name).join(', ')}</StyledTableCell>
+      <StyledTableCell>
+        <TableActions handleDeleteItem={handleDeleteItem} item={room} />
+      </StyledTableCell>
+    </StyledTableRow>
+  
+  );
+}
   // Pagination handlers
   const handleChangePage = (
     _: React.MouseEvent<HTMLButtonElement> | null,
@@ -106,66 +95,23 @@ export default function RoomsList() {
   }, [page, size]); 
   return (
     <Box>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-        <Box>
-          <Typography variant='h6' sx={{ mb: '0', color: '#1F263E' }}>Rooms Table Details</Typography>
-          <Box component='span' sx={{ mt: '0', color: '#323C47', fontSize: '14px' }}>You can check all details</Box>
-        </Box>
-        <Button component={Link} to={'/dashboard/room-data/new-room'} variant='contained' sx={{ backgroundColor: "#203FC7", color: 'white', fontWeight: 'bold', paddingInline: '30px' }}>Add New Room</Button>
-      </Box>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 700 }} aria-label="customized table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell>Room Number</StyledTableCell>
-              <StyledTableCell>Image</StyledTableCell>
-              <StyledTableCell>Price</StyledTableCell>
-              <StyledTableCell>Discount</StyledTableCell>
-              <StyledTableCell>Capacity</StyledTableCell>
-              <StyledTableCell>Facilities</StyledTableCell>
-              <StyledTableCell></StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {loading ? (
-              <StyledTableRow>
-                <StyledTableCell colSpan={7}>
-                  <LoadingScreen />
-                </StyledTableCell>
-              </StyledTableRow>
-            ) : rooms?.map((room) => (
-              <StyledTableRow key={room?._id}>
-                <StyledTableCell component="th" scope="row">
-                  {room.roomNumber}
-                </StyledTableCell>
-                <StyledTableCell>
-                  <Box component='img' src={room?.images?.[0]} sx={{ width: '50px', height: '50px', borderRadius: '5px' }}></Box>
-                </StyledTableCell>
-                <StyledTableCell>{room?.price}</StyledTableCell>
-                <StyledTableCell>{room?.discount}</StyledTableCell>
-                <StyledTableCell>{room?.capacity}</StyledTableCell>
-                <StyledTableCell>{room?.facilities?.map(facility => facility?.name).join(', ')}</StyledTableCell>
-                <StyledTableCell>
-                  <TableActions handleDeleteItem={handleDeleteItem} item={room} />
-                </StyledTableCell>
-              </StyledTableRow>
-            ))}
-          </TableBody>
-        </Table>
-        
-        {/* Pagination Component */}
-        <TablePagination
-          component="div"
-          count={totalCount}
-          page={page}
-          onPageChange={handleChangePage}
-          rowsPerPage={size}
-          labelRowsPerPage="Rooms per Page:"
-          onRowsPerPageChange={handleChangeRowsPerPage}
-          rowsPerPageOptions={[5, 10, 25]}
-          sx={{ borderTop: '1px solid rgba(224, 224, 224, 1)' }}
-        />
-      </TableContainer>
+      <Header title='Room' route='/dashboard/room-data/new-room' />
+     <DataTable
+     loading={loading}
+     items={rooms}
+      handleDeleteItem={handleDeleteItem}
+      page={page}
+      size={size}
+      handleChangePage={handleChangePage}
+      handleChangeRowsPerPage={handleChangeRowsPerPage}
+      totalCount={totalCount}
+      rowsPerPageOptions={[5, 10, 25]}
+      labelRowsPerPage="Rooms per Page:"
+      columns={['Room Number', 'Image', 'Price', 'Discount', 'Capacity', 'Facilities', '']} 
+      renderRow = {renderRow}
+
+
+     />
         <DeleteConfirmation
           open={showDeleteModal}
           handleClose={() => { setShowDeleteModal(false) }}
