@@ -1,7 +1,7 @@
 import { RoomPayload, Facility } from '../../../Interfaces/rooms.interface';
 import { Box, Button, Checkbox, CircularProgress, FormControl, ListItemText, MenuItem, OutlinedInput, Select, SelectChangeEvent } from '@mui/material';
 import TextInput from '../../shared/Form/TextInput';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
@@ -35,6 +35,7 @@ export default function RoomsData() {
   const { REQUIRED_VALIDATION } = useValidation();
   const { enqueueSnackbar } = useSnackbar();
   const [selectedFacilities, setSelectedFacilities] = useState<string[]>([]);
+  const navigate = useNavigate();
 
   const {
     register,
@@ -51,6 +52,7 @@ export default function RoomsData() {
   const fetchFacilities = async () => {
     try {
       await dispatch(getAllRoomFacilities({ page: 1, size: 30 })).unwrap();
+
     } catch (err) {
       enqueueSnackbar(err as string, { variant: 'error' });
     }
@@ -61,7 +63,6 @@ export default function RoomsData() {
       target: { value },
     } = event;
     
-    // Update selected facilities state
     const newSelectedFacilities = typeof value === 'string' ? value.split(',') : value;
     setSelectedFacilities(newSelectedFacilities);
   };
@@ -71,9 +72,7 @@ export default function RoomsData() {
       
   
       const formData = new FormData();
-  
-      // Append text fields
-      formData.append('roomNumber', data.roomNumber);
+        formData.append('roomNumber', data.roomNumber);
       formData.append('price', data.price.toString());
       formData.append('capacity', data.capacity.toString());
       formData.append('discount', data.discount.toString());
@@ -83,18 +82,17 @@ export default function RoomsData() {
         formData.append('facilities', facilityId);
       });
   
-      // Append images (array)
       if (selectedFile) {
-        formData.append('imgs', selectedFile); // Notice imgs[] not imgs
+        formData.append('imgs', selectedFile); 
       }
   
-      console.log([...formData.entries()]); // to see what's inside
-  
+      console.log([...formData.entries()]);
       const response = await dispatch(createRoom(formData)).unwrap();
       enqueueSnackbar(response?.message || t('password.successMessage'), { variant: 'success' });
       reset();
       setSelectedFacilities([]);
       setSelectedFile(null);
+      navigate('/dashboard/rooms');
     } catch (err) {
       enqueueSnackbar(err as string, { variant: 'error' });
     }
@@ -141,7 +139,7 @@ export default function RoomsData() {
           errors={errors}
         />
       </Box>
-      <Box sx={{ display: 'flex', gap: 2, alignItems:"center", mt: 1 ,mb:1 }}>
+      <Box sx={{ display: 'flex', gap: 2, alignItems:"end", mt: 1 ,mb:1 }}>
         <TextInput<RoomPayload>
           name="discount"
           id="discount"
@@ -151,20 +149,24 @@ export default function RoomsData() {
           type="number"
           errors={errors}
         />
-        <FormControl fullWidth>
+        <FormControl fullWidth >
           <Select
             displayEmpty
+            sx={{
+              '& .MuiSelect-select': { 
+                padding: '10px'  
+              }
+            }}
             fullWidth
             labelId="facilities-checkbox-label"
             id="facilities-checkbox"
-            sx={{padding: 0}}
             multiple
             value={selectedFacilities}
             onChange={handleFacilitiesChange}
             input={<OutlinedInput placeholder="Select Facilities" />}
             renderValue={(selected) => {
               if (selected.length === 0) {
-                return <em>Select Facilities</em>;
+                return <Box component={'span'}>Select Facilities</Box>;
               }
               
               return facilitiesArray
@@ -193,7 +195,6 @@ export default function RoomsData() {
         setSelectedFile={setSelectedFile}
         register={register}
         errors={errors}
-        t={t}
       />
 
       <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 3, gap: 2 }}>
