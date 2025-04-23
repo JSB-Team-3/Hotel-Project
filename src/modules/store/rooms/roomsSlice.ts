@@ -9,6 +9,7 @@ const initialState: RoomsState = {
   loading: false,
   deleteLoading: false,
   error: null,
+  totalCount: 0,
 };
 
 const roomsSlice = createSlice({
@@ -90,6 +91,7 @@ const roomsSlice = createSlice({
       .addCase(getAllRooms.fulfilled, (state, action) => {
         state.loading = false;
         state.rooms = action.payload?.data?.rooms;
+        state.totalCount = action.payload?.data?.totalCount;
       })
       .addCase(getAllRooms.rejected, (state, action) => {
         state.loading = false;

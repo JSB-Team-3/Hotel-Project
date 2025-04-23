@@ -32,4 +32,5 @@ export type UpdateRoomPayload = {
     loading: boolean;
     error: string | null;
     deleteLoading: boolean;
+    totalCount: number;
   }
