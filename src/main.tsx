@@ -6,8 +6,6 @@ import "../src/modules/Locales/i18n.ts";
 import { SnackbarProvider } from 'notistack';
 import { Provider } from "react-redux";
 import { store } from "./modules/store/auth/AuthConfig.ts";
-import { ThemeProvider } from '@mui/material';
-import theme from './modules/theme/theme.ts';
 import { ToastContainer } from 'react-toastify';
 import { AppThemeProvider } from './modules/theme/ThemeProvider.tsx';
 
