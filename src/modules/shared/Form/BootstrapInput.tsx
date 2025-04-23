@@ -30,6 +30,10 @@ const BootstrapInput = styled(InputBase)(({ theme, error }) => ({
       '"Segoe UI Emoji"',
       '"Segoe UI Symbol"',
     ].join(','),
+    '&::placeholder': {
+      color: theme.palette.text.primary, // Placeholder color for error
+      opacity: 1, // Important for visibility
+    },
     // Change box-shadow when focused and error occurs
     '&:focus': {
       boxShadow: error

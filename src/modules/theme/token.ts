@@ -12,7 +12,7 @@ export const getTokens = (mode: PaletteMode) => ({
         secondary: '#9c27b0', // Purple
         secondaryLight: '#ba68c8', // Lighter secondary hover
         secondaryDark: '#7b1fa2',
-        background: { default: '#f5f5f5', paper: '#ffffff' }, // Light background colors
+        background: { default: '#fff', paper: '#f5f5f5' }, // Light background colors
         text: { primary: '#000', secondary: '#555' }, // Dark text on light mode
       }
     : {

@@ -1,13 +1,14 @@
-type Facility = {
+export type Facility = {
   name:string
+  _id:string
 }
 export interface RoomPayload {
   roomNumber: string;
-  imgs: string[];
+  images: File[];
   price: number;
-  capacity: number;
   discount: number;
-  facilities: string[];
+  capacity: number;
+  facilities: Facility[];  
 }
 export type UpdateRoomPayload = {
     id: string;

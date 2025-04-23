@@ -2,15 +2,15 @@ export type RoomFacilityPayload = {
     name: string; // Name of the room facility
 };
 export type UpdateRoomFacilityPayload = {
-    id: string;
+    _id: string;
     data: RoomFacilityPayload;
 };
 export type GetAllRoomFacilitiesParams = {
-    pageSize: number;
-    pageNumber: number;
+    page: number;
+    size: number;
 };
 export type RoomFacility = {
-    id: string;
+    _id: string;
     name: string; 
 };
 export type RoomFacilitiesState = { 
