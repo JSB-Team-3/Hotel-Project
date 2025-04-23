@@ -21,7 +21,7 @@ export const deleteBooking = createAsyncThunk(
   'booking/delete',
   async (id: string, thunkAPI) => {
     try {
-      const response = await privateAxiosInstance.post(ADMIN_BOOKING_URLS.DELETE_BOOKING(id));
+      const response = await privateAxiosInstance.delete(ADMIN_BOOKING_URLS.DELETE_BOOKING(id));
       return response.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(handleThunkError(err, 'Failed to delete booking'));
@@ -34,7 +34,7 @@ export const getAllBookings = createAsyncThunk(
   'booking/getAll',
   async (params: GetAllBookingParams, thunkAPI) => {
     try {
-      const response = await privateAxiosInstance.post(ADMIN_BOOKING_URLS.GET_ALL_BOOKING, params);
+      const response = await privateAxiosInstance.get(ADMIN_BOOKING_URLS.GET_ALL_BOOKING, {params});
       return response.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(handleThunkError(err, 'Failed to fetch all bookings'));

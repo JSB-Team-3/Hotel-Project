@@ -11,6 +11,7 @@ import { Room } from '../../../Interfaces/rooms.interface';
 import { StyledTableCell, StyledTableRow } from '../../shared/StyledTable/StyledTable';
 import TableActions from '../../shared/TableActions/TableActions';
 import Header from '../../shared/Header/Header';
+import { Booking } from '../../../Interfaces/bookings.interfaces';
 export default function RoomsList() {
   const [itemToDeleteId, setItemToDeleteId] = useState<string>('');
   const [itemToDeleteNumber, setItemToDeleteNumber] = useState<string>('');
@@ -57,7 +58,10 @@ export default function RoomsList() {
       enqueueSnackbar(err as string || 'failed to delete room', { variant: 'error' });
     }
   };
-const renderRow = (room: Room) => {
+const renderRow = (item: Room | Booking ) => {
+  if ('price' in item && 'capacity' in item && 'facility' in item) {
+    const room = item as Room;
+  
   return (
       <StyledTableRow key={room?._id}>
       <StyledTableCell component="th" scope="row">{room.roomNumber}</StyledTableCell>
@@ -69,12 +73,12 @@ const renderRow = (room: Room) => {
       <StyledTableCell>{room?.capacity}</StyledTableCell>
       <StyledTableCell>{room?.facilities?.map(f => f.name).join(', ')}</StyledTableCell>
       <StyledTableCell>
-        <TableActions handleDeleteItem={handleDeleteItem} item={room} />
+        <TableActions handleDeleteItem={handleDeleteItem} item={room} route={`/dashboard/room-data/${room?._id}`} />
       </StyledTableCell>
     </StyledTableRow>
   
   );
-}
+}}
   // Pagination handlers
   const handleChangePage = (
     _: React.MouseEvent<HTMLButtonElement> | null,

@@ -8,7 +8,7 @@ import { useState } from 'react';
 import React from 'react'
 import { TableActionProps } from '../../../Interfaces/props.interface';
 
-export default function TableActions({handleDeleteItem,item}:TableActionProps) {
+export default function TableActions({handleDeleteItem,item,route}:TableActionProps) {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -54,13 +54,20 @@ export default function TableActions({handleDeleteItem,item}:TableActionProps) {
                     </ListItemIcon>
                     <ListItemText primary="View" />
                 </MenuItem>
-                <MenuItem component={Link} to="/dashboard/room-data/" onClick={handleClose} sx={{'&:hover':{'backgroundColor':'#F8F9FB'}}}>
+                {route && <MenuItem component={Link} to={route} onClick={handleClose} sx={{'&:hover':{'backgroundColor':'#F8F9FB'}}}>
                     <ListItemIcon>
                         <EditIcon sx={{'color':'#203FC7'}} />
                     </ListItemIcon>
                     <ListItemText primary="Edit" />
-                </MenuItem>
-                <MenuItem onClick={()=>{handleClose() ; handleDeleteItem(item._id,item.roomNumber)}} sx={{'&:hover':{'backgroundColor':'#F8F9FB'}}}>
+                </MenuItem>}
+                <MenuItem onClick={() => { 
+                    handleClose(); 
+                    if ('roomNumber' in item) {
+                        handleDeleteItem(item._id, item.roomNumber);
+                    } else if ('user' in item) {
+                        handleDeleteItem(item._id, item.user.userName);
+                    }
+                }} sx={{'&:hover':{'backgroundColor':'#F8F9FB'}}}>
                     <ListItemIcon>
                         <DeleteIcon sx={{'color':'#203FC7'}} />
                     </ListItemIcon>
