@@ -11,6 +11,7 @@ import AuthLayout from './modules/shared/AuthLayout/AuthLayout'
 import RoomsList from './modules/Rooms/RoomsList/RoomsList';
 import RoomsData from './modules/Rooms/RoomsData/RoomsData';
 import BookingList from './modules/Booking/BookingList';
+import UsersList from './modules/UsersList/UsersList';
 function App() {
 const routes=createBrowserRouter([
   {path:"",element:<AuthLayout/>,errorElement:<NotFound/>,
@@ -29,6 +30,7 @@ const routes=createBrowserRouter([
         {path:"room-data/new-Rooms",element:<RoomsData/>},
         {path:"room-data/:roomId",element:<RoomsData/>},
         {path:"booking",element:<BookingList/>},
+        {path:"users",element:<UsersList/>},
       ]
     }
 ])

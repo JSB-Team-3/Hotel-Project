@@ -60,7 +60,7 @@ export default function TableActions({handleDeleteItem,item,route}:TableActionPr
                     </ListItemIcon>
                     <ListItemText primary="Edit" />
                 </MenuItem>}
-                <MenuItem onClick={() => { 
+                {'email' in item || <MenuItem onClick={() => { 
                     handleClose(); 
                     if ('roomNumber' in item) {
                         handleDeleteItem(item._id, item.roomNumber);
@@ -72,7 +72,7 @@ export default function TableActions({handleDeleteItem,item,route}:TableActionPr
                         <DeleteIcon sx={{'color':'#203FC7'}} />
                     </ListItemIcon>
                     <ListItemText primary="Delete" />
-                </MenuItem>
+                </MenuItem>}
             </Menu>
         </Box>
     )
