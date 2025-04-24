@@ -12,6 +12,7 @@ import { StyledTableCell, StyledTableRow } from '../../shared/StyledTable/Styled
 import TableActions from '../../shared/TableActions/TableActions';
 import Header from '../../shared/Header/Header';
 import { Booking } from '../../../Interfaces/bookings.interfaces';
+import { User } from '../../../Interfaces/user.interface';
 export default function RoomsList() {
   const [itemToDeleteId, setItemToDeleteId] = useState<string>('');
   const [itemToDeleteNumber, setItemToDeleteNumber] = useState<string>('');
@@ -58,7 +59,7 @@ export default function RoomsList() {
       enqueueSnackbar(err as string || 'failed to delete room', { variant: 'error' });
     }
   };
-const renderRow = (item: Room | Booking ) => {
+const renderRow = (item: Room | Booking |User ) => {
   if ('price' in item && 'capacity' in item && 'facility' in item) {
     const room = item as Room;
   
@@ -103,7 +104,6 @@ const renderRow = (item: Room | Booking ) => {
      <DataTable
      loading={loading}
      items={rooms}
-      handleDeleteItem={handleDeleteItem}
       page={page}
       size={size}
       handleChangePage={handleChangePage}
@@ -113,7 +113,6 @@ const renderRow = (item: Room | Booking ) => {
       labelRowsPerPage="Rooms per Page:"
       columns={['Room Number', 'Image', 'Price', 'Discount', 'Capacity', 'Facilities', '']} 
       renderRow = {renderRow}
-
 
      />
         <DeleteConfirmation

@@ -6,15 +6,25 @@ export interface UserPayload {
       data: UserPayload;
     };
     export type GetAllUsersParams = {
-      pageSize: number;
-      pageNumber: number;
+      page: number;
+      size: number;
     };
-    export type user= {
-      id: string;
+    export type User= {
+      _id: string;
+  userName: string;
+  email: string;
+  phoneNumber: number;
+  country: string;
+  role: string;
+  profileImage: string;
+  verified: boolean;
+  createdAt: string;
+  updatedAt: string;
     };
     export type UsersState = {
-      users: user[];  
-      userProfile: user | null;
+      users: User[];  
+      userProfile: User | null;
       loading: boolean;
       error: string | null;
+      totalCount: number;
     }

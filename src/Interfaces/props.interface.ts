@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from "react"
 import { Room } from "./rooms.interface"
 import { Booking } from "./bookings.interfaces"
+import { User } from "./user.interface"
 
 export type ConfirmDeleteProps ={
     open:boolean,
@@ -10,7 +11,7 @@ export type ConfirmDeleteProps ={
     loading:boolean   
 }
 export type TableActionProps ={
-    item:Room | Booking,
+    item:Room | Booking | User,
     handleDeleteItem:(itemId: string, itemNumber: string) => void,
     route:string,
    
@@ -18,8 +19,7 @@ export type TableActionProps ={
 
 export type TableDataProps = {
     loading:boolean,
-    items:Room[] | Booking[],    
-    handleDeleteItem:(itemId: string, itemNumber: string) => void,
+    items:Room[] | Booking[] | User[],    
     page:number,
     size:number,
     handleChangePage:(_: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => void,
@@ -28,7 +28,7 @@ export type TableDataProps = {
     rowsPerPageOptions:number[],
     labelRowsPerPage:string,
     columns:string[],
-    renderRow: (item: Room|Booking) => React.ReactNode; 
+    renderRow: (item: Room|Booking|User) => React.ReactNode; 
 
 }
 

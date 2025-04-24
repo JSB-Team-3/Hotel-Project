@@ -11,6 +11,8 @@ import TableActions from '../shared/TableActions/TableActions';
 import Header from '../shared/Header/Header';
 import { deleteBooking, getAllBookings } from '../store/booking/bookingsThunk';
 import { Booking } from '../../Interfaces/bookings.interfaces';
+import { User } from '../../Interfaces/user.interface';
+
 export default function BookingList() {
   const [itemToDeleteId, setItemToDeleteId] = useState<string>('');
   const [itemToDeleteNumber, setItemToDeleteNumber] = useState<string>('');
@@ -58,7 +60,7 @@ export default function BookingList() {
       enqueueSnackbar(err as string || 'failed to delete booking', { variant: 'error' });
     }
   };
-  const renderRow = (item: Room | Booking) => {
+  const renderRow = (item: Room | Booking | User) => {
     if ('startDate' in item && 'endDate' in item && 'totalPrice' in item && 'user' in item) {
       const booking = item as Booking;
       return (
@@ -103,11 +105,10 @@ export default function BookingList() {
   }, [page, size]); 
   return (
     <Box>
-      <Header title='Room' route='' />
+      <Header title='Booking' route='' />
      <DataTable
      loading={loading}
      items={bookings}
-      handleDeleteItem={handleDeleteItem}
       page={page}
       size={size}
       handleChangePage={handleChangePage}
