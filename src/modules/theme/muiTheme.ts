@@ -73,7 +73,7 @@ export const getMuiTheme = (mode: PaletteMode): ThemeOptions => {
             },
           },
         },
-      },
+      }
     },
   });
 };
