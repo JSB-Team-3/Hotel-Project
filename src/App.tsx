@@ -10,6 +10,7 @@ import NotFound from './modules/shared/NotFound/NotFound'
 import AuthLayout from './modules/shared/AuthLayout/AuthLayout'
 import RoomsList from './modules/Rooms/RoomsList/RoomsList';
 import RoomsData from './modules/Rooms/RoomsData/RoomsData';
+import BookingList from './modules/Booking/BookingList';
 import Dashboard from './modules/Dashboad/Dashboard';
 
 function App() {
@@ -30,7 +31,8 @@ const routes=createBrowserRouter([
          {index:true,element:<Dashboard/>},
         {path:"rooms",element:<RoomsList/>},
         {path:"room-data/new-Rooms",element:<RoomsData/>},
-        {path:"room-data/:roomId",element:<RoomsData/>}
+        {path:"room-data/:roomId",element:<RoomsData/>},
+        {path:"booking",element:<BookingList/>},
       ]
 
     }
