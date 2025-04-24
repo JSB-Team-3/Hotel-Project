@@ -64,11 +64,13 @@
     "drag_drop_supported": "Or drag and drop an image here",
     "file_too_large": "The file is too large. The maximum size is {{size}} MB",
     "subtitle": "Homes as unique as you.",
+    "otp":"otp",
     "oldPassword": "Current Password",
     "newPassword": "New Password",
     "confirmPassword": "Confirm Password",
     "required": "This field is required",
     "passwordMismatch": "Passwords don't match"
+
   },
   "common": {
     "save": "Save",

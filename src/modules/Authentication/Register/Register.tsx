@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { AppDispatch, RootState } from '../../store/auth/AuthConfig';
 import { useDispatch, useSelector } from 'react-redux';
-import { register as registerThunk } from '../../store/auth/authThunks';
+import { register as registerThunk } from '../../store/auth/AuthThunks';
 import { RegisterFormInputs } from '../../interfaces/AuthInterfaces';
 import FileUpload from '../../shared/Form/FileUpload';
 

@@ -2,6 +2,8 @@
 import { useTranslation } from "react-i18next";
 import { pattern } from "../../interfaces/AuthInterfaces";
 
+
+
   const { t } = useTranslation();
 
   export const  EMAIL_VALIDATION={
