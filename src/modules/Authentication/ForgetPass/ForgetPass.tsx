@@ -62,7 +62,13 @@ const ForgotPass: React.FC = () => {
   };
 
   return (
-    <Box height="100vh" display="flex" justifyContent="center" maxHeight="85vh" marginTop="5rem">
+    <Box
+      height="100vh"
+      display="flex"
+      justifyContent="center"
+      maxHeight="85vh"
+      marginTop="5rem"
+    >
       <Box width="90%" maxWidth="400px">
         <Typography
           variant="h4"
@@ -70,7 +76,7 @@ const ForgotPass: React.FC = () => {
           fontWeight="500"
           marginBottom="2rem"
         >
-          {t("form.forgot_heading")}
+          {t("forgot_password")}
         </Typography>
 
         <Typography variant="body1" sx={{ maxWidth: 300, mb: 10 }}>
@@ -121,7 +127,7 @@ const ForgotPass: React.FC = () => {
               },
             }}
           >
-            {loading ? <CircularProgress size={24} /> : t("form.sign_up")}
+            {loading ? <CircularProgress size={24} /> : t("form.send_email")}
           </Button>
         </form>
       </Box>

@@ -80,7 +80,7 @@ const ResetPass: React.FC = () => {
           fontWeight="500"
           marginBottom="2rem"
         >
-          Reset Password
+          {t("reset password")}
         </Typography>
 
         <Typography variant="body1" sx={{ maxWidth: 300, mb: 2 }}>
@@ -173,7 +173,7 @@ const ResetPass: React.FC = () => {
               },
             }}
           >
-            {loading ? <CircularProgress size={24} /> : "Reset Password"}
+            {loading ? <CircularProgress size={24} /> : t("form.reset_password")}
           </Button>
         </form>
       </Box>

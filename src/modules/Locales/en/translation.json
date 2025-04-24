@@ -1,6 +1,8 @@
 {
   "welcome": "Welcome",
   "logout": "Logout",
+  "forget_password": "forget password",
+  "reset_password": "reset password",
   "validation": {
     "email_required": "Email is required",
     "email_invalid": "Invalid email format",
@@ -26,9 +28,9 @@
   },
   "login": {
     "title": "Login to Roamhome",
-    "login" : "Login",
-    "no_account" : "Don't have an account?"
-  }, 
+    "login": "Login",
+    "no_account": "Don't have an account?"
+  },
   "signup": {
     "title": "Sign up to Roamhome"
   },
@@ -51,6 +53,8 @@
     "password": "Password",
     "confirmpassword": "Confirm password",
     "sign_up": "Sign up",
+    "send_email": "send email",
+    "reset_password":"reset password",
     "uploadimage": "Upload image",
     "image_required": "Image is required",
     "invalid_image_type": "Only JPEG, PNG, and GIF formats are allowed",
@@ -64,13 +68,12 @@
     "drag_drop_supported": "Or drag and drop an image here",
     "file_too_large": "The file is too large. The maximum size is {{size}} MB",
     "subtitle": "Homes as unique as you.",
-    "otp":"otp",
+    "otp": "otp",
     "oldPassword": "Current Password",
     "newPassword": "New Password",
     "confirmPassword": "Confirm Password",
     "required": "This field is required",
     "passwordMismatch": "Passwords don't match"
-
   },
   "common": {
     "save": "Save",
@@ -81,7 +84,7 @@
     "close": "Close",
     "back": "Back",
     "next": "Next",
-    "logout":"Logout",
+    "logout": "Logout",
     "search": "Search...",
     "settings": "Settings"
   },
@@ -89,19 +92,19 @@
     "select": "Select Language",
     "current": "Current Language"
   },
-    "password": {
-      "changeButton": "Change Password",
-      "modalTitle": "Change Password",
-      "modalDescription": "Ready to set a new password?",
-      "successMessage": "Password updated successfully!"
-    },
-    "sidebar": {
-      "home": "Home",
-      "users": "Users",
-      "rooms": "Rooms",
-      "ads": "Ads",
-      "bookings": "Bookings",
-      "facilities": "Facilities",
-      "change_password": "Change password"
-    }
+  "password": {
+    "changeButton": "Change Password",
+    "modalTitle": "Change Password",
+    "modalDescription": "Ready to set a new password?",
+    "successMessage": "Password updated successfully!"
+  },
+  "sidebar": {
+    "home": "Home",
+    "users": "Users",
+    "rooms": "Rooms",
+    "ads": "Ads",
+    "bookings": "Bookings",
+    "facilities": "Facilities",
+    "change_password": "Change password"
+  }
 }

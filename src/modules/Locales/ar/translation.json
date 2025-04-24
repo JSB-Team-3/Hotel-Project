@@ -1,6 +1,8 @@
 {
   "welcome": "مرحبًا!",
   "logout": "تسجيل الخروج",
+  "forgot_password":"نسيت كلمه السر",
+  "reset password":"اعاده تعيين كلمه السر",
   "validation": {
     "email_required": "البريد الإلكتروني مطلوب",
     "email_invalid": "صيغة البريد الإلكتروني غير صحيحة",
@@ -50,6 +52,8 @@
     "password": "كلمة المرور",
     "confirmpassword": "تأكيد كلمة المرور",
     "sign_up": "إنشاء حساب",
+    "send_email":"ارسال",
+    "reset_password":"اعاده تعيين",
     "uploadimage": "تحميل صورة",
     "image_required": "الصورة مطلوبة",
     "invalid_image_type": "يُسمح فقط بصيغة JPEG و PNG و GIF",
