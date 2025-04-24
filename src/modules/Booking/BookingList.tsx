@@ -12,6 +12,7 @@ import Header from '../shared/Header/Header';
 import { deleteBooking, getAllBookings } from '../store/booking/bookingsThunk';
 import { Booking } from '../../Interfaces/bookings.interfaces';
 import { User } from '../../Interfaces/user.interface';
+
 export default function BookingList() {
   const [itemToDeleteId, setItemToDeleteId] = useState<string>('');
   const [itemToDeleteNumber, setItemToDeleteNumber] = useState<string>('');

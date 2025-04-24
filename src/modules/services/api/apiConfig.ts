@@ -1,3 +1,6 @@
+
+
+
 export const baseURL= "https://upskilling-egypt.com:3000/api/v0"
 export const imgURL="https://upskilling-egypt.com:3003/"
 
@@ -20,6 +23,7 @@ export const ADMIN_USERS_URLS = {
 export const ADMIN_CHART_URLS = {
   GET_CHART: `/admin/dashboard`,
 };
+
 
 export const ADMIN_ROOMS_URLS = {
   CREATE_ROOM: `/admin/rooms`,

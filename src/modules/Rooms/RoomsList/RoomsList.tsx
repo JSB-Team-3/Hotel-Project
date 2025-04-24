@@ -114,7 +114,6 @@ const renderRow = (item: Room | Booking |User ) => {
       columns={['Room Number', 'Image', 'Price', 'Discount', 'Capacity', 'Facilities', '']} 
       renderRow = {renderRow}
 
-
      />
         <DeleteConfirmation
           open={showDeleteModal}

@@ -38,6 +38,7 @@ export const forgot = createAsyncThunk('auth/forgot', async(data: ForgotPassword
 
 export const resetPass = createAsyncThunk('auth/resetPass', async(data: ResetPasswordData, thunkAPI) =>{
     try{
+        console.log("DATA SENT TO RESET:", data);
         const response = await puplicAxiosInstance.post(USER_URLS.RESET_PASS, data)
         return response.data
     }catch(err){
