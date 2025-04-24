@@ -7,7 +7,6 @@ import ThemeToggle from '../ThemeToggle';
 import LanguageSwitcher from '../LanguageSwithcer';
 const AuthLayout = () => {
   return (
-    <>
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
           <Grid size={{ xs: 12, md: 6 }}>
@@ -33,7 +32,6 @@ const AuthLayout = () => {
           </Grid>
         </Grid>
       </Box>
-    </>
   )
 }
 

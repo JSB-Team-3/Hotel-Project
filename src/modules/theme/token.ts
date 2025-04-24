@@ -12,7 +12,9 @@ export const getTokens = (mode: PaletteMode) => ({
         secondary: '#9c27b0', // Purple
         secondaryLight: '#ba68c8', // Lighter secondary hover
         secondaryDark: '#7b1fa2',
-        background: { default: '#fff', paper: '#f5f5f5' }, // Light background colors
+        blueMain:"#3061c8",
+        liteMain:"#fff",
+        background: { default: '#f5f5f5', paper: '#ffffff'}, // Light background colors
         text: { primary: '#000', secondary: '#555' }, // Dark text on light mode
       }
     : {
@@ -22,6 +24,8 @@ export const getTokens = (mode: PaletteMode) => ({
         secondary: '#ce93d8', // Light purple
         secondaryLight: '#f1b6ff', // Lighter secondary hover
         secondaryDark: '#9c64a6',
+        blueMain:"#111212",
+        liteMain:"#fff",
         background: { default: '#121212', paper: '#1e1e1e' }, // Dark background colors
         text: { primary: '#fff', secondary: '#aaa' }, // Light text on dark mode
       }),
