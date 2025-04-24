@@ -4,7 +4,7 @@ import { Grid, Typography, Link} from '@mui/material';
 import TextInput from '../../shared/Form/TextInput';
 import FormButton from '../../shared/Form/FormButton';
 import { Link as RouterLink} from 'react-router-dom';
-import { RegisterFormInputs } from '../../interfaces/AuthInterfaces';
+import { RegisterFormInputs } from '../../../Interfaces/AuthInterfaces';
 import FileUpload from '../../shared/Form/FileUpload';
 import { useRegisterForm } from '../../hooks/useRegistratoinFrom';
 

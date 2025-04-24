@@ -4,7 +4,8 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { PieChart } from '@mui/x-charts/PieChart';
 import { Grid } from '@mui/material';
-import { DonutChartProps } from '../../../interfaces/Charts.Interfaces';
+import { DonutChartProps } from '../../../../Interfaces/Charts.Interfaces';
+import { useTranslation } from 'react-i18next';
 
 const COLORS: Record<string, string> = {
   pending: '#5368F0',   
@@ -12,13 +13,15 @@ const COLORS: Record<string, string> = {
 };
 
 const DonutChart: React.FC<DonutChartProps> = ({ data, height = 300, width = 400 }) => {
-  const formattedData = React.useMemo(() => {
-    return Object.entries(data).map(([key, value]) => ({
-      label: key[0].toUpperCase() + key.slice(1),
-      value,
-      color: COLORS[key.toLowerCase()] || '#ccc',
-    }));
-  }, [data]);
+  const { t } = useTranslation();
+
+const formattedData = React.useMemo(() => {
+  return Object.entries(data).map(([key, value]) => ({
+    label: t(`status.${key}`),  
+    value,
+    color: COLORS[key.toLowerCase()] || '#ccc',
+  }));
+}, [data, t]);
 
   return (
     <Grid container sx={{justifyContent:"center" ,alignItems:"center",mx:"auto"}} spacing={2}>

@@ -6,8 +6,8 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { AppDispatch, RootState } from '../store/auth/AuthConfig';
 import { useValidation } from './useValidation';
-import { RegisterFormInputs } from '../interfaces/AuthInterfaces';
-import { registerThunk } from '../store/auth/authThunks';
+import { RegisterFormInputs } from '../../Interfaces/AuthInterfaces';
+import { registerThunk } from '../store/auth/AuthThunks'; 
 import { enqueueSnackbar } from 'notistack';
 
 export const useRegisterForm = () => {

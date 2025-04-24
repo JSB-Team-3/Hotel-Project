@@ -23,6 +23,7 @@ export const getMuiTheme = (mode: PaletteMode, direction: 'ltr' | 'rtl' = 'ltr')
     custom: {
       blueMain: tokens.blueMain,
       liteMain: tokens.liteMain,
+      primaryLight: tokens.primaryLightActive,
     },
     typography: {
       fontFamily: 'Poppins, sans-serif',

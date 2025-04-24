@@ -8,8 +8,10 @@ import {
 } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { DashbordCardProps } from '../../../Interfaces/cards.interfaces';
+import { useTranslation } from 'react-i18next';
 
 const DashboardCard: React.FC<DashbordCardProps> = ({ count, label, icon }) => {
+  const { t } = useTranslation();
 
   return (
     <Card
@@ -31,7 +33,8 @@ const DashboardCard: React.FC<DashbordCardProps> = ({ count, label, icon }) => {
           {count}
         </Typography>
         <Typography variant="subtitle1" sx={{ fontSize: 20 }}>
-          {label}
+        {t(label)}
+
         </Typography>
       </CardContent>
 

@@ -104,5 +104,19 @@
       "bookings": "Bookings",
       "facilities": "Facilities",
       "change_password": "Change password"
-    }
+    },
+    "status": {
+  "pending": "Pending",
+  "completed": "Completed"
+},"roles": {
+  "user": "User",
+  "admin": "Admin",
+  "users": "Users"
+},
+"totalUsers": "Total Users"
+,  "dashboard": {
+  "rooms": "Rooms",
+  "facilities": "Facilities",
+  "ads": "Ads"
+}
 }

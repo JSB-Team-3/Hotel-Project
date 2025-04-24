@@ -9,8 +9,8 @@ import { useValidation } from '../../hooks/useValidation';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store/auth/AuthConfig';
-import { login as loginThunk } from '../../store/auth/authThunks';
-import { LoginFormInputs } from '../../interfaces/AuthInterfaces';
+import { login  as loginThunk  } from '../../store/auth/AuthThunks'; 
+import { LoginFormInputs } from '../../../Interfaces/AuthInterfaces'; 
 import { toast } from 'react-toastify';
 
 

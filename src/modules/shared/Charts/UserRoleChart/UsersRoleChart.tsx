@@ -1,14 +1,17 @@
 import React from "react";
 import { PieChart } from "@mui/x-charts/PieChart";
 import { Box, Typography, Stack, useTheme } from "@mui/material";
-import { UserRingChartProps } from "../../../interfaces/Charts.Interfaces";
+import { UserRingChartProps } from "../../../../Interfaces/Charts.Interfaces";
+import { useTranslation } from "react-i18next";
 
 const UserRoleChart: React.FC<UserRingChartProps> = ({ title, data }) => {
   const theme = useTheme();
+  const { t } = useTranslation();
+
 
   const chartData = [
-    { label: "User", value: data?.user ?? 0, color: "#54D14D" },
-    { label: "Admin", value: data?.admin ?? 0, color: "#35C2FD" },
+    { label: t('roles.user'), value: data?.user ?? 0, color: "#54D14D" },
+    { label: t('roles.admin'), value: data?.admin ?? 0, color: "#35C2FD" },
   ];
 
   const total = chartData.reduce((sum, item) => sum + item.value, 0);
@@ -32,8 +35,8 @@ const UserRoleChart: React.FC<UserRingChartProps> = ({ title, data }) => {
           series={[
             {
               data: chartData,
-              innerRadius: 40,
-              outerRadius: 50,
+              innerRadius: 70,
+              outerRadius: 80,
               cornerRadius: 5,
               paddingAngle: 2,
             },
@@ -54,7 +57,7 @@ const UserRoleChart: React.FC<UserRingChartProps> = ({ title, data }) => {
           }}
         >
           <Typography variant="h6" align="center">
-            {title}
+          {t(`roles.${title.toLowerCase()}`)}
           </Typography>
         </Box>
       </Box>
@@ -80,7 +83,7 @@ const UserRoleChart: React.FC<UserRingChartProps> = ({ title, data }) => {
       </Stack>
 
       <Typography variant="body1" align="center" mt={2} color="text.primary">
-        Total Users: {total}
+      {t("totalUsers")}: {total}
       </Typography>
     </Box>
   );
