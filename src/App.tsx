@@ -12,6 +12,7 @@ import RoomsList from './modules/Rooms/RoomsList/RoomsList';
 import RoomsData from './modules/Rooms/RoomsData/RoomsData';
 import BookingList from './modules/Booking/BookingList';
 import Dashboard from './modules/Dashboad/Dashboard';
+
 function App() {
 const routes=createBrowserRouter([
   {path:"",element:<AuthLayout/>,errorElement:<NotFound/>,
@@ -23,6 +24,7 @@ const routes=createBrowserRouter([
       { path: "reset-password", element: <ResetPass /> },
       { path: "verify-account", element: <VerifyAccount /> },
     ]},
+
     { path:'dashboard', element:<MasterLayout/>,
       errorElement:<NotFound/>,
       children:[
@@ -32,6 +34,7 @@ const routes=createBrowserRouter([
         {path:"room-data/:roomId",element:<RoomsData/>},
         {path:"booking",element:<BookingList/>},
       ]
+
     }
 ])
 
