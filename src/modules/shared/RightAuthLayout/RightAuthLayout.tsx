@@ -65,14 +65,14 @@ const RightAuthLayout = () => {
           backgroundColor: 'rgba(23, 33, 33, 0.15)',
         }}
       />
-      <Typography sx={{ position: 'absolute', top: '78%', left: '13%' }}>
+      <Box sx={{ position: 'absolute', top: '78%', left: '13%' }}>
         <Box component={'h2'} sx={{ color: '#FDFFFC', fontWeight: '600', marginBlockEnd: '0' }}>
           {title}
         </Box>
         <Box component={'span'} sx={{ color: '#FDFFFC' }}>
           {t('form.subtitle')} {/* You can also translate this text */}
         </Box>
-      </Typography>
+      </Box>
     </Box>
   );
 };
