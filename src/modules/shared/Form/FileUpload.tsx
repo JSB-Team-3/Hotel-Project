@@ -169,7 +169,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
                   if (!selectedFile && !value?.[0]) return t('form.image_required');
                   const file = selectedFile || value?.[0];
                   if (!file) return true;
-
+                  
                   const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
                   if (!validTypes.includes(file.type)) return t('form.invalid_image_type');
 

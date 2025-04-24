@@ -113,13 +113,13 @@ const TextInput = <T extends FieldValues>({
   };
 
   return (
-    <FormControl variant="standard" fullWidth error={hasError}>
+    <FormControl variant="filled" fullWidth  error={hasError}>
       <InputLabel
         shrink
         htmlFor={id || name}
         sx={{ color: theme => theme.palette.text.primary, fontSize: '16px', fontWeight: 400 }}
       >
-        {label || t(`form.${name.toLocaleLowerCase()}`, name)}
+        {label }
       </InputLabel>
 
       <BootstrapInput

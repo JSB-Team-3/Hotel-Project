@@ -49,7 +49,7 @@ export const deleteRoomFacility = createAsyncThunk('roomFacilities/delete', asyn
 // Get All Room Facilities
 export const getAllRoomFacilities = createAsyncThunk('roomFacilities/getAll', async (params:GetAllRoomFacilitiesParams,thunkAPI) => {
   try {
-    const response = await privateAxiosInstance.post(ADMIN_ROOM_FACILITIES_URLS.GET_ROOM_FACILITIES,params);
+    const response = await privateAxiosInstance.get(ADMIN_ROOM_FACILITIES_URLS.GET_ROOM_FACILITIES,{params});
     return response.data;
   } catch (err) {
     return thunkAPI.rejectWithValue(handleThunkError(err, 'Failed to get all room facilities'));
