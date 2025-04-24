@@ -1,0 +1,11 @@
+:root{
+  --main-color:#fff;
+}
+
+body{
+  background-color: var(--main-color);
+}
+
+.custom-input{
+  margin-bottom: 30rem;
+}

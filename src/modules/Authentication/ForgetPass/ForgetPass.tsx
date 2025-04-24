@@ -3,23 +3,31 @@ import {
   Alert,
   Box,
   Typography,
-  TextField,
   Button,
   CircularProgress,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/auth/AuthConfig";
 import { forgot } from "../../store/auth/AuthThunks";
-import { EMAIL_VALIDATION } from "../../services/validation/validation";
+import { useValidation } from "../../hooks/useValidation";
 import { ForgotPasswordData } from "../../store/auth/interfaces/authType";
-import "react-toastify/dist/ReactToastify.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useSnackbar } from "notistack";
+import TextInput from "../../shared/Form/TextInput";
+import { useTranslation } from "react-i18next";
 
 const ForgotPass: React.FC = () => {
+
+  const { t } = useTranslation();
+
   const dispatch = useDispatch<AppDispatch>();
   const { loading } = useSelector((state: RootState) => state.auth);
+
+
+  const {
+    EMAIL_VALIDATION,
+  } = useValidation();
 
   const {
     register,
@@ -28,12 +36,13 @@ const ForgotPass: React.FC = () => {
     formState: { errors },
   } = useForm<ForgotPasswordData>();
 
+  
+
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const { enqueueSnackbar } = useSnackbar();
 
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const onSubmit = async (data: ForgotPasswordData) => {
     setSuccessMessage("");
@@ -53,7 +62,7 @@ const ForgotPass: React.FC = () => {
   };
 
   return (
-    <Box height="100vh" display="flex" justifyContent="center" marginTop="4rem">
+    <Box height="100vh" display="flex" justifyContent="center" maxHeight="85vh" marginTop="5rem">
       <Box width="90%" maxWidth="400px">
         <Typography
           variant="h4"
@@ -61,16 +70,19 @@ const ForgotPass: React.FC = () => {
           fontWeight="500"
           marginBottom="2rem"
         >
-          Forgot Password
+          {t("form.forgot_heading")}
         </Typography>
-        <Typography gutterBottom marginBottom="6rem">
-          If you already have an account register You can <br />
-          <Link
+
+        <Typography variant="body1" sx={{ maxWidth: 300, mb: 10 }}>
+          {t("register.already_have_account")}{" "}
+          <RouterLink
+            component={RouterLink}
             to="/login"
-            style={{ color: "red", textDecoration: "none" }}
+            underline="hover"
+            color="red"
           >
-            Login here !
-          </Link>
+            {t("register.login_here")}
+          </RouterLink>
         </Typography>
 
         {successMessage && (
@@ -85,14 +97,14 @@ const ForgotPass: React.FC = () => {
         )}
 
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
-          <TextField
-            fullWidth
-            label="Email"
-            variant="outlined"
-            margin="normal"
-            {...register("email", EMAIL_VALIDATION)}
-            error={!!errors.email}
-            helperText={errors.email?.message}
+          <TextInput
+            name="email"
+            label={t("form.email")}
+            id="email"
+            type="text"
+            register={register}
+            validation={EMAIL_VALIDATION}
+            errors={errors}
           />
 
           <Button
@@ -109,7 +121,7 @@ const ForgotPass: React.FC = () => {
               },
             }}
           >
-            {loading ? <CircularProgress size={24} /> : "send email"}
+            {loading ? <CircularProgress size={24} /> : t("form.sign_up")}
           </Button>
         </form>
       </Box>

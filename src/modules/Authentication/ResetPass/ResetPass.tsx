@@ -1,34 +1,33 @@
 import {
   Box,
   Typography,
-  TextField,
   Button,
   Alert,
   CircularProgress,
-  IconButton,
-  InputAdornment,
 } from "@mui/material";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/auth/AuthConfig";
-import { useNavigate } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import {
-  EMAIL_VALIDATION,
-  OTP_VALIDATION,
-  PASSWORD_VALIDATION,
-  CONFIRM_PASS_VALIDATION,
-} from "../../services/validation/validation";
+import { useValidation } from "../../hooks/useValidation";
 import { resetPass } from "../../store/auth/AuthThunks";
 import { ResetPasswordData } from "../../store/auth/interfaces/authType";
-import {useSnackbar} from 'notistack'
-import { Link } from "react-router-dom";
+import { useSnackbar } from "notistack";
+import TextInput from "../../shared/Form/TextInput";
+import { useTranslation } from "react-i18next";
 
 const ResetPass: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { loading } = useSelector((state: RootState) => state.auth);
   const navigate = useNavigate();
+
+  const {
+    EMAIL_VALIDATION,
+    OTP_VALIDATION,
+    PASSWORD_VALIDATION,
+    CONFIRM_PASS_VALIDATION,
+  } = useValidation();
 
   const {
     register,
@@ -38,33 +37,42 @@ const ResetPass: React.FC = () => {
     formState: { errors },
   } = useForm<ResetPasswordData>();
 
+    const { t } = useTranslation();
+
+
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
 
   const password = watch("password");
 
-    const onSubmit = async (data: ResetPasswordData) => {
-      setSuccessMessage("");
-      setErrorMessage("");
+  const onSubmit = async (data: ResetPasswordData) => {
+    setSuccessMessage("");
+    setErrorMessage("");
 
-      try {
-        const response = await dispatch(resetPass(data)).unwrap();
-        enqueueSnackbar(response?.message || "Password updated successfully!", {
-          variant: "success",
-        });
-        reset();
-        setTimeout(()=>{
-          navigate('/login')
-        })
-      } catch (err) {
-        enqueueSnackbar(err as string, { variant: "error" });
-      }
-    };
+    try {
+      const response = await dispatch(resetPass(data)).unwrap();
+      enqueueSnackbar(response?.message || "Password updated successfully!", {
+        variant: "success",
+      });
+      reset();
+      setTimeout(() => {
+        navigate("/login");
+      });
+    } catch (err) {
+      enqueueSnackbar(err as string, { variant: "error" });
+    }
+  };
 
   return (
-    <Box height="100vh" display="flex" justifyContent="center">
+    <Box
+      height="100vh"
+      display="flex"
+      justifyContent="center"
+      maxHeight="85vh"
+      mb={4}
+      marginTop="5rem"
+    >
       <Box width="90%" maxWidth="400px">
         <Typography
           variant="h4"
@@ -74,14 +82,17 @@ const ResetPass: React.FC = () => {
         >
           Reset Password
         </Typography>
-        <Typography gutterBottom marginBottom="6rem">
-          If you already have an account register You can <br />
-          <Link
+
+        <Typography variant="body1" sx={{ maxWidth: 300, mb: 2 }}>
+          {t("register.already_have_account")}{" "}
+          <RouterLink
+            component={RouterLink}
             to="/login"
-            style={{ color: "red", textDecoration: "none" }}
+            underline="hover"
+            color="red"
           >
-            Login here !
-          </Link>
+            {t("register.login_here")}
+          </RouterLink>
         </Typography>
 
         {successMessage && (
@@ -97,62 +108,56 @@ const ResetPass: React.FC = () => {
 
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
           {/* Email */}
-          <TextField
-            fullWidth
-            label="Email"
-            variant="outlined"
-            margin="normal"
-            {...register("email", EMAIL_VALIDATION)}
-            error={!!errors.email}
-            helperText={errors.email?.message}
-          />
+          <Box mb={4}>
+            <TextInput
+              name="email"
+              label={t("form.email")}
+              id="email"
+              type="text"
+              register={register}
+              validation={EMAIL_VALIDATION}
+              errors={errors}
+            />
+          </Box>
 
           {/* OTP */}
-          <TextField
-            fullWidth
-            label="OTP"
-            variant="outlined"
-            margin="normal"
-            {...register("seed", OTP_VALIDATION)}
-            error={!!errors.seed}
-            helperText={errors.seed?.message}
-          />
+          <Box mb={4}>
+            <TextInput
+              name="seed"
+              label={t("form.otp")}
+              id="otp"
+              type="text"
+              register={register}
+              validation={OTP_VALIDATION}
+              errors={errors}
+            />
+          </Box>
 
           {/* Password */}
-          <TextField
-            fullWidth
-            label="New Password"
-            variant="outlined"
-            margin="normal"
-            type={showPassword ? "text" : "password"}
-            {...register("password", PASSWORD_VALIDATION)}
-            error={!!errors.password}
-            helperText={errors.password?.message}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    onClick={() => setShowPassword((prev) => !prev)}
-                    edge="end"
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
+          <Box mb={4}>
+            <TextInput
+              name="password"
+              label={t("form.password")}
+              id="password"
+              type="password"
+              register={register}
+              validation={PASSWORD_VALIDATION}
+              errors={errors}
+            />
+          </Box>
 
           {/* Confirm Password */}
-          <TextField
-            fullWidth
-            label="Confirm Password"
-            variant="outlined"
-            margin="normal"
-            type={showPassword ? "text" : "password"}
-            {...register("confirmPassword", CONFIRM_PASS_VALIDATION(password))}
-            error={!!errors.confirmPassword}
-            helperText={errors.confirmPassword?.message}
-          />
+          <Box mb={4}>
+            <TextInput
+              name="confirmPassword"
+              label={t("form.confirmpassword")}
+              id="confirmPassword"
+              type="password"
+              register={register}
+              validation={CONFIRM_PASS_VALIDATION(password)}
+              errors={errors}
+            />
+          </Box>
 
           <Button
             type="submit"
