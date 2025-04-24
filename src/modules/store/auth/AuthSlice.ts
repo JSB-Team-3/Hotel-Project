@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   login,
-  register,
+  registerThunk,
   forgot,
   resetPass,
   changePassword,
@@ -42,19 +42,19 @@ const authSlice = createSlice({
         state.error = action.payload as string;
       });
 
-    // Register
+    // RegisterThunk
     builder
-      .addCase(register.pending, (state) => {
+      .addCase(registerThunk.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(register.fulfilled, (state, action) => {
+      .addCase(registerThunk.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload.user;
         state.token = action.payload.token;
         state.error = null;
       })
-      .addCase(register.rejected, (state, action) => {
+      .addCase(registerThunk.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       });

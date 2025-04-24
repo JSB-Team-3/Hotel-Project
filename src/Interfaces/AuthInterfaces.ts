@@ -49,3 +49,7 @@ export interface FormValues {
   newPassword: string;
   confirmNewPassword: string;
 }
+export interface LoginFormInputs {
+  email: string;
+  password: string;
+}

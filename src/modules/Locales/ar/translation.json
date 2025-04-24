@@ -103,5 +103,24 @@
       "bookings": "الحجوزات",
       "facilities": "المرافق",
       "change_password": "تغيير كلمة المرور"
-    }
+    },
+    "status": {
+  "pending": "قيد الانتظار",
+  "completed": "مكتمل"
+},
+"roles": {
+  "user": "مستخدم",
+  "admin": "مشرف",
+  "users":"المستخدمين"
+},
+"totalUsers": "إجمالي المستخدمين"
+,
+  "dashboard": {
+    "rooms": "الغرف",
+    "facilities": "المرافق",
+    "ads": "الإعلانات"
+  
+}
+
+
 }
