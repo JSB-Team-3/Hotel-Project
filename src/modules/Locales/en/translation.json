@@ -25,7 +25,9 @@
     "error_message": "Registration failed. Please try again."
   },
   "login": {
-    "title": "Sign in to Roamhome"
+    "title": "Login to Roamhome",
+    "login" : "Login",
+    "no_account" : "Don't have an account?"
   }, 
   "signup": {
     "title": "Sign up to Roamhome"

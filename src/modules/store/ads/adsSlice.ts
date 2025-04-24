@@ -22,21 +22,19 @@ const adsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-        // Create Ad
-        .addCase(createAd.pending, (state) => {
-            state.loading = true;
-            state.error = null;
-            }
-        )
-        .addCase(createAd.fulfilled, (state) => {
-            state.loading = false;
-            }
-        )       
-        .addCase(createAd.rejected, (state, action) => {
-            state.loading = false;
-            state.error = action.payload as string;
-            }
-        )       
+      // Create Ad
+      .addCase(createAd.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(createAd.fulfilled, (state) => {
+        state.loading = false;
+      })
+      .addCase(createAd.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+
       // Get All Ads
       .addCase(getAds.pending, (state) => {
         state.loading = true;
