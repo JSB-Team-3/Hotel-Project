@@ -53,8 +53,8 @@ const LanguageSelector: React.FC = () => {
           aria-haspopup="true"
           aria-expanded={open ? 'true' : undefined}
           sx={{
-            position: 'relative',
-            color: open ? theme.palette.primary.main : theme.palette.text.primary,
+            position: 'relative',                  
+            color: theme.custom.liteMain,
             backgroundColor: open ? 
               theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.04)' 
               : 'transparent',
@@ -142,7 +142,7 @@ const LanguageSelector: React.FC = () => {
         >
           <ListItemIcon sx={{ fontSize: '1.4rem', minWidth: 36 }}>
             {currentLanguage.flag}
-          </ListItemIcon>
+          </ListItemIcon >
           <Typography variant="body2">{currentLanguage.label}</Typography>
         </MenuItem>
 
@@ -150,7 +150,7 @@ const LanguageSelector: React.FC = () => {
 
         {/* Render languages by region */}
         {Object.entries(regions).map(([region, langCodes]) => (
-          <React.Fragment key={region}>
+          <Box key={region}>
             <Typography 
               variant="caption" 
               sx={{ 
@@ -192,7 +192,7 @@ const LanguageSelector: React.FC = () => {
             {region !== Object.keys(regions)[Object.keys(regions).length - 1] && (
               <Divider sx={{ my: 1 }} />
             )}
-          </React.Fragment>
+          </Box>
         ))}
       </Menu>
     </>

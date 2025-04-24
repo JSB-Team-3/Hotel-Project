@@ -8,6 +8,7 @@ import VerifyAccount from './modules/Authentication/VerifyAccount/VerifyAccount'
 import Register from './modules/Authentication/Register/Register';
 import NotFound from './modules/shared/NotFound/NotFound'
 import AuthLayout from './modules/shared/AuthLayout/AuthLayout'
+import Dashboard from './modules/Dashboad/Dashboard';
 function App() {
 const routes=createBrowserRouter([
   {path:"",element:<AuthLayout/>,errorElement:<NotFound/>,
@@ -20,9 +21,12 @@ const routes=createBrowserRouter([
       { path: "verify-account", element: <VerifyAccount /> },
     ]},
     { path:'dashboard', element:<MasterLayout/>,errorElement:<NotFound/>,
-      children:[ ]
+      children:[
+        {index:true,element:<Dashboard/>},
+       ]
     }
 ])
+
   return (
   <RouterProvider router={routes}/>
   )

@@ -13,6 +13,7 @@ import { login as loginThunk } from '../../store/auth/authThunks';
 import { LoginFormInputs } from '../../interfaces/AuthInterfaces';
 import { toast } from 'react-toastify';
 
+
 const Login = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch<AppDispatch>();
@@ -20,11 +21,13 @@ const Login = () => {
   const { EMAIL_VALIDATION, PASSWORD_VALIDATION } = useValidation();
   const navigate = useNavigate();
 
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormInputs>({ mode: 'onChange' });
+ 
 
   const onSubmit = async (data: LoginFormInputs) => {
     try {

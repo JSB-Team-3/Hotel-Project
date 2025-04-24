@@ -14,8 +14,10 @@ export const getAds = createAsyncThunk('ads/getAll', async (params: getAllAdsPar
   }
 });
 
+
 // ✅ Create Ad (Fixed action type!)
 export const createAd = createAsyncThunk('ads/create', async (data: adPayload, thunkAPI) => {
+
   try {
     const response = await privateAxiosInstance.post(ADMIN_ADS_URLS.CREATE_AD, data);
     return response.data;

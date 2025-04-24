@@ -1,5 +1,5 @@
 {
-  "welcome": "Welcome to the app!",
+  "welcome": "Welcome",
   "logout": "Logout",
   "validation": {
     "email_required": "Email is required",
@@ -78,7 +78,10 @@
     "submit": "Submit",
     "close": "Close",
     "back": "Back",
-    "next": "Next"
+    "next": "Next",
+    "logout":"Logout",
+    "search": "Search...",
+    "settings": "Settings"
   },
   "language": {
     "select": "Select Language",
@@ -89,5 +92,14 @@
       "modalTitle": "Change Password",
       "modalDescription": "Ready to set a new password?",
       "successMessage": "Password updated successfully!"
+    },
+    "sidebar": {
+      "home": "Home",
+      "users": "Users",
+      "rooms": "Rooms",
+      "ads": "Ads",
+      "bookings": "Bookings",
+      "facilities": "Facilities",
+      "change_password": "Change password"
     }
 }
