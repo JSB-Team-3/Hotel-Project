@@ -53,22 +53,16 @@ const LanguageSelector: React.FC = () => {
           aria-haspopup="true"
           aria-expanded={open ? "true" : undefined}
           sx={{
-            position: "relative",
-            color: open
-              ? theme.palette.primary.main
-              : theme.palette.text.primary,
-            backgroundColor: open
-              ? theme.palette.mode === "dark"
-                ? "rgba(255, 255, 255, 0.05)"
-                : "rgba(0, 0, 0, 0.04)"
-              : "transparent",
-            borderRadius: "50%",
-            transition: "all 0.2s ease",
-            "&:hover": {
-              backgroundColor:
-                theme.palette.mode === "dark"
-                  ? "rgba(255, 255, 255, 0.08)"
-                  : "rgba(0, 0, 0, 0.08)",
+
+            position: 'relative',                  
+            color: theme.custom.liteMain,
+            backgroundColor: open ? 
+              theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.04)' 
+              : 'transparent',
+            borderRadius: '50%',
+            transition: 'all 0.2s ease',
+            '&:hover': {
+              backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.08)',
             },
           }}
         >
@@ -161,7 +155,7 @@ const LanguageSelector: React.FC = () => {
         >
           <ListItemIcon sx={{ fontSize: "1.4rem", minWidth: 36 }}>
             {currentLanguage.flag}
-          </ListItemIcon>
+          </ListItemIcon >
           <Typography variant="body2">{currentLanguage.label}</Typography>
         </MenuItem>
 
@@ -169,13 +163,14 @@ const LanguageSelector: React.FC = () => {
 
         {/* Render languages by region */}
         {Object.entries(regions).map(([region, langCodes]) => (
-          <Box key={region} component="li" sx={{ p: 0 }}>
-            <Typography
-              variant="caption"
-              sx={{
-                px: 2,
-                py: 0.5,
-                display: "block",
+
+          <Box key={region}>
+            <Typography 
+              variant="caption" 
+              sx={{ 
+                px: 2, 
+                py: 0.5, 
+                display: 'block', 
                 color: theme.palette.text.secondary,
                 fontWeight: 500,
               }}

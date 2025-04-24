@@ -1,15 +1,19 @@
-export const baseURL = "https://upskilling-egypt.com:3000/api/v0";
-export const imgURL = "https://upskilling-egypt.com:3003/";
-
-export const USER_URLS = {
-  LOGIN: `/admin/users/login`,
-  REGISTER: `/admin/users`,
-  FORGET_PASS: `/portal/users/forgot-password`,
-  RESET_PASS: `/admin/users/reset-password`,
-  CHANGE_PASS: `/admin/users/change-password`,
-};
 
 
+
+export const baseURL= "https://upskilling-egypt.com:3000/api/v0"
+export const imgURL="https://upskilling-egypt.com:3003/"
+
+
+
+export const USER_URLS={
+    LOGIN:`/admin/users/login`,
+    REGISTER:`/admin/users`,
+    FORGET_PASS:`/portal/users/forgot-password`,
+    RESET_PASS:`/admin/users/reset-password`,
+    CHANGE_PASS:`/admin/users/change-password`,
+
+}
 
 export const ADMIN_USERS_URLS = {
   GET_ALL_USERS: `/admin/users`,
@@ -19,6 +23,7 @@ export const ADMIN_USERS_URLS = {
 export const ADMIN_CHART_URLS = {
   GET_CHART: `/admin/dashboard`,
 };
+
 
 export const ADMIN_ROOMS_URLS = {
   CREATE_ROOM: `/admin/rooms`,
@@ -49,3 +54,4 @@ export const ADMIN_ADS_URLS = {
   DELETE_AD: (id: string) => `/admin/ads/${id}`,
   UPDATE_AD: (id: string) => `/admin/ads/${id}`,
 };
+

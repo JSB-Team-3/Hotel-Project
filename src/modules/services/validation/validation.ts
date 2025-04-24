@@ -1,3 +1,4 @@
+
 import { useTranslation } from "react-i18next";
 import { pattern } from "../../interfaces/AuthInterfaces";
 
@@ -57,4 +58,5 @@ import { pattern } from "../../interfaces/AuthInterfaces";
         message: t('validation.phone_invalid'),
       },
     }
+
  

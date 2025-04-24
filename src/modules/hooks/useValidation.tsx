@@ -26,7 +26,7 @@ export const useValidation = () => {
       required: t('validation.otp_required'),
     },
 
-    CONFIRM_PASS_VALIDATION :(password: string): RegisterOptions<RegisterFormInputs> => ({
+    CONFIRM_PASS_VALIDATION :(password: string) => ({
       required: t('validation.confirm_password_required'),
       validate: (value: string | FileList | undefined) =>
         typeof value === 'string' && value === password
