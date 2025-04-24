@@ -1,10 +1,12 @@
-import { createTheme, PaletteMode, ThemeOptions } from '@mui/material';
+// muiTheme.ts
+import { createTheme, PaletteMode, Theme } from '@mui/material';
 import { getTokens } from './token';
 
-export const getMuiTheme = (mode: PaletteMode): ThemeOptions => {
-  const tokens = getTokens(mode);  // Get the correct tokens for the mode
+export const getMuiTheme = (mode: PaletteMode, direction: 'ltr' | 'rtl' = 'ltr'): Theme => {
+  const tokens = getTokens(mode);
 
   return createTheme({
+    direction, // 👈 dynamic direction
     palette: {
       mode,
       primary: { main: tokens.primary },
@@ -16,7 +18,11 @@ export const getMuiTheme = (mode: PaletteMode): ThemeOptions => {
       text: {
         primary: tokens.text.primary,
         secondary: tokens.text.secondary,
-      },
+      }
+    },
+    custom: {
+      blueMain: tokens.blueMain,
+      liteMain: tokens.liteMain,
     },
     typography: {
       fontFamily: 'Poppins, sans-serif',
@@ -25,8 +31,7 @@ export const getMuiTheme = (mode: PaletteMode): ThemeOptions => {
       MuiCssBaseline: {
         styleOverrides: {
           body: {
-            transition: 'all 0.3s ease-in-out',
-            backgroundColor: tokens.background.default,
+            backgroundColor: tokens.background.paper,
             color: tokens.text.primary,
           },
         },

@@ -7,7 +7,9 @@ const initialState: RoomsState = {
   rooms: [],
   roomDetails: null,
   loading: false,
+  deleteLoading: false,
   error: null,
+  totalCount: 0,
 };
 
 const roomsSlice = createSlice({
@@ -46,7 +48,7 @@ const roomsSlice = createSlice({
       .addCase(updateRoom.fulfilled, (state, action) => {
         state.loading = false;
         state.rooms = state.rooms.map((room) =>
-          room.id === action.payload.id ? action.payload : room
+          room._id === action.payload._id ? action.payload : room
         );
       })
       .addCase(updateRoom.rejected, (state, action) => {
@@ -70,15 +72,14 @@ const roomsSlice = createSlice({
 
       // Delete Room
       .addCase(deleteRoom.pending, (state) => {
-        state.loading = true;
         state.error = null;
+        state.deleteLoading = true;
       })
-      .addCase(deleteRoom.fulfilled, (state, action) => {
-        state.loading = false;
-        state.rooms = state.rooms.filter((room) => room.id !== action.payload.id);
+      .addCase(deleteRoom.fulfilled, (state) => {
+        state.deleteLoading = false;
       })
       .addCase(deleteRoom.rejected, (state, action) => {
-        state.loading = false;
+        state.deleteLoading = false;
         state.error = action.payload as string;
       })
 
@@ -89,7 +90,8 @@ const roomsSlice = createSlice({
       })
       .addCase(getAllRooms.fulfilled, (state, action) => {
         state.loading = false;
-        state.rooms = action.payload;
+        state.rooms = action.payload?.data?.rooms;
+        state.totalCount = action.payload?.data?.totalCount;
       })
       .addCase(getAllRooms.rejected, (state, action) => {
         state.loading = false;

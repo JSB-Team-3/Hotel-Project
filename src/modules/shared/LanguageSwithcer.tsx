@@ -45,16 +45,17 @@ const LanguageSelector: React.FC = () => {
 
   return (
     <>
-      <Tooltip title={t('language.select')} arrow>
+      <Tooltip title={t("language.select")} arrow>
         <IconButton
           onClick={handleMenu}
           size="medium"
-          aria-controls={open ? 'language-menu' : undefined}
+          aria-controls={open ? "language-menu" : undefined}
           aria-haspopup="true"
-          aria-expanded={open ? 'true' : undefined}
+          aria-expanded={open ? "true" : undefined}
           sx={{
-            position: 'relative',
-            color: open ? theme.palette.primary.main : theme.palette.text.primary,
+
+            position: 'relative',                  
+            color: theme.custom.liteMain,
             backgroundColor: open ? 
               theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.04)' 
               : 'transparent',
@@ -68,18 +69,18 @@ const LanguageSelector: React.FC = () => {
           <LanguageIcon />
           <Box
             sx={{
-              position: 'absolute',
+              position: "absolute",
               top: 0,
               right: 0,
               width: 16,
               height: 16,
-              borderRadius: '50%',
+              borderRadius: "50%",
               backgroundColor: theme.palette.background.paper,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
-              fontSize: '0.6rem',
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              boxShadow: "0 1px 3px rgba(0,0,0,0.2)",
+              fontSize: "0.6rem",
             }}
           >
             {currentLanguage.flag}
@@ -99,29 +100,38 @@ const LanguageSelector: React.FC = () => {
           sx: {
             minWidth: 220,
             maxHeight: 400,
-            overflow: 'auto',
-            borderRadius: '12px',
+            overflow: "auto",
+            borderRadius: "12px",
             mt: 1.5,
-            '& .MuiList-root': {
+            "& .MuiList-root": {
               py: 1,
             },
-            filter: 'drop-shadow(0px 6px 20px rgba(0,0,0,0.15))',
+            filter: "drop-shadow(0px 6px 20px rgba(0,0,0,0.15))",
           },
         }}
-        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+        transformOrigin={{ horizontal: "right", vertical: "top" }}
+        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <Box sx={{ px: 2, pb: 1, pt: 1.5, display: 'flex', alignItems: 'center' }}>
-          <TranslateIcon fontSize="small" sx={{ mr: 1, color: theme.palette.text.secondary }} />
-          <Typography variant="subtitle2" color="text.secondary" fontWeight="500">
-            {t('language.select')}
+        <Box
+          sx={{ px: 2, pb: 1, pt: 1.5, display: "flex", alignItems: "center" }}
+        >
+          <TranslateIcon
+            fontSize="small"
+            sx={{ mr: 1, color: theme.palette.text.secondary }}
+          />
+          <Typography
+            variant="subtitle2"
+            color="text.secondary"
+            fontWeight="500"
+          >
+            {t("language.select")}
           </Typography>
         </Box>
-        
+
         <Divider sx={{ my: 1 }} />
-        
+
         <Chip
-          label={t('language.current')}
+          label={t("language.current")}
           size="small"
           color="primary"
           variant="outlined"
@@ -134,15 +144,18 @@ const LanguageSelector: React.FC = () => {
           onClick={() => handleLanguageChange(currentLanguage.code)}
           selected={true}
           sx={{
-            backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.04)',
+            backgroundColor:
+              theme.palette.mode === "dark"
+                ? "rgba(255, 255, 255, 0.08)"
+                : "rgba(0, 0, 0, 0.04)",
             mb: 1,
             mx: 1,
-            borderRadius: '8px',
+            borderRadius: "8px",
           }}
         >
-          <ListItemIcon sx={{ fontSize: '1.4rem', minWidth: 36 }}>
+          <ListItemIcon sx={{ fontSize: "1.4rem", minWidth: 36 }}>
             {currentLanguage.flag}
-          </ListItemIcon>
+          </ListItemIcon >
           <Typography variant="body2">{currentLanguage.label}</Typography>
         </MenuItem>
 
@@ -150,7 +163,8 @@ const LanguageSelector: React.FC = () => {
 
         {/* Render languages by region */}
         {Object.entries(regions).map(([region, langCodes]) => (
-          <React.Fragment key={region}>
+
+          <Box key={region}>
             <Typography 
               variant="caption" 
               sx={{ 
@@ -163,9 +177,9 @@ const LanguageSelector: React.FC = () => {
             >
               {region}
             </Typography>
-            
-            {langCodes.map(code => {
-              const lang = languages.find(l => l.code === code);
+
+            {langCodes.map((code) => {
+              const lang = languages.find((l) => l.code === code);
               if (lang && lang.code !== i18n.language) {
                 return (
                   <MenuItem
@@ -173,13 +187,16 @@ const LanguageSelector: React.FC = () => {
                     onClick={() => handleLanguageChange(lang.code)}
                     sx={{
                       mx: 1,
-                      borderRadius: '8px',
-                      '&:hover': {
-                        backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.06)',
-                      }
+                      borderRadius: "8px",
+                      "&:hover": {
+                        backgroundColor:
+                          theme.palette.mode === "dark"
+                            ? "rgba(255, 255, 255, 0.1)"
+                            : "rgba(0, 0, 0, 0.06)",
+                      },
                     }}
                   >
-                    <ListItemIcon sx={{ fontSize: '1.4rem', minWidth: 36 }}>
+                    <ListItemIcon sx={{ fontSize: "1.4rem", minWidth: 36 }}>
                       {lang.flag}
                     </ListItemIcon>
                     <Typography variant="body2">{lang.label}</Typography>
@@ -188,11 +205,12 @@ const LanguageSelector: React.FC = () => {
               }
               return null;
             })}
-            
-            {region !== Object.keys(regions)[Object.keys(regions).length - 1] && (
+
+            {region !==
+              Object.keys(regions)[Object.keys(regions).length - 1] && (
               <Divider sx={{ my: 1 }} />
             )}
-          </React.Fragment>
+          </Box>
         ))}
       </Menu>
     </>

@@ -2,12 +2,14 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ADMIN_ROOMS_URLS } from "../../services/api/apiConfig";
 import { privateAxiosInstance } from "../../services/api/apiInstance";
 import { handleThunkError } from "../../../utilities/handleThunkError";
-import { GetAllRoomsParams, RoomPayload, UpdateRoomPayload } from "../../../Interfaces/rooms.interface";
+import { GetAllRoomsParams, UpdateRoomPayload } from "../../../Interfaces/rooms.interface";
 
-export const createRoom = createAsyncThunk('room/create', async(payload:RoomPayload, thunkAPI) =>{
+export const createRoom = createAsyncThunk('room/create', async(payload:FormData, thunkAPI) =>{
     try{
-        const response = await privateAxiosInstance.post(ADMIN_ROOMS_URLS.CREATE_ROOM, payload)
-        return response.data
+        const response = await privateAxiosInstance.post(ADMIN_ROOMS_URLS.CREATE_ROOM, payload,{headers: {
+            'Content-Type': 'multipart/form-data',
+          }},)
+          return response?.data
     }catch (err) {
         return thunkAPI.rejectWithValue(handleThunkError(err, 'Failed to create the room'));
     }
@@ -31,17 +33,17 @@ export const getRoomDetails = createAsyncThunk('room/details', async(id:string,t
 })
 export const deleteRoom = createAsyncThunk('room/delete', async(id:string,thunkAPI) =>{
     try{
-        const response = await privateAxiosInstance.post(ADMIN_ROOMS_URLS.DELETE_ROOM(id))
+        const response = await privateAxiosInstance.delete(ADMIN_ROOMS_URLS.DELETE_ROOM(id))
         return response.data
     }catch (err) {
-        return thunkAPI.rejectWithValue(handleThunkError(err, 'Failed to create the room'));
+        return thunkAPI.rejectWithValue(handleThunkError(err, 'Failed to delete the room'));
     }
 })
 export const getAllRooms = createAsyncThunk('room/getAll', async(params:GetAllRoomsParams ,thunkAPI) =>{
     try{
-        const response = await privateAxiosInstance.post(ADMIN_ROOMS_URLS.GET_ALL_ROOMS,params)
+        const response = await privateAxiosInstance.get(ADMIN_ROOMS_URLS.GET_ALL_ROOMS,{params})
         return response.data
     }catch (err) {
-        return thunkAPI.rejectWithValue(handleThunkError(err, 'Failed to create the room'));
+        return thunkAPI.rejectWithValue(handleThunkError(err, 'Failed to retrieve  rooms list'));
     }
 })

@@ -42,11 +42,8 @@ export const roomFacilitiesSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(updateRoomFacility.fulfilled, (state, action) => {
+      .addCase(updateRoomFacility.fulfilled, (state) => {
         state.loading = false;
-        state.facilities = state.facilities.map(facility =>
-          facility.id === action.payload.id ? action.payload : facility
-        );
       })
       .addCase(updateRoomFacility.rejected, (state, action) => {
         state.loading = false;
@@ -72,9 +69,8 @@ export const roomFacilitiesSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(deleteRoomFacility.fulfilled, (state, action) => {
+      .addCase(deleteRoomFacility.fulfilled, (state) => {
         state.loading = false;
-        state.facilities = state.facilities.filter(facility => facility.id !== action.meta.arg);
       })
       .addCase(deleteRoomFacility.rejected, (state, action) => {
         state.loading = false;
@@ -88,7 +84,7 @@ export const roomFacilitiesSlice = createSlice({
       })
       .addCase(getAllRoomFacilities.fulfilled, (state, action) => {
         state.loading = false;
-        state.facilities = action.payload;
+        state.facilities = action.payload?.data?.facilities;
       })
       .addCase(getAllRoomFacilities.rejected, (state, action) => {
         state.loading = false;

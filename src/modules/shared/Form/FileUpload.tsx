@@ -105,7 +105,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
         <Grid size={7}  sx={{ display: 'flex', alignItems: 'center', padding: theme.spacing(2) }}>
           <Box sx={{ display: 'flex', alignItems: 'center', maxWidth: '100%', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
             {selectedFile ? (
-              <>
+              <Box>
                 <FileIcon sx={{ color: theme.palette.primary.main, mr: 1.5, flexShrink: 0 }} />
                 <Box sx={{ minWidth: 0, flexGrow: 1 }}>
                   <Typography noWrap variant="body2" sx={{ color: theme.palette.text.primary, fontWeight: 500 }}>
@@ -131,7 +131,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
                     <ClearIcon fontSize="small" />
                   </Button>
                 </Box>
-              </>
+              </Box>
             ) : (
               <Typography sx={{ color: theme.palette.text.secondary, fontStyle: 'italic' }} variant="body2">
                 {t('form.no_file')}
@@ -169,7 +169,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
                   if (!selectedFile && !value?.[0]) return t('form.image_required');
                   const file = selectedFile || value?.[0];
                   if (!file) return true;
-
+                  
                   const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
                   if (!validTypes.includes(file.type)) return t('form.invalid_image_type');
 

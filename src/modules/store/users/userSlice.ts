@@ -7,6 +7,8 @@ const initialState: UsersState = {
   userProfile: null,
   loading: false,
   error: null,
+  totalCount: 0,
+
 };
 
 const usersSlice = createSlice({
@@ -17,7 +19,7 @@ const usersSlice = createSlice({
       state.users = [];
       state.userProfile = null;
       state.loading = false;
-      state.error = null;
+     state.error = null;
     },
   },
   extraReducers: (builder) => {
@@ -29,7 +31,8 @@ const usersSlice = createSlice({
       })
       .addCase(getAllUsers.fulfilled, (state, action) => {
         state.loading = false;
-        state.users = action.payload;
+        state.users = action.payload.data.users;
+        state.totalCount = action.payload.data.totalCount;
       })
       .addCase(getAllUsers.rejected, (state, action) => {
         state.loading = false;

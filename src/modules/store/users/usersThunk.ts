@@ -9,7 +9,7 @@ export const getAllUsers = createAsyncThunk(
   "adminUsers/getAll",
   async (params: GetAllUsersParams, thunkAPI) => {
     try {
-      const response = await privateAxiosInstance.post(ADMIN_USERS_URLS.GET_ALL_USERS, params);
+      const response = await privateAxiosInstance.get(ADMIN_USERS_URLS.GET_ALL_USERS, {params});
       return response.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(handleThunkError(err, "Failed to fetch users"));

@@ -7,7 +7,6 @@ const BootstrapInput = styled(InputBase)(({ theme, error }) => ({
   '& .MuiInputBase-input': {
     borderRadius: 4,
     position: 'relative',
-    backgroundColor: theme.palette.background.paper,  // Use background paper from theme
     border: '1px solid',
     borderColor: error ? theme.palette.error.main : theme.palette.divider, // Use theme colors for border
     fontSize: 16,
@@ -15,7 +14,6 @@ const BootstrapInput = styled(InputBase)(({ theme, error }) => ({
     padding: '10px 12px',
     transition: theme.transitions.create([
       'border-color',
-      'background-color',
       'box-shadow',
     ]),
     fontFamily: [
@@ -30,6 +28,10 @@ const BootstrapInput = styled(InputBase)(({ theme, error }) => ({
       '"Segoe UI Emoji"',
       '"Segoe UI Symbol"',
     ].join(','),
+    '&::placeholder': {
+      color: theme.palette.text.primary, // Placeholder color for error
+      opacity: 1, // Important for visibility
+    },
     // Change box-shadow when focused and error occurs
     '&:focus': {
       boxShadow: error

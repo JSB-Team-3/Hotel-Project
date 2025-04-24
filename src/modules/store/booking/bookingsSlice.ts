@@ -9,6 +9,8 @@ const initialState: BookingState = {
   bookingDetails: null,
   loading: false,
   error: null,
+  deleteLoading: false,
+  totalCount: 0,
 };
 
 const bookingSlice = createSlice({
@@ -28,8 +30,9 @@ const bookingSlice = createSlice({
       })
       .addCase(getAllBookings.fulfilled, (state, action) => {
         state.loading = false;
-        state.bookings = action.payload;
-      })
+        state.bookings = action.payload?.data?.booking;
+        state.totalCount = action.payload?.data?.totalCount;
+            })
       .addCase(getAllBookings.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
@@ -42,7 +45,7 @@ const bookingSlice = createSlice({
       })
       .addCase(getBookingDetails.fulfilled, (state, action) => {
         state.loading = false;
-        state.bookingDetails = action.payload;
+        state.bookingDetails = action.payload?.data?.booking;
       })
       .addCase(getBookingDetails.rejected, (state, action) => {
         state.loading = false;
@@ -51,18 +54,14 @@ const bookingSlice = createSlice({
 
       // Delete Booking
       .addCase(deleteBooking.pending, (state) => {
-        state.loading = true;
+        state.deleteLoading = true;
         state.error = null;
       })
-      .addCase(deleteBooking.fulfilled, (state, action) => {
-        state.loading = false;
-        // After deletion, remove the booking from the list
-        state.bookings = state.bookings.filter(
-          (booking) => booking.id !== action.meta.arg
-        );
+      .addCase(deleteBooking.fulfilled, (state) => {
+        state.deleteLoading = false;
       })
       .addCase(deleteBooking.rejected, (state, action) => {
-        state.loading = false;
+        state.deleteLoading = false;
         state.error = action.payload as string;
       });
   },

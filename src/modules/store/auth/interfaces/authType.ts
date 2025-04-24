@@ -34,7 +34,7 @@ export interface ForgotPasswordData {
 
 export interface ResetPasswordData {
   email: string;
-  otp: string;
+  seed: string;
   password: string;
   confirmPassword: string;
 }
