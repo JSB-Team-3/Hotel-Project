@@ -60,7 +60,8 @@ export default function RoomsList() {
     }
   };
 const renderRow = (item: Room | Booking |User ) => {
-  if ('price' in item && 'capacity' in item ) {
+
+  if ('price' in item && 'capacity' in item) {
     const room = item as Room;
   
   return (
@@ -77,7 +78,6 @@ const renderRow = (item: Room | Booking |User ) => {
         <TableActions  handleDeleteItem={handleDeleteItem} item={room} route={`/dashboard/room-data/${room?._id}`} />
       </StyledTableCell>
     </StyledTableRow>
-  
   );
 }}
   // Pagination handlers

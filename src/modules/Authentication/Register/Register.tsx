@@ -11,7 +11,7 @@ import { useRegisterForm } from '../../hooks/useRegistratoinFrom';
 const Register = () => {
  const {
   t, register, handleSubmit, errors, getValues, loading,
-  selectedFile, setSelectedFile, onSubmit, validations
+  selectedFiles, setSelectedFiles, onSubmit, validations
 } = useRegisterForm();
 
   return (
@@ -75,8 +75,8 @@ const Register = () => {
 
           {/* File Upload Component */}
           <FileUpload
-            selectedFile={selectedFile}
-            setSelectedFile={setSelectedFile}
+            selectedFiles={selectedFiles}
+            setSelectedFiles={setSelectedFiles}
             register={register}
             errors={errors}
           />
