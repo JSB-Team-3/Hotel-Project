@@ -13,6 +13,7 @@ export const getAds = createAsyncThunk('ads/getAll', async (params: getAllAdsPar
     return thunkAPI.rejectWithValue(handleThunkError(err, 'Failed to fetch ads'));
   }
 });
+
 export const createAd = createAsyncThunk('ads/createAd', async (data:adPayload, thunkAPI) => {
   try {
     const response = await privateAxiosInstance.post(ADMIN_ADS_URLS.CREATE_AD, data);

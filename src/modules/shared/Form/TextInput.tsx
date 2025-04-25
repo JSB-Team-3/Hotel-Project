@@ -18,7 +18,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import useTogglePassword from '../../hooks/useTogglePassword';
 import BootstrapInput from './BootstrapInput';
 import { useTranslation } from 'react-i18next';
-import { RegisterFormInputs } from '../../interfaces/AuthInterfaces';
+import { RegisterFormInputs } from '../../../Interfaces/AuthInterfaces';
 
 type ExtendedFieldErrors = FieldErrors<RegisterFormInputs> & {
   oldPassword?: { message?: string };

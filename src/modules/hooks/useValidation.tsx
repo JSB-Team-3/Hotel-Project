@@ -1,6 +1,6 @@
 import { RegisterOptions } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { RegisterFormInputs } from "../interfaces/AuthInterfaces";
+import { RegisterFormInputs } from "../../Interfaces/AuthInterfaces";
 
 export const useValidation = () => {
   const { t } = useTranslation();

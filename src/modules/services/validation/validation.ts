@@ -1,6 +1,6 @@
 
 import { useTranslation } from "react-i18next";
-import { pattern } from "../../interfaces/AuthInterfaces";
+import { pattern } from "../../../Interfaces/AuthInterfaces";
 
 
 
