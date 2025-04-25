@@ -16,6 +16,8 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import BootstrapInput from '../Form/BootstrapInput';
 import { StyledAppBar } from './ StyledAppBar';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/auth/AuthConfig';
 
 interface NavbarProps {
   open: boolean;
@@ -38,6 +40,10 @@ const Navbar: React.FC<NavbarProps> = ({ open }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const isUserMenuOpen = Boolean(userMenuAnchor);
+  const user= useSelector((state: RootState) => state.auth.user);
+  console.log("user",user);
+  const userName = user?.userName || 'User'; 
+  
 
   const handleUserMenuOpen = useCallback((e: React.MouseEvent<HTMLElement>) => {
     setUserMenuAnchor(e.currentTarget);
@@ -117,7 +123,7 @@ const Navbar: React.FC<NavbarProps> = ({ open }) => {
                 variant="body1"
                 sx={{ fontWeight: 500, color: 'text.primary', userSelect: 'none' }}
               >
-                {t('welcome')} 
+                {t('welcome ')  } <Typography component="span" sx={{ fontWeight: 700 }}>{userName}</Typography>
               </Typography>
               {/* Added angle icon that changes based on menu state */}
               {isUserMenuOpen ? (
@@ -165,10 +171,7 @@ const Navbar: React.FC<NavbarProps> = ({ open }) => {
             >
               <Box sx={{ px: 2, py: 1.5 }}>
                 <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
-                  User Name
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  user@example.com
+                  {userName}
                 </Typography>
               </Box>
 

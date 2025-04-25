@@ -7,7 +7,7 @@ import { handleThunkError } from "../../../utilities/handleThunkError";
 
 export const login = createAsyncThunk('auth/login', async(data: LoginData, thunkAPI) =>{
     try{
-        const response = await puplicAxiosInstance.post(USER_URLS.LOGIN, data)
+        const response = await puplicAxiosInstance.post(USER_URLS.LOGIN, data)        
         return response.data
     }catch (err) {
         return thunkAPI.rejectWithValue(handleThunkError(err, 'Failed to login'));
@@ -54,3 +54,12 @@ export const changePassword = createAsyncThunk('auth/changePass', async(data: Ch
         return thunkAPI.rejectWithValue(handleThunkError(error, 'Failed to change password'));
     }
 })
+export const getUserProfile = createAsyncThunk('auth/getUserProfile', async({id}:{id:string}, thunkAPI) =>{
+    try{
+        const response = await privateAxiosInstance.get(USER_URLS.USER_PROFILE(id))
+        return response.data
+    }catch (error) {
+        return thunkAPI.rejectWithValue(handleThunkError(error, 'Failed to fetch user profile'));
+    }
+})
+
