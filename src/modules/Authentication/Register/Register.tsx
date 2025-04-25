@@ -18,7 +18,7 @@ const Register = () => {
   const { t } = useTranslation();  // Translation hook
   const dispatch = useDispatch<AppDispatch>();
   const { loading, error, user } = useSelector((state: RootState) => state.auth);
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
 
   const {
     CONFIRM_PASS_VALIDATION,
@@ -37,20 +37,28 @@ const Register = () => {
     formState: { errors },
     getValues,
   } = useForm<RegisterFormInputs>({ mode: 'onChange' });
-
   const onSubmit = async (data: RegisterFormInputs) => {
-    if (!selectedFile) return toast.error(t('form.image_required'));  // Error message
+    if (!selectedFiles || selectedFiles.length === 0) {
+      return toast.error(t('form.image_required')); // Error message
+    }
+
+    const formData = new FormData();
+    formData.append('userName', data.userName);
+    formData.append('phoneNumber', data.phoneNumber);
+    formData.append('country', data.country);
+    formData.append('email', data.email);
+    formData.append('password', data.password);
+    formData.append('confirmPassword', data.confirmPassword);
+    formData.append('role', 'user');
+    selectedFiles.forEach((file) => {
+      formData.append(`profileImage`, file);
+    });
+
     try {
-      await dispatch(registerThunk({
-        ...data,
-        role: 'user',
-        profileImage: selectedFile,
-      })).unwrap();
-      // enqueueSnackbar(response?.message || t('register.success_message'), { variant: 'success' });
+      await dispatch(registerThunk(formData)).unwrap();
       navigate('/login');
     } catch (error) {
-      // enqueueSnackbar(error as string || t('register.error_message'), { variant: 'error' });
-
+      toast.error(error as string || t('register.error_message'));
     }
   };
 
@@ -115,8 +123,8 @@ const Register = () => {
 
           {/* File Upload Component */}
           <FileUpload
-            selectedFile={selectedFile}
-            setSelectedFile={setSelectedFile}
+            selectedFiles={selectedFiles}
+            setSelectedFiles={setSelectedFiles}
             register={register}
             errors={errors}
             t={t}
