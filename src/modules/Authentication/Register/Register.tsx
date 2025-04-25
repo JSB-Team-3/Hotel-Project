@@ -1,66 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Box from '@mui/material/Box';
 import { Grid, Typography, Link} from '@mui/material';
-import { useForm } from 'react-hook-form';
 import TextInput from '../../shared/Form/TextInput';
 import FormButton from '../../shared/Form/FormButton';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import { useValidation } from '../../hooks/useValidation';
-import { useTranslation } from 'react-i18next';
-import { toast } from 'react-toastify';
-import { AppDispatch, RootState } from '../../store/auth/AuthConfig';
-import { useDispatch, useSelector } from 'react-redux';
-import { register as registerThunk } from '../../store/auth/AuthThunks';
-import { RegisterFormInputs } from '../../interfaces/AuthInterfaces';
+import { Link as RouterLink} from 'react-router-dom';
+import { RegisterFormInputs } from '../../../Interfaces/AuthInterfaces';
 import FileUpload from '../../shared/Form/FileUpload';
+import { useRegisterForm } from '../../hooks/useRegistratoinFrom';
 
 const Register = () => {
-  const { t } = useTranslation();  // Translation hook
-  const dispatch = useDispatch<AppDispatch>();
-  const { loading, error, user } = useSelector((state: RootState) => state.auth);
-  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
-
-  const {
-    CONFIRM_PASS_VALIDATION,
-    COUNTRY_VALIDATION,
-    EMAIL_VALIDATION,
-    PASSWORD_VALIDATION,
-    PHONE_VALIDATION,
-    USERNAME_VALIDATION,
-  } = useValidation();
-
-  const navigate = useNavigate();
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    getValues,
-  } = useForm<RegisterFormInputs>({ mode: 'onChange' });
-  const onSubmit = async (data: RegisterFormInputs) => {
-    if (!selectedFiles || selectedFiles.length === 0) {
-      return toast.error(t('form.image_required')); // Error message
-    }
-
-    const formData = new FormData();
-    formData.append('userName', data.userName);
-    formData.append('phoneNumber', data.phoneNumber);
-    formData.append('country', data.country);
-    formData.append('email', data.email);
-    formData.append('password', data.password);
-    formData.append('confirmPassword', data.confirmPassword);
-    formData.append('role', 'user');
-    selectedFiles.forEach((file) => {
-      formData.append(`profileImage`, file);
-    });
-
-    try {
-      await dispatch(registerThunk(formData)).unwrap();
-      navigate('/login');
-    } catch (error) {
-      toast.error(error as string || t('register.error_message'));
-    }
-  };
+ const {
+  t, register, handleSubmit, errors, getValues, loading,
+  selectedFiles, setSelectedFiles, onSubmit, validations
+} = useRegisterForm();
 
   return (
     <Box component="section" >
@@ -82,7 +34,7 @@ const Register = () => {
             id="username"
             label={t('form.username')}
             register={register}
-            validation={USERNAME_VALIDATION}
+            validation={validations.USERNAME_VALIDATION}
             type="text"
             errors={errors}
           />
@@ -93,7 +45,7 @@ const Register = () => {
               id="phone"
               label={t('form.phonenumber')}
               register={register}
-              validation={PHONE_VALIDATION}
+              validation={validations.PHONE_VALIDATION}
               type="text"
               errors={errors}
             />
@@ -105,7 +57,7 @@ const Register = () => {
               id="country"
               label={t('form.country')}
               register={register}
-              validation={COUNTRY_VALIDATION}
+              validation={validations.COUNTRY_VALIDATION}
               type="text"
               errors={errors}
             />
@@ -116,7 +68,7 @@ const Register = () => {
             id="email"
             label={t('form.email')}
             register={register}
-            validation={EMAIL_VALIDATION}
+            validation={validations.EMAIL_VALIDATION}
             type="text"
             errors={errors}
           />
@@ -127,7 +79,6 @@ const Register = () => {
             setSelectedFiles={setSelectedFiles}
             register={register}
             errors={errors}
-            t={t}
           />
 
           <TextInput<RegisterFormInputs>
@@ -135,7 +86,7 @@ const Register = () => {
             id="password"
             label={t('form.password')}
             register={register}
-            validation={PASSWORD_VALIDATION}
+            validation={validations.PASSWORD_VALIDATION}
             type="password"
             errors={errors}
           />
@@ -145,7 +96,7 @@ const Register = () => {
             id="confirmPassword"
             label={t('form.confirmpassword')}
             register={register}
-            validation={CONFIRM_PASS_VALIDATION(getValues('password'))}
+            validation={validations.CONFIRM_PASS_VALIDATION(getValues('password'))}
             type="password"
             errors={errors}
           />
