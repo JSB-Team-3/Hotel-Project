@@ -11,6 +11,7 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import { FC } from 'react';
 import EmailIcon from '@mui/icons-material/Email';
 import PhoneIcon from '@mui/icons-material/Phone';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 import PublicIcon from '@mui/icons-material/Public';
 import BadgeIcon from '@mui/icons-material/Badge';
 import GppMaybeIcon from '@mui/icons-material/GppMaybe';
@@ -111,6 +112,13 @@ const UserViewLayout: FC<UserViewLayoutProps> = ({ data, handleClose }) => {
               color="primary"
               sx={{ mt: 1 }}
             />
+             <Chip
+              icon={<LocationOnIcon color='inherit' />}
+              label={data.country}
+              color="default"
+              variant="outlined"
+              sx={{ mt: 1, color: '#fff' }}
+            />
           </Box>
         </Box>
       </Box>
@@ -174,7 +182,7 @@ const UserViewLayout: FC<UserViewLayoutProps> = ({ data, handleClose }) => {
           label="CREATED AT"
           value={formatDate(data.createdAt || '2025-04-24T19:33:28.677Z')}
           hasBgColor={true}
-          icons={<PublicIcon color="action" sx={{ marginInlineEnd: 1, color: 'text.secondary' }} />}
+          icons={<UpdateIcon color="action" sx={{ marginInlineEnd: 1, color: 'text.secondary' }} />}
         />
         <InfoCard
           label="UPDATED AT"
