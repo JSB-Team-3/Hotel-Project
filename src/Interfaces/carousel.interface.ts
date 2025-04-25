@@ -1,3 +1,4 @@
+import { Navigation } from 'swiper/modules';
 
 export interface ImageCarouselProps {
   images?: string[];
@@ -7,4 +8,5 @@ export interface ImageCarouselProps {
   showPlaceholder?: boolean;
   placeholderBackground?: string;
   placeholderText?: string;
+  Navigation?: boolean;
 }

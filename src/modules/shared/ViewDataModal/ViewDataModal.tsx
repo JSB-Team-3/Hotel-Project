@@ -35,6 +35,7 @@ const ViewDataModal: FC<UserDetailsModalProps> = ({
             borderRadius: 3,
             boxShadow: 24,
             overflow: 'hidden',
+            overflowY: 'auto',
             outline: 'none',
             display: 'flex',
             flexDirection: 'column',

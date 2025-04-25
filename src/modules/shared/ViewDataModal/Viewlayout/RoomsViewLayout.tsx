@@ -67,10 +67,6 @@ const RoomsViewLayout: FC<{ data: RoomDataProps; handleClose: Function; isMobile
                 borderRadius={1}
                 placeholderText="No room images available"
                 placeholderBackground="rgba(255, 255, 255, 0.2)"
-                navigation={true}
-                pagination={true}
-                loop={true}
-                effect="slide"
               />
             </Box>
           </Box>
