@@ -78,7 +78,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, toggleSidebar }) => {
           <ListItem key={item.route} disablePadding sx={{ display: 'block' }}>
             <ListItemButton
               component={Link}
-              to={item.route}
+              to={`/dashboard${item.route}`}
               onClick={isMobile ? toggleSidebar : undefined}
               sx={{
                 minHeight: 48,

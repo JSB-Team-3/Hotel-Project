@@ -14,7 +14,7 @@ export const useRegisterForm = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const { loading } = useSelector((state: RootState) => state.auth);
 
   const {
@@ -34,14 +34,24 @@ export const useRegisterForm = () => {
   } = useForm<RegisterFormInputs>({ mode: 'onChange' });
 
   const onSubmit = async (data: RegisterFormInputs) => {
-    if (!selectedFile) return toast.error(t('form.image_required'));
+    if (!selectedFiles) return toast.error(t('form.image_required'));
+    if (!selectedFiles || selectedFiles.length === 0) {
+      return toast.error(t('form.image_required')); // Error message
+    }
+    const formData = new FormData();
+    formData.append('userName', data.userName);
+    formData.append('phoneNumber', data.phoneNumber);
+    formData.append('country', data.country);
+    formData.append('email', data.email);
+    formData.append('password', data.password);
+    formData.append('confirmPassword', data.confirmPassword);
+    formData.append('role', 'user');
+    selectedFiles.forEach((file) => {
+      formData.append(`profileImage`, file);
+    });
 
     try {
-     const response= await dispatch(registerThunk({
-        ...data,
-        role: 'user',
-        profileImage: selectedFile,
-      })).unwrap();
+      const response = await dispatch(registerThunk(formData)).unwrap();
       enqueueSnackbar(response?.message || 'User Created successfully!', { variant: 'success' });
       navigate('/login');
     } catch (error) {
@@ -56,8 +66,8 @@ export const useRegisterForm = () => {
     errors,
     getValues,
     loading,
-    selectedFile,
-    setSelectedFile,
+    selectedFiles,
+    setSelectedFiles,
     onSubmit,
     validations: {
       CONFIRM_PASS_VALIDATION,

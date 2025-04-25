@@ -17,7 +17,7 @@ export const createRoom = createAsyncThunk('room/create', async(payload:FormData
 export const updateRoom = createAsyncThunk('room/update', async(payload:UpdateRoomPayload, thunkAPI) =>{
     const {id, data} = payload
     try{
-        const response = await privateAxiosInstance.post(ADMIN_ROOMS_URLS.UPDATE_ROOM(id), data)
+        const response = await privateAxiosInstance.put(ADMIN_ROOMS_URLS.UPDATE_ROOM(id), data)
         return response.data
     }catch (err) {
         return thunkAPI.rejectWithValue(handleThunkError(err, 'Failed to update the room'));
@@ -25,7 +25,7 @@ export const updateRoom = createAsyncThunk('room/update', async(payload:UpdateRo
 })
 export const getRoomDetails = createAsyncThunk('room/details', async(id:string,thunkAPI) =>{
     try{
-        const response = await privateAxiosInstance.post(ADMIN_ROOMS_URLS.GET_ROOM_DETAILS(id))
+        const response = await privateAxiosInstance.get(ADMIN_ROOMS_URLS.GET_ROOM_DETAILS(id))
         return response.data
     }catch (err) {
         return thunkAPI.rejectWithValue(handleThunkError(err, 'Failed to create the room'));
