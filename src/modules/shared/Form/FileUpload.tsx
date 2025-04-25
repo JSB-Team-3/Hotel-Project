@@ -18,19 +18,25 @@ import {
 } from '@mui/icons-material';
 
 interface FileUploadProps {
-  selectedFile: File | null;
-  setSelectedFile: React.Dispatch<React.SetStateAction<File | null>>;
+  selectedFiles: File[];
+  setSelectedFiles: React.Dispatch<React.SetStateAction<File[]>>;
   register: any;
   errors: any;
   maxSize?: number; // in MB
+  multiple?: boolean;
+  isUpdate?: boolean;
+  fieldName?: string;
 }
 
 const FileUpload: React.FC<FileUploadProps> = ({
-  selectedFile,
-  setSelectedFile,
+  selectedFiles,
+  setSelectedFiles,
   register,
   errors,
-  maxSize = 5 // Default 5MB
+  maxSize = 5, // Default 5MB
+  multiple = false,
+  isUpdate = false,
+  fieldName = 'imgs'
 }) => {
   const { t, i18n } = useTranslation();
   const theme = useTheme();
@@ -41,15 +47,21 @@ const FileUpload: React.FC<FileUploadProps> = ({
   const isRTL = i18n.dir() === 'rtl';
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    handleFile(file);
+    const files = event.target.files;
+    if (files) {
+      handleFiles(Array.from(files));
+    }
   };
 
-  const handleFile = (file?: File) => {
-    if (file) {
+  const handleFiles = (files: File[]) => {
+    if (files.length > 0) {
       setIsLoading(true);
       setTimeout(() => {
-        setSelectedFile(file);
+        if (multiple) {
+          setSelectedFiles(prev => [...prev, ...files]);
+        } else {
+          setSelectedFiles([files[0]]);
+        }
         setIsLoading(false);
         setUploadSuccess(true);
 
@@ -70,12 +82,17 @@ const FileUpload: React.FC<FileUploadProps> = ({
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     setIsDragging(false);
-    const file = e.dataTransfer.files?.[0];
-    handleFile(file);
+    
+    const files = Array.from(e.dataTransfer.files);
+    if (multiple) {
+      handleFiles(files);
+    } else {
+      handleFiles(files.slice(0, 1));
+    }
   };
 
-  const handleRemoveFile = () => {
-    setSelectedFile(null);
+  const handleRemoveFile = (index: number) => {
+    setSelectedFiles(prevFiles => prevFiles.filter((_, i) => i !== index));
   };
   
   const formatFileSize = (size: number) => {
@@ -102,23 +119,33 @@ const FileUpload: React.FC<FileUploadProps> = ({
       onDrop={handleDrop}
     >
       <Grid container>
-        <Grid size={7}  sx={{ display: 'flex', alignItems: 'center', padding: theme.spacing(2) }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', maxWidth: '100%', flexDirection: isRTL ? 'row-reverse' : 'row' }}>
-            {selectedFile ? (
-              <Box>
-                <FileIcon sx={{ color: theme.palette.primary.main, mr: 1.5, flexShrink: 0 }} />
-                <Box sx={{ minWidth: 0, flexGrow: 1 }}>
-                  <Typography noWrap variant="body2" sx={{ color: theme.palette.text.primary, fontWeight: 500 }}>
-                    {selectedFile.name}
-                  </Typography>
-                  <Typography variant="caption" color="text.secondary">
-                    {formatFileSize(selectedFile.size)}
-                  </Typography>
-                </Box>
-                <Box sx={{ ml: 1.5, flexShrink: 0 }}>
+        <Grid size={7} sx={{ display: 'flex', alignItems: 'center', padding: theme.spacing(2) }}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+            {selectedFiles?.length > 0 ? (
+              selectedFiles?.map((file, index) => (
+                <Box 
+                  key={index} 
+                  sx={{ 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'space-between',
+                    mb: index < selectedFiles?.length - 1 ? 1 : 0
+                  }}
+                >
+                  <Box sx={{ display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
+                    <FileIcon sx={{ color: theme.palette.primary.main, mr: 1.5, flexShrink: 0 }} />
+                    <Box sx={{ minWidth: 0, flexGrow: 1 }}>
+                      <Typography noWrap variant="body2" sx={{ color: theme.palette.text.primary, fontWeight: 500 }}>
+                        {file.name}
+                      </Typography>
+                      <Typography variant="caption" color="text.secondary">
+                        {formatFileSize(file.size)}
+                      </Typography>
+                    </Box>
+                  </Box>
                   <Button
                     size="small"
-                    onClick={handleRemoveFile}
+                    onClick={() => handleRemoveFile(index)}
                     sx={{
                       minWidth: 'auto',
                       p: 0.5,
@@ -131,7 +158,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
                     <ClearIcon fontSize="small" />
                   </Button>
                 </Box>
-              </Box>
+              ))
             ) : (
               <Typography sx={{ color: theme.palette.text.secondary, fontStyle: 'italic' }} variant="body2">
                 {t('form.no_file')}
@@ -157,23 +184,33 @@ const FileUpload: React.FC<FileUploadProps> = ({
               transition: 'background-color 0.3s ease',
             }}
           >
-            {isLoading ? t('form.uploading') : uploadSuccess ? t('form.upload_success') : selectedFile ? t('form.change_image') : t('form.select_image')}
+            {isLoading ? t('form.uploading') : uploadSuccess ? t('form.upload_success') : selectedFiles?.length > 0 ? t('form.change_image') : t('form.select_image')}
             <input
-              id="profileImageUpload"
+              id="fileUpload"
               type="file"
               accept="image/*"
+              multiple={multiple}
               style={{ display: 'none' }}
-              {...register('profileImage', {
-                required: t('form.image_required'),
+              {...register(fieldName, {
+                required: !isUpdate && selectedFiles?.length === 0 ? t('form.image_required') : false,
                 validate: (value: FileList) => {
-                  if (!selectedFile && !value?.[0]) return t('form.image_required');
-                  const file = selectedFile || value?.[0];
-                  if (!file) return true;
+                  // Skip validation if updating and no new files selected
+                  if (isUpdate && selectedFiles?.length > 0) return true;
                   
-                  const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
-                  if (!validTypes.includes(file.type)) return t('form.invalid_image_type');
-
-                  if (file.size > maxSize * 1024 * 1024) return t('form.file_too_large', { size: maxSize });
+                  // For new room or when no files are selected
+                  if (!isUpdate && !selectedFiles?.length && !value?.length) return t('form.image_required');
+                  
+                  // Validate file types and sizes if there are files
+                  const filesToValidate = selectedFiles?.length > 0 ? selectedFiles : value ? Array.from(value) : [];
+                  
+                  if (filesToValidate.length === 0 && !isUpdate) return t('form.image_required');
+                  
+                  for (const file of filesToValidate) {
+                    const validTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+                    if (!validTypes.includes(file.type)) return t('form.invalid_image_type');
+                    if (file.size > maxSize * 1024 * 1024) return t('form.file_too_large', { size: maxSize });
+                  }
+                  
                   return true;
                 },
               })}
@@ -183,11 +220,11 @@ const FileUpload: React.FC<FileUploadProps> = ({
         </Grid>
       </Grid>
 
-      <Fade in={!!errors.profileImage}>
+      <Fade in={!!errors[fieldName]}>
         <Box sx={{ px: 2, pb: 1.5 }}>
-          {errors.profileImage && (
+          {errors[fieldName] && (
             <Typography color="error" variant="caption" component="div">
-              {errors.profileImage.message}
+              {errors[fieldName].message}
             </Typography>
           )}
         </Box>
@@ -195,7 +232,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
 
       <Box sx={{ borderTop: `1px dashed ${theme.palette.divider}`, padding: '8px 16px', backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.03)' : 'rgba(0, 0, 0, 0.02)', textAlign: isRTL ? 'right' : 'left' }}>
         <Typography variant="caption" sx={{ color: theme.palette.text.secondary, opacity: 0.7 }}>
-          {t('form.drag_drop_supported')}
+          {multiple ? t('form.drag_drop_multiple_supported') : t('form.drag_drop_supported')}
         </Typography>
       </Box>
     </Paper>

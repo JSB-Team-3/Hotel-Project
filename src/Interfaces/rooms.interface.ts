@@ -12,7 +12,7 @@ export interface RoomPayload {
 }
 export type UpdateRoomPayload = {
     id: string;
-    data: RoomPayload;
+    data: FormData;
   };
   export type GetAllRoomsParams = {
     page: number;

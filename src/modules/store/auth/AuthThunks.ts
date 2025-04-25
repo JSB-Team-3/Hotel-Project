@@ -14,7 +14,7 @@ export const login = createAsyncThunk('auth/login', async(data: LoginData, thunk
     }
 })
 
-export const registerThunk = createAsyncThunk('auth/register', async(data: RegisterData, thunkAPI) =>{
+export const registerThunk = createAsyncThunk('auth/register', async(data: FormData, thunkAPI) =>{
     try{
 
         const Response = await puplicAxiosInstance.post(USER_URLS.REGISTER, data,{headers: {

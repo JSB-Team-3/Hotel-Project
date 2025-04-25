@@ -38,9 +38,16 @@ export type HeaderProps = {
     route:string,
 }
 
+
 export  interface ViewDataModalProps {
     open: boolean;
     handleClose: (val: boolean) => void;
     data: Record<string, any> | null;
     title?:string
   }
+
+export type changePassProp = {
+    open:boolean,
+    setOpen:Dispatch<SetStateAction<boolean>>
+}
+

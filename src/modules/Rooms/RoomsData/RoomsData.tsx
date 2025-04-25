@@ -1,15 +1,15 @@
 import { RoomPayload, Facility } from '../../../Interfaces/rooms.interface';
-import { Box, Button, Checkbox, CircularProgress, FormControl, ListItemText, MenuItem, OutlinedInput, Select, SelectChangeEvent } from '@mui/material';
+import { Box, Button, Checkbox, CircularProgress, FormControl, ListItemText, MenuItem, OutlinedInput, Select, SelectChangeEvent, Typography } from '@mui/material';
 import TextInput from '../../shared/Form/TextInput';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { AppDispatch, RootState } from '../../store/auth/AuthConfig';
 import { useValidation } from '../../hooks/useValidation';
 import { useState, useEffect } from 'react';
 import { useSnackbar } from 'notistack';
-import { createRoom } from '../../store/rooms/roomsThunk';
+import { createRoom, getRoomDetails, updateRoom } from '../../store/rooms/roomsThunk';
 import { getAllRoomFacilities } from '../../store/facilities/facilitiesThunk';
 import FileUpload from '../../shared/Form/FileUpload';
 
@@ -25,17 +25,19 @@ const MenuProps = {
 };
 
 export default function RoomsData() {
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const { roomId } = useParams<{ roomId: string }>();
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const { t } = useTranslation();
   const dispatch = useDispatch<AppDispatch>();
   const { loading, facilities } = useSelector((state: RootState) => ({
     loading: state?.rooms?.loading,
     facilities: state?.facilities?.facilities || [],
-  }));
+  }), shallowEqual);
   const { REQUIRED_VALIDATION } = useValidation();
   const { enqueueSnackbar } = useSnackbar();
   const [selectedFacilities, setSelectedFacilities] = useState<string[]>([]);
   const navigate = useNavigate();
+  const isUpdate = Boolean(roomId && roomId !== 'new-room');
 
   const {
     register,
@@ -45,14 +47,57 @@ export default function RoomsData() {
   } = useForm<RoomPayload>({ mode: "onChange" });
 
   useEffect(() => {
-    // Fetch facilities when component mounts
     fetchFacilities();
-  }, []);
+
+    if (isUpdate) {
+      fetchRoomDetails();
+    }
+  }, [roomId]);
+
+  const fetchRoomDetails = async () => {
+    try {
+      const response = await dispatch(getRoomDetails(roomId as string)).unwrap();
+      const roomData = response?.data?.room;
+
+      if (roomData) {
+        reset({
+          roomNumber: roomData?.roomNumber,
+          price: roomData?.price,
+          capacity: roomData?.capacity,
+          discount: roomData?.discount,
+        });
+
+        setSelectedFacilities(roomData?.facilities?.map((facility: Facility) => facility._id));
+
+        if (roomData.images && roomData.images.length > 0) {
+          const imagePromises = roomData.images.map(async (imageUrl: string) => {
+            try {
+              const response = await fetch(imageUrl);
+              const blob = await response.blob();
+              const fileName = imageUrl.split('/').pop() || 'image.jpg';
+              return new File([blob], fileName, { type: blob.type });
+            } catch {
+              return null;
+            }
+          });
+
+          Promise.all(imagePromises)
+            .then(files => {
+              const validFiles = files.filter((file): file is File => file !== null);
+              if (validFiles.length > 0) {
+                setSelectedFiles(validFiles);
+              }
+            });
+        }
+      }
+    } catch (err) {
+      enqueueSnackbar(err as string || 'Error fetching room details', { variant: 'error' });
+    }
+  };
 
   const fetchFacilities = async () => {
     try {
       await dispatch(getAllRoomFacilities({ page: 1, size: 30 })).unwrap();
-
     } catch (err) {
       enqueueSnackbar(err as string, { variant: 'error' });
     }
@@ -62,44 +107,46 @@ export default function RoomsData() {
     const {
       target: { value },
     } = event;
-    
+
     const newSelectedFacilities = typeof value === 'string' ? value.split(',') : value;
     setSelectedFacilities(newSelectedFacilities);
   };
 
   const onSubmit = async (data: RoomPayload) => {
     try {
-      
-  
       const formData = new FormData();
-        formData.append('roomNumber', data.roomNumber);
+      formData.append('roomNumber', data.roomNumber);
       formData.append('price', data.price.toString());
       formData.append('capacity', data.capacity.toString());
       formData.append('discount', data.discount.toString());
-  
-      // Append facilities (array)
       selectedFacilities.forEach((facilityId) => {
         formData.append('facilities', facilityId);
       });
-  
-      if (selectedFile) {
-        formData.append('imgs', selectedFile); 
+      if (selectedFiles.length > 0) {
+        selectedFiles.forEach(file => {
+          formData.append('imgs', file);
+        });
       }
-  
-      console.log([...formData.entries()]);
-      const response = await dispatch(createRoom(formData)).unwrap();
-      enqueueSnackbar(response?.message || t('password.successMessage'), { variant: 'success' });
+
+      const response = isUpdate
+        ? await dispatch(updateRoom({ id: roomId as string, data: formData })).unwrap()
+        : await dispatch(createRoom(formData)).unwrap();
+
+      enqueueSnackbar(response?.message || t('common.success'), { variant: 'success' });
+
       reset();
       setSelectedFacilities([]);
-      setSelectedFile(null);
+      setSelectedFiles([]);
+
       navigate('/dashboard/rooms');
     } catch (err) {
       enqueueSnackbar(err as string, { variant: 'error' });
     }
   }
 
-  // Safely convert facilities to an array
   const facilitiesArray = Array.isArray(facilities) ? facilities : [];
+
+
 
   return (
     <Box
@@ -139,7 +186,7 @@ export default function RoomsData() {
           errors={errors}
         />
       </Box>
-      <Box sx={{ display: 'flex', gap: 2, alignItems:"end", mt: 1 ,mb:1 }}>
+      <Box sx={{ display: 'flex', gap: 2, alignItems: "end", mt: 1, mb: 1 }}>
         <TextInput<RoomPayload>
           name="discount"
           id="discount"
@@ -153,8 +200,8 @@ export default function RoomsData() {
           <Select
             displayEmpty
             sx={{
-              '& .MuiSelect-select': { 
-                padding: '10px'  
+              '& .MuiSelect-select': {
+                padding: '10px'
               }
             }}
             fullWidth
@@ -168,7 +215,7 @@ export default function RoomsData() {
               if (selected.length === 0) {
                 return <Box component={'span'}>Select Facilities</Box>;
               }
-              
+
               return facilitiesArray
                 .filter((facility: Facility) => selected.includes(facility._id))
                 .map((facility: Facility) => facility.name)
@@ -189,14 +236,41 @@ export default function RoomsData() {
           </Select>
         </FormControl>
       </Box>
-      
+
+
+
       <FileUpload
-        selectedFile={selectedFile}
-        setSelectedFile={setSelectedFile}
+        selectedFiles={selectedFiles}
+        setSelectedFiles={setSelectedFiles}
         register={register}
         errors={errors}
+        multiple={true}
+        isUpdate={isUpdate}
+        fieldName="imgs"
       />
-
+      {/* Preview selected images */}
+      {selectedFiles.length > 0 && (
+        <Box sx={{ mb: 2 }}>
+          <Typography variant="body2" sx={{ mb: 1 }}>Selected Images:</Typography>
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+            {selectedFiles.map((file, index) => (
+              <Box
+                key={index}
+                component="img"
+                src={URL.createObjectURL(file)}
+                alt={`Room image ${index + 1}`}
+                sx={{
+                  width: 80,
+                  height: 80,
+                  objectFit: 'cover',
+                  borderRadius: 1,
+                  border: '1px solid #ddd'
+                }}
+              />
+            ))}
+          </Box>
+        </Box>
+      )}
       <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 3, gap: 2 }}>
         <Button variant="outlined" component={Link} to="/dashboard/rooms">
           {t('common.cancel')}
