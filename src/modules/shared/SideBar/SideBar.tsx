@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Toolbar,
   IconButton,
@@ -21,6 +21,8 @@ import StyledDrawer from './SidebarStyles';
 import { menuItems } from '../../constants/sidebar.constant';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { useTranslation } from 'react-i18next';
+import LockIcon from '@mui/icons-material/Lock';
+import ChangePass from '../../Authentication/ChangePass/ChangePass';
 
 interface SidebarProps {
   open: boolean;
@@ -33,6 +35,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, toggleSidebar }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { t } = useTranslation();
+  const [openChange, setOpenChange] = useState(false);
 
   // Auto-close sidebar on small screens when route changes
   useEffect(() => {
@@ -78,7 +81,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, toggleSidebar }) => {
           <ListItem key={item.route} disablePadding sx={{ display: 'block' }}>
             <ListItemButton
               component={Link}
-              to={`/dashboard${item.route}`}
+              to={item.route}
               onClick={isMobile ? toggleSidebar : undefined}
               sx={{
                 minHeight: 48,
@@ -103,6 +106,34 @@ const Sidebar: React.FC<SidebarProps> = ({ open, toggleSidebar }) => {
             </ListItemButton>
           </ListItem>
         ))}
+          <ListItem disablePadding sx={{ display: 'block' }}>
+          <ListItemButton
+            onClick={() => {
+              setOpenChange(true);
+              if (isMobile) toggleSidebar();
+            }}
+            sx={{
+              minHeight: 48,
+              justifyContent: open ? 'initial' : 'center',
+              gap: 2,
+              px: 2.5,
+            }}
+          >
+            <ListItemIcon
+              sx={{
+                minWidth: 0,
+                justifyContent: 'center',
+                color: theme.custom.liteMain,
+              }}
+            >
+              <LockIcon />
+            </ListItemIcon>
+            <ListItemText
+              primary={t('sidebar.change_password')}
+              sx={{ opacity: open ? 1 : 0, textAlign: 'start' }}
+            />
+          </ListItemButton>
+        </ListItem>
         <ListItem disablePadding sx={{ display: 'block' }}>
           <ListItemButton
             onClick={() => {
@@ -168,6 +199,9 @@ const Sidebar: React.FC<SidebarProps> = ({ open, toggleSidebar }) => {
           <LanguageSelector color={theme.custom.liteMain} />
         </Box>
       </Box>
+      <ChangePass
+        open={openChange}
+        setOpen={() => setOpenChange(false)}/>
     </StyledDrawer>
   );
 };

@@ -5,26 +5,24 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { CircularProgress } from '@mui/material';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { maodalStyles } from './ChangePasswordUtilities';
 import { useSnackbar } from 'notistack';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store/auth/AuthConfig';
-import { changePassword } from '../../store/auth/authThunks';
 import { ChangePasswordData } from '../../store/auth/interfaces/authType';
 import { useValidation } from '../../hooks/useValidation';
 import { useTranslation } from 'react-i18next';
 import TextInput from '../../shared/Form/TextInput';
+import { changePassword } from '../../store/auth/AuthThunks';
+import { changePassProp } from '../../../Interfaces/props.interface';
 
-const ChangePass = () => {
+const ChangePass = ({open,setOpen}:changePassProp) => {
   const { t } = useTranslation();
   const { PASSWORD_VALIDATION, CONFIRM_PASS_VALIDATION } = useValidation();
 
-  const [open, setOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement | null>(null); // For restoring focus
-
-  const handleOpen = () => setOpen(true);
 
   const handleClose = () => {
     setOpen(false);
@@ -66,15 +64,6 @@ const ChangePass = () => {
 
   return (
     <Box>
-      <Button
-        onClick={handleOpen}
-        variant="contained"
-        color="primary"
-        ref={buttonRef}
-      >
-        {t('password.changeButton')}
-      </Button>
-
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
