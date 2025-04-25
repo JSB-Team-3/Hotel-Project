@@ -7,10 +7,15 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import React from 'react'
 import { TableActionProps } from '../../../Interfaces/props.interface';
+import ViewDataModal from '../ViewDataModal/ViewDataModal';
 
 export default function TableActions({handleDeleteItem,item,route}:TableActionProps) {
+    console.log(item);
+    
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
+    const [openviewModal, setViewOpen] = useState(false);
+
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
     };
@@ -18,8 +23,12 @@ export default function TableActions({handleDeleteItem,item,route}:TableActionPr
     const handleClose = () => {
         setAnchorEl(null);
     };
+    const handleView = () => {
+        setViewOpen(true);
+    };
 
     return (
+        <>
         <Box component={'div'}  >
             <IconButton onClick={handleClick}>
                 <MoreHorizIcon />
@@ -48,7 +57,7 @@ export default function TableActions({handleDeleteItem,item,route}:TableActionPr
                     },
                   }}
             >
-                <MenuItem onClick={handleClose} sx={{'&:hover':{'backgroundColor':'#F8F9FB'}}} >
+                <MenuItem onClick={handleView} sx={{'&:hover':{'backgroundColor':'#F8F9FB'}}} >
                     <ListItemIcon>
                         <VisibilityIcon sx={{'color':'#203FC7'}} />
                     </ListItemIcon>
@@ -75,6 +84,8 @@ export default function TableActions({handleDeleteItem,item,route}:TableActionPr
                 </MenuItem>}
             </Menu>
         </Box>
+        <ViewDataModal open={openviewModal} handleClose={()=>setViewOpen(false)}  data={item} title='User Detials'/>
+        </>
     )
 }
 

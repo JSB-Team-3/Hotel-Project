@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Box from '@mui/material/Box';
 import { Grid, Typography, Link } from '@mui/material';
@@ -9,9 +10,10 @@ import { useValidation } from '../../hooks/useValidation';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store/auth/AuthConfig';
-import { login  as loginThunk  } from '../../store/auth/AuthThunks'; 
+import { login as loginThunk} from '../../store/auth/AuthThunks'; 
 import { LoginFormInputs } from '../../../Interfaces/AuthInterfaces'; 
-import { toast } from 'react-toastify';
+import { enqueueSnackbar } from 'notistack';
+
 
 
 const Login = () => {
@@ -25,16 +27,18 @@ const Login = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: {errors },
   } = useForm<LoginFormInputs>({ mode: 'onChange' });
  
 
   const onSubmit = async (data: LoginFormInputs) => {
     try {
       await dispatch(loginThunk(data)).unwrap();
-      navigate('/dashboard'); // \
+      enqueueSnackbar(t('login.success_message'), {variant: 'success'})
+      navigate('/dashboard'); 
     } catch (error) {
-      toast.error(t('login.error_message'));
+      console.log(error);
+      enqueueSnackbar(error as string || t('login.error_message'), {variant: 'error'})
     }
   };
 
@@ -80,4 +84,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Login

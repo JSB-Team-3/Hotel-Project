@@ -60,7 +60,7 @@ export default function RoomsList() {
     }
   };
 const renderRow = (item: Room | Booking |User ) => {
-  if ('price' in item && 'capacity' in item && 'facility' in item) {
+  if ('price' in item && 'capacity' in item ) {
     const room = item as Room;
   
   return (
@@ -74,7 +74,7 @@ const renderRow = (item: Room | Booking |User ) => {
       <StyledTableCell>{room?.capacity}</StyledTableCell>
       <StyledTableCell>{room?.facilities?.map(f => f.name).join(', ')}</StyledTableCell>
       <StyledTableCell>
-        <TableActions handleDeleteItem={handleDeleteItem} item={room} route={`/dashboard/room-data/${room?._id}`} />
+        <TableActions  handleDeleteItem={handleDeleteItem} item={room} route={`/dashboard/room-data/${room?._id}`} />
       </StyledTableCell>
     </StyledTableRow>
   
