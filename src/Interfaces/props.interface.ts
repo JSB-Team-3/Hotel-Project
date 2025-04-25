@@ -36,3 +36,7 @@ export type HeaderProps = {
     title:string,
     route:string,
 }
+export type changePassProp = {
+    open:boolean,
+    setOpen:Dispatch<SetStateAction<boolean>>
+}
