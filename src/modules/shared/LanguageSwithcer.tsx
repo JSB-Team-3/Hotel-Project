@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
-import { Menu,MenuItem,IconButton,Typography,Box,Fade,Tooltip,Divider,
-  ListItemIcon,
-  Chip
-} from '@mui/material';
+import { Menu, MenuItem, IconButton, Typography, Box, Fade, Tooltip, Divider, ListItemIcon, Chip } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { changeLanguage } from '../Locales/i18n';
 import { useTheme } from '@mui/material/styles';
@@ -18,10 +15,14 @@ const languages = [
 
 // Group languages by region
 const regions = {
- "" : ['en', 'ar'],
+  "": ['en', 'ar'],
 };
 
-const LanguageSelector: React.FC = () => {
+interface LanguageSelectorProps {
+  color?: string;  // Optional color prop
+}
+
+const LanguageSelector: React.FC<LanguageSelectorProps> = ({ color }) => {
   const { t, i18n } = useTranslation();
   const theme = useTheme();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -53,16 +54,19 @@ const LanguageSelector: React.FC = () => {
           aria-haspopup="true"
           aria-expanded={open ? "true" : undefined}
           sx={{
-
-            position: 'relative',                  
-            color: theme.custom.liteMain,
-            backgroundColor: open ? 
-              theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.04)' 
+            position: 'relative',
+            color: color || theme.palette.text.primary,  // Use the passed color or default to theme text primary
+            backgroundColor: open
+              ? theme.palette.mode === 'dark' 
+                ? 'rgba(255, 255, 255, 0.05)' 
+                : 'rgba(0, 0, 0, 0.04)' 
               : 'transparent',
             borderRadius: '50%',
             transition: 'all 0.2s ease',
             '&:hover': {
-              backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.08)',
+              backgroundColor: theme.palette.mode === 'dark' 
+                ? 'rgba(255, 255, 255, 0.08)' 
+                : 'rgba(0, 0, 0, 0.08)',
             },
           }}
         >
@@ -112,18 +116,12 @@ const LanguageSelector: React.FC = () => {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <Box
-          sx={{ px: 2, pb: 1, pt: 1.5, display: "flex", alignItems: "center" }}
-        >
+        <Box sx={{ px: 2, pb: 1, pt: 1.5, display: "flex", alignItems: "center" }}>
           <TranslateIcon
             fontSize="small"
             sx={{ mr: 1, color: theme.palette.text.secondary }}
           />
-          <Typography
-            variant="subtitle2"
-            color="text.secondary"
-            fontWeight="500"
-          >
+          <Typography variant="subtitle2" color="text.secondary" fontWeight="500">
             {t("language.select")}
           </Typography>
         </Box>
@@ -155,7 +153,7 @@ const LanguageSelector: React.FC = () => {
         >
           <ListItemIcon sx={{ fontSize: "1.4rem", minWidth: 36 }}>
             {currentLanguage.flag}
-          </ListItemIcon >
+          </ListItemIcon>
           <Typography variant="body2">{currentLanguage.label}</Typography>
         </MenuItem>
 
@@ -163,14 +161,13 @@ const LanguageSelector: React.FC = () => {
 
         {/* Render languages by region */}
         {Object.entries(regions).map(([region, langCodes]) => (
-
           <Box key={region}>
-            <Typography 
-              variant="caption" 
-              sx={{ 
-                px: 2, 
-                py: 0.5, 
-                display: 'block', 
+            <Typography
+              variant="caption"
+              sx={{
+                px: 2,
+                py: 0.5,
+                display: 'block',
                 color: theme.palette.text.secondary,
                 fontWeight: 500,
               }}
@@ -206,8 +203,7 @@ const LanguageSelector: React.FC = () => {
               return null;
             })}
 
-            {region !==
-              Object.keys(regions)[Object.keys(regions).length - 1] && (
+            {region !== Object.keys(regions)[Object.keys(regions).length - 1] && (
               <Divider sx={{ my: 1 }} />
             )}
           </Box>

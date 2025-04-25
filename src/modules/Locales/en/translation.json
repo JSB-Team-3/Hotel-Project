@@ -27,7 +27,9 @@
   "login": {
     "title": "Login to Roamhome",
     "login" : "Login",
-    "no_account" : "Don't have an account?"
+    "no_account" : "Don't have an account?",
+    "error_message": "Login failed. Please check your credentials and try again.",
+    "success_message": "Login successful! Redirecting to the dashboard..."
   }, 
   "signup": {
     "title": "Sign up to Roamhome"
@@ -69,7 +71,9 @@
     "newPassword": "New Password",
     "confirmPassword": "Confirm Password",
     "required": "This field is required",
-    "passwordMismatch": "Passwords don't match"
+    "passwordMismatch": "Passwords don't match",
+    "success_message": "Success! Your changes have been saved.",
+    "error_message": "An error occurred. Please try again."
 
   },
   "common": {

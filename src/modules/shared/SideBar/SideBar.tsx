@@ -196,7 +196,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, toggleSidebar }) => {
             justifyContent: 'center',
           }}
         >
-          <LanguageSelector />
+          <LanguageSelector color={theme.custom.liteMain} />
         </Box>
       </Box>
       <ChangePass

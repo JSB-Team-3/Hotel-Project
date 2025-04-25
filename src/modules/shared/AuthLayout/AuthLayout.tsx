@@ -1,11 +1,12 @@
 import { Outlet } from 'react-router-dom'
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import { Typography } from '@mui/material';
+import { Typography, useTheme } from '@mui/material';
 import RightAuthLayout from '../RightAuthLayout/RightAuthLayout';
 import ThemeToggle from '../ThemeToggle';
 import LanguageSwitcher from '../LanguageSwithcer';
 const AuthLayout = () => {
+  const theme = useTheme();
   return (
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
@@ -19,7 +20,7 @@ const AuthLayout = () => {
                   cation.
                 </Box> 
               <ThemeToggle />
-              <LanguageSwitcher />
+              <LanguageSwitcher color={theme.palette.text.primary} />
               </Typography>
 
             </Box>

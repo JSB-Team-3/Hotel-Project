@@ -29,6 +29,7 @@ const DeleteConfirmation = ({ open, confirm, message, handleClose, loading }: Co
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         open={open}
+        onClose={() => handleClose(false)}
         closeAfterTransition
         slots={{ backdrop: Backdrop }}
         slotProps={{

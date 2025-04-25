@@ -13,6 +13,7 @@ export type ConfirmDeleteProps ={
 export type TableActionProps ={
     item:Room | Booking | User,
     handleDeleteItem:(itemId: string, itemNumber: string) => void,
+    handleViewItem?:(value:boolean) => void,
     route:string,
    
 }
@@ -36,7 +37,17 @@ export type HeaderProps = {
     title:string,
     route:string,
 }
+
+
+export  interface ViewDataModalProps {
+    open: boolean;
+    handleClose: (val: boolean) => void;
+    data: Record<string, any> | null;
+    title?:string
+  }
+
 export type changePassProp = {
     open:boolean,
     setOpen:Dispatch<SetStateAction<boolean>>
 }
+
