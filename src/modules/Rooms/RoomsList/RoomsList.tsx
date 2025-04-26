@@ -60,7 +60,7 @@ export default function RoomsList() {
     }
   };
 const renderRow = (item: Room | Booking |User ) => {
-  if ('price' in item && 'capacity' in item && 'facility' in item) {
+  if ('price' in item && 'capacity' in item) {
     const room = item as Room;
   
   return (
