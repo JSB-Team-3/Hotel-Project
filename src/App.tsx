@@ -1,3 +1,4 @@
+import React from 'react'
 import './App.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import MasterLayout from './modules/shared/MasterLayout/MasterLayout'
@@ -12,8 +13,8 @@ import RoomsList from './modules/Rooms/RoomsList/RoomsList';
 import RoomsData from './modules/Rooms/RoomsData/RoomsData';
 import BookingList from './modules/Booking/BookingList';
 import UsersList from './modules/UsersList/UsersList';
-import Dashboard from './modules/Dashboad/Dashboard';
 import FacilitiesList from './modules/Facilities/FacilitiesList/FacilitiesList';
+import ProtectedRoute from './modules/shared/ProtectedRoute/ProtectedRoute';
 
 function App() {
 const routes = createBrowserRouter([
@@ -28,24 +29,20 @@ const routes = createBrowserRouter([
       { path: "forget-password", element: <ForgetPass /> },
       { path: "reset-password", element: <ResetPass /> },
       { path: "verify-account", element: <VerifyAccount /> },
-    ],
-  },
 
-  {
-    path: "dashboard",
-    element: <MasterLayout />,
-    errorElement: <NotFound />,
-    children: [
-      { index: true, element: <Dashboard /> },
-      { path: "rooms", element: <RoomsList /> },
-      { path: "room-data/new-Rooms", element: <RoomsData /> },
-      { path: "room-data/:roomId", element: <RoomsData /> },
-      { path: "booking", element: <BookingList /> },
-      { path: "users", element: <UsersList /> },
-      { path: "facilities", element: <FacilitiesList /> },
-    ],
-  },
-]);
+    ]},
+    { path:'dashboard', element:<ProtectedRoute><MasterLayout/></ProtectedRoute>,
+      errorElement:<NotFound/>,
+      children:[
+        {index:true,element:<Dashboard/>},
+        {path:"rooms",element:<RoomsList/>},
+        {path:"room-data/new-Rooms",element:<RoomsData/>},
+        {path:"room-data/:roomId",element:<RoomsData/>},
+        {path:"bookings",element:<BookingList/>},
+        {path:"users",element:<UsersList/>},
+      ]
+    }
+])
 
   return (
   <RouterProvider router={routes}/>

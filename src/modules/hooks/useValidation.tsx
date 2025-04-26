@@ -1,6 +1,6 @@
 import { RegisterOptions } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { RegisterFormInputs } from "../interfaces/AuthInterfaces";
+import { RegisterFormInputs } from "../../Interfaces/AuthInterfaces";
 
 export const useValidation = () => {
   const { t } = useTranslation();
@@ -14,13 +14,14 @@ export const useValidation = () => {
       },
     },
 
-    PASSWORD_VALIDATION: {
+     PASSWORD_VALIDATION :{
       required: t('validation.password_required'),
       pattern: {
-        value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/,
+        value: /^(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/, // Made uppercase optional
         message: t('validation.password_pattern'),
       },
-    },
+    }
+    ,
 
     OTP_VALIDATION: {
       required: t('validation.otp_required'),

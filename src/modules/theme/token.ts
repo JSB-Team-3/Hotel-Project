@@ -8,6 +8,7 @@ export const getTokens = (mode: PaletteMode) => ({
     ? {
         primary: '#1976d2', // Light primary color (blue)
         primaryLight: '#4791db', // Light primary hover color
+        primaryLightActive: '#f0f7ff',
         primaryDark: '#1565c0', // Darker blue for focus
         secondary: '#9c27b0', // Purple
         secondaryLight: '#ba68c8', // Lighter secondary hover
@@ -20,6 +21,7 @@ export const getTokens = (mode: PaletteMode) => ({
     : {
         primary: '#90caf9', // Dark primary color (blue)
         primaryLight: '#c6d9f1', // Lighter primary hover color
+        primaryLightActive: '#c6d9f1',
         primaryDark: '#42a5f5', // Darker blue for focus
         secondary: '#ce93d8', // Light purple
         secondaryLight: '#f1b6ff', // Lighter secondary hover

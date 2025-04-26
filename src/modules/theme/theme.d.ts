@@ -5,6 +5,8 @@ declare module '@mui/material/styles' {
   interface CustomTheme {
     blueMain: string;
     liteMain: string;
+    primaryLight: string;
+
   }
 
   interface Theme {

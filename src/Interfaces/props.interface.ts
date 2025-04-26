@@ -3,7 +3,6 @@ import { Room } from "./rooms.interface"
 import { Booking } from "./bookings.interfaces"
 import { User } from "./user.interface"
 import { RoomFacility } from "./facilities.interface";
-// import FacilitiesList from '../modules/Facilities copy/FacilitiesList/FacilitiesList';
 
 export type ConfirmDeleteProps ={
     open:boolean,
@@ -17,7 +16,6 @@ export type TableActionProps = {
   handleDeleteItem: (itemId: string, itemNumber: string) => void;
   route: string;
   handleEditItem: (item: RoomFacility) => void;
-  handleViewItem: (item: RoomFacility) => void;
 };
 
 export type TableDataProps = {
@@ -48,3 +46,18 @@ export type HeaderProps = {
     route:string,
     onAddClick?: () => void;
 }
+}
+
+
+export  interface ViewDataModalProps {
+    open: boolean;
+    handleClose: (val: boolean) => void;
+    data: Record<string, any> | null;
+    title?:string
+  }
+
+export type changePassProp = {
+    open:boolean,
+    setOpen:Dispatch<SetStateAction<boolean>>
+}
+

@@ -12,7 +12,7 @@ export const USER_URLS={
     FORGET_PASS:`/portal/users/forgot-password`,
     RESET_PASS:`/admin/users/reset-password`,
     CHANGE_PASS:`/admin/users/change-password`,
-
+    USER_PROFILE:(id:string)=>`/admin/users/${id}`,
 }
 
 export const ADMIN_USERS_URLS = {

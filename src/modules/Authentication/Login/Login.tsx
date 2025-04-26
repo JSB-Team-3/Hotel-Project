@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Box from '@mui/material/Box';
 import { Grid, Typography, Link } from '@mui/material';
@@ -9,10 +10,16 @@ import { useValidation } from '../../hooks/useValidation';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store/auth/AuthConfig';
-import { login as loginThunk } from '../../store/auth/AuthThunks';
-import { LoginFormInputs } from '../../interfaces/AuthInterfaces';
-import { toast } from 'react-toastify';
 
+import { login as loginThunk} from '../../store/auth/AuthThunks'; 
+import { LoginFormInputs } from '../../../Interfaces/AuthInterfaces'; 
+import { enqueueSnackbar } from 'notistack';
+
+interface LoginUser{
+  _id: string;
+  nameName: string;
+  role: string;
+}
 
 const Login = () => {
   const { t } = useTranslation();
@@ -20,23 +27,30 @@ const Login = () => {
   const { loading } = useSelector((state: RootState) => state.auth);
   const { EMAIL_VALIDATION, PASSWORD_VALIDATION } = useValidation();
   const navigate = useNavigate();
+  const {user}= useSelector((state: RootState) => state.auth);
+  const {register,handleSubmit,formState: {errors }} = useForm<LoginFormInputs>({ mode: 'onChange' });
+  
 
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<LoginFormInputs>({ mode: 'onChange' });
- 
-
-  const onSubmit = async (data: LoginFormInputs) => {
+  const onSubmit = async (formData: LoginFormInputs) => {
     try {
-      await dispatch(loginThunk(data)).unwrap();
-      navigate('/dashboard'); // \
+     const {data}=  await dispatch(loginThunk(formData)).unwrap();
+              navigate('/dashboard');
+
+      // user just logged in
+      //  if ( data.user.role === 'admin') {
+      //   navigate('/dashboard');
+      // } else if (data.user.role === 'user') {
+      //   navigate('/user-dashboard');
+      // }
+    // }
+      enqueueSnackbar(t('login.success_message'), {variant: 'success'})
     } catch (error) {
-      toast.error(t('login.error_message'));
+      console.log(error);
+      enqueueSnackbar(error as string || t('login.error_message'), {variant: 'error'})
     }
   };
+
+
 
   return (
     <Box component="section">
@@ -80,4 +94,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Login

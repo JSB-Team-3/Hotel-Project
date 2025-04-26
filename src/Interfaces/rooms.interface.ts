@@ -12,7 +12,7 @@ export interface RoomPayload {
 }
 export type UpdateRoomPayload = {
     id: string;
-    data: RoomPayload;
+    data: FormData;
   };
   export type GetAllRoomsParams = {
     page: number;
@@ -35,3 +35,17 @@ export type UpdateRoomPayload = {
     deleteLoading: boolean;
     totalCount: number;
   }
+
+  export interface RoomDataProps {
+    _id?: string;
+    roomNumber?: string;
+    images?: string[];
+    capacity?: number;
+    price?: number;
+    discount?: number;
+    facilities?: { _id: string; name: string }[];
+    createdBy?: { userName: string };
+    createdAt?: string;
+    updatedAt?: string;
+  }
+  

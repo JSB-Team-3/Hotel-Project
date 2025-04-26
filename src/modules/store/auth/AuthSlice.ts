@@ -1,16 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   login,
-  register,
+  registerThunk,
   forgot,
   resetPass,
   changePassword,
+  getUserProfile,
 } from "./AuthThunks";
 import { AuthState } from "./interfaces/authType";
 
+// Check localStorage for token and user on initial load
 const initialState: AuthState = {
-  user: null,
-  token: null,
+  user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user") as string) : null,
+  token: localStorage.getItem("token") || null,
   loading: false,
   error: null,
 };
@@ -22,6 +24,9 @@ const authSlice = createSlice({
     logout: (state) => {
       state.user = null;
       state.token = null;
+      // Remove from localStorage on logout
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
     },
   },
   extraReducers: (builder) => {
@@ -33,28 +38,31 @@ const authSlice = createSlice({
       })
       .addCase(login.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = action.payload.user;
-        state.token = action.payload.token;
+        state.user = action.payload.data.user;
+        state.token = action.payload.data.token;
         state.error = null;
+        // Save to localStorage after login
+        localStorage.setItem("token", action.payload.data.token);
+        localStorage.setItem("user", JSON.stringify(action.payload.data.user));
       })
       .addCase(login.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       });
 
-    // Register
+    // RegisterThunk
     builder
-      .addCase(register.pending, (state) => {
+      .addCase(registerThunk.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(register.fulfilled, (state, action) => {
+      .addCase(registerThunk.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = action.payload.user;
-        state.token = action.payload.token;
+        state.user = action.payload.data.user;
+        state.token = action.payload.data.token;
         state.error = null;
       })
-      .addCase(register.rejected, (state, action) => {
+      .addCase(registerThunk.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       });
@@ -103,6 +111,25 @@ const authSlice = createSlice({
         state.loading = false;
         state.error = action.payload as string;
       });
+
+    // Get User Profile
+    builder
+      .addCase(getUserProfile.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      }
+      )
+      .addCase(getUserProfile.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload.user;
+        state.error = null;
+      }
+      )
+      .addCase(getUserProfile.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      }
+      );
   },
 });
 
