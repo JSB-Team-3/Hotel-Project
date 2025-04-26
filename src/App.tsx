@@ -1,3 +1,4 @@
+import React from 'react'
 import './App.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import MasterLayout from './modules/shared/MasterLayout/MasterLayout'
@@ -13,6 +14,7 @@ import RoomsData from './modules/Rooms/RoomsData/RoomsData';
 import BookingList from './modules/Booking/BookingList';
 import UsersList from './modules/UsersList/UsersList';
 import Dashboard from './modules/Dashboard/Dashboard';
+import ProtectedRoute from './modules/shared/ProtectedRoute/ProtectedRoute';
 
 function App() {
 const routes=createBrowserRouter([
@@ -25,7 +27,7 @@ const routes=createBrowserRouter([
       { path: "reset-password", element: <ResetPass /> },
       { path: "verify-account", element: <VerifyAccount /> },
     ]},
-    { path:'dashboard', element:<MasterLayout/>,
+    { path:'dashboard', element:<ProtectedRoute><MasterLayout/></ProtectedRoute>,
       errorElement:<NotFound/>,
       children:[
         {index:true,element:<Dashboard/>},
