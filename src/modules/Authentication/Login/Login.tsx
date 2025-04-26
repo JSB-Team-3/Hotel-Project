@@ -14,7 +14,11 @@ import { login as loginThunk} from '../../store/auth/AuthThunks';
 import { LoginFormInputs } from '../../../Interfaces/AuthInterfaces'; 
 import { enqueueSnackbar } from 'notistack';
 
-
+interface LoginUser{
+  _id: string;
+  nameName: string;
+  role: string;
+}
 
 const Login = () => {
   const { t } = useTranslation();
@@ -22,25 +26,30 @@ const Login = () => {
   const { loading } = useSelector((state: RootState) => state.auth);
   const { EMAIL_VALIDATION, PASSWORD_VALIDATION } = useValidation();
   const navigate = useNavigate();
+  const {user}= useSelector((state: RootState) => state.auth);
+  const {register,handleSubmit,formState: {errors }} = useForm<LoginFormInputs>({ mode: 'onChange' });
+  
 
-
-  const {
-    register,
-    handleSubmit,
-    formState: {errors },
-  } = useForm<LoginFormInputs>({ mode: 'onChange' });
- 
-
-  const onSubmit = async (data: LoginFormInputs) => {
+  const onSubmit = async (formData: LoginFormInputs) => {
     try {
-      await dispatch(loginThunk(data)).unwrap();
+     const {data}=  await dispatch(loginThunk(formData)).unwrap();
+              navigate('/dashboard');
+
+      // user just logged in
+      //  if ( data.user.role === 'admin') {
+      //   navigate('/dashboard');
+      // } else if (data.user.role === 'user') {
+      //   navigate('/user-dashboard');
+      // }
+    // }
       enqueueSnackbar(t('login.success_message'), {variant: 'success'})
-      navigate('/dashboard'); 
     } catch (error) {
       console.log(error);
       enqueueSnackbar(error as string || t('login.error_message'), {variant: 'error'})
     }
   };
+
+
 
   return (
     <Box component="section">

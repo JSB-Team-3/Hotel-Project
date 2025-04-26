@@ -5,6 +5,7 @@ import {
   forgot,
   resetPass,
   changePassword,
+  getUserProfile,
 } from "./AuthThunks";
 import { AuthState } from "./interfaces/authType";
 
@@ -110,6 +111,25 @@ const authSlice = createSlice({
         state.loading = false;
         state.error = action.payload as string;
       });
+
+    // Get User Profile
+    builder
+      .addCase(getUserProfile.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      }
+      )
+      .addCase(getUserProfile.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload.user;
+        state.error = null;
+      }
+      )
+      .addCase(getUserProfile.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      }
+      );
   },
 });
 
