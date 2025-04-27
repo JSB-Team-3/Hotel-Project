@@ -1,7 +1,5 @@
 
-
 import { configureStore } from "@reduxjs/toolkit";
-
 import authReducer from "./AuthSlice";
 import roomsReducer from "../rooms/roomsSlice";
 import facilitiesReducer from "../facilities/facilitiesSlice";
