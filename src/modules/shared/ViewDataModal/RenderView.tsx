@@ -1,14 +1,15 @@
-// src/components/Dashboard/Viewlayout/DashboardViewContent.tsx
+import { memo } from 'react';
 import { Typography, useMediaQuery, useTheme } from '@mui/material';
 import { FC } from 'react';
 import { useLocation } from 'react-router-dom';
 import RoomsViewLayout from './Viewlayout/RoomsViewLayout';
 import UserViewLayout from './Viewlayout/UserViewLayout';
-import { UserDetailsModalProps, ViewRenderProps } from '../../../Interfaces/modal.interface';
+import {  ViewRenderProps } from '../../../Interfaces/modal.interface';
 import BookingViewLayout from './Viewlayout/BookingViewDetials';
 import { BookingData } from '../../../Interfaces/cards.interfaces';
 
-const RenderViewContent: FC<ViewRenderProps> = ({ data, handleClose }) => {
+
+const RenderViewContent: FC<ViewRenderProps> = memo(({ data, handleClose }) => {
   const location = useLocation();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -32,6 +33,6 @@ const RenderViewContent: FC<ViewRenderProps> = ({ data, handleClose }) => {
       No matching view found for this route.
     </Typography>
   );
-};
+});
 
 export default RenderViewContent;

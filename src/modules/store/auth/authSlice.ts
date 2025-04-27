@@ -5,11 +5,13 @@ import {
   forgot,
   resetPass,
   changePassword,
-} from "./authThunks";
+  getUserProfile 
+} from "./AuthThunks";
 import { AuthState } from "./interfaces/authType";
 
 const initialState: AuthState = {
   user: null,
+  userProfile:null,
   token: null,
   loading: false,
   error: null,
@@ -103,8 +105,27 @@ const authSlice = createSlice({
             state.loading = false;
             state.error = action.payload as string;
         });
+    // Get User Profile
+    builder
+            .addCase(getUserProfile.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            }
+            )
+            .addCase(getUserProfile.fulfilled, (state, action) => {
+                state.loading = false;
+                state.userProfile = action.payload.data.user;
+                state.error = null;
+            }
+            )
+            .addCase(getUserProfile.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload as string;
+            }
+            );
     },
-});
+  },
+);
 
 export const { logout } = authSlice.actions;
 export default authSlice.reducer;

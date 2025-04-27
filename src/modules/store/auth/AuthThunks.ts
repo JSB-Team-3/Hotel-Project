@@ -54,7 +54,7 @@ export const changePassword = createAsyncThunk('auth/changePass', async(data: Ch
         return thunkAPI.rejectWithValue(handleThunkError(error, 'Failed to change password'));
     }
 })
-export const getUserProfile = createAsyncThunk('auth/getUserProfile', async({id}:{id:string}, thunkAPI) =>{
+export const getUserProfile = createAsyncThunk('auth/getUserProfile', async(id:string, thunkAPI) =>{
     try{
         const response = await privateAxiosInstance.get(USER_URLS.USER_PROFILE(id))
         return response.data

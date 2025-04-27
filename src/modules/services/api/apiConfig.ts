@@ -2,7 +2,7 @@
 
 
 export const baseURL= "https://upskilling-egypt.com:3000/api/v0"
-export const imgURL="https://upskilling-egypt.com:3003/"
+export const imgURL="https://upskilling-egypt.com:3000/"
 
 
 

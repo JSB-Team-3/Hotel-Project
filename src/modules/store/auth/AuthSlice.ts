@@ -13,6 +13,7 @@ import { AuthState } from "./interfaces/authType";
 const initialState: AuthState = {
   user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user") as string) : null,
   token: localStorage.getItem("token") || null,
+  userProfile: localStorage.getItem("user-profile") ? JSON.parse(localStorage.getItem("user-profile") as string) : null,
   loading: false,
   error: null,
 };
@@ -121,8 +122,10 @@ const authSlice = createSlice({
       )
       .addCase(getUserProfile.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = action.payload.user;
+        state.user = action.payload.data.user;
         state.error = null;
+        localStorage.setItem("user-profile", JSON.stringify(action.payload.data.user));
+
       }
       )
       .addCase(getUserProfile.rejected, (state, action) => {
