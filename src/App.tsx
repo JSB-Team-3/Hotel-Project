@@ -2,6 +2,7 @@ import React, { Suspense } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import MasterLayout from './modules/shared/MasterLayout/MasterLayout';
 import NotFound from './modules/shared/NotFound/NotFound';
+import './App.css'
 import ProtectedRoute from './modules/shared/ProtectedRoute/ProtectedRoute';
 import { Box, CircularProgress } from '@mui/material';
 import AuthLayout from './modules/shared/AuthLayout/AuthLayout';
@@ -51,6 +52,7 @@ const App: React.FC = () => {
       ],
     },
   ]);
+
 
   return (
     <Suspense

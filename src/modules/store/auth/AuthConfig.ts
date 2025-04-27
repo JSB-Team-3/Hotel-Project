@@ -11,17 +11,16 @@ import themeReducer from '../slices/themeSlice'
 
 
 export const store = configureStore({
-    reducer: {
-        auth: authReducer,
-        rooms: roomsReducer,
-        facilities: facilitiesReducer,
-        bookings: bookingsReducers,
-        ads:adsReducers,
-        users:usersReducers,
-        chart: chartReducer,
-        theme: themeReducer,
-
-    },
+  reducer: {
+    auth: authReducer,
+    rooms: roomsReducer,
+    facilities: facilitiesReducer,
+    bookings: bookingsReducers,
+    ads: adsReducers,
+    users: usersReducers,
+    chart: chartReducer,
+    theme: themeReducer,
+  },
 });
 
 export type RootState = ReturnType<typeof store.getState>;

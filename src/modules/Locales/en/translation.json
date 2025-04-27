@@ -122,5 +122,10 @@
   "rooms": "Rooms",
   "facilities": "Facilities",
   "ads": "Ads"
-}
+},"notFound": {
+    "oops": "Oops!",
+    "pageNotFound": "Page not found",
+    "description": "We've searched everywhere but couldn't find the page you requested.",
+    "returnToDashboard": "Return to Dashboard"
+  }
 }

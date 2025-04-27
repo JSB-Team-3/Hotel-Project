@@ -10,9 +10,21 @@ export type GetAllRoomFacilitiesParams = {
     size: number;
 };
 export type RoomFacility = {
-    _id: string;
-    name: string; 
+  _id: string;
+  name: string;
+  roomNumber?: string;
+  user?: { userName: string };
+  email?: string;
 };
+export type RoomFacilitiesState = {
+  facilities: RoomFacility[];
+  facilityDetails: RoomFacility | null;
+  loading: boolean;
+  deleteLoading: boolean;
+  error: string | null;
+  totalCount: number;
+};
+
 export type RoomFacilitiesState = { 
     facilities: RoomFacility[];  
     facilityDetails: RoomFacility | null;
@@ -35,3 +47,4 @@ export type RoomFacilitiesState = {
     handleClose: (value: boolean) => void;
   }
   
+
