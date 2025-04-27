@@ -13,20 +13,24 @@ import RoomsList from './modules/Rooms/RoomsList/RoomsList';
 import RoomsData from './modules/Rooms/RoomsData/RoomsData';
 import BookingList from './modules/Booking/BookingList';
 import UsersList from './modules/UsersList/UsersList';
-import Dashboard from './modules/Dashboard/Dashboard';
+import FacilitiesList from './modules/Facilities/FacilitiesList/FacilitiesList';
 import ProtectedRoute from './modules/shared/ProtectedRoute/ProtectedRoute';
 import Ads from './modules/Ads/Ads'
 
 function App() {
-const routes=createBrowserRouter([
-  {path:"",element:<AuthLayout/>,errorElement:<NotFound/>,
-    children:[
-      {index:true,element:<Login/>},
-      {path:"login",element:<Login/>},
+const routes = createBrowserRouter([
+  {
+    path: "",
+    element: <AuthLayout />,
+    errorElement: <NotFound />,
+    children: [
+      { index: true, element: <Login /> },
+      { path: "login", element: <Login /> },
       { path: "register", element: <Register /> },
       { path: "forget-password", element: <ForgetPass /> },
       { path: "reset-password", element: <ResetPass /> },
       { path: "verify-account", element: <VerifyAccount /> },
+
     ]},
     { path:'dashboard', element:<ProtectedRoute><MasterLayout/></ProtectedRoute>,
       errorElement:<NotFound/>,
