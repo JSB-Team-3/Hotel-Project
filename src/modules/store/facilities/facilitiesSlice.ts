@@ -8,6 +8,8 @@ const initialState: RoomFacilitiesState = {
   facilityDetails: null,
   loading: false,
   error: null,
+  deleteLoading: false,
+  totalCount: 0,
 };
 
 export const roomFacilitiesSlice = createSlice({
@@ -66,14 +68,14 @@ export const roomFacilitiesSlice = createSlice({
 
       // Delete
       .addCase(deleteRoomFacility.pending, (state) => {
-        state.loading = true;
+        state.deleteLoading = true;
         state.error = null;
       })
       .addCase(deleteRoomFacility.fulfilled, (state) => {
-        state.loading = false;
+        state.deleteLoading = false;
       })
       .addCase(deleteRoomFacility.rejected, (state, action) => {
-        state.loading = false;
+        state.deleteLoading = false;
         state.error = action.payload as string;
       })
 
@@ -85,6 +87,7 @@ export const roomFacilitiesSlice = createSlice({
       .addCase(getAllRoomFacilities.fulfilled, (state, action) => {
         state.loading = false;
         state.facilities = action.payload?.data?.facilities;
+        state.totalCount = action.payload.data.totalCount; 
       })
       .addCase(getAllRoomFacilities.rejected, (state, action) => {
         state.loading = false;
