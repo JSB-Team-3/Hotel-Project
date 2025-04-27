@@ -13,6 +13,7 @@ import TableActions from '../../shared/TableActions/TableActions';
 import Header from '../../shared/Header/Header';
 import { Booking } from '../../../Interfaces/bookings.interfaces';
 import { User } from '../../../Interfaces/user.interface';
+import { RoomFacility } from '../../../Interfaces/facilities.interface';
 export default function RoomsList() {
   const [itemToDeleteId, setItemToDeleteId] = useState<string>('');
   const [itemToDeleteNumber, setItemToDeleteNumber] = useState<string>('');
@@ -59,27 +60,32 @@ export default function RoomsList() {
       enqueueSnackbar(err as string || 'failed to delete room', { variant: 'error' });
     }
   };
-const renderRow = (item: Room | Booking |User ) => {
-
-  if ('price' in item && 'capacity' in item) {
+  const renderRow = (item: Room | Booking | User | RoomFacility) => {
+    if (!item) return null;
+  
+    // Ignore RoomFacility items
+    if (!('price' in item && 'capacity' in item)) {
+      return null;
+    }
+  
     const room = item as Room;
   
-  return (
-      <StyledTableRow key={room?._id}>
-      <StyledTableCell component="th" scope="row">{room.roomNumber}</StyledTableCell>
-      <StyledTableCell>
-        <Box component="img" src={room?.images?.[0]} sx={{ width: '50px', height: '50px', borderRadius: '5px' }} />
-      </StyledTableCell>
-      <StyledTableCell>{room?.price}</StyledTableCell>
-      <StyledTableCell>{room?.discount}</StyledTableCell>
-      <StyledTableCell>{room?.capacity}</StyledTableCell>
-      <StyledTableCell>{room?.facilities?.map(f => f.name).join(', ')}</StyledTableCell>
-      <StyledTableCell>
-        <TableActions  handleDeleteItem={handleDeleteItem} item={room} route={`/dashboard/room-data/${room?._id}`} />
-      </StyledTableCell>
-    </StyledTableRow>
-  );
-}}
+    return (
+      <StyledTableRow key={room._id}>
+        <StyledTableCell component="th" scope="row">{room.roomNumber}</StyledTableCell>
+        <StyledTableCell>
+          <Box component="img" src={room.images?.[0]} sx={{ width: '50px', height: '50px', borderRadius: '5px' }} />
+        </StyledTableCell>
+        <StyledTableCell>{room.price}</StyledTableCell>
+        <StyledTableCell>{room.discount}</StyledTableCell>
+        <StyledTableCell>{room.capacity}</StyledTableCell>
+        <StyledTableCell>{room.facilities?.map(f => f.name).join(', ')}</StyledTableCell>
+        <StyledTableCell>
+          <TableActions handleDeleteItem={handleDeleteItem} item={room} route={`/dashboard/room-data/${room._id}`} />
+        </StyledTableCell>
+      </StyledTableRow>
+    );
+  };
   // Pagination handlers
   const handleChangePage = (
     _: React.MouseEvent<HTMLButtonElement> | null,
@@ -101,7 +107,7 @@ const renderRow = (item: Room | Booking |User ) => {
   return (
     <Box>
       <Header title='Room' route='/dashboard/room-data/new-room' />
-     <DataTable
+     <DataTable<Room>
      loading={loading}
      items={rooms}
       page={page}

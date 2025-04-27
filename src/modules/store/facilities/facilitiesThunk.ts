@@ -19,7 +19,7 @@ export const createRoomFacility = createAsyncThunk('roomFacilities/create', asyn
 export const updateRoomFacility = createAsyncThunk('roomFacilities/update', async (payload: UpdateRoomFacilityPayload, thunkAPI) => {
   const { id, data } = payload;
   try {
-    const response = await privateAxiosInstance.post(ADMIN_ROOM_FACILITIES_URLS.UPDATE_ROOM_FACILITIES(id), data);
+    const response = await privateAxiosInstance.put(ADMIN_ROOM_FACILITIES_URLS.UPDATE_ROOM_FACILITIES(id), data);
     return response.data;
   } catch (err) {
     return thunkAPI.rejectWithValue(handleThunkError(err, 'Failed to update the room facility'));
@@ -39,7 +39,7 @@ export const getRoomFacilityDetails = createAsyncThunk('roomFacilities/details',
 // Delete Room Facility
 export const deleteRoomFacility = createAsyncThunk('roomFacilities/delete', async (id: string, thunkAPI) => {
   try {
-    const response = await privateAxiosInstance.post(ADMIN_ROOM_FACILITIES_URLS.DELETE_ROOM_FACILITIES(id));
+    const response = await privateAxiosInstance.delete(ADMIN_ROOM_FACILITIES_URLS.DELETE_ROOM_FACILITIES(id));
     return response.data;
   } catch (err) {
     return thunkAPI.rejectWithValue(handleThunkError(err, 'Failed to delete the room facility'));

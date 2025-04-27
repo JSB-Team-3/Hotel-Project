@@ -36,6 +36,7 @@ export default function Header({ title, route }: HeaderProps) {
          >
            Add New Room
          </Button>
+
       )}
     </Box>
   );

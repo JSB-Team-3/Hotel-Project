@@ -14,11 +14,7 @@ import { getUserProfile, login, login as loginThunk} from '../../store/auth/Auth
 import { LoginFormInputs } from '../../../Interfaces/AuthInterfaces'; 
 import { enqueueSnackbar } from 'notistack';
 
-interface LoginUser{
-  _id: string;
-  nameName: string;
-  role: string;
-}
+
 
 const Login = () => {
   const { t } = useTranslation();
@@ -26,7 +22,6 @@ const Login = () => {
   const { loading } = useSelector((state: RootState) => state.auth);
   const { EMAIL_VALIDATION, PASSWORD_VALIDATION } = useValidation();
   const navigate = useNavigate();
-  const {user}= useSelector((state: RootState) => state.auth);
   const {register,handleSubmit,formState: {errors }} = useForm<LoginFormInputs>({ mode: 'onChange' });
   
 

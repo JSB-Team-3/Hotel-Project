@@ -7,7 +7,7 @@ import {Box,IconButton,Stack,Chip,} from '@mui/material';
   import BadgeIcon from '@mui/icons-material/Badge';
   import InfoCard from '../../Card/InfoCard';
   import { formatDate } from '../../../../utilities/formaterHelper';
-  import { FC } from 'react';
+  import { FC, memo } from 'react';
 import { BookingViewLayoutProps } from '../../../../Interfaces/cards.interfaces';
 
 const getStatusColor = (
@@ -24,6 +24,7 @@ const getStatusColor = (
   };
   
 
+<<<<<<< HEAD
 
 const BookingViewLayout: FC<BookingViewLayoutProps> = memo(({ data, handleClose }) => {
   return (
@@ -42,6 +43,14 @@ const BookingViewLayout: FC<BookingViewLayoutProps> = memo(({ data, handleClose 
       >
         <IconButton
           onClick={() => handleClose(false)}
+=======
+  const BookingViewLayout: FC<BookingViewLayoutProps> = ({ data, handleClose }) => {
+    
+    return (
+      <>
+        {/* Header */}
+        <Box
+>>>>>>> main
           sx={{
             position: 'absolute',
             top: 12,

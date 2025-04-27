@@ -1,3 +1,4 @@
+
 import { IconButton, Menu, MenuItem, ListItemIcon, ListItemText, Box } from '@mui/material';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -91,27 +92,32 @@ export default function TableActions({ handleDeleteItem, item, route }: TableAct
               <ListItemText primary="Edit" />
             </MenuItem>
           )}
-          {'email' in item || (
-            <MenuItem
-              onClick={() => {
-                handleClose();
-                if ('roomNumber' in item) {
-                  handleDeleteItem(item._id, item.roomNumber);
-                } else if ('user' in item) {
-                  handleDeleteItem(item._id, item.user.userName);
-                }
-              }}
-              sx={{
-                '&:hover': {
-                  backgroundColor: theme.palette.action.hover, 
-                },
-              }}
-            >
-              <ListItemIcon>
-                <DeleteIcon sx={{ color: '#203FC7' }} /> 
-              </ListItemIcon>
-              <ListItemText primary="Delete" />
-            </MenuItem>
+          {'email' in item  || (
+           <MenuItem
+  onClick={() => {
+    handleClose();
+    if ('roomNumber' in item) {
+      if (item.roomNumber) {
+        handleDeleteItem(item._id, item.roomNumber);
+      }
+    } else if ('user' in item) {
+      if (item.user && item.user.userName) {
+        handleDeleteItem(item._id, item.user.userName);
+      }
+    }
+  }}
+  sx={{
+    '&:hover': {
+      backgroundColor: theme.palette.action.hover, 
+    },
+  }}
+>
+  <ListItemIcon>
+    <DeleteIcon sx={{ color: '#203FC7' }} /> 
+  </ListItemIcon>
+  <ListItemText primary="Delete" />
+</MenuItem>
+
           )}
         </Menu>
       </Box>

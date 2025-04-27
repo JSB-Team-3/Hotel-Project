@@ -10,7 +10,7 @@ import { TableDataProps } from '../../../Interfaces/props.interface';
 import { StyledTableCell, StyledTableRow } from '../StyledTable/StyledTable';
 
 
-export default function DataTable({
+export default function DataTable<T>({
     loading,
     items,
     page,
@@ -22,7 +22,7 @@ export default function DataTable({
     labelRowsPerPage,
     columns,
 	renderRow
-}: TableDataProps) {
+}: TableDataProps<T>) {
     return (
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 700 }} aria-label="customized table">
