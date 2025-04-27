@@ -19,3 +19,19 @@ export type RoomFacilitiesState = {
     loading: boolean;
     error: string | null;
   };
+  export interface FacilitiesDataInterface {
+    _id: string;
+    name: string;
+    createdBy: {
+      _id: string;
+      userName: string;
+    };
+    createdAt: string;
+    updatedAt: string;
+  }
+  
+  export interface FacilitiesViewLayoutProps {
+    data: FacilitiesDataInterface;
+    handleClose: (value: boolean) => void;
+  }
+  

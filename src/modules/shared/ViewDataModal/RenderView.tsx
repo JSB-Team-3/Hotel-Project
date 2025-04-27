@@ -7,6 +7,8 @@ import UserViewLayout from './Viewlayout/UserViewLayout';
 import {  ViewRenderProps } from '../../../Interfaces/modal.interface';
 import BookingViewLayout from './Viewlayout/BookingViewDetials';
 import { BookingData } from '../../../Interfaces/cards.interfaces';
+import FacilitiesViewLayout from './Viewlayout/FacilitiesViewLayout';
+import { FacilitiesDataInterface } from '../../../Interfaces/facilities.interface';
 
 
 const RenderViewContent: FC<ViewRenderProps> = memo(({ data, handleClose }) => {
@@ -27,12 +29,11 @@ const RenderViewContent: FC<ViewRenderProps> = memo(({ data, handleClose }) => {
   if (location.pathname.includes('/dashboard/booking')) {
     return <BookingViewLayout data={data as BookingData} handleClose={handleClose} />;
   }
+  if (location.pathname.includes('/dashboard/facilities')) {
+    return <FacilitiesViewLayout data={data as FacilitiesDataInterface} handleClose={handleClose} />;
+  }
 
-  return (
-    <Typography variant="body1" color="text.secondary" align="center" p={2}>
-      No matching view found for this route.
-    </Typography>
-  );
+
 });
 
 export default RenderViewContent;
