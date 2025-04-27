@@ -10,7 +10,7 @@ import { Box } from "@mui/material";
 import DeleteConfirmation from "../../shared/DeleteConfirmation/DeleteConfirmation";
 import DataTable from "../../shared/DataTable/DataTable";
 import { RoomFacility } from "../../../Interfaces/facilities.interface";
-import {Room} from "../../../Interfaces/rooms.interface"
+import { Room } from "../../../Interfaces/rooms.interface";
 import { Booking } from "../../../Interfaces/bookings.interfaces";
 import { User } from "../../../Interfaces/user.interface";
 import {
@@ -19,25 +19,19 @@ import {
 } from "../../shared/StyledTable/StyledTable";
 import TableActions from "../../shared/TableActions/TableActions";
 import Header from "../../shared/Header/Header";
-import BasicModal from "../../shared/BasicModal/BasicModal"
+import BasicModal from "../../shared/BasicModal/BasicModal";
 import EditModal from "../../shared/EditModal/EditModal";
 
 export default function FacilitiesList() {
   const [itemToDeleteId, setItemToDeleteId] = useState<string>("");
   const [itemToDeleteName, setItemToDeleteName] = useState<string>("");
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
-    const [showCustomModal, setShowCustomModal] = useState(false);
-
-    const [editModalOpen, setEditModalOpen] = useState(false);
-    const [selectedItem, setSelectedItem] = useState<{
-      id: string;
-      name: string;
-    } | null>(null);
-
-    
-
-
-
+  const [showCustomModal, setShowCustomModal] = useState<boolean>(false);
+  const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
+  const [selectedItem, setSelectedItem] = useState<{
+    id: string;
+    name: string;
+  } | null>(null);
 
   // Pagination state
   const [page, setPage] = useState<number>(0);
@@ -53,7 +47,6 @@ export default function FacilitiesList() {
     }),
     shallowEqual
   );
-
 
   const getAllFacilitiesList = async () => {
     try {
@@ -100,8 +93,6 @@ export default function FacilitiesList() {
     }
   };
 
-  
-
   const renderRow = (item: Room | Booking | User | RoomFacility) => {
     if ("name" in item) {
       return (
@@ -130,9 +121,8 @@ export default function FacilitiesList() {
       );
     }
 
-    return null; 
+    return null;
   };
-
 
   // Pagination handlers
   const handleChangePage = (
@@ -182,12 +172,10 @@ export default function FacilitiesList() {
         message={`Delete This Facility: ${itemToDeleteName}`}
         loading={deleteLoading}
       />
-
       <BasicModal
         open={showCustomModal}
         handleClose={() => setShowCustomModal(false)}
       />
-
       {selectedItem && (
         <EditModal
           open={editModalOpen}
@@ -198,8 +186,6 @@ export default function FacilitiesList() {
           item={selectedItem}
         />
       )}
-
-      
     </Box>
   );
 }

@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import {Box,IconButton,Stack,Chip,} from '@mui/material';
   import CloseIcon from '@mui/icons-material/Close';
   import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
@@ -24,7 +23,6 @@ const getStatusColor = (
   };
   
 
-<<<<<<< HEAD
 
 const BookingViewLayout: FC<BookingViewLayoutProps> = memo(({ data, handleClose }) => {
   return (
@@ -43,14 +41,6 @@ const BookingViewLayout: FC<BookingViewLayoutProps> = memo(({ data, handleClose 
       >
         <IconButton
           onClick={() => handleClose(false)}
-=======
-  const BookingViewLayout: FC<BookingViewLayoutProps> = ({ data, handleClose }) => {
-    
-    return (
-      <>
-        {/* Header */}
-        <Box
->>>>>>> main
           sx={{
             position: 'absolute',
             top: 12,

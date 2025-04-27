@@ -18,24 +18,26 @@ export type TableActionProps = {
   handleEditItem?: (item: RoomFacility) => void;
 };
 
-export type TableDataProps<T> = {
-  loading: boolean;
-  items: T[];
-  page: number;
-  size: number;
-  handleChangePage: (_: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => void;
-  handleChangeRowsPerPage: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  totalCount: number;
-  rowsPerPageOptions: number[];
-  labelRowsPerPage: string;
-  columns: string[];
-  renderRow: (item: T, index?: number, extraProps?: { handleDeleteItem: (...args: any[]) => void, route?: string }) => React.ReactNode;
-  handleDeleteItem?: (...args: any[]) => void;
-  handleEditItem?: (...args: any[]) => void;
-  route?: string;
-};
 
-
+export type TableDataProps = {
+    loading: boolean;
+    items: (Room | Booking | User | RoomFacility)[]; // Define the array of items
+    page: number;
+    size: number;
+    handleChangePage: (
+      _: React.MouseEvent<HTMLButtonElement> | null,
+      newPage: number
+    ) => void;
+    handleChangeRowsPerPage: (
+      event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => void;
+    totalCount: number;
+    rowsPerPageOptions: number[];
+    labelRowsPerPage: string;
+    columns: string[];
+    renderRow: (item: Room | Booking | User | RoomFacility, index: number) => React.ReactNode; // Correctly type renderRow
+  };
+  
 export type HeaderProps = {
     title:string,
     route:string,

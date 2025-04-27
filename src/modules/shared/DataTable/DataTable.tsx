@@ -8,9 +8,10 @@ import TablePagination from '@mui/material/TablePagination';
 import LoadingScreen from '../../shared/LoadingScreen/LoadingScreen';
 import { TableDataProps } from '../../../Interfaces/props.interface';
 import { StyledTableCell, StyledTableRow } from '../StyledTable/StyledTable';
+import { memo } from 'react';
 
 
-export default function DataTable<T>({
+function DataTable({
     loading,
     items,
     page,
@@ -22,7 +23,7 @@ export default function DataTable<T>({
     labelRowsPerPage,
     columns,
 	renderRow
-}: TableDataProps<T>) {
+}: TableDataProps) {
     return (
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -41,7 +42,7 @@ export default function DataTable<T>({
                             </StyledTableCell>
                         </StyledTableRow>
                     ) : (
-						items?.map((item) => renderRow(item))
+						items?.map((item,index) => renderRow(item,index))
 						)}
                     
                 </TableBody>
@@ -62,3 +63,4 @@ export default function DataTable<T>({
         </TableContainer>
     )
 }
+export default memo(DataTable);

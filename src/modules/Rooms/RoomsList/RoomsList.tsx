@@ -4,16 +4,19 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { useSnackbar } from 'notistack';
 import { deleteRoom, getAllRooms } from '../../store/rooms/roomsThunk';
 import { useEffect, useState } from 'react';
-import { Box } from '@mui/material';
+import { Box ,Skeleton} from '@mui/material';
 import DeleteConfirmation from '../../shared/DeleteConfirmation/DeleteConfirmation';
 import DataTable from '../../shared/DataTable/DataTable';
 import { Room } from '../../../Interfaces/rooms.interface';
-import { StyledTableCell, StyledTableRow } from '../../shared/StyledTable/StyledTable';
+import { StyledTableCell } from '../../shared/StyledTable/StyledTable';
 import TableActions from '../../shared/TableActions/TableActions';
 import Header from '../../shared/Header/Header';
 import { Booking } from '../../../Interfaces/bookings.interfaces';
 import { User } from '../../../Interfaces/user.interface';
+import { motion } from 'framer-motion';
+import OptimizedImage from '../../shared/OptimizedImage/OptimizedImage';
 import { RoomFacility } from '../../../Interfaces/facilities.interface';
+
 export default function RoomsList() {
   const [itemToDeleteId, setItemToDeleteId] = useState<string>('');
   const [itemToDeleteNumber, setItemToDeleteNumber] = useState<string>('');
@@ -32,6 +35,8 @@ export default function RoomsList() {
   shallowEqual);
 
   const getAllRoomsList = async () => {
+    console.log('get');
+    
     try {
       await dispatch(getAllRooms({ 
         page: page + 1,
@@ -60,31 +65,40 @@ export default function RoomsList() {
       enqueueSnackbar(err as string || 'failed to delete room', { variant: 'error' });
     }
   };
-  const renderRow = (item: Room | Booking | User | RoomFacility) => {
-    if (!item) return null;
-  
-    // Ignore RoomFacility items
-    if (!('price' in item && 'capacity' in item)) {
-      return null;
+ 
+  const renderRow = (item: Room | Booking | User| RoomFacility, index: number) => {
+    if ('price' in item && 'capacity' in item) {
+      const room = item as Room;
+      return (
+        <motion.tr
+          key={room._id}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 , transition: { 
+            type: "spring",
+            stiffness: 100,
+            damping: 9,
+            delay: index * 0.20,
+            duration: 0.6
+          }}}
+        >
+          <StyledTableCell component="th" scope="row">{room.roomNumber}</StyledTableCell>
+          <StyledTableCell>
+          <Box  sx={{widht:"60px",height:"50px"}}>
+              <OptimizedImage src={room?.images?.[0]} width='60px' height='50px'/>     
+            </Box>
+          </StyledTableCell>
+          <StyledTableCell>{room.price}</StyledTableCell>
+          <StyledTableCell>{room.discount}</StyledTableCell>
+          <StyledTableCell>{room.capacity}</StyledTableCell>
+          <StyledTableCell>{room?.facilities?.map(f => f.name).join(', ')}</StyledTableCell>
+          <StyledTableCell>
+            <TableActions handleDeleteItem={handleDeleteItem} item={room} route={`/dashboard/room-data/${room?._id}`} />
+          </StyledTableCell>
+        </motion.tr>
+      );
     }
   
-    const room = item as Room;
-  
-    return (
-      <StyledTableRow key={room._id}>
-        <StyledTableCell component="th" scope="row">{room.roomNumber}</StyledTableCell>
-        <StyledTableCell>
-          <Box component="img" src={room.images?.[0]} sx={{ width: '50px', height: '50px', borderRadius: '5px' }} />
-        </StyledTableCell>
-        <StyledTableCell>{room.price}</StyledTableCell>
-        <StyledTableCell>{room.discount}</StyledTableCell>
-        <StyledTableCell>{room.capacity}</StyledTableCell>
-        <StyledTableCell>{room.facilities?.map(f => f.name).join(', ')}</StyledTableCell>
-        <StyledTableCell>
-          <TableActions handleDeleteItem={handleDeleteItem} item={room} route={`/dashboard/room-data/${room._id}`} />
-        </StyledTableCell>
-      </StyledTableRow>
-    );
+    return null;
   };
   // Pagination handlers
   const handleChangePage = (
@@ -107,7 +121,7 @@ export default function RoomsList() {
   return (
     <Box>
       <Header title='Room' route='/dashboard/room-data/new-room' />
-     <DataTable<Room>
+     <DataTable
      loading={loading}
      items={rooms}
       page={page}

@@ -1,4 +1,4 @@
-import {Backdrop,Box,Modal,Fade,Typography,CircularProgress} from '@mui/material';
+import {Backdrop,Box,Modal,Fade} from '@mui/material';
 import { FC, memo, useCallback } from 'react';
 import { UserDetailsModalProps } from '../../../Interfaces/modal.interface';
 import RenderViewContent from './RenderView';

@@ -5,12 +5,16 @@ import { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import DataTable from '../shared/DataTable/DataTable';
 import { Room } from '../../Interfaces/rooms.interface';
-import { StyledTableCell, StyledTableRow } from '../shared/StyledTable/StyledTable';
+import { StyledTableCell} from '../shared/StyledTable/StyledTable';
 import TableActions from '../shared/TableActions/TableActions';
 import Header from '../shared/Header/Header';
 import { Booking } from '../../Interfaces/bookings.interfaces';
 import { getAllUsers } from '../store/users/usersThunk';
 import { User } from '../../Interfaces/user.interface';
+import { motion } from 'framer-motion';
+import OptimizedImage from '../shared/OptimizedImage/OptimizedImage';
+import { RoomFacility } from '../../Interfaces/facilities.interface';
+
 export default function UsersList() {
 
   // Pagination state
@@ -25,6 +29,8 @@ export default function UsersList() {
   }),
   shallowEqual);
   const getAllUsersList = async () => {
+    console.log('get');
+    
     try {
      await dispatch(getAllUsers({ 
              page: page + 1,
@@ -36,30 +42,45 @@ export default function UsersList() {
   };
 
 
-  const renderRow = (item: Room | Booking | User ) => {
+  const renderRow = (item: Room | Booking | User|RoomFacility, index: number) => {
+    console.log('row');
+    
     if ('userName' in item) {
       const user = item as User;
+  
       return (
-        <StyledTableRow key={user._id}>
+        <motion.tr
+          key={user._id}
+          initial={{ opacity: 0,y: 20, }}
+          animate={{opacity: 1,y: 0, transition: { 
+            type: "spring",
+            stiffness: 100,
+            damping: 9,
+            delay: index * 0.20,
+            duration: 0.6
+          }}}
+           >
           <StyledTableCell component="th" scope="row">
             {user.userName}
-          </StyledTableCell>
-           <StyledTableCell>
-                  <Box component="img" src={user.profileImage} sx={{ width: '50px', height: '50px', borderRadius: '5px' }} />
-                </StyledTableCell>
+        </StyledTableCell>
+          <StyledTableCell>
+          <Box>
+              <OptimizedImage src={user.profileImage} width='60px'  />
+            </Box>          </StyledTableCell>
           <StyledTableCell>{user.email}</StyledTableCell>
           <StyledTableCell>{user.phoneNumber}</StyledTableCell>
           <StyledTableCell>{user.country}</StyledTableCell>
           <StyledTableCell>{user.role}</StyledTableCell>
           <StyledTableCell>{user.verified ? 'Verified' : 'Not Verified'}</StyledTableCell>
           <StyledTableCell>
-            <TableActions    handleDeleteItem={noopDeleteHandler} item={user} route={''} />
+            <TableActions handleDeleteItem={noopDeleteHandler} item={user} route={''} />
           </StyledTableCell>
-        </StyledTableRow>
+        </motion.tr>
       );
     }
+  
     return null;
-  }
+  };
   // Pagination handlers
   const handleChangePage = (
     _: React.MouseEvent<HTMLButtonElement> | null,

@@ -6,6 +6,7 @@ import NotFound from './modules/shared/NotFound/NotFound';
 import ProtectedRoute from './modules/shared/ProtectedRoute/ProtectedRoute';
 import { Box, CircularProgress } from '@mui/material';
 import AuthLayout from './modules/shared/AuthLayout/AuthLayout';
+import FacilitiesList from './modules/Facilities/FacilitiesList/FacilitiesList';
 
 // Lazy-load your components
 const Login = React.lazy(() => import('./modules/Authentication/Login/Login'));
@@ -43,6 +44,8 @@ const routes = createBrowserRouter([
         {path:"room-data/:roomId",element:<RoomsData/>},
         {path:"bookings",element:<BookingList/>},
         {path:"users",element:<UsersList/>},
+        {path:"facilities",element:<FacilitiesList/>},
+
       ]
     }
 ])
