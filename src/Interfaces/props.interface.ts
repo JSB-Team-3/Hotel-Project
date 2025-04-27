@@ -2,6 +2,7 @@ import { Dispatch, SetStateAction } from "react"
 import { Room } from "./rooms.interface"
 import { Booking } from "./bookings.interfaces"
 import { User } from "./user.interface"
+import { Ad } from "./ads.interfaces"
 
 export type ConfirmDeleteProps ={
     open:boolean,
@@ -11,7 +12,7 @@ export type ConfirmDeleteProps ={
     loading:boolean   
 }
 export type TableActionProps ={
-    item:Room | Booking | User,
+    item:Room | Booking | User |Ad,
     handleDeleteItem:(itemId: string, itemNumber: string) => void,
     handleViewItem?:(value:boolean) => void,
     route:string,
@@ -20,7 +21,7 @@ export type TableActionProps ={
 
 export type TableDataProps = {
     loading:boolean,
-    items:Room[] | Booking[] | User[],    
+    items:Room[] | Booking[] | User[] | Ad[],    
     page:number,
     size:number,
     handleChangePage:(_: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => void,

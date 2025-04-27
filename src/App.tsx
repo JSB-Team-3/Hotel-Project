@@ -15,6 +15,7 @@ import BookingList from './modules/Booking/BookingList';
 import UsersList from './modules/UsersList/UsersList';
 import Dashboard from './modules/Dashboard/Dashboard';
 import ProtectedRoute from './modules/shared/ProtectedRoute/ProtectedRoute';
+import Ads from './modules/Ads/Ads'
 
 function App() {
 const routes=createBrowserRouter([
@@ -36,6 +37,7 @@ const routes=createBrowserRouter([
         {path:"room-data/:roomId",element:<RoomsData/>},
         {path:"bookings",element:<BookingList/>},
         {path:"users",element:<UsersList/>},
+        {path:"ads",element:<Ads/>},
       ]
     }
 ])

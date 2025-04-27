@@ -1,3 +1,5 @@
+import { Room } from "./rooms.interface";
+
 export interface adPayload {
     title: string;
   }
@@ -6,15 +8,19 @@ export interface adPayload {
       data: adPayload;
     };
     export type getAllAdsParams = {
-      pageSize: number;
-      pageNumber: number;
+      page: number;
+      size: number;
     };
-    export type ad= {
-      id: string;
+    export type Ad= {
+      _id: string;
+      isActive:boolean;
+      room:Room
     };
     export type AdsState = {
-      ads: ad[];  
-      adDetails: ad | null;
+      ads: Ad[];  
+      adDetails: Ad | null;
       loading: boolean;
       error: string | null;
+      deleteLoading: boolean;
+      totalCount: number;
     }

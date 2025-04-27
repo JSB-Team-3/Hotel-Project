@@ -10,7 +10,6 @@ import { TableActionProps } from '../../../Interfaces/props.interface';
 import ViewDataModal from '../ViewDataModal/ViewDataModal';
 
 export default function TableActions({handleDeleteItem,item,route}:TableActionProps) {
-    console.log(item);
     
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
@@ -69,12 +68,20 @@ export default function TableActions({handleDeleteItem,item,route}:TableActionPr
                     </ListItemIcon>
                     <ListItemText primary="Edit" />
                 </MenuItem>}
+                {('isActive' in item && 'room' in item ) && <MenuItem  onClick={handleClose} sx={{'&:hover':{'backgroundColor':'#F8F9FB'}}}>
+                    <ListItemIcon>
+                        <EditIcon sx={{'color':'#203FC7'}} />
+                    </ListItemIcon>
+                    <ListItemText primary="Edit" />
+                </MenuItem>}
                 {'email' in item || <MenuItem onClick={() => { 
                     handleClose(); 
                     if ('roomNumber' in item) {
                         handleDeleteItem(item._id, item.roomNumber);
                     } else if ('user' in item) {
                         handleDeleteItem(item._id, item.user.userName);
+                    }else if ('room' in item) {
+                        handleDeleteItem(item._id, item.room.roomNumber);
                     }
                 }} sx={{'&:hover':{'backgroundColor':'#F8F9FB'}}}>
                     <ListItemIcon>
@@ -84,7 +91,7 @@ export default function TableActions({handleDeleteItem,item,route}:TableActionPr
                 </MenuItem>}
             </Menu>
         </Box>
-        <ViewDataModal open={openviewModal} handleClose={()=>setViewOpen(false)}  data={item} title='User Detials'/>
+        <ViewDataModal open={openviewModal} handleClose={()=>setViewOpen(false)}  data={item} title='user Detials'/>
         </>
     )
 }

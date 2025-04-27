@@ -9,6 +9,7 @@ export default function Header({title,route}:HeaderProps) {
                 <Box component='span' sx={{ mt: '0', color: '#323C47', fontSize: '14px' }}>You can check all details</Box>
             </Box>
             {route && <Button component={Link} to={route} variant='contained' sx={{ backgroundColor: "#203FC7", color: 'white', fontWeight: 'bold', paddingInline: '30px' }}>Add New Room</Button>}
+            {title==='Ads' && <Button  variant='contained' sx={{ backgroundColor: "#203FC7", color: 'white', fontWeight: 'bold', paddingInline: '30px' }}>Add New Ad</Button>}
         </Box>
     )
 

@@ -7,6 +7,8 @@ const initialState: AdsState = {
   adDetails: null,
   loading: false,
   error: null,
+  deleteLoading: false,
+  totalCount: 0,
 };
 
 const adsSlice = createSlice({
@@ -18,6 +20,8 @@ const adsSlice = createSlice({
       state.adDetails = null;
       state.loading = false;
       state.error = null;
+      state.deleteLoading = false;
+      state.totalCount = 0;
     },
   },
   extraReducers: (builder) => {
@@ -42,7 +46,8 @@ const adsSlice = createSlice({
       })
       .addCase(getAds.fulfilled, (state, action) => {
         state.loading = false;
-        state.ads = action.payload;
+        state.ads = action.payload?.data?.ads;
+        state.totalCount = action.payload?.data?.totalCount;
       })
       .addCase(getAds.rejected, (state, action) => {
         state.loading = false;
@@ -65,14 +70,14 @@ const adsSlice = createSlice({
 
       // Delete Ad
       .addCase(deleteAd.pending, (state) => {
-        state.loading = true;
+        state.deleteLoading = true;
         state.error = null;
       })
       .addCase(deleteAd.fulfilled, (state) => {
-        state.loading = false;
+        state.deleteLoading = false;
       })
       .addCase(deleteAd.rejected, (state, action) => {
-        state.loading = false;
+        state.deleteLoading = false;
         state.error = action.payload as string;
       })
 
