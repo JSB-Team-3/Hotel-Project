@@ -10,16 +10,11 @@ import { useValidation } from '../../hooks/useValidation';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store/auth/AuthConfig';
-
-import { login as loginThunk} from '../../store/auth/AuthThunks'; 
+import { getUserProfile, login, login as loginThunk} from '../../store/auth/AuthThunks'; 
 import { LoginFormInputs } from '../../../Interfaces/AuthInterfaces'; 
 import { enqueueSnackbar } from 'notistack';
 
-interface LoginUser{
-  _id: string;
-  nameName: string;
-  role: string;
-}
+
 
 const Login = () => {
   const { t } = useTranslation();
@@ -27,13 +22,15 @@ const Login = () => {
   const { loading } = useSelector((state: RootState) => state.auth);
   const { EMAIL_VALIDATION, PASSWORD_VALIDATION } = useValidation();
   const navigate = useNavigate();
-  const {user}= useSelector((state: RootState) => state.auth);
   const {register,handleSubmit,formState: {errors }} = useForm<LoginFormInputs>({ mode: 'onChange' });
   
 
   const onSubmit = async (formData: LoginFormInputs) => {
     try {
      const {data}=  await dispatch(loginThunk(formData)).unwrap();
+     
+     const res=  await dispatch(getUserProfile(data?.user?._id)).unwrap();
+
               navigate('/dashboard');
 
       // user just logged in

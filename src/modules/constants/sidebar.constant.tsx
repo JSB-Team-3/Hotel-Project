@@ -15,5 +15,5 @@ export const menuItems = [
   { textKey: 'sidebar.rooms', icon: <ViewModuleIcon />, route: '/dashboard/rooms' },
   { textKey: 'sidebar.ads', icon: <EventNoteIcon />, route: '/dashboard/ads' },
   { textKey: 'sidebar.bookings', icon: <BookOnlineIcon />, route: '/dashboard/bookings' },
-  { textKey: 'sidebar.facilities', icon: <MeetingRoomIcon />, route: '/facilities' },
+  { textKey: 'sidebar.facilities', icon: <MeetingRoomIcon />, route: '/dashboard/facilities' },
 ];

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import { Menu, MenuItem, IconButton, Typography, Box, Fade, Tooltip, Divider, ListItemIcon, Chip } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { changeLanguage } from '../Locales/i18n';
@@ -13,13 +13,12 @@ const languages = [
   { code: 'ar', label: 'العربية', flag: '🇸🇦', region: 'Saudi Arabia' },
 ];
 
-// Group languages by region
 const regions = {
   "": ['en', 'ar'],
 };
 
 interface LanguageSelectorProps {
-  color?: string;  // Optional color prop
+  color?: string;  
 }
 
 const LanguageSelector: React.FC<LanguageSelectorProps> = ({ color }) => {
@@ -213,4 +212,4 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({ color }) => {
   );
 };
 
-export default LanguageSelector;
+export default memo(LanguageSelector);

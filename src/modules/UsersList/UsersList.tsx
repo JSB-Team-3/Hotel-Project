@@ -11,55 +11,63 @@ import Header from '../shared/Header/Header';
 import { Booking } from '../../Interfaces/bookings.interfaces';
 import { getAllUsers } from '../store/users/usersThunk';
 import { User } from '../../Interfaces/user.interface';
+import OptimizedImage from '../shared/OptimizedImage/OptimizedImage';
+import { RoomFacility } from '../../Interfaces/facilities.interface';
+
 export default function UsersList() {
 
   // Pagination state
   const [page, setPage] = useState<number>(0);
-  const [size, setSize] = useState<number>(5);  
+  const [size, setSize] = useState<number>(5);
   const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch<AppDispatch>();
-  const { loading, users,totalCount } = useSelector((state: RootState) => ({
+  const { loading, users, totalCount } = useSelector((state: RootState) => ({
     loading: state.users.loading,
     users: state.users.users,
     totalCount: state.users.totalCount,
   }),
-  shallowEqual);
+    shallowEqual);
   const getAllUsersList = async () => {
+    console.log('get');
+
     try {
-     await dispatch(getAllUsers({ 
-             page: page + 1,
-             size: size 
-           })).unwrap();
+      await dispatch(getAllUsers({
+        page: page + 1,
+        size: size
+      })).unwrap();
     } catch (err) {
       enqueueSnackbar(err as string || 'failed to get all Booking', { variant: 'error' });
     }
   };
 
 
-  const renderRow = (item: Room | Booking | User ) => {
+  const renderRow = (item: Room | Booking | User | RoomFacility) => {
+    console.log('row');
     if ('userName' in item) {
-      const user = item as User;
+
       return (
-        <StyledTableRow key={user._id}>
+        <StyledTableRow key={item?._id} >
           <StyledTableCell component="th" scope="row">
-            {user.userName}
+            {item.userName}
           </StyledTableCell>
-           <StyledTableCell>
-                  <Box component="img" src={user.profileImage} sx={{ width: '50px', height: '50px', borderRadius: '5px' }} />
-                </StyledTableCell>
-          <StyledTableCell>{user.email}</StyledTableCell>
-          <StyledTableCell>{user.phoneNumber}</StyledTableCell>
-          <StyledTableCell>{user.country}</StyledTableCell>
-          <StyledTableCell>{user.role}</StyledTableCell>
-          <StyledTableCell>{user.verified ? 'Verified' : 'Not Verified'}</StyledTableCell>
           <StyledTableCell>
-            <TableActions    handleDeleteItem={noopDeleteHandler} item={user} route={''} />
+            <Box>
+              <OptimizedImage src={item.profileImage} width='60px' />
+            </Box>          </StyledTableCell>
+          <StyledTableCell>{item.email}</StyledTableCell>
+          <StyledTableCell>{item.phoneNumber}</StyledTableCell>
+          <StyledTableCell>{item.country}</StyledTableCell>
+          <StyledTableCell>{item.role}</StyledTableCell>
+          <StyledTableCell>{item.verified ? 'Verified' : 'Not Verified'}</StyledTableCell>
+          <StyledTableCell>
+            <TableActions handleDeleteItem={noopDeleteHandler} item={item} route={''} />
           </StyledTableCell>
         </StyledTableRow>
       );
     }
+
     return null;
-  }
+  };
   // Pagination handlers
   const handleChangePage = (
     _: React.MouseEvent<HTMLButtonElement> | null,
@@ -78,23 +86,23 @@ export default function UsersList() {
   };
   useEffect(() => {
     getAllUsersList();
-  }, [page, size]); 
+  }, [page, size]);
   return (
     <Box>
       <Header title='Users' route='' />
-     <DataTable
-     loading={loading}
-     items={users}
-      page={page}
-      size={size}
-      handleChangePage={handleChangePage}
-      handleChangeRowsPerPage={handleChangeRowsPerPage}
-      totalCount={totalCount}
-      rowsPerPageOptions={[5, 10, 25]}
-      labelRowsPerPage="booking per Page:"
-      columns={['Username','Image', 'Email ', 'Phone Number', 'country', 'Role', 'status', '']} 
-      renderRow = {renderRow}
-     />
+      <DataTable
+        loading={loading}
+        items={users}
+        page={page}
+        size={size}
+        handleChangePage={handleChangePage}
+        handleChangeRowsPerPage={handleChangeRowsPerPage}
+        totalCount={totalCount}
+        rowsPerPageOptions={[5, 10, 25]}
+        labelRowsPerPage="booking per Page:"
+        columns={['Username', 'Image', 'Email ', 'Phone Number', 'country', 'Role', 'status', '']}
+        renderRow={renderRow}
+      />
     </Box>
   );
 }

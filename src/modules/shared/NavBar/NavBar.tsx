@@ -1,49 +1,35 @@
 import React, { useState, useCallback, memo } from 'react';
-import {Toolbar,IconButton,Typography,Menu,MenuItem,Avatar,useMediaQuery,Box,
-  Divider,
-  ListItemIcon,
-  ListItemText,
-  InputAdornment,
-  Badge,
-} from '@mui/material';
+import { Toolbar, IconButton, Typography, Menu, Avatar, useMediaQuery, Box, Divider, Badge } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
-import SearchIcon from '@mui/icons-material/Search';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import BootstrapInput from '../Form/BootstrapInput';
-import { StyledAppBar } from './ StyledAppBar';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/auth/AuthConfig';
+import { imgURL } from '../../services/api/apiConfig';
+import UserMenuItem from './UserMenuItem';  
+import { StyledAppBar } from './ StyledAppBar';
 
 interface NavbarProps {
   open: boolean;
 }
 
-const UserMenuItem = memo(
-  ({ icon, text, onClick }: { icon: React.ReactNode; text: string; onClick: () => void }) => (
-    <MenuItem onClick={onClick} sx={{ minWidth: 200 }}>
-      <ListItemIcon>{icon}</ListItemIcon>
-      <ListItemText primary={text} />
-    </MenuItem>
-  )
-);
-
 const Navbar: React.FC<NavbarProps> = ({ open }) => {
   const [userMenuAnchor, setUserMenuAnchor] = useState<null | HTMLElement>(null);
-  const [search, setSearch] = useState('');
+
   const { t, i18n } = useTranslation();
   const dir = i18n.dir();
+
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const isUserMenuOpen = Boolean(userMenuAnchor);
-  const user= useSelector((state: RootState) => state.auth.user);
-  console.log("user",user);
-  const userName = user?.userName || 'User'; 
-  
+  const store = useSelector((state: RootState) => state.auth);
+  const userName = store.user?.userName || 'User';
+  const userImage = store.userProfile.profileImage ? `${imgURL}${store.userProfile.profileImage}` : '/images/avatar.png';
+  const userEmail = store.userProfile.email || '';
 
   const handleUserMenuOpen = useCallback((e: React.MouseEvent<HTMLElement>) => {
     setUserMenuAnchor(e.currentTarget);
@@ -63,7 +49,7 @@ const Navbar: React.FC<NavbarProps> = ({ open }) => {
 
   return (
     <StyledAppBar position="fixed" open={open} elevation={0}>
-      <Toolbar sx={{ justifyContent: 'space-between', p:1 }}>
+      <Toolbar sx={{ justifyContent: 'space-between', p: 1 }}>
         <Box
           sx={{
             display: 'flex',
@@ -76,33 +62,14 @@ const Navbar: React.FC<NavbarProps> = ({ open }) => {
             borderRadius: 2,
           }}
         >
-          {/* Search */}
-          {/* <Box sx={{ flex: 1, mx: 2, maxWidth: '70%' }}>
-            <BootstrapInput
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder={t('common.search') || 'Search...'}
-              startAdornment={
-                <InputAdornment position={dir === 'rtl' ? 'end' : 'start'}>
-                  <SearchIcon fontSize="small" sx={{ color: 'text.secondary' }} />
-                </InputAdornment>
-              }
-              fullWidth
-              sx={{
-                direction: dir,
-                textAlign: dir === 'rtl' ? 'right' : 'left',
-              }}
-            />
-          </Box> */}
-          
           {/* User Profile Section with angle icon */}
-          <Box sx={{ display: 'flex', alignItems: 'center',marginInlineStart:"auto", gap: 2, pr: 1 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', marginInlineStart: "auto", gap: 2, pr: 1 }}>
             <Box
               onClick={handleUserMenuOpen}
-              sx={{ 
-                display: 'flex', 
-                alignItems: 'center', 
-                gap: 1, 
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 1,
                 cursor: 'pointer',
                 '&:hover': {
                   opacity: 0.8,
@@ -111,7 +78,7 @@ const Navbar: React.FC<NavbarProps> = ({ open }) => {
             >
               <Avatar
                 alt="User"
-                src="/images/avatar.png"
+                src={userImage}
                 sx={{
                   width: isMobile ? 28 : 32,
                   height: isMobile ? 28 : 32,
@@ -123,7 +90,7 @@ const Navbar: React.FC<NavbarProps> = ({ open }) => {
                 variant="body1"
                 sx={{ fontWeight: 500, color: 'text.primary', userSelect: 'none' }}
               >
-                {t('welcome ')  } <Typography component="span" sx={{ fontWeight: 700 }}>{userName}</Typography>
+                {t('welcome ')} <Typography component="span" sx={{ fontWeight: 700 }}>{userName}</Typography>
               </Typography>
               {/* Added angle icon that changes based on menu state */}
               {isUserMenuOpen ? (
@@ -169,12 +136,16 @@ const Navbar: React.FC<NavbarProps> = ({ open }) => {
               disableEnforceFocus
               disableScrollLock
             >
-              <Box sx={{ px: 2, py: 1.5 }}>
+              <Box sx={{ px: 2, py: .5 }}>
                 <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
                   {userName}
                 </Typography>
               </Box>
-
+              <Box sx={{ px: 2, pb: 1 }}>
+                <Typography variant="body2" color="text.secondary">
+                  {userEmail}
+                </Typography>
+              </Box>
               <Divider />
 
               <UserMenuItem

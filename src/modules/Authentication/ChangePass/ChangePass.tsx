@@ -4,10 +4,8 @@ import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { CircularProgress } from '@mui/material';
-
 import { useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
-import { maodalStyles } from './ChangePasswordUtilities';
 import { useSnackbar } from 'notistack';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store/auth/AuthConfig';
@@ -17,10 +15,12 @@ import { useTranslation } from 'react-i18next';
 import TextInput from '../../shared/Form/TextInput';
 import { changePassword } from '../../store/auth/AuthThunks';
 import { changePassProp } from '../../../Interfaces/props.interface';
+import { useTheme } from '@mui/material/styles';
 
-const ChangePass = ({open,setOpen}:changePassProp) => {
+const ChangePass = ({ open, setOpen }: changePassProp) => {
   const { t } = useTranslation();
   const { PASSWORD_VALIDATION, CONFIRM_PASS_VALIDATION } = useValidation();
+  const theme = useTheme(); // Access the theme
 
   const buttonRef = useRef<HTMLButtonElement | null>(null); // For restoring focus
 
@@ -73,11 +73,33 @@ const ChangePass = ({open,setOpen}:changePassProp) => {
         slots={{ backdrop: Backdrop }}
         slotProps={{ backdrop: { timeout: 500 } }}
       >
-        <Box sx={maodalStyles}>
-          <Typography id="transition-modal-title" variant="h6" component="h2" sx={{ mb: 2 }}>
+        <Box
+          sx={{
+            ...{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              width: 400,
+              bgcolor: theme.palette.background.paper,
+              borderRadius: 2,
+              boxShadow: 24,
+              p: 4,
+            },
+          }}
+        >
+          <Typography
+            id="transition-modal-title"
+            variant="h6"
+            component="h2"
+            sx={{ mb: 2, color: theme.palette.text.primary }}
+          >
             {t('password.modalTitle')}
           </Typography>
-          <Typography id="transition-modal-description" sx={{ mb: 3 }}>
+          <Typography
+            id="transition-modal-description"
+            sx={{ mb: 3, color: theme.palette.text.secondary }}
+          >
             {t('password.modalDescription')}
           </Typography>
 
@@ -115,10 +137,32 @@ const ChangePass = ({open,setOpen}:changePassProp) => {
               errors={errors}
             />
             <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 3, gap: 2 }}>
-              <Button variant="outlined" onClick={handleClose}>
+              <Button
+                variant="outlined"
+                onClick={handleClose}
+                sx={{
+                  color: theme.palette.primary.dark,
+                  borderColor: theme.palette.primary.main,
+                  '&:hover': {
+                    backgroundColor: theme.palette.primary.dark,
+                    color: theme.custom.liteMain,
+
+                  },
+                }}
+              >
                 {t('common.cancel')}
               </Button>
-              <Button type="submit" variant="contained" color="primary">
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                sx={{
+                  position: 'relative',
+                  '&:hover': {
+                    backgroundColor: theme.palette.primary.dark,
+                  },
+                }}
+              >
                 {loading ? (
                   <CircularProgress color="inherit" size={24} sx={{ color: 'white' }} />
                 ) : (

@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 import { Box, Typography } from '@mui/material';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
@@ -19,6 +18,9 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({
   const [carouselImages] = useState<string[]>(images);
   const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
   const [activeIndex, setActiveIndex] = useState<number>(0);
+  
+  // Determine if loop mode should be enabled
+  const shouldEnableLoop = carouselImages.length > 2;
 
   if (carouselImages.length === 0 && showPlaceholder) {
     return (
@@ -40,6 +42,27 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({
     );
   }
 
+  // For single image case, don't use Swiper, just show the image
+  if (carouselImages.length === 1) {
+    return (
+      <Box sx={{ width, borderRadius, overflow: 'hidden' }}>
+        <Box sx={{ width: '100%', height }}>
+          <Box
+            component="img"
+            src={carouselImages[0]}
+            alt="Single Image"
+            sx={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              borderRadius,
+            }}
+          />
+        </Box>
+      </Box>
+    );
+  }
+
   return (
     <Box sx={{ width, borderRadius, overflow: 'hidden' }}>
       {/* Main Carousel */}
@@ -47,9 +70,9 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({
         style={{
           '--swiper-navigation-color': '#fff',
         } as React.CSSProperties}
-        loop={true}
+        loop={shouldEnableLoop}
         spaceBetween={10}
-        navigation={true}
+        navigation={carouselImages.length > 1}
         thumbs={{ swiper: thumbsSwiper }}
         modules={[FreeMode, Navigation, Thumbs]}
         className="mySwiper2"
@@ -74,51 +97,51 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({
         ))}
       </Swiper>
 
-      {/* Thumbnail Carousel */}
-      <Swiper
-  onSwiper={setThumbsSwiper}
-  loop={false}
-  spaceBetween={8 }
-  slidesPerView={5} // Increase this for tighter thumbnails
-  freeMode={true}
-  watchSlidesProgress={true}
-  modules={[FreeMode, Navigation, Thumbs]}
-  className="mySwiper"
-  style={{ marginTop: '10px' }}
->
-  {carouselImages.map((image, index) => {
-    const isActive = index === activeIndex;
-    return (
-      <SwiperSlide key={`thumb-${index}`} style={{ padding: 0 }}>
-        <Box
-          sx={{
-            width: '100%', // Let Swiper control the size
-            height: 70,
-            border: isActive ? '2px solid #b5c8db' : 'none',
-            borderRadius,
-            overflow: 'hidden',
-          }}
+      {/* Only show thumbnails if there's more than one image */}
+      {carouselImages.length > 1 && (
+        <Swiper
+          onSwiper={setThumbsSwiper}
+          loop={false}
+          spaceBetween={8}
+          slidesPerView={Math.min(5, carouselImages.length)}
+          freeMode={true}
+          watchSlidesProgress={true}
+          modules={[FreeMode, Navigation, Thumbs]}
+          className="mySwiper"
+          style={{ marginTop: '10px' }}
         >
-          <Box
-            component="img"
-            src={image}
-            alt={`Thumb ${index + 1}`}
-            sx={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              filter: isActive ? 'none' : 'brightness(50%)',
-              transition: 'all 0.3s ease',
-              cursor: 'pointer',
-            }}
-          />
-        </Box>
-      </SwiperSlide>
-    );
-  })}
-</Swiper>
-
-
+          {carouselImages.map((image, index) => {
+            const isActive = index === activeIndex;
+            return (
+              <SwiperSlide key={`thumb-${index}`} style={{ padding: 0 }}>
+                <Box
+                  sx={{
+                    width: '100%',
+                    height: 70,
+                    border: isActive ? '2px solid #b5c8db' : 'none',
+                    borderRadius,
+                    overflow: 'hidden',
+                  }}
+                >
+                  <Box
+                    component="img"
+                    src={image}
+                    alt={`Thumb ${index + 1}`}
+                    sx={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      filter: isActive ? 'none' : 'brightness(50%)',
+                      transition: 'all 0.3s ease',
+                      cursor: 'pointer',
+                    }}
+                  />
+                </Box>
+              </SwiperSlide>
+            );
+          })}
+        </Swiper>
+      )}
     </Box>
   );
 };

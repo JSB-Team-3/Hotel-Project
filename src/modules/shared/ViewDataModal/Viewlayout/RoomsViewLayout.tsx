@@ -1,13 +1,7 @@
-import React from 'react';
-import {
-  Box,
-  Typography,
-  IconButton,
-  Chip,
-  Stack,
-  Divider,
-  CircularProgress
-} from '@mui/material';
+
+import  { memo } from 'react';
+import {Box,Typography,IconButton,Chip,Stack,Divider,CircularProgress} from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import CloseIcon from '@mui/icons-material/Close';
 import BedIcon from '@mui/icons-material/Bed';
 import PeopleIcon from '@mui/icons-material/People';
@@ -19,7 +13,8 @@ import InfoCard from '../../Card/InfoCard';
 import { formatDate } from '../../../../utilities/formaterHelper';
 import { RoomDataProps } from '../../../../Interfaces/rooms.interface';
 import {calculateDiscountedPrice}  from '../../../../utilities/CalculationHelper';
-const RoomsViewLayout: FC<{ data: RoomDataProps; handleClose: Function; isMobile: boolean }> = ({ data, handleClose, isMobile }) => {
+const RoomsViewLayout: FC<{ data: RoomDataProps; handleClose: Function }> = ({ data, handleClose}) => {
+  const theme = useTheme()
   return (
     <Box sx={{ display: "flex", flexDirection: "column" }} >
       {!data ? (
@@ -72,53 +67,52 @@ const RoomsViewLayout: FC<{ data: RoomDataProps; handleClose: Function; isMobile
           </Box>
 
           {/* Room Overview */}
-          <Box sx={{ px: 3, py: 2, bgcolor: '#f8fafc' }}>
-            <Stack
-              direction={{ xs: 'column', sm: 'row' }}
-              spacing={2}
-              alignItems="center"
-              justifyContent="space-evenly"
-              divider={<Divider orientation="vertical" flexItem />}
-            >
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <PeopleIcon color="primary" />
-                <Typography>
-                  <Typography component="span" fontWeight={600}>
-                    Capacity:
-                  </Typography>{' '}
-                  {data.capacity || 0} People
-                </Typography>
-              </Box>
+      <Box sx={{ px: 3, py: 2, bgcolor: theme.palette.background.paper }}>
+      <Stack
+        direction={{ xs: 'column', sm: 'row' }}
+        spacing={2}
+        alignItems="center"
+        justifyContent="space-evenly"
+        divider={<Divider orientation="vertical" flexItem />}
+      >
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          <PeopleIcon color="primary" />
+          <Typography>
+            <Typography component="span" fontWeight={600}>
+              Capacity:
+            </Typography>{' '}
+            {data.capacity || 0} People
+          </Typography>
+        </Box>
 
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <AttachMoneyIcon color="primary" />
-                <Typography>
-                  <Typography component="span" fontWeight={600}>
-                    Price:
-                  </Typography>{' '}
-                  ${data.price || 0}
-                  {data.discount && data.discount > 0 && (
-                    <Typography component="span" color="error.main" sx={{ ml: 1 }}>
-                      ${calculateDiscountedPrice(data.price || 0, data.discount || 0)}
-                    </Typography>
-                  )}
-                </Typography>
-              </Box>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          <AttachMoneyIcon color="primary" />
+          <Typography>
+            <Typography component="span" fontWeight={600}>
+              Price:
+            </Typography>{' '}
+            ${data.price || 0}
+            {data.discount && data.discount > 0 && (
+              <Typography component="span" color="error.main" sx={{ ml: 1 }}>
+                ${calculateDiscountedPrice(data.price || 0, data.discount || 0)}
+              </Typography>
+            )}
+          </Typography>
+        </Box>
 
-              {data.discount && data.discount > 0 && (
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <LocalOfferIcon color="error" />
-                  <Typography>
-                    <Typography component="span" fontWeight={600}>
-                      Discount:
-                    </Typography>{' '}
-                    {data.discount}% 
-                  </Typography>
-                </Box>
-              )}
-            </Stack>
+        {data.discount && data.discount > 0 && (
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            <LocalOfferIcon color="error" />
+            <Typography>
+              <Typography component="span" fontWeight={600}>
+                Discount:
+              </Typography>{' '}
+              {data.discount}%
+            </Typography>
           </Box>
-
+        )}
+      </Stack>
+    </Box>
           {/* Main Content Area with Reusable Cards */}
           <Box
             sx={{
@@ -166,6 +160,6 @@ const RoomsViewLayout: FC<{ data: RoomDataProps; handleClose: Function; isMobile
       )}
     </Box>
   );
-};
+}
 
-export default RoomsViewLayout;
+export default memo(RoomsViewLayout);
