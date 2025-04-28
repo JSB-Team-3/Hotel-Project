@@ -15,6 +15,7 @@ export type RoomFacility = {
   roomNumber?: string;
   user?: { userName: string };
   email?: string;
+  createdAt?: string; // Add the createdAt property
 };
 export type RoomFacilitiesState = {
   facilities: RoomFacility[];

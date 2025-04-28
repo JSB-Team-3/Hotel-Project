@@ -1,7 +1,7 @@
+
 import  { memo } from 'react';
-import {Box,Typography,IconButton,Chip,Stack,Divider,CircularProgress,
-  useTheme
-} from '@mui/material';
+import {Box,Typography,IconButton,Chip,Stack,Divider,CircularProgress} from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import CloseIcon from '@mui/icons-material/Close';
 import BedIcon from '@mui/icons-material/Bed';
 import PeopleIcon from '@mui/icons-material/People';

@@ -1,4 +1,5 @@
 import { memo } from 'react';
+import { Typography, useMediaQuery, useTheme } from '@mui/material';
 import { FC } from 'react';
 import { useLocation } from 'react-router-dom';
 import RoomsViewLayout from './Viewlayout/RoomsViewLayout';
@@ -34,6 +35,13 @@ const RenderViewContent: FC<ViewRenderProps> = memo(({ data, handleClose }) => {
   if (location.pathname.includes('/dashboard/ads')) {
     return <AdsViewLayout data={data as AdDataProps} handleClose={handleClose}  />;
   }
+
+
+  return (
+    <Typography variant="body1" color="text.secondary" align="center" p={2}>
+      No matching view found for this route.
+    </Typography>
+  );
 
 });
 

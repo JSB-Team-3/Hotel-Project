@@ -42,7 +42,7 @@ const BookingViewLayout: FC<BookingViewLayoutProps> = memo(({ data, handleClose 
       >
         <IconButton
           onClick={() => handleClose(false)}
- 
+
           sx={{
             position: 'absolute',
             top: 12,
