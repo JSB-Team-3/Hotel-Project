@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import {Box,IconButton,Stack,Chip,} from '@mui/material';
   import CloseIcon from '@mui/icons-material/Close';
   import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
@@ -41,6 +42,7 @@ const BookingViewLayout: FC<BookingViewLayoutProps> = memo(({ data, handleClose 
       >
         <IconButton
           onClick={() => handleClose(false)}
+
           sx={{
             position: 'absolute',
             top: 12,

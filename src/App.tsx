@@ -3,10 +3,12 @@ import React, { Suspense } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import MasterLayout from './modules/shared/MasterLayout/MasterLayout';
 import NotFound from './modules/shared/NotFound/NotFound';
+import './App.css'
 import ProtectedRoute from './modules/shared/ProtectedRoute/ProtectedRoute';
 import { Box, CircularProgress } from '@mui/material';
 import AuthLayout from './modules/shared/AuthLayout/AuthLayout';
 import FacilitiesList from './modules/Facilities/FacilitiesList/FacilitiesList';
+
 
 // Lazy-load your components
 const Login = React.lazy(() => import('./modules/Authentication/Login/Login'));
@@ -19,6 +21,7 @@ const RoomsList = React.lazy(() => import('./modules/Rooms/RoomsList/RoomsList')
 const RoomsData = React.lazy(() => import('./modules/Rooms/RoomsData/RoomsData'));
 const BookingList = React.lazy(() => import('./modules/Booking/BookingList'));
 const UsersList = React.lazy(() => import('./modules/UsersList/UsersList'));
+
 
 const App: React.FC = () => { 
 const routes = createBrowserRouter([
@@ -49,6 +52,7 @@ const routes = createBrowserRouter([
       ]
     }
 ])
+
 
   return (
     <Suspense

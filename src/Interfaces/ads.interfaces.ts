@@ -18,3 +18,26 @@ export interface adPayload {
       loading: boolean;
       error: string | null;
     }
+
+    export interface AdDataProps {
+      _id: string;
+      isActive: boolean;
+      room: {
+        _id: string;
+        roomNumber: string;
+        price: number;
+        capacity: number;
+        discount: number;
+        facilities: string[];
+        createdBy: string;
+        images: string[];
+        createdAt: string;
+        updatedAt: string;
+      };
+      createdBy: {
+        _id: string;
+        userName: string;
+      };
+      createdAt: string;
+      updatedAt: string;
+    }

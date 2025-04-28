@@ -19,8 +19,10 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ open }) => {
   const [userMenuAnchor, setUserMenuAnchor] = useState<null | HTMLElement>(null);
+
   const { t, i18n } = useTranslation();
   const dir = i18n.dir();
+
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const isUserMenuOpen = Boolean(userMenuAnchor);

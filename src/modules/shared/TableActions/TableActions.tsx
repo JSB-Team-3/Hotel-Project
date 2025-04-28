@@ -46,6 +46,7 @@ export default function TableActions({ handleDeleteItem, item, route }: TableAct
     }
   }, [handleClose, item, handleDeleteItem]);
 
+
   return (
     <>
       <Box component={'div'}>
