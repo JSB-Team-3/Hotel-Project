@@ -1,11 +1,5 @@
 import { useForm } from "react-hook-form";
-import {
-  Alert,
-  Box,
-  Typography,
-  Button,
-  CircularProgress,
-} from "@mui/material";
+import { Alert, Box, Typography, Button, CircularProgress, Link } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/auth/AuthConfig";
 import { forgot } from "../../store/auth/AuthThunks";
@@ -17,7 +11,7 @@ import { useSnackbar } from "notistack";
 import TextInput from "../../shared/Form/TextInput";
 import { useTranslation } from "react-i18next";
 
-const ForgotPass: React.FC = () => {
+const ForgetPass: React.FC = () => {
 
   const { t } = useTranslation();
 
@@ -36,7 +30,7 @@ const ForgotPass: React.FC = () => {
     formState: { errors },
   } = useForm<ForgotPasswordData>();
 
-  
+
 
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -75,14 +69,14 @@ const ForgotPass: React.FC = () => {
 
         <Typography variant="body1" sx={{ maxWidth: 300, mb: 10 }}>
           {t("register.already_have_account")}{" "}
-          <RouterLink
+          <Link
             component={RouterLink}
             to="/login"
             underline="hover"
             color="red"
           >
             {t("register.login_here")}
-          </RouterLink>
+          </Link>
         </Typography>
 
         {successMessage && (
@@ -129,4 +123,4 @@ const ForgotPass: React.FC = () => {
   );
 };
 
-export default ForgotPass;
+export default ForgetPass;

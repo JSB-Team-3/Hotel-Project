@@ -13,10 +13,7 @@ import { RoomFacility } from "../../../Interfaces/facilities.interface";
 import { Room } from "../../../Interfaces/rooms.interface";
 import { Booking } from "../../../Interfaces/bookings.interfaces";
 import { User } from "../../../Interfaces/user.interface";
-import {
-  StyledTableCell,
-  StyledTableRow,
-} from "../../shared/StyledTable/StyledTable";
+import { StyledTableCell, StyledTableRow, } from "../../shared/StyledTable/StyledTable";
 import TableActions from "../../shared/TableActions/TableActions";
 import Header from "../../shared/Header/Header";
 import BasicModal from "../../shared/BasicModal/BasicModal";
@@ -96,14 +93,12 @@ export default function FacilitiesList() {
   const renderRow = (item: Room | Booking | User | RoomFacility) => {
     if ("name" in item) {
       return (
-        <StyledTableRow key={item?._id}>
+        <StyledTableRow key={item?._id} >
           <StyledTableCell component="th" scope="row">
             {item.name}
           </StyledTableCell>
           <StyledTableCell>
-            {item.createdAt
-              ? new Date(item.createdAt).toLocaleDateString()
-              : "-"}
+            {item.createdAt ? new Date(item.createdAt).toLocaleDateString() : "-"}
           </StyledTableCell>
           <StyledTableCell>
             <TableActions
@@ -123,7 +118,6 @@ export default function FacilitiesList() {
 
     return null;
   };
-
   // Pagination handlers
   const handleChangePage = (
     _: React.MouseEvent<HTMLButtonElement> | null,

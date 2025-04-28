@@ -6,13 +6,12 @@ import { Box } from '@mui/material';
 import DeleteConfirmation from '../shared/DeleteConfirmation/DeleteConfirmation';
 import DataTable from '../shared/DataTable/DataTable';
 import { Room } from '../../Interfaces/rooms.interface';
-import { StyledTableCell } from '../shared/StyledTable/StyledTable';
+import { StyledTableCell, StyledTableRow } from '../shared/StyledTable/StyledTable';
 import TableActions from '../shared/TableActions/TableActions';
 import Header from '../shared/Header/Header';
 import { deleteBooking, getAllBookings, } from '../store/booking/bookingsThunk';
 import { Booking } from '../../Interfaces/bookings.interfaces';
 import { User } from '../../Interfaces/user.interface';
-import { motion } from 'framer-motion';
 import { RoomFacility } from '../../Interfaces/facilities.interface';
 
 export default function BookingList() {
@@ -37,7 +36,7 @@ export default function BookingList() {
 
   const getAllBookingsList = useCallback(async () => {
     console.log('get');
-    
+
     try {
       await dispatch(getAllBookings({
         page: page + 1,
@@ -71,47 +70,34 @@ export default function BookingList() {
     }
   }, [dispatch, itemToDeleteId, enqueueSnackbar, getAllBookingsList]);
 
-  const renderRow = useCallback((item: Room | Booking | User | RoomFacility, index: number): React.ReactNode => {
+  const renderRow = (item: Room | Booking | User | RoomFacility): React.ReactNode => {
     // Type guard to check if the item is a Booking
     if ('startDate' in item && 'endDate' in item && 'totalPrice' in item && 'user' in item) {
-        const booking = item as Booking;  // Type assertion to Booking
 
-        return (
-            <motion.tr
-                key={booking._id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{
-                    opacity: 1, y: 0,
-                    transition: {
-                        type: "spring",
-                        stiffness: 100,
-                        damping: 9,
-                        delay: index * 0.20,
-                        duration: 0.6
-                    }
-                }}
-            >
-                <StyledTableCell component="th" scope="row">
-                    {booking.room?.roomNumber || "No room assigned"}
-                </StyledTableCell>
-                <StyledTableCell>
-                    {booking.startDate ? new Date(booking.startDate).toLocaleDateString() : "-"}
-                </StyledTableCell>
-                <StyledTableCell>
-                    {booking.endDate ? new Date(booking.endDate).toLocaleDateString() : "-"}
-                </StyledTableCell>
-                <StyledTableCell>{booking.totalPrice}</StyledTableCell>
-                <StyledTableCell>{booking.user?.userName || "Unknown"}</StyledTableCell>
-                <StyledTableCell>{booking.status}</StyledTableCell>
-                <StyledTableCell>
-                    <TableActions handleDeleteItem={handleDeleteItem} item={booking} route={''} />
-                </StyledTableCell>
-            </motion.tr>
-        );
+      return (
+        <StyledTableRow key={item?._id} >
+          <StyledTableCell component="th" scope="row">
+            {item.room?.roomNumber || "No room assigned"}
+          </StyledTableCell>
+          <StyledTableCell>
+            {item.startDate ? new Date(item.startDate).toLocaleDateString() : "-"}
+          </StyledTableCell>
+          <StyledTableCell>
+            {item.endDate ? new Date(item.endDate).toLocaleDateString() : "-"}
+          </StyledTableCell>
+          <StyledTableCell>{item.totalPrice}</StyledTableCell>
+          <StyledTableCell>{item.user?.userName || "Unknown"}</StyledTableCell>
+          <StyledTableCell>{item.status}</StyledTableCell>
+          <StyledTableCell>
+            <TableActions handleDeleteItem={handleDeleteItem} item={item} route={''} />
+          </StyledTableCell>
+
+        </StyledTableRow>
+      );
     }
 
     return null; // Handle other types such as Room, User, etc.
-}, [handleDeleteItem]);
+  }
 
 
 

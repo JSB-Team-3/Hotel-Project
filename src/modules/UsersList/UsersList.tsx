@@ -5,13 +5,12 @@ import { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import DataTable from '../shared/DataTable/DataTable';
 import { Room } from '../../Interfaces/rooms.interface';
-import { StyledTableCell} from '../shared/StyledTable/StyledTable';
+import { StyledTableCell, StyledTableRow } from '../shared/StyledTable/StyledTable';
 import TableActions from '../shared/TableActions/TableActions';
 import Header from '../shared/Header/Header';
 import { Booking } from '../../Interfaces/bookings.interfaces';
 import { getAllUsers } from '../store/users/usersThunk';
 import { User } from '../../Interfaces/user.interface';
-import { motion } from 'framer-motion';
 import OptimizedImage from '../shared/OptimizedImage/OptimizedImage';
 import { RoomFacility } from '../../Interfaces/facilities.interface';
 
@@ -19,66 +18,54 @@ export default function UsersList() {
 
   // Pagination state
   const [page, setPage] = useState<number>(0);
-  const [size, setSize] = useState<number>(5);  
+  const [size, setSize] = useState<number>(5);
   const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch<AppDispatch>();
-  const { loading, users,totalCount } = useSelector((state: RootState) => ({
+  const { loading, users, totalCount } = useSelector((state: RootState) => ({
     loading: state.users.loading,
     users: state.users.users,
     totalCount: state.users.totalCount,
   }),
-  shallowEqual);
+    shallowEqual);
   const getAllUsersList = async () => {
     console.log('get');
-    
+
     try {
-     await dispatch(getAllUsers({ 
-             page: page + 1,
-             size: size 
-           })).unwrap();
+      await dispatch(getAllUsers({
+        page: page + 1,
+        size: size
+      })).unwrap();
     } catch (err) {
       enqueueSnackbar(err as string || 'failed to get all Booking', { variant: 'error' });
     }
   };
 
 
-  const renderRow = (item: Room | Booking | User|RoomFacility, index: number) => {
+  const renderRow = (item: Room | Booking | User | RoomFacility) => {
     console.log('row');
-    
     if ('userName' in item) {
-      const user = item as User;
-  
+
       return (
-        <motion.tr
-          key={user._id}
-          initial={{ opacity: 0,y: 20, }}
-          animate={{opacity: 1,y: 0, transition: { 
-            type: "spring",
-            stiffness: 100,
-            damping: 9,
-            delay: index * 0.20,
-            duration: 0.6
-          }}}
-           >
+        <StyledTableRow key={item?._id} >
           <StyledTableCell component="th" scope="row">
-            {user.userName}
-        </StyledTableCell>
-          <StyledTableCell>
-          <Box>
-              <OptimizedImage src={user.profileImage} width='60px'  />
-            </Box>          </StyledTableCell>
-          <StyledTableCell>{user.email}</StyledTableCell>
-          <StyledTableCell>{user.phoneNumber}</StyledTableCell>
-          <StyledTableCell>{user.country}</StyledTableCell>
-          <StyledTableCell>{user.role}</StyledTableCell>
-          <StyledTableCell>{user.verified ? 'Verified' : 'Not Verified'}</StyledTableCell>
-          <StyledTableCell>
-            <TableActions handleDeleteItem={noopDeleteHandler} item={user} route={''} />
+            {item.userName}
           </StyledTableCell>
-        </motion.tr>
+          <StyledTableCell>
+            <Box>
+              <OptimizedImage src={item.profileImage} width='60px' />
+            </Box>          </StyledTableCell>
+          <StyledTableCell>{item.email}</StyledTableCell>
+          <StyledTableCell>{item.phoneNumber}</StyledTableCell>
+          <StyledTableCell>{item.country}</StyledTableCell>
+          <StyledTableCell>{item.role}</StyledTableCell>
+          <StyledTableCell>{item.verified ? 'Verified' : 'Not Verified'}</StyledTableCell>
+          <StyledTableCell>
+            <TableActions handleDeleteItem={noopDeleteHandler} item={item} route={''} />
+          </StyledTableCell>
+        </StyledTableRow>
       );
     }
-  
+
     return null;
   };
   // Pagination handlers
@@ -99,23 +86,23 @@ export default function UsersList() {
   };
   useEffect(() => {
     getAllUsersList();
-  }, [page, size]); 
+  }, [page, size]);
   return (
     <Box>
       <Header title='Users' route='' />
-     <DataTable
-     loading={loading}
-     items={users}
-      page={page}
-      size={size}
-      handleChangePage={handleChangePage}
-      handleChangeRowsPerPage={handleChangeRowsPerPage}
-      totalCount={totalCount}
-      rowsPerPageOptions={[5, 10, 25]}
-      labelRowsPerPage="booking per Page:"
-      columns={['Username','Image', 'Email ', 'Phone Number', 'country', 'Role', 'status', '']} 
-      renderRow = {renderRow}
-     />
+      <DataTable
+        loading={loading}
+        items={users}
+        page={page}
+        size={size}
+        handleChangePage={handleChangePage}
+        handleChangeRowsPerPage={handleChangeRowsPerPage}
+        totalCount={totalCount}
+        rowsPerPageOptions={[5, 10, 25]}
+        labelRowsPerPage="booking per Page:"
+        columns={['Username', 'Image', 'Email ', 'Phone Number', 'country', 'Role', 'status', '']}
+        renderRow={renderRow}
+      />
     </Box>
   );
 }

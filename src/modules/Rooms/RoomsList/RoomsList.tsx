@@ -4,16 +4,15 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { useSnackbar } from 'notistack';
 import { deleteRoom, getAllRooms } from '../../store/rooms/roomsThunk';
 import { useEffect, useState } from 'react';
-import { Box ,Skeleton} from '@mui/material';
+import { Box} from '@mui/material';
 import DeleteConfirmation from '../../shared/DeleteConfirmation/DeleteConfirmation';
 import DataTable from '../../shared/DataTable/DataTable';
 import { Room } from '../../../Interfaces/rooms.interface';
-import { StyledTableCell } from '../../shared/StyledTable/StyledTable';
+import { StyledTableCell, StyledTableRow } from '../../shared/StyledTable/StyledTable';
 import TableActions from '../../shared/TableActions/TableActions';
 import Header from '../../shared/Header/Header';
 import { Booking } from '../../../Interfaces/bookings.interfaces';
 import { User } from '../../../Interfaces/user.interface';
-import { motion } from 'framer-motion';
 import OptimizedImage from '../../shared/OptimizedImage/OptimizedImage';
 import { RoomFacility } from '../../../Interfaces/facilities.interface';
 
@@ -66,35 +65,24 @@ export default function RoomsList() {
     }
   };
  
-  const renderRow = (item: Room | Booking | User| RoomFacility, index: number) => {
+  const renderRow = (item: Room | Booking | User| RoomFacility) => {
     if ('price' in item && 'capacity' in item) {
-      const room = item as Room;
       return (
-        <motion.tr
-          key={room._id}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 , transition: { 
-            type: "spring",
-            stiffness: 100,
-            damping: 9,
-            delay: index * 0.20,
-            duration: 0.6
-          }}}
-        >
-          <StyledTableCell component="th" scope="row">{room.roomNumber}</StyledTableCell>
+        <StyledTableRow key={item?._id} >
+          <StyledTableCell component="th" scope="row">{item.roomNumber}</StyledTableCell>
           <StyledTableCell>
           <Box  sx={{widht:"60px",height:"50px"}}>
-              <OptimizedImage src={room?.images?.[0]} width='60px' height='50px'/>     
+              <OptimizedImage src={item?.images?.[0]} width='60px' height='50px'/>     
             </Box>
           </StyledTableCell>
-          <StyledTableCell>{room.price}</StyledTableCell>
-          <StyledTableCell>{room.discount}</StyledTableCell>
-          <StyledTableCell>{room.capacity}</StyledTableCell>
-          <StyledTableCell>{room?.facilities?.map(f => f.name).join(', ')}</StyledTableCell>
+          <StyledTableCell>{item.price}</StyledTableCell>
+          <StyledTableCell>{item.discount}</StyledTableCell>
+          <StyledTableCell>{item.capacity}</StyledTableCell>
+          <StyledTableCell>{item?.facilities?.map(f => f.name).join(', ')}</StyledTableCell>
           <StyledTableCell>
-            <TableActions handleDeleteItem={handleDeleteItem} item={room} route={`/dashboard/room-data/${room?._id}`} />
+            <TableActions handleDeleteItem={handleDeleteItem} item={item} route={`/dashboard/room-data/${item?._id}`} />
           </StyledTableCell>
-        </motion.tr>
+        </StyledTableRow>
       );
     }
   

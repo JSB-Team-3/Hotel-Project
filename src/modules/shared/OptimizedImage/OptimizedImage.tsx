@@ -36,6 +36,8 @@ const OptimizedImage = ({ src, alt = 'Optimized Image', width = '60px', height =
             top: 0,
             left: 0,
             borderRadius: '8px',
+            opacity: imageLoaded ? 0 : 1,  // Fade out the skeleton
+            transition: 'opacity 0.5s ease-in-out',  // Fade transition for skeleton
           }}
         />
       )}
@@ -52,7 +54,7 @@ const OptimizedImage = ({ src, alt = 'Optimized Image', width = '60px', height =
           height: '100%',
           objectFit: 'cover',
           opacity: imageLoaded ? 1 : 0,
-          transition: 'opacity 0.5s ease-in-out',
+          transition: 'opacity 0.5s ease-in-out',  // Fade in the image
           borderRadius: '8px',
           display: 'block',
         }}
