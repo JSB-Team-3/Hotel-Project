@@ -5,9 +5,11 @@ import MasterLayout from './modules/shared/MasterLayout/MasterLayout';
 import NotFound from './modules/shared/NotFound/NotFound';
 import './App.css'
 import ProtectedRoute from './modules/shared/ProtectedRoute/ProtectedRoute';
+import Ads from './modules/Ads/Ads'
 import { Box, CircularProgress } from '@mui/material';
 import AuthLayout from './modules/shared/AuthLayout/AuthLayout';
 import FacilitiesList from './modules/Facilities/FacilitiesList/FacilitiesList';
+
 
 
 // Lazy-load your components
@@ -47,7 +49,9 @@ const routes = createBrowserRouter([
         {path:"room-data/:roomId",element:<RoomsData/>},
         {path:"bookings",element:<BookingList/>},
         {path:"users",element:<UsersList/>},
+        {path:"ads",element:<Ads/>},
         {path:"facilities",element:<FacilitiesList/>},
+
 
       ]
     }

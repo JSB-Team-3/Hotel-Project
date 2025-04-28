@@ -10,6 +10,7 @@ import { useTheme } from '@mui/material/styles';
 import ViewDataModal from '../ViewDataModal/ViewDataModal'; // Assuming this is a lazy-loaded modal
 import { TableActionProps } from '../../../Interfaces/props.interface';
 
+
 export default function TableActions({ handleDeleteItem, item, route }: TableActionProps) {
   const theme = useTheme();
   
@@ -18,6 +19,7 @@ export default function TableActions({ handleDeleteItem, item, route }: TableAct
   const [openviewModal, setViewOpen] = useState(false);
   
   const open = Boolean(anchorEl);
+
 
   // Memoize functions to avoid creating new function instances on every render
   const handleClick = useCallback((event: React.MouseEvent<HTMLElement>) => {
@@ -33,6 +35,7 @@ export default function TableActions({ handleDeleteItem, item, route }: TableAct
   }, []);
 
 
+                
   const handleView = useCallback(() => {
     setViewOpen(true);
   }, []);

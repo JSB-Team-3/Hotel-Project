@@ -9,9 +9,16 @@ export default function Header({ title, route }: HeaderProps) {
   return (
     <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
       <Box>
-        <Typography
-          variant='h6'
-          sx={{ mb: '0', color: theme.palette.text.primary }} // Use theme text color
+        <Typography variant='h6' sx={{ mb: '0', color: '#1F263E' }}>{title} Table Details</Typography>
+        <Box component='span' sx={{ mt: '0', color: '#323C47', fontSize: '14px' }}>You can check all details</Box>
+      </Box>
+      {title==='Ads' && <Button  variant='contained' sx={{ backgroundColor: "#203FC7", color: 'white', fontWeight: 'bold', paddingInline: '30px' }}>Add New Ad</Button>}
+      {title === "Room Facilities" ? (
+        <Button
+          onClick={onAddClick}
+          variant='contained'
+          sx={{ backgroundColor: "#203FC7", color: 'white', fontWeight: 'bold', paddingInline: '30px' }}
+
         >
           {title} Table Details
         </Typography>
