@@ -4,7 +4,7 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { useSnackbar } from 'notistack';
 import { deleteRoom, getAllRooms } from '../../store/rooms/roomsThunk';
 import { useEffect, useState } from 'react';
-import { Box } from '@mui/material';
+import { Box} from '@mui/material';
 import DeleteConfirmation from '../../shared/DeleteConfirmation/DeleteConfirmation';
 import DataTable from '../../shared/DataTable/DataTable';
 import { Room } from '../../../Interfaces/rooms.interface';
@@ -13,6 +13,9 @@ import TableActions from '../../shared/TableActions/TableActions';
 import Header from '../../shared/Header/Header';
 import { Booking } from '../../../Interfaces/bookings.interfaces';
 import { User } from '../../../Interfaces/user.interface';
+import OptimizedImage from '../../shared/OptimizedImage/OptimizedImage';
+import { RoomFacility } from '../../../Interfaces/facilities.interface';
+
 export default function RoomsList() {
   const [itemToDeleteId, setItemToDeleteId] = useState<string>('');
   const [itemToDeleteNumber, setItemToDeleteNumber] = useState<string>('');
@@ -31,6 +34,8 @@ export default function RoomsList() {
   shallowEqual);
 
   const getAllRoomsList = async () => {
+    console.log('get');
+    
     try {
       await dispatch(getAllRooms({ 
         page: page + 1,
@@ -59,27 +64,30 @@ export default function RoomsList() {
       enqueueSnackbar(err as string || 'failed to delete room', { variant: 'error' });
     }
   };
-const renderRow = (item: Room | Booking |User ) => {
-
-  if ('price' in item && 'capacity' in item) {
-    const room = item as Room;
+ 
+  const renderRow = (item: Room | Booking | User| RoomFacility) => {
+    if ('price' in item && 'capacity' in item) {
+      return (
+        <StyledTableRow key={item?._id} >
+          <StyledTableCell component="th" scope="row">{item.roomNumber}</StyledTableCell>
+          <StyledTableCell>
+          <Box  sx={{widht:"60px",height:"50px"}}>
+              <OptimizedImage src={item?.images?.[0]} width='60px' height='50px'/>     
+            </Box>
+          </StyledTableCell>
+          <StyledTableCell>{item.price}</StyledTableCell>
+          <StyledTableCell>{item.discount}</StyledTableCell>
+          <StyledTableCell>{item.capacity}</StyledTableCell>
+          <StyledTableCell>{item?.facilities?.map(f => f.name).join(', ')}</StyledTableCell>
+          <StyledTableCell>
+            <TableActions handleDeleteItem={handleDeleteItem} item={item} route={`/dashboard/room-data/${item?._id}`} />
+          </StyledTableCell>
+        </StyledTableRow>
+      );
+    }
   
-  return (
-      <StyledTableRow key={room?._id}>
-      <StyledTableCell component="th" scope="row">{room.roomNumber}</StyledTableCell>
-      <StyledTableCell>
-        <Box component="img" src={room?.images?.[0]} sx={{ width: '50px', height: '50px', borderRadius: '5px' }} />
-      </StyledTableCell>
-      <StyledTableCell>{room?.price}</StyledTableCell>
-      <StyledTableCell>{room?.discount}</StyledTableCell>
-      <StyledTableCell>{room?.capacity}</StyledTableCell>
-      <StyledTableCell>{room?.facilities?.map(f => f.name).join(', ')}</StyledTableCell>
-      <StyledTableCell>
-        <TableActions  handleDeleteItem={handleDeleteItem} item={room} route={`/dashboard/room-data/${room?._id}`} />
-      </StyledTableCell>
-    </StyledTableRow>
-  );
-}}
+    return null;
+  };
   // Pagination handlers
   const handleChangePage = (
     _: React.MouseEvent<HTMLButtonElement> | null,

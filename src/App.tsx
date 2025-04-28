@@ -1,22 +1,26 @@
-import React from 'react'
-import './App.css'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import MasterLayout from './modules/shared/MasterLayout/MasterLayout'
-import Login from './modules/Authentication/Login/Login'
-import ForgetPass from './modules/Authentication/ForgetPass/ForgetPass';
-import ResetPass from './modules/Authentication/ResetPass/ResetPass';
-import VerifyAccount from './modules/Authentication/VerifyAccount/VerifyAccount';
-import Register from './modules/Authentication/Register/Register';
-import NotFound from './modules/shared/NotFound/NotFound'
-import AuthLayout from './modules/shared/AuthLayout/AuthLayout'
-import RoomsList from './modules/Rooms/RoomsList/RoomsList';
-import RoomsData from './modules/Rooms/RoomsData/RoomsData';
-import BookingList from './modules/Booking/BookingList';
-import UsersList from './modules/UsersList/UsersList';
-import FacilitiesList from './modules/Facilities/FacilitiesList/FacilitiesList';
-import ProtectedRoute from './modules/shared/ProtectedRoute/ProtectedRoute';
 
-function App() {
+import React, { Suspense } from 'react';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import MasterLayout from './modules/shared/MasterLayout/MasterLayout';
+import NotFound from './modules/shared/NotFound/NotFound';
+import ProtectedRoute from './modules/shared/ProtectedRoute/ProtectedRoute';
+import { Box, CircularProgress } from '@mui/material';
+import AuthLayout from './modules/shared/AuthLayout/AuthLayout';
+import FacilitiesList from './modules/Facilities/FacilitiesList/FacilitiesList';
+
+// Lazy-load your components
+const Login = React.lazy(() => import('./modules/Authentication/Login/Login'));
+const Register = React.lazy(() => import('./modules/Authentication/Register/Register'));
+const ForgetPass = React.lazy(() => import('./modules/Authentication/ForgetPass/ForgetPass'));
+const ResetPass = React.lazy(() => import('./modules/Authentication/ResetPass/ResetPass'));
+const VerifyAccount = React.lazy(() => import('./modules/Authentication/VerifyAccount/VerifyAccount'));
+const Dashboard = React.lazy(() => import('./modules/Dashboard/Dashboard'));
+const RoomsList = React.lazy(() => import('./modules/Rooms/RoomsList/RoomsList'));
+const RoomsData = React.lazy(() => import('./modules/Rooms/RoomsData/RoomsData'));
+const BookingList = React.lazy(() => import('./modules/Booking/BookingList'));
+const UsersList = React.lazy(() => import('./modules/UsersList/UsersList'));
+
+const App: React.FC = () => { 
 const routes = createBrowserRouter([
   {
     path: "",
@@ -40,13 +44,23 @@ const routes = createBrowserRouter([
         {path:"room-data/:roomId",element:<RoomsData/>},
         {path:"bookings",element:<BookingList/>},
         {path:"users",element:<UsersList/>},
+        {path:"facilities",element:<FacilitiesList/>},
+
       ]
     }
 ])
 
   return (
-  <RouterProvider router={routes}/>
-  )
-}
+    <Suspense
+      fallback={
+        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+          <CircularProgress />
+        </Box>
+      }
+    >
+      <RouterProvider router={routes} />
+    </Suspense>
+  );
+};
 
-export default App
+export default App;

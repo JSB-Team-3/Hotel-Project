@@ -15,38 +15,35 @@ export type TableActionProps = {
   item: Room | Booking | User | RoomFacility;
   handleDeleteItem: (itemId: string, itemNumber: string) => void;
   route: string;
-  handleEditItem: (item: RoomFacility) => void;
+  handleEditItem?: (item: RoomFacility) => void;
 };
+
 
 export type TableDataProps = {
-  loading: boolean;
-  items: Room[] | Booking[] | User[] | RoomFacility[];
-  page: number;
-  size: number;
-  handleChangePage: (
-    _: React.MouseEvent<HTMLButtonElement> | null,
-    newPage: number
-  ) => void;
-  handleChangeRowsPerPage: (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => void;
-  totalCount: number;
-  rowsPerPageOptions: number[];
-  labelRowsPerPage: string;
-  columns: string[];
-  renderRow: (item: Room | Booking | User | RoomFacility) => React.ReactNode;
-  handleDeleteItem: (id: string, name: string) => void;
-  handleEditItem: (item: RoomFacility) => void;
-  item: RoomFacility;
-  route?: boolean;
-};
-
+    loading: boolean;
+    items: (Room | Booking | User | RoomFacility)[]; // Define the array of items
+    page: number;
+    size: number;
+    handleChangePage: (
+      _: React.MouseEvent<HTMLButtonElement> | null,
+      newPage: number
+    ) => void;
+    handleChangeRowsPerPage: (
+      event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => void;
+    totalCount: number;
+    rowsPerPageOptions: number[];
+    labelRowsPerPage: string;
+    columns: string[];
+    renderRow: (item: Room | Booking | User | RoomFacility, index: number) => React.ReactNode; // Correctly type renderRow
+  };
+  
 export type HeaderProps = {
     title:string,
     route:string,
     onAddClick?: () => void;
 }
-}
+
 
 
 export  interface ViewDataModalProps {

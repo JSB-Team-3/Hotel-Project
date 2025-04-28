@@ -1,35 +1,26 @@
 import React from 'react';
-import LoadingButton from '@mui/lab/LoadingButton';
-import CircularProgress from '@mui/material/CircularProgress';
-import { Stack } from '@mui/material';
-import { LoadingButtonProps } from '@mui/lab/LoadingButton';
+import { CircularProgress, Stack, Button } from '@mui/material';
+import { ButtonProps } from '@mui/material/Button';
 
 interface FormButtonProps {
   isSubmitting: boolean;
-  color?: LoadingButtonProps['color'];
+  color?: ButtonProps['color'];
   name?: string;
 }
 
-const FormButton: React.FC<FormButtonProps> = ({ isSubmitting, color = 'primary' ,name="Submit" }) => {
+const FormButton: React.FC<FormButtonProps> = ({ isSubmitting, color = 'primary', name = "Submit" }) => {
   return (
-    <LoadingButton
+    <Button
       type="submit"
       variant="contained"
       color={color}
-      loading={isSubmitting}
       disabled={isSubmitting}
       fullWidth
       sx={{ mt: 2 }}
+      startIcon={isSubmitting ? <CircularProgress size={20} color="inherit" /> : null}
     >
-      {isSubmitting ? (
-        <Stack direction="row" alignItems="center" spacing={1}>
-          <CircularProgress size={20} color="inherit" />
-          <span>Submitting...</span>
-        </Stack>
-      ) : (
-            name
-      )}
-    </LoadingButton>
+      {isSubmitting ? 'Submitting...' : name}
+    </Button>
   );
 };
 

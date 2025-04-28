@@ -8,7 +8,7 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 import VerifiedIcon from '@mui/icons-material/Verified';
 import CancelIcon from '@mui/icons-material/Cancel';
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import EmailIcon from '@mui/icons-material/Email';
 import PhoneIcon from '@mui/icons-material/Phone';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -195,4 +195,4 @@ const UserViewLayout: FC<UserViewLayoutProps> = ({ data, handleClose }) => {
   );
 };
 
-export default UserViewLayout;
+export default memo(UserViewLayout);

@@ -8,9 +8,10 @@ import TablePagination from '@mui/material/TablePagination';
 import LoadingScreen from '../../shared/LoadingScreen/LoadingScreen';
 import { TableDataProps } from '../../../Interfaces/props.interface';
 import { StyledTableCell, StyledTableRow } from '../StyledTable/StyledTable';
+import { memo } from 'react';
 
 
-export default function DataTable({
+function DataTable({
     loading,
     items,
     page,
@@ -41,7 +42,7 @@ export default function DataTable({
                             </StyledTableCell>
                         </StyledTableRow>
                     ) : (
-						items?.map((item) => renderRow(item))
+						items?.map((item,index) => renderRow(item,index))
 						)}
                     
                 </TableBody>
@@ -62,3 +63,4 @@ export default function DataTable({
         </TableContainer>
     )
 }
+export default memo(DataTable);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import {
   Box,
   Typography,
@@ -166,6 +166,6 @@ const RoomsViewLayout: FC<{ data: RoomDataProps; handleClose: Function; isMobile
       )}
     </Box>
   );
-};
+}
 
-export default RoomsViewLayout;
+export default memo(RoomsViewLayout);

@@ -1,7 +1,7 @@
 export interface UserDetailsModalProps {
   open: boolean;
   handleClose: (val: boolean) => void;
-  loading: boolean;
+  loading?: boolean;
   data: Record<string, any> | null;
 }
 

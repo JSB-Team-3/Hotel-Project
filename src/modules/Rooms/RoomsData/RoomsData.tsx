@@ -1,5 +1,5 @@
 import { RoomPayload, Facility } from '../../../Interfaces/rooms.interface';
-import { Box, Button, Checkbox, CircularProgress, FormControl, ListItemText, MenuItem, OutlinedInput, Select, SelectChangeEvent, Typography } from '@mui/material';
+import { Box, Button, Checkbox, CircularProgress, FormControl, ListItemText, MenuItem, OutlinedInput, Select, SelectChangeEvent } from '@mui/material';
 import TextInput from '../../shared/Form/TextInput';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
@@ -7,11 +7,12 @@ import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { AppDispatch, RootState } from '../../store/auth/AuthConfig';
 import { useValidation } from '../../hooks/useValidation';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useSnackbar } from 'notistack';
 import { createRoom, getRoomDetails, updateRoom } from '../../store/rooms/roomsThunk';
 import { getAllRoomFacilities } from '../../store/facilities/facilitiesThunk';
 import FileUpload from '../../shared/Form/FileUpload';
+import OptimizedImage from '../../shared/OptimizedImage/OptimizedImage';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -46,15 +47,7 @@ export default function RoomsData() {
     formState: { errors },
   } = useForm<RoomPayload>({ mode: "onChange" });
 
-  useEffect(() => {
-    fetchFacilities();
-
-    if (isUpdate) {
-      fetchRoomDetails();
-    }
-  }, [roomId]);
-
-  const fetchRoomDetails = async () => {
+  const fetchRoomDetails = useCallback(async () => {
     try {
       const response = await dispatch(getRoomDetails(roomId as string)).unwrap();
       const roomData = response?.data?.room;
@@ -93,25 +86,29 @@ export default function RoomsData() {
     } catch (err) {
       enqueueSnackbar(err as string || 'Error fetching room details', { variant: 'error' });
     }
-  };
+  }, [dispatch, roomId, reset, enqueueSnackbar]);
 
-  const fetchFacilities = async () => {
+  const fetchFacilities = useCallback(async () => {
     try {
       await dispatch(getAllRoomFacilities({ page: 1, size: 30 })).unwrap();
     } catch (err) {
       enqueueSnackbar(err as string, { variant: 'error' });
     }
-  };
+  }, [dispatch, enqueueSnackbar]);
 
-  const handleFacilitiesChange = (event: SelectChangeEvent<typeof selectedFacilities>) => {
-    const {
-      target: { value },
-    } = event;
+  useEffect(() => {
+    fetchFacilities();
 
+    if (isUpdate) {
+      fetchRoomDetails();
+    }
+  }, [isUpdate, fetchRoomDetails, fetchFacilities]);
+
+  const handleFacilitiesChange = useCallback((event: SelectChangeEvent<typeof selectedFacilities>) => {
+    const { target: { value } } = event;
     const newSelectedFacilities = typeof value === 'string' ? value.split(',') : value;
     setSelectedFacilities(newSelectedFacilities);
-  };
-
+  }, []);
   const onSubmit = async (data: RoomPayload) => {
     try {
       const formData = new FormData();
@@ -142,12 +139,12 @@ export default function RoomsData() {
     } catch (err) {
       enqueueSnackbar(err as string, { variant: 'error' });
     }
-  }
+  };
 
-  const facilitiesArray = Array.isArray(facilities) ? facilities : [];
-
-
-
+// Memoize facilitiesArray using useMemo
+const facilitiesArray = useMemo(() => {
+  return Array.isArray(facilities) ? facilities : [];
+}, [facilities]);
   return (
     <Box
       sx={{ width: '100%', maxWidth: 800, mx: 'auto', p: 3 }}
@@ -196,7 +193,7 @@ export default function RoomsData() {
           type="number"
           errors={errors}
         />
-        <FormControl fullWidth >
+        <FormControl fullWidth>
           <Select
             displayEmpty
             sx={{
@@ -237,8 +234,6 @@ export default function RoomsData() {
         </FormControl>
       </Box>
 
-
-
       <FileUpload
         selectedFiles={selectedFiles}
         setSelectedFiles={setSelectedFiles}
@@ -249,28 +244,17 @@ export default function RoomsData() {
         fieldName="imgs"
       />
       {/* Preview selected images */}
-      {selectedFiles.length > 0 && (
-        <Box sx={{ mb: 2 }}>
-          <Typography variant="body2" sx={{ mb: 1 }}>Selected Images:</Typography>
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-            {selectedFiles.map((file, index) => (
-              <Box
-                key={index}
-                component="img"
-                src={URL.createObjectURL(file)}
-                alt={`Room image ${index + 1}`}
-                sx={{
-                  width: 80,
-                  height: 80,
-                  objectFit: 'cover',
-                  borderRadius: 1,
-                  border: '1px solid #ddd'
-                }}
-              />
-            ))}
-          </Box>
-        </Box>
-      )}
+      <Box sx={{display:"flex",gap:1 ,mt:1}}>
+      {selectedFiles.length > 0 && selectedFiles.map((file, index) => (
+        <OptimizedImage
+          key={index}
+          src={URL.createObjectURL(file)} 
+          alt={`Room image ${index + 1}`}
+          width="80px"
+          height="80px"
+        />
+      ))}
+      </Box>
       <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 3, gap: 2 }}>
         <Button variant="outlined" component={Link} to="/dashboard/rooms">
           {t('common.cancel')}
