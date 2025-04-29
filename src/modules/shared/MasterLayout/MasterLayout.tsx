@@ -4,6 +4,7 @@ import { Outlet } from 'react-router-dom';
 import SideBar from '../SideBar/SideBar';
 import { SIDEBAR_WIDTH_CLOSED, SIDEBAR_WIDTH_OPEN } from '../../constants/sidebar.constant';
 import Navbar from '../NavBar/NavBar';
+import ScrollToTop from '../ScrollToTop';
 
 const MasterLayout = () => {
   const theme = useTheme();
@@ -45,6 +46,8 @@ const MasterLayout = () => {
             flexGrow: 1,
           }}
         >
+            <ScrollToTop />
+
           <Outlet /> {/* Render the nested routes here */}
         </Box>
       </Box>
