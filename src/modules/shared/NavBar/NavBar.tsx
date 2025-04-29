@@ -78,7 +78,7 @@ const Navbar: React.FC<NavbarProps> = ({ open }) => {
             >
               <Avatar
                 alt="User"
-                src={userImage}
+                src={`${imgURL}${store.userProfile.profileImage}`}
                 sx={{
                   width: isMobile ? 28 : 32,
                   height: isMobile ? 28 : 32,
