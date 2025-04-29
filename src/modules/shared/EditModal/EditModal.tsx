@@ -11,6 +11,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
 import { useAppDispatch } from "../../hooks/Hook";
 import { updateRoomFacility } from "../../store/facilities/facilitiesThunk"; 
+import { useSnackbar } from "notistack";
 
 const style = {
   position: "absolute",
@@ -26,27 +27,29 @@ const style = {
 interface EditModalProps {
   open: boolean;
   handleClose: () => void;
-  item: { id: string; name: string }; 
+  item: { id: string; name: string 
+  }; 
+  getAllFacilitiesList: () => void;
 }
 
-export default function EditModal({ open, handleClose, item }: EditModalProps) {
+export default function EditModal({ open, handleClose, item,getAllFacilitiesList }: EditModalProps) {
   const dispatch = useAppDispatch();
   const [facilityName, setFacilityName] = useState(item.name);
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [snackbarError, setSnackbarError] = useState("");
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (facilityName.trim()) {
       try {
-        await dispatch(
+        const response = await dispatch(
           updateRoomFacility({ id: item.id, data: { name: facilityName } })
         ).unwrap();
-        setSnackbarOpen(true);
-        setSnackbarError("");
+        enqueueSnackbar(response?.message || 'updated successfully', { variant: 'success' });
+        getAllFacilitiesList();
         handleClose(); 
-      } catch (err: any) {
-        setSnackbarError(err?.message || "Failed to update facility");
+      } catch (err) {
+        enqueueSnackbar(err as string, { variant: 'error' });
+        
       }
     }
   };

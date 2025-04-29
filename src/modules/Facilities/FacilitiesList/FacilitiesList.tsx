@@ -105,13 +105,9 @@ export default function FacilitiesList() {
               handleDeleteItem={handleDeleteItem}
               handleEditItem={handleEditItem}
               item={item}
-              route={`/dashboard/facility-data/${item?._id}`}
+              route={``}
             />
           </StyledTableCell>
-          <BasicModal
-            open={showCustomModal}
-            handleClose={() => setShowCustomModal(false)}
-          />
         </StyledTableRow>
       );
     }
@@ -167,6 +163,7 @@ export default function FacilitiesList() {
         loading={deleteLoading}
       />
       <BasicModal
+      getAllFacilitiesList={getAllFacilitiesList}
         open={showCustomModal}
         handleClose={() => setShowCustomModal(false)}
       />
@@ -178,6 +175,7 @@ export default function FacilitiesList() {
             setSelectedItem(null);
           }}
           item={selectedItem}
+          getAllFacilitiesList={getAllFacilitiesList}
         />
       )}
     </Box>

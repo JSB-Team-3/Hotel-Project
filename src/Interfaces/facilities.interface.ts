@@ -2,7 +2,7 @@ export type RoomFacilityPayload = {
     name: string; // Name of the room facility
 };
 export type UpdateRoomFacilityPayload = {
-    _id: string;
+    id: string;
     data: RoomFacilityPayload;
 };
 export type GetAllRoomFacilitiesParams = {
@@ -26,12 +26,6 @@ export type RoomFacilitiesState = {
   totalCount: number;
 };
 
-export type RoomFacilitiesState = { 
-    facilities: RoomFacility[];  
-    facilityDetails: RoomFacility | null;
-    loading: boolean;
-    error: string | null;
-  };
   export interface FacilitiesDataInterface {
     _id: string;
     name: string;
