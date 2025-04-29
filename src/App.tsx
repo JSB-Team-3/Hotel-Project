@@ -1,28 +1,31 @@
 
 import React, { Suspense } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import MasterLayout from './modules/shared/MasterLayout/MasterLayout';
-import NotFound from './modules/shared/NotFound/NotFound';
+import MasterLayout from './shared/MasterLayout/MasterLayout';
+import NotFound from './shared/NotFound/NotFound';
 import './App.css'
-import ProtectedRoute from './modules/shared/ProtectedRoute/ProtectedRoute';
-import Ads from './modules/Ads/Ads'
-import { Box, CircularProgress } from '@mui/material';
-import AuthLayout from './modules/shared/AuthLayout/AuthLayout';
-import FacilitiesList from './modules/Facilities/FacilitiesList/FacilitiesList';
+import ProtectedRoute from './shared/ProtectedRoute/ProtectedRoute';
+import Ads from './modules/AdminModules/Ads/Ads'
+import { Box } from '@mui/material';
+import AuthLayout from './shared/AuthLayout/AuthLayout';
+import FacilitiesList from './modules/AdminModules/Facilities/FacilitiesList/FacilitiesList';
+import Spiner from './shared/Spinner/Spiner';
+import LandingPage from './modules/UserModules/Landing/LandingPage';
+import UserLayout from './shared/UserLayout/UserLayout';
 
 
 
 // Lazy-load your components
-const Login = React.lazy(() => import('./modules/Authentication/Login/Login'));
-const Register = React.lazy(() => import('./modules/Authentication/Register/Register'));
-const ForgetPass = React.lazy(() => import('./modules/Authentication/ForgetPass/ForgetPass'));
-const ResetPass = React.lazy(() => import('./modules/Authentication/ResetPass/ResetPass'));
-const VerifyAccount = React.lazy(() => import('./modules/Authentication/VerifyAccount/VerifyAccount'));
-const Dashboard = React.lazy(() => import('./modules/Dashboard/Dashboard'));
-const RoomsList = React.lazy(() => import('./modules/Rooms/RoomsList/RoomsList'));
-const RoomsData = React.lazy(() => import('./modules/Rooms/RoomsData/RoomsData'));
-const BookingList = React.lazy(() => import('./modules/Booking/BookingList'));
-const UsersList = React.lazy(() => import('./modules/UsersList/UsersList'));
+const Login = React.lazy(() => import('./modules/AdminModules/Authentication/Login/Login'));
+const Register = React.lazy(() => import('./modules/AdminModules/Authentication/Register/Register'));
+const ForgetPass = React.lazy(() => import('./modules/AdminModules/Authentication/ForgetPass/ForgetPass'));
+const ResetPass = React.lazy(() => import('./modules/AdminModules/Authentication/ResetPass/ResetPass'));
+const VerifyAccount = React.lazy(() => import('./modules/AdminModules/Authentication/VerifyAccount/VerifyAccount'));
+const Dashboard = React.lazy(() => import('./modules/AdminModules/Dashboard/Dashboard'));
+const RoomsList = React.lazy(() => import('./modules/AdminModules/Rooms/RoomsList/RoomsList'));
+const RoomsData = React.lazy(() => import('./modules/AdminModules/Rooms/RoomsData/RoomsData'));
+const BookingList = React.lazy(() => import('./modules/AdminModules/Booking/BookingList'));
+const UsersList = React.lazy(() => import('./modules/AdminModules/UsersList/UsersList'));
 
 
 const App: React.FC = () => { 
@@ -51,21 +54,18 @@ const routes = createBrowserRouter([
         {path:"users",element:<UsersList/>},
         {path:"ads",element:<Ads/>},
         {path:"facilities",element:<FacilitiesList/>},
-
-
       ]
+    },
+    {path:"user" ,element:<UserLayout/>,errorElement:<NotFound/>,
+      children:[
+      {index:true,element:<LandingPage/>},
+    ]
     }
 ])
 
 
   return (
-    <Suspense
-      fallback={
-        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-          <CircularProgress />
-        </Box>
-      }
-    >
+    <Suspense fallback={<Spiner height='100vh'/>}>
       <RouterProvider router={routes} />
     </Suspense>
   );
