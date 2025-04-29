@@ -21,30 +21,6 @@ export type TableActionProps = {
 };
 
 export type TableDataProps = {
-  loading: boolean;
-  items: Room[] | Booking[] | User[] | RoomFacility[] |Ad[];
-  page: number;
-  size: number;
-  handleChangePage: (
-    _: React.MouseEvent<HTMLButtonElement> | null,
-    newPage: number
-  ) => void;
-  handleChangeRowsPerPage: (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => void;
-  totalCount: number;
-  rowsPerPageOptions: number[];
-  labelRowsPerPage: string;
-  columns: string[];
-  renderRow: (item: Room | Booking | User | RoomFacility) => React.ReactNode;
-  handleDeleteItem: (id: string, name: string) => void;
-  handleEditItem: (item: RoomFacility) => void;
-  item: RoomFacility;
-  route?: boolean;
-};
-
-
-export type TableDataProps = {
     loading: boolean;
     items: (Room | Booking | User | RoomFacility)[]; // Define the array of items
     page: number;

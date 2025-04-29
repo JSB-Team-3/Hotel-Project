@@ -9,9 +9,10 @@ import { Link } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
 import ViewDataModal from '../ViewDataModal/ViewDataModal'; // Assuming this is a lazy-loaded modal
 import { TableActionProps } from '../../../Interfaces/props.interface';
+import { RoomFacility } from '../../../Interfaces/facilities.interface';
 
 
-export default function TableActions({ handleDeleteItem, item, route }: TableActionProps) {
+export default function TableActions({ handleDeleteItem, item, route ,handleEditItem }: TableActionProps) {
   const theme = useTheme();
   
   // Memoize state variables to avoid unnecessary renders
@@ -34,7 +35,6 @@ export default function TableActions({ handleDeleteItem, item, route }: TableAct
     handleClose();
   }, []);
 
-
                 
   const handleView = useCallback(() => {
     setViewOpen(true);
@@ -46,6 +46,9 @@ export default function TableActions({ handleDeleteItem, item, route }: TableAct
       if(item.roomNumber)handleDeleteItem(item._id, item.roomNumber);
     } else if ('user' in item) {
       if(item.user)handleDeleteItem(item._id, item.user.userName);
+    }
+    else if ('name' in item) {
+      if(item.name)handleDeleteItem(item._id, item.name);
     }
   }, [handleClose, item, handleDeleteItem]);
 
@@ -111,7 +114,25 @@ export default function TableActions({ handleDeleteItem, item, route }: TableAct
               <ListItemText primary="Edit" />
             </MenuItem>
           )}
-       
+          {handleEditItem && (
+            <MenuItem
+              onClick={() => {
+                handleEditItem(item as RoomFacility);
+                handleClose();
+              }}
+              sx={{
+                '&:hover': {
+                  backgroundColor: theme.palette.action.hover,
+                },
+              }}
+            >
+              <ListItemIcon>
+                <EditIcon sx={{ color: '#203FC7' }} />
+              </ListItemIcon>
+              <ListItemText primary="Edit" />
+            </MenuItem>
+          )}
+          
           {'email' in item || (
             <MenuItem
               onClick={handleDelete}

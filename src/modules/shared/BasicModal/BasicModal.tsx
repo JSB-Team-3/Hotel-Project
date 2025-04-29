@@ -6,14 +6,13 @@ import {
   Modal,
   TextField,
   Button,
-  Snackbar,
-  Alert,
   IconButton,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
 import { useAppDispatch } from "../../hooks/Hook";
 import { createRoomFacility } from "../../store/facilities/facilitiesThunk";
+import { useSnackbar } from "notistack";
 
 const style = {
   position: "absolute",
@@ -29,25 +28,26 @@ const style = {
 interface BasicModalProps {
   open: boolean;
   handleClose: () => void;
+  getAllFacilitiesList: () => void;
 }
 
-export default function BasicModal({ open, handleClose }: BasicModalProps) {
+export default function BasicModal({ open, handleClose,getAllFacilitiesList }: BasicModalProps) {
   const dispatch = useAppDispatch();
   const [facilityName, setFacilityName] = useState("");
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [snackbarError, setSnackbarError] = useState("");
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (facilityName.trim()) {
       try {
-        await dispatch(createRoomFacility({ name: facilityName })).unwrap();
-        setSnackbarOpen(true);
-        setSnackbarError("");
+
+        const response = await dispatch(createRoomFacility({ name: facilityName })).unwrap();
+        enqueueSnackbar(response?.message || 'updated successfully', { variant: 'success' });
         setFacilityName("");
         handleClose();
-      } catch (err: any) {
-        setSnackbarError(err?.message || "failed to delete facility");
+        getAllFacilitiesList();
+      } catch (err) {
+        enqueueSnackbar(err as string, { variant: 'error' });
       }
     }
   };
@@ -119,36 +119,6 @@ export default function BasicModal({ open, handleClose }: BasicModalProps) {
           </form>
         </Box>
       </Modal>
-
-      <Snackbar
-        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-        open={snackbarOpen}
-        autoHideDuration={4000}
-        onClose={() => setSnackbarOpen(false)}
-      >
-        <Alert
-          onClose={() => setSnackbarOpen(false)}
-          severity="success"
-          sx={{ width: "100%" }}
-        >
-          Facility added successfully!
-        </Alert>
-      </Snackbar>
-
-      <Snackbar
-        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-        open={!!snackbarError}
-        autoHideDuration={4000}
-        onClose={() => setSnackbarError("")}
-      >
-        <Alert
-          onClose={() => setSnackbarError("")}
-          severity="error"
-          sx={{ width: "100%" }}
-        >
-          {snackbarError}
-        </Alert>
-      </Snackbar>
     </>
   );
 }

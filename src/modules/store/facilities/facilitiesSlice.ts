@@ -41,14 +41,14 @@ export const roomFacilitiesSlice = createSlice({
 
       // Update
       .addCase(updateRoomFacility.pending, (state) => {
-        state.loading = true;
+        state.deleteLoading = true;
         state.error = null;
       })
       .addCase(updateRoomFacility.fulfilled, (state) => {
-        state.loading = false;
+        state.deleteLoading = false;
       })
       .addCase(updateRoomFacility.rejected, (state, action) => {
-        state.loading = false;
+        state.deleteLoading = false;
         state.error = action.payload as string;
       })
 
