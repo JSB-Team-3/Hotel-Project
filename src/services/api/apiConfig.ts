@@ -54,4 +54,8 @@ export const ADMIN_ADS_URLS = {
   DELETE_AD: (id: string) => `/admin/ads/${id}`,
   UPDATE_AD: (id: string) => `/admin/ads/${id}`,
 };
+// po0rtal
 
+export const Portal_ROOMS_URLS = {
+  GET_ALL_PORTAL_ROOMS: `/portal/rooms/available`,
+};
