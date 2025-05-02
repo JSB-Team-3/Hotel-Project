@@ -64,5 +64,8 @@ export type PaginationCompProps = {
     setPage: Dispatch<SetStateAction<number>>;
     size: number;
   } 
-
+  export type RoomCardProps = {
+    room: Room;
+    handleFav?: (roomId: string) => void;
+  }
 
