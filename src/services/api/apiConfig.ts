@@ -59,3 +59,8 @@ export const ADMIN_ADS_URLS = {
 export const Portal_ROOMS_URLS = {
   GET_ALL_PORTAL_ROOMS: `/portal/rooms/available`,
 };
+export const fAVOURITES_URLS={
+  GET_FAVOURITE_ROOMS:`/portal/favorite-rooms`,
+  ADD_TO_FAVOURITE:`portal/favorite-rooms`,
+  DELETE_FAVOURITE:(roomId:string)=>`portal/favorite-rooms/${roomId}`,
+}

@@ -2,7 +2,7 @@ import { Grid, Box, Skeleton } from '@mui/material';
 
 export default function CardSkeleton() {
   return (
-    <Grid size={{ xs: 12, md: 6, lg: 4 }}>
+    <Grid size={{ xs: 12, md: 4, lg: 3 }}>
       <Box
         sx={{
           position: 'relative',
@@ -37,7 +37,7 @@ export default function CardSkeleton() {
             height="100%" 
             sx={{ 
               borderEndStartRadius: '15px',
-              backgroundColor: 'rgba(29, 26, 27, 0.3)' // Lighter version of #FF498B
+              backgroundColor: 'rgba(29, 26, 27, 0.03)' // Lighter version of #FF498B
             }}
           />
         </Box>
@@ -56,7 +56,7 @@ export default function CardSkeleton() {
             width="100%" 
             height={24}
             sx={{ 
-              backgroundColor: 'rgba(0, 0, 0, 0.2)',  // Darker than default
+              backgroundColor: 'rgba(29, 26, 27, 0.03)',  // Darker than default
             }}
           />
         </Box>

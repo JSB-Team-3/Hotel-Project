@@ -26,7 +26,7 @@ const RoomsData = React.lazy(() => import('./modules/AdminModules/Rooms/RoomsDat
 const BookingList = React.lazy(() => import('./modules/AdminModules/Booking/BookingList'));
 const UsersList = React.lazy(() => import('./modules/AdminModules/UsersList/UsersList'));
 const Explore = React.lazy(() => import('./modules/UserModules/Explore/Explore'));
-
+const Favourites = React.lazy(() => import('./modules/UserModules/Favourites/Favourites'));
 const App: React.FC = () => { 
 const routes = createBrowserRouter([
   {
@@ -59,6 +59,7 @@ const routes = createBrowserRouter([
       children:[
       {index:true,element:<LandingPage/>},
       {path:'explore',element:<Explore/>},
+      {path:'favourites',element:<Favourites/>},
     ]
     }
 ])

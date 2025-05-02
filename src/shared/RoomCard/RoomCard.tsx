@@ -2,10 +2,10 @@ import { Grid, Box, Typography, IconButton } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Visibility from '@mui/icons-material/Visibility';
 import nodata from '../../assets/images/noimg.jpg';
-import { Room } from '../../Interfaces/rooms.interface';
-export default function RoomCard({room}:{room:Room}) {
+import { RoomCardProps } from '../../Interfaces/props.interface';
+export default function RoomCard({room ,handleFav}:RoomCardProps) {
   return (
-      <Grid size={{ xs: 12, md: 6, lg: 4 }}>
+      <Grid size={{ xs: 12, md: 4, lg: 3 }}>
         <Box
           sx={{
             position: 'relative',
@@ -14,8 +14,12 @@ export default function RoomCard({room}:{room:Room}) {
             borderRadius: '15px',
             overflow: 'hidden',
             '&:hover .hover-overlay': {
-              opacity: 1
-            }
+              opacity: 1,
+              transform: 'translateY(0)',
+            },
+            '&:hover .hover-img': {
+              transform: 'scale(1.2)',
+            },
           }}
         >
             {/* overLay */}
@@ -35,12 +39,15 @@ export default function RoomCard({room}:{room:Room}) {
           {/* Image */}
           <Box 
             component="img" 
+            className='hover-img'
             src={room?.images?.[0] || nodata} 
             sx={{
               width: '100%',
             //   height: '215px',
               borderRadius: '15px', 
-              objectFit: 'cover'
+              objectFit: 'cover',
+              transform:'scale(1)',
+              transition:'transform 0.8s ease',
             }}
           />
           <Box sx={{position: 'absolute',
@@ -77,10 +84,12 @@ export default function RoomCard({room}:{room:Room}) {
               gap: 1,
               backgroundColor: 'rgba(32, 63, 199, 0.21)',
               opacity: 0,
-              transition: 'opacity 0.3s ease'
+              transform: 'translateY(20%)',
+              transition: 'opacity 0.3s ease , transform 0.3s ease',
             }}
           >
             <IconButton 
+            onClick={() => handleFav && handleFav(room._id)}
               aria-label="add to favorites"
               sx={{ 
                 color: 'white',
