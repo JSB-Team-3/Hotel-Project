@@ -15,8 +15,11 @@ export default function RoomCard({room ,handleFav}:RoomCardProps) {
             overflow: 'hidden',
             '&:hover .hover-overlay': {
               opacity: 1,
-              transform: 'translateY(100%)',
-            }
+              transform: 'translateY(0)',
+            },
+            '&:hover .hover-img': {
+              transform: 'scale(1.2)',
+            },
           }}
         >
             {/* overLay */}
@@ -36,12 +39,15 @@ export default function RoomCard({room ,handleFav}:RoomCardProps) {
           {/* Image */}
           <Box 
             component="img" 
+            className='hover-img'
             src={room?.images?.[0] || nodata} 
             sx={{
               width: '100%',
             //   height: '215px',
               borderRadius: '15px', 
-              objectFit: 'cover'
+              objectFit: 'cover',
+              transform:'scale(1)',
+              transition:'transform 0.8s ease',
             }}
           />
           <Box sx={{position: 'absolute',
@@ -78,8 +84,8 @@ export default function RoomCard({room ,handleFav}:RoomCardProps) {
               gap: 1,
               backgroundColor: 'rgba(32, 63, 199, 0.21)',
               opacity: 0,
-              transform: 'translateY(0)',
-              transition: 'opacity 0.3s ease'
+              transform: 'translateY(20%)',
+              transition: 'opacity 0.3s ease , transform 0.3s ease',
             }}
           >
             <IconButton 

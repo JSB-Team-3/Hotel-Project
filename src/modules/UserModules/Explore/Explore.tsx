@@ -46,7 +46,7 @@ export default function Explore() {
       <PortalHeader title='Explore ALL Rooms' subTitle='All Rooms' />
       <Grid container spacing={2}>
         {loading
-          ? [1, 2, 3].map((_, index) => (
+          ? [1, 2, 3, 4].map((_, index) => (
             <CardSkeleton key={index} />
           ))
           : rooms?.length > 0 ? rooms?.map((room) => (

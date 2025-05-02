@@ -4,15 +4,13 @@ import RoomCard from '../../../shared/RoomCard/RoomCard';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../../store/auth/AuthConfig';
 import { useSnackbar } from 'notistack';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import PortalHeader from '../../../shared/PortalHeader/PortalHeader';
 import CardSkeleton from '../../../shared/CardSkeleton/CardSkeleton';
 import { deleteFavourite, getAllFavouriteRooms } from '../../../store/favourites/favouritesThunk';
 import NoData from '../../../shared/NoData/NoData';
 
 export default function Favourites() {
-    // const [page, setPage] = useState<number>(1);
-    // const [size] = useState<number>(6);
     const dispatch = useDispatch<AppDispatch>();
     const { loading, rooms,deleteLoading} = useSelector((state: RootState) => ({
         loading: state.favourites.loading,
@@ -46,7 +44,7 @@ export default function Favourites() {
                 <PortalHeader title='Your Favorites' subTitle='Your Rooms' />
                 <Grid container spacing={2}>
                     {loading || deleteLoading
-                        ? [1, 2, 3].map((_, index) => (
+                        ? [1, 2, 3, 4].map((_, index) => (
                             <CardSkeleton key={index} />
                         ))
                         :rooms?.length>0? rooms?.map((room) => (
