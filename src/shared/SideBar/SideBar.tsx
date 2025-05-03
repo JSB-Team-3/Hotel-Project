@@ -46,6 +46,9 @@ const Sidebar: React.FC<SidebarProps> = ({ open, toggleSidebar }) => {
 
   const handleLogout = () => {
     navigate('/login');
+    localStorage.removeItem('token');
+    localStorage.removeItem('user-profile')
+    localStorage.removeItem('user')
   };
 
   const anchor = theme.direction === 'rtl' ? 'right' : 'left';

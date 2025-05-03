@@ -26,9 +26,7 @@ const BookingList = React.lazy(() => import('./modules/AdminModules/Booking/Book
 const UsersList = React.lazy(() => import('./modules/AdminModules/UsersList/UsersList'));
 const LandingPage = React.lazy(() => import('./modules/UserModules/Landing/LandingPage'));
 const UserLayout = React.lazy(() => import('./shared/UserLayout/UserLayout'));
-
-
-
+const RoomDetails = React.lazy(() => import('./modules/UserModules/RoomDetails/RoomDetails'));
 const Explore = React.lazy(() => import('./modules/UserModules/Explore/Explore'));
 const Favourites = React.lazy(() => import('./modules/UserModules/Favourites/Favourites'));
 
@@ -63,6 +61,7 @@ const routes = createBrowserRouter([
     {path:"home" ,element:<UserLayout/>,errorElement:<NotFound/>,
       children:[
       {index:true,element:<LandingPage/>},
+      {path:"rooms/:roomId",element:<RoomDetails/>},
       {path:'explore',element:<Explore/>},
       {path:'favourites',element:<Favourites/>},
     ]
