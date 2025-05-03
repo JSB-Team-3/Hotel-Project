@@ -26,11 +26,11 @@
   },
   "login": {
     "title": "Login to Roamhome",
-    "login" : "Login",
-    "no_account" : "Don't have an account?",
+    "login": "Login",
+    "no_account": "Don't have an account?",
     "error_message": "Login failed. Please check your credentials and try again.",
     "success_message": "Login successful! Redirecting to the dashboard..."
-  }, 
+  },
   "signup": {
     "title": "Sign up to Roamhome"
   },
@@ -66,7 +66,7 @@
     "drag_drop_supported": "Or drag and drop an image here",
     "file_too_large": "The file is too large. The maximum size is {{size}} MB",
     "subtitle": "Homes as unique as you.",
-    "otp":"otp",
+    "otp": "otp",
     "oldPassword": "Current Password",
     "newPassword": "New Password",
     "confirmPassword": "Confirm Password",
@@ -74,7 +74,6 @@
     "passwordMismatch": "Passwords don't match",
     "success_message": "Success! Your changes have been saved.",
     "error_message": "An error occurred. Please try again."
-
   },
   "common": {
     "save": "Save",
@@ -85,8 +84,8 @@
     "close": "Close",
     "back": "Back",
     "next": "Next",
-    "deleteConfirmation":"are you sure you want to delete this item ? if you are sure just click on delete it",
-    "logout":"Logout",
+    "deleteConfirmation": "are you sure you want to delete this item ? if you are sure just click on delete it",
+    "logout": "Logout",
     "search": "Search...",
     "settings": "Settings"
   },
@@ -94,38 +93,58 @@
     "select": "Select Language",
     "current": "Current Language"
   },
-    "password": {
-      "changeButton": "Change Password",
-      "modalTitle": "Change Password",
-      "modalDescription": "Ready to set a new password?",
-      "successMessage": "Password updated successfully!"
-    },
-    "sidebar": {
-      "home": "Home",
-      "users": "Users",
-      "rooms": "Rooms",
-      "ads": "Ads",
-      "bookings": "Bookings",
-      "facilities": "Facilities",
-      "change_password": "Change password"
-    },
-    "status": {
-  "pending": "Pending",
-  "completed": "Completed"
-},"roles": {
-  "user": "User",
-  "admin": "Admin",
-  "users": "Users"
-},
-"totalUsers": "Total Users"
-,  "dashboard": {
-  "rooms": "Rooms",
-  "facilities": "Facilities",
-  "ads": "Ads"
-},"notFound": {
+  "password": {
+    "changeButton": "Change Password",
+    "modalTitle": "Change Password",
+    "modalDescription": "Ready to set a new password?",
+    "successMessage": "Password updated successfully!"
+  },
+  "sidebar": {
+    "home": "Home",
+    "users": "Users",
+    "rooms": "Rooms",
+    "ads": "Ads",
+    "bookings": "Bookings",
+    "facilities": "Facilities",
+    "change_password": "Change password"
+  },
+  "status": {
+    "pending": "Pending",
+    "completed": "Completed"
+  },
+  "roles": {
+    "user": "User",
+    "admin": "Admin",
+    "users": "Users"
+  },
+  "totalUsers": "Total Users",
+  "dashboard": {
+    "rooms": "Rooms",
+    "facilities": "Facilities",
+    "ads": "Ads"
+  },
+  "notFound": {
     "oops": "Oops!",
     "pageNotFound": "Page not found",
     "description": "We've searched everywhere but couldn't find the page you requested.",
     "returnToDashboard": "Return to Dashboard"
+  },
+  "landing_page": {
+    "Forget Busy Work, Start Next Vacation": "Forget Busy Work, Start Next Vacation",
+    "We provide what you need to enjoy your holiday with family. Time to make another memorable moments.": "We provide what you need to enjoy your holiday with family. Time to make another memorable moments.",
+    "Start Date": "Start Date",
+    "End Date": "End Date",
+    "Capacity": "Capacity",
+    "Houses with beauty backyard": "Houses with beauty backyard",
+    "Hotels with large living room": "Hotels with large living room",
+    "ads": "ads",
+    "Happy Family": "Happy Family",
+    "Amazing service and comfortable rooms!": "Amazing service and comfortable rooms!",
+    "Salma, Software Engineer": "Salma, Software Engineer",
+    "Unforgettable experience, really worth it.": "Unforgettable experience, really worth it.",
+    "Mohamed, Frontend Dev": "Mohamed, Frontend Dev",
+    "What a great trip with my family and I should try again next time soon ...": "What a great trip with my family and I should try again next time soon ...",
+    "Angga, Product Designer": "Angga, Product Designer",
+    "more":"more"
   }
 }

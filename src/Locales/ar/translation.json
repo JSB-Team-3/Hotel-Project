@@ -26,8 +26,8 @@
   },
   "login": {
     "title": "تسجيل الدخول إلى روم هوم",
-    "no_account" : "ليس لديك حساب؟",
-     "error_message": "فشل تسجيل الدخول. يرجى التحقق من بيانات الاعتماد الخاصة بك والمحاولة مرة أخرى.",
+    "no_account": "ليس لديك حساب؟",
+    "error_message": "فشل تسجيل الدخول. يرجى التحقق من بيانات الاعتماد الخاصة بك والمحاولة مرة أخرى.",
     "success_message": "تم تسجيل الدخول بنجاح! جارٍ التوجيه إلى لوحة التحكم..."
   },
   "signup": {
@@ -65,7 +65,7 @@
     "drag_drop_supported": "أو اسحب وأفلت الصورة هنا",
     "file_too_large": "الملف كبير جدًا. الحجم الأقصى هو {{size}} ميغابايت",
     "subtitle": "منازل فريدة مثلك.",
-    "otp":"رمز التحقق",
+    "otp": "رمز التحقق",
     "oldPassword": "كلمة المرور الحالية",
     "newPassword": "كلمة المرور الجديدة",
     "confirmPassword": "تأكيد كلمة المرور",
@@ -83,52 +83,67 @@
     "close": "إغلاق",
     "back": "رجوع",
     "next": "التالي",
-    "deleteConfirmation":"هل أنت متأكد أنك تريد حذف هذا العنصر؟",
+    "deleteConfirmation": "هل أنت متأكد أنك تريد حذف هذا العنصر؟",
     "logout": "تسجيل الخروج",
-     "search": "بحث...",
-  "settings": "الإعدادات"
+    "search": "بحث...",
+    "settings": "الإعدادات"
   },
   "language": {
     "select": "اختيار اللغة",
     "current": "اللغة الحالية"
   },
-    "password": {
-      "changeButton": "تغيير كلمة المرور",
-      "modalTitle": "تغيير كلمة المرور",
-      "modalDescription": "هل أنت مستعد لتعيين كلمة مرور جديدة؟",
-      "successMessage": "تم تحديث كلمة المرور بنجاح!"
-    },
-    "sidebar": {
-      "home": "الرئيسية",
-      "users": "المستخدمين",
-      "rooms": "الغرف",
-      "ads": "الإعلانات",
-      "bookings": "الحجوزات",
-      "facilities": "المرافق",
-      "change_password": "تغيير كلمة المرور"
-    },
-    "status": {
-  "pending": "قيد الانتظار",
-  "completed": "مكتمل"
-},
-"roles": {
-  "user": "مستخدم",
-  "admin": "مشرف",
-  "users":"المستخدمين"
-},
-"totalUsers": "إجمالي المستخدمين"
-,
+  "password": {
+    "changeButton": "تغيير كلمة المرور",
+    "modalTitle": "تغيير كلمة المرور",
+    "modalDescription": "هل أنت مستعد لتعيين كلمة مرور جديدة؟",
+    "successMessage": "تم تحديث كلمة المرور بنجاح!"
+  },
+  "sidebar": {
+    "home": "الرئيسية",
+    "users": "المستخدمين",
+    "rooms": "الغرف",
+    "ads": "الإعلانات",
+    "bookings": "الحجوزات",
+    "facilities": "المرافق",
+    "change_password": "تغيير كلمة المرور"
+  },
+  "status": {
+    "pending": "قيد الانتظار",
+    "completed": "مكتمل"
+  },
+  "roles": {
+    "user": "مستخدم",
+    "admin": "مشرف",
+    "users": "المستخدمين"
+  },
+  "totalUsers": "إجمالي المستخدمين",
   "dashboard": {
     "rooms": "الغرف",
     "facilities": "المرافق",
     "ads": "الإعلانات"
-  
-},
+  },
   "notFound": {
     "oops": "عذرًا!",
     "pageNotFound": "الصفحة غير موجودة",
     "description": "بحثنا في كل مكان ولكن لم نعثر على الصفحة المطلوبة.",
     "returnToDashboard": "العودة إلى لوحة التحكم"
+  },
+  "landing_page": {
+    "Forget Busy Work,Start Next Vacation": "انسَ العمل المُرهِق، وابدأ إجازتك القادمة",
+    "We provide what you need to enjoy your holiday with family.Time to make another memorable moments.": "نوفر لكم كل ما تحتاجونه للاستمتاع بعطلتكم مع العائلة. حان الوقت للحظات لا تُنسى.",
+    "Start Date": "تاريخ البدء",
+    "End Date": " تاريخ الانتهاء",
+    "Capacity":"سعه",
+    "Houses with beauty backyard": "منازل ذات حديقة خلفية جميلة",
+    "Hotels with large living room": "فنادق ذات غرفة معيشة كبيرة",
+    "ads": "الإعلانات",
+    "Happy Family": "عائله سعيده",
+    "Amazing service and comfortable rooms!": "خدمة رائعة وغرف مريحة!",
+    "Salma, Software Engineer": "سلمى، مهندسة برمجيات",
+    "Unforgettable experience, really worth it.": "تجربة لا تنسى، تستحق ذلك حقًا.",
+    "Mohamed, Frontend Dev": "محمد، مطور واجهة المستخدم",
+    "What a great trip with my family and I should try again next time soon ...": "لقد كانت رحلة رائعة مع عائلتي ويجب أن أحاول مرة أخرى في المرة القادمة قريبًا ...",
+    "Angga, Product Designer": "أنجا، مصمم المنتجات",
+    "more":"اكثر"
   }
-
 }
