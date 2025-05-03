@@ -132,7 +132,7 @@ export const PORTAL_ROOM_REVIEWS_URLS = {
 export const PORTAL_FAVORITE_ROOMS_URLS = {
   GET_FAVORITE_ROOMS: `portal/favorite-rooms`,
   DELETE_FAVORITE_ROOM: (id: string) => `portal/favorite-rooms/${id}`,
-=======
+}
 export const User_Room_URLS = {
   GET_USER_ROOMS:(page: number, size: number, startDate: string, endDate: string)=>`/portal/rooms/available?page=${page}&size=${size}&startDate=${startDate}&endDate=${endDate}` ,
   GET_USER_ROOM_DETAILS: (id: string) => `/portal/rooms/${id}`,

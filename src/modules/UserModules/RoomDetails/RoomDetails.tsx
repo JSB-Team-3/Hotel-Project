@@ -3,7 +3,7 @@ import { JSX, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { enqueueSnackbar } from 'notistack';
-import { Box, Grid, Typography, Container, Divider } from '@mui/material';
+import { Box, Grid, Typography, Divider } from '@mui/material';
 import {
   Bed as BedIcon,
   Wifi as WifiIcon,
@@ -90,7 +90,7 @@ const RoomDetails: React.FC = () => {
       : 0;
 
   return (
-    <Container maxWidth="lg" sx={{ py: 4 }}>
+    <>
       <Typography variant="h4" sx={{ mb: 1, fontWeight: 600, textAlign: 'center' }}>
         {t('room_details.title')}
       </Typography>
@@ -119,7 +119,7 @@ const RoomDetails: React.FC = () => {
         </Grid>
       </Grid>
       {roomId && <ReviewAndComments roomId={roomId} />}
-    </Container>
+    </>
   );
 };
 

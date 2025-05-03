@@ -270,7 +270,22 @@
   "seeMore": "See more reviews",
   "noReviewsTitle": "No Reviews Yet",
   "noReviewsSubtitle": "Be the first to write a review and share your experience."
+},
+"explore":{
+  "link": "Explore",
+  "title":"Explore ALL Rooms",
+  "subtitle":"All Rooms",
+  "getMessage":"failed to get all rooms"
+},
+"favourite":{
+  "link": "Favourites",
+  "title":"Your Favorites",
+  "subtitle":"Your Rooms",
+  "getMessage":"failed to get all favourite rooms",
+  "addSuccess": "Room added to favorites successfully!",
+  "addFailed": "Failed to add room to favorites",
+  "removeSuccess": "Room removed from favorites successfully!",
+  "removeFailed": "Failed to remove room from favorites",
+  "loginFirst": "Please login first to add this room to your favorites"
 }
-
-
 }

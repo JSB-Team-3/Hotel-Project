@@ -11,6 +11,7 @@ import PortalHeader from '../../../shared/PortalHeader/PortalHeader';
 import CardSkeleton from '../../../shared/CardSkeleton/CardSkeleton';
 import NoData from '../../../shared/NoData/NoData';
 import useAddToFavorite from '../../../hooks/useAddToFavorite';
+import { useTranslation } from 'react-i18next';
 
 export default function Explore() {
   const addToFav = useAddToFavorite();
@@ -23,27 +24,30 @@ export default function Explore() {
     totalCount: state.rooms.totalCount,
   }),
     shallowEqual);
-
+  const { t } = useTranslation();
 
   const { enqueueSnackbar } = useSnackbar();
   const getAllRoomsList = async () => {
     try {
       await dispatch(getAllRoomsPortal({
-        page: page ,
+        page: page,
         size: size
       })).unwrap();
     } catch (err) {
-      enqueueSnackbar(err as string || 'failed to get all rooms', { variant: 'error' });
+      enqueueSnackbar(err as string || t('explore.getMessage'), { variant: 'error' });
     }
   };
-
+  const breadCrumbsLinks = [
+    { label: t('sidebar.home'), to: '/home' },
+    { label: t('explore.link'), to: `/home/explore` },
+  ];
   useEffect(() => {
     getAllRoomsList();
   }, [page, size]);
   return (
     <>
       <ThemeToggle />
-      <PortalHeader title='Explore ALL Rooms' subTitle='All Rooms' />
+      <PortalHeader title={t('explore.title')} subTitle={t('explore.subtitle')} links={breadCrumbsLinks} />
       <Grid container spacing={2}>
         {loading
           ? [1, 2, 3, 4].map((_, index) => (
