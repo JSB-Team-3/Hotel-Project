@@ -6,7 +6,6 @@ import NotFound from './shared/NotFound/NotFound';
 import './App.css'
 import ProtectedRoute from './shared/ProtectedRoute/ProtectedRoute';
 import Ads from './modules/AdminModules/Ads/Ads'
-import { Box } from '@mui/material';
 import AuthLayout from './shared/AuthLayout/AuthLayout';
 import FacilitiesList from './modules/AdminModules/Facilities/FacilitiesList/FacilitiesList';
 import Spiner from './shared/Spinner/Spiner';
@@ -26,7 +25,7 @@ const RoomsList = React.lazy(() => import('./modules/AdminModules/Rooms/RoomsLis
 const RoomsData = React.lazy(() => import('./modules/AdminModules/Rooms/RoomsData/RoomsData'));
 const BookingList = React.lazy(() => import('./modules/AdminModules/Booking/BookingList'));
 const UsersList = React.lazy(() => import('./modules/AdminModules/UsersList/UsersList'));
-
+const RoomDetails = React.lazy(() => import('./modules/UserModules/RoomDetails/RoomDetails'));
 
 const App: React.FC = () => { 
 const routes = createBrowserRouter([
@@ -59,6 +58,7 @@ const routes = createBrowserRouter([
     {path:"user" ,element:<UserLayout/>,errorElement:<NotFound/>,
       children:[
       {index:true,element:<LandingPage/>},
+      {path:"rooms/:roomId",element:<RoomDetails/>},
     ]
     }
 ])
