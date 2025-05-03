@@ -81,7 +81,7 @@ const BookingCard: React.FC<BookingCardProps> = ({
     try {
        await dispatch(createBooking(bookingData)).unwrap();
       enqueueSnackbar(t('booking.success'), { variant: 'success' });
-      navigate('/checkout');
+      navigate('home/checkout');
     } catch (error) {
       console.error('Booking error:', error);
       enqueueSnackbar(t('booking.error'), { variant: 'error' });

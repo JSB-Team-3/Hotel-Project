@@ -17,6 +17,8 @@ export const getTokens = (mode: PaletteMode) => ({
         text: { primary: '#000', secondary: '#555' },
         activeBreadcrumb: '#152C5B',
         inactiveBreadcrumb: '#B0B0B0',
+        darkblue:"#152C5B",
+
       }
     : {
         primary: '#90caf9',
@@ -26,12 +28,14 @@ export const getTokens = (mode: PaletteMode) => ({
         secondary: '#ce93d8',
         secondaryLight: '#f1b6ff',
         secondaryDark: '#9c64a6',
-        blueMain:"#111212",
+        blueMain:"#3061c8",
         liteMain:"#fff",
         background: { default: '#121212', paper: '#1e1e1e' },
         text: { primary: '#fff', secondary: '#aaa' },
         activeBreadcrumb: '#FFFFFF',
         inactiveBreadcrumb: '#888888',
+        darkblue:"#fff",
+
       }),
 });
 

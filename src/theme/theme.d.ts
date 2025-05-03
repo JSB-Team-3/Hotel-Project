@@ -8,6 +8,7 @@ declare module '@mui/material/styles' {
     primaryLight: string;
     activeBreadcrumb: string;
     inactiveBreadcrumb: string;
+    darkblue: string;
 
   }
 

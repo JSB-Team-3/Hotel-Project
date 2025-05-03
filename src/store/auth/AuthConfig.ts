@@ -9,7 +9,8 @@ import usersReducers from "../users/userSlice";
 import commentsReducer from "../comments/commentSlice";
 import reviewReducer from "../review/reviewsSlice";
 import chartReducer from "../chart/chartSlice";
-import themeReducer from '../slices/themeSlice'
+import themeReducer from '../slices/themeSlice';
+import favouriteReducer from '../favourites/favouritesSlice'
 
 
 export const store = configureStore({
@@ -24,6 +25,7 @@ export const store = configureStore({
     comments: commentsReducer,
     reviews: reviewReducer,
     theme: themeReducer,
+    favourites:favouriteReducer,
   },
 });
 
