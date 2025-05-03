@@ -1,8 +1,8 @@
 import { Typography, useTheme } from '@mui/material';
 import React from 'react'
-import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
+import RoomBreadcrumbs from '../UserComponent/Breadcrumb/Breadcrumb';
 
-export default function PortalHeader({title,subTitle}:{title:string,subTitle:string}) {
+export default function PortalHeader({title,subTitle,links}:{title:string,subTitle:string,links:{label:string,to:string}[]}) {
          const theme = useTheme();
     
   return (
@@ -12,7 +12,7 @@ export default function PortalHeader({title,subTitle}:{title:string,subTitle:str
           textAlign:'center'}} >
           {title}
           </Typography>
-          <Breadcrumbs/>
+           <RoomBreadcrumbs links={links} />
           <Typography variant="h3" sx={{fontSize:'18px','my':2,
           color:theme.custom.darkblue,}} >
           {subTitle}
