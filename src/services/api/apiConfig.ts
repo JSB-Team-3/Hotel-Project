@@ -132,17 +132,18 @@ export const PORTAL_ROOM_REVIEWS_URLS = {
 export const PORTAL_FAVORITE_ROOMS_URLS = {
   GET_FAVORITE_ROOMS: `portal/favorite-rooms`,
   DELETE_FAVORITE_ROOM: (id: string) => `portal/favorite-rooms/${id}`,
-=======
+}
 export const User_Room_URLS = {
   GET_USER_ROOMS:(page: number, size: number, startDate: string, endDate: string)=>`/portal/rooms/available?page=${page}&size=${size}&startDate=${startDate}&endDate=${endDate}` ,
   GET_USER_ROOM_DETAILS: (id: string) => `/portal/rooms/${id}`,
 };
 
 export const BOOKING_URLS = {
-GET_USER_BOOKINGS:`/portal/booking`,
-GET_ALL_MY_BOOKINGS:`/portal/booking/my`,
-PAY_BOOKING:(id:string,)=>`/portal/booking/${id}/pay`,
-CREATE_BOOKING:`/portal/booking`,
+  GET_USER_BOOKINGS: `/portal/booking`,
+  GET_ALL_MY_BOOKINGS: `/portal/booking/my`,
+  PAY_BOOKING: (id: string) => `/portal/booking/${id}/pay`,
+  CREATE_BOOKING: `/portal/booking`,
+  GET_USER_BOKING: `/admin/booking?page=1&size=10`,
 };
 
 export const REVIEWS_URLS = {

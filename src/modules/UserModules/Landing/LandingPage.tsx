@@ -81,11 +81,11 @@ const LandingPage: React.FC = () => {
               fontWeight="600"
               maxWidth="600px"
             >
-              {t("Forget Busy Work, Start Next Vacation")}
+              {t("landing_page.Forget Busy Work,Start Next Vacation")}
             </Typography>
             <Typography variant="body1" color="gray" width="600px">
               {t(
-                "We provide what you need to enjoy your holiday with family.Time to make another memorable moments."
+                "landing_page.We provide what you need to enjoy your holiday with family.Time to make another memorable moments."
               )}
             </Typography>
             <BookingBox />
@@ -143,7 +143,7 @@ const LandingPage: React.FC = () => {
               }}
             >
               {addsGroup.slice(1, 5).map((ad, index) => (
-                <Box key={index}>
+                <Box key={index} sx={{ flexGrow: 1 }}>
                   <RoomCardItem
                     image={ad?.room?.images?.[0] || ""}
                     title={ad?.room?.roomNumber || "No Title"}
@@ -164,7 +164,7 @@ const LandingPage: React.FC = () => {
           sx={{ mt: "4rem", mb: "2rem" }}
         >
           <Typography variant="h4">
-            {t("Houses with beauty backyard")}
+            {t("landing_page.Houses with beauty backyard")}
           </Typography>
           <Link
             to="/explor"
@@ -175,49 +175,13 @@ const LandingPage: React.FC = () => {
               cursor: "pointer",
             }}
           >
-            {t("more")}
+            {t("landing_page.more")}
           </Link>
         </Grid>
 
         <Grid container spacing={2}>
           {roomsGroup.map((room, index) => (
-            <Grid item xs={12} sm={6} md={3} key={index}>
-              <RoomCardItem
-                image={room.images[0]}
-                title={room.roomNumber}
-                price={room.price}
-                width="380px"
-                height={215}
-              />
-            </Grid>
-          ))}
-        </Grid>
-
-        <Grid
-          container
-          justifyContent="space-between"
-          alignItems="center"
-          sx={{ mt: "4rem", mb: "2rem" }}
-        >
-          <Typography variant="h4">
-            {t("Hotels with large living room")}
-          </Typography>
-          <Link
-            to="/explor"
-            style={{
-              textDecoration: "none",
-              color: "red",
-              fontWeight: 500,
-              cursor: "pointer",
-            }}
-          >
-            {t("more")}
-          </Link>
-        </Grid>
-
-        <Grid container spacing={2}>
-          {secondroomsGroup.map((room, index) => (
-            <Grid item xs={12} sm={6} md={3} key={index}>
+            <Grid item xs={12} sm={6} md={3} key={index} sx={{ flexGrow: 1 }}>
               <RoomCardItem
                 image={room.images[0]}
                 title={room.roomNumber}
@@ -235,7 +199,9 @@ const LandingPage: React.FC = () => {
           alignItems="center"
           sx={{ mt: "4rem", mb: "2rem" }}
         >
-          <Typography variant="h4">{t("ads")}</Typography>
+          <Typography variant="h4">
+            {t("landing_page.Hotels with large living room")}
+          </Typography>
           <Link
             to="/explor"
             style={{
@@ -245,13 +211,47 @@ const LandingPage: React.FC = () => {
               cursor: "pointer",
             }}
           >
-            {t("more")}
+            {t("landing_page.more")}
+          </Link>
+        </Grid>
+
+        <Grid container spacing={2}>
+          {secondroomsGroup.map((room, index) => (
+            <Grid item xs={12} sm={6} md={3} key={index} sx={{ flexGrow: 1 }}>
+              <RoomCardItem
+                image={room.images[0]}
+                title={room.roomNumber}
+                price={room.price}
+                width="100%"
+                height={215}
+              />
+            </Grid>
+          ))}
+        </Grid>
+
+        <Grid
+          container
+          justifyContent="space-between"
+          alignItems="center"
+          sx={{ mt: "4rem", mb: "2rem" }}
+        >
+          <Typography variant="h4">{t("landing_page.ads")}</Typography>
+          <Link
+            to="/explor"
+            style={{
+              textDecoration: "none",
+              color: "red",
+              fontWeight: 500,
+              cursor: "pointer",
+            }}
+          >
+            {t("landing_page.more")}
           </Link>
         </Grid>
 
         <Grid container spacing={2}>
           {secondaddsGroup.map((ad, index) => (
-            <Grid item xs={12} sm={6} md={3} key={index}>
+            <Grid item xs={12} sm={6} md={3} key={index} sx={{ flexGrow: 1 }}>
               <RoomCardItem
                 image={ad.room.images[0]}
                 title={ad.room.roomNumber}
@@ -267,15 +267,6 @@ const LandingPage: React.FC = () => {
       </Container>
     </Box>
   );
-import { Box } from '@mui/material';
-import React from 'react';
-import { Link } from 'react-router-dom';
-
-const LandingPage: React.FC = () => {
-  return<>
-   <Box component={Link} to={'favourites'}>LandingPages</Box>
-   <Box component={Link} to={'explore'}>LandingPages</Box>;
-  </>
 };
 
 export default LandingPage;

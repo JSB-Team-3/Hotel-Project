@@ -38,7 +38,7 @@ const BookingBox: React.FC = () => {
   );
 
   const handleExploreClick = () => {
-    navigate("/explor", {
+    navigate("/home/explore", {
       state: { capacity },
     });
   };
@@ -48,9 +48,9 @@ const BookingBox: React.FC = () => {
   return (
     <Box
       sx={{
-        width: "100%", 
-        margin: 0, 
-        marginTop:"3rem"
+        width: "100%",
+        margin: 0,
+        marginTop: "3rem",
       }}
     >
       <Box
@@ -58,8 +58,8 @@ const BookingBox: React.FC = () => {
           borderRadius: "16px",
           backgroundColor: "#fff",
           width: "100%",
-          padding: 0, 
-          margin: 0, 
+          padding: 0,
+          margin: 0,
           boxSizing: "border-box",
         }}
       >
@@ -68,7 +68,7 @@ const BookingBox: React.FC = () => {
           {/* Start Date */}
           <Box flex={1}>
             <Typography mb={1} fontWeight="600" color="#152C5B">
-              {t("Start Date")}
+              {t("landing_page.Start Date")}
             </Typography>
             <TextField
               fullWidth
@@ -91,7 +91,7 @@ const BookingBox: React.FC = () => {
           {/* End Date */}
           <Box flex={1}>
             <Typography mb={1} fontWeight="600" color="#152C5B">
-              {t("End Date")}
+              {t("landing_page.End Date")}
             </Typography>
             <TextField
               fullWidth
@@ -115,7 +115,7 @@ const BookingBox: React.FC = () => {
         {/* Capacity */}
         <Box mt={4} width="100%">
           <Typography variant="subtitle1" mb={1}>
-            {t("Capacity")}
+            {t("landing_page.Capacity")}
           </Typography>
           <Box
             display="flex"
