@@ -1,8 +1,9 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { privateAxiosInstance } from "../../services/api/apiInstance";
-import { ADMIN_BOOKING_URLS } from "../../services/api/apiConfig";
-import { GetAllBookingParams } from "../../Interfaces/bookings.interfaces";
-import { handleThunkError } from "../../utilities/handleThunkError";
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { ADMIN_BOOKING_URLS, BOOKING_URLS } from "../../services/api/apiConfig";
+import { BookingData, BookingItem, GetAllBookingParams, GetAllMyBookingsResponse } from "../../Interfaces/bookings.interfaces";
+import { privateAxiosInstance } from '../../services/api/apiInstance';
+import { handleThunkError } from '../auth/handleThunkError';
+
 
 export const getBookingDetails = createAsyncThunk(
   'booking/details',
@@ -41,3 +42,39 @@ export const getAllBookings = createAsyncThunk(
     }
   }
 );
+
+
+
+export const getAllMyBookings = createAsyncThunk<GetAllMyBookingsResponse>(
+  'bookings/getAllMyBookings',
+  async (_, thunkAPI) => {
+    try {
+      const res = await privateAxiosInstance.get(BOOKING_URLS.GET_ALL_MY_BOOKINGS);
+      return res.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(handleThunkError(err, 'Failed to fetch my bookings'));
+    }
+  }
+);
+
+
+export const createBooking = createAsyncThunk<BookingItem, BookingData>(
+  'bookings/createBooking',
+  async (bookingData, thunkAPI) => {
+    try {
+      const response = await privateAxiosInstance.post(
+        BOOKING_URLS.CREATE_BOOKING,
+        bookingData
+      );
+      return response.data.booking as BookingItem;
+    } catch (err) {
+      console.log(err, 'err');
+      
+      return thunkAPI.rejectWithValue(
+        handleThunkError(err, 'Failed to create booking')
+      );
+    }
+  }
+);
+
+

@@ -1,7 +1,7 @@
 // NotFound.tsx
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Container, Grid, Typography, useMediaQuery } from '@mui/material';
+import { Box, Container, Grid, Typography, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import ExploreIcon from '@mui/icons-material/Explore';
 import { useTranslation } from 'react-i18next'; // ADD THIS
@@ -44,22 +44,27 @@ const NotFound: React.FC = () => {
       <Container maxWidth="lg">
         <ContentContainer>
           <Grid container spacing={3} alignItems="center" justifyContent="center">
-            
+
             <Grid size={{ xs: 12, md: 5, lg: 5 }} sx={{ textAlign: { xs: 'center', md: 'left' } }}>
               <LogoContainer>
-                <img src={logo} alt="logo" style={{ width: '120px', maxWidth: '160px', display: 'block' }} />
-              </LogoContainer>
+                <Box component="img" src={logo} alt="logo" sx={{
+                  width: '120px',
+                  maxWidth: '160px',
+                  display: 'block',
+                  mx:{xs:'auto',md:'0'} ,
+                }}
+                />              </LogoContainer>
 
-              <ContentBox>
+              <ContentBox  >
                 <GradientHeading variant="h1" sx={{ fontSize: { xs: '2rem', md: '4rem' }, mb: 2 }}>
                   {t('notFound.oops')}
                 </GradientHeading>
 
-                <Typography variant="h2" sx={{ fontWeight: 700, fontSize: { xs: '1.2rem', md: '2rem' }, mb: 2 }}>
+                <Typography variant="h2" sx={{ fontWeight: 700, fontSize: { xs: '1.2rem', md: '2rem' }, mb: 2, mx: 'auto' }}>
                   {t('notFound.pageNotFound')}
                 </Typography>
 
-                <Typography variant="body1" sx={{ maxWidth: 400, opacity: 0.8, mb: 3 }}>
+                <Typography variant="body1" sx={{ maxWidth: 400, opacity: 0.8, mb: 3, mx: 'auto' }}>
                   {t('notFound.description')}
                 </Typography>
 

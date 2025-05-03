@@ -16,7 +16,7 @@ export type Booking = {
   totalPrice: number;
   user: {
     _id: string;
-    userName: string;
+    userName?: string;
   };
   room: {
     _id: string;
@@ -35,4 +35,25 @@ export type BookingState = {
   error: string | null;
   deleteLoading: boolean;
   totalCount: number;
+}
+export interface BookingItem {
+ data:Booking
+}
+
+export interface GetAllMyBookingsResponse {
+  myBooking: BookingItem[];
+}
+
+export interface BookingCardProps {
+  price: number;
+  capacity: number;
+  discount: number;
+  roomId: string;
+}
+
+export interface BookingData {
+  startDate: string;
+  endDate: string;
+  room: string;
+  totalPrice: number;
 }

@@ -56,6 +56,30 @@ export const ADMIN_ADS_URLS = {
 };
 // po0rtal
 
+export const User_Room_URLS = {
+  GET_USER_ROOMS:(page: number, size: number, startDate: string, endDate: string)=>`/portal/rooms/available?page=${page}&size=${size}&startDate=${startDate}&endDate=${endDate}` ,
+  GET_USER_ROOM_DETAILS: (id: string) => `/portal/rooms/${id}`,
+};
+
+export const BOOKING_URLS = {
+GET_USER_BOOKINGS:`/portal/booking`,
+GET_ALL_MY_BOOKINGS:`/portal/booking/my`,
+PAY_BOOKING:(id:string,)=>`/portal/booking/${id}/pay`,
+CREATE_BOOKING:`/portal/booking`,
+};
+
+export const REVIEWS_URLS = {
+GET_USER_REVIEWS:(id:string,)=>`/portal/room-reviews/${id}`,
+CREATE_REVIEW:`/portal/room-reviews`,
+UPDATE_REVIEW:(id:string,)=>`/portal/room-reviews/${id}`,
+};
+
+export const COMMENTS_URLS = {
+  GET_USER_COMMENTS:(id:string,)=>`/portal/room-comments/${id}`,
+  CREATE_COMMENT:`/portal/room-comments`,
+  UPDATE_COMMENT:(id:string,)=>`/portal/room-comments/${id}`,
+  DELETE_COMMENT:(id:string,)=>`/portal/room-comments/${id}`,
+};
 export const Portal_ROOMS_URLS = {
   GET_ALL_PORTAL_ROOMS: `/portal/rooms/available`,
 };

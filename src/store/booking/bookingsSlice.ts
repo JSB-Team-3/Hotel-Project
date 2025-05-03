@@ -1,8 +1,14 @@
+// features/bookings/bookingsSlice.ts
+
 import { createSlice } from "@reduxjs/toolkit";
+import {
+  deleteBooking,
+  getAllBookings,
+  getBookingDetails,
+  getAllMyBookings,
+  createBooking,
+} from "./bookingsThunk";
 import { BookingState } from "../../Interfaces/bookings.interfaces";
-import { deleteBooking, getAllBookings, getBookingDetails } from "./bookingsThunk";
-
-
 
 const initialState: BookingState = {
   bookings: [],
@@ -32,7 +38,7 @@ const bookingSlice = createSlice({
         state.loading = false;
         state.bookings = action.payload?.data?.booking;
         state.totalCount = action.payload?.data?.totalCount;
-            })
+      })
       .addCase(getAllBookings.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
@@ -62,6 +68,33 @@ const bookingSlice = createSlice({
       })
       .addCase(deleteBooking.rejected, (state, action) => {
         state.deleteLoading = false;
+        state.error = action.payload as string;
+      })
+
+      // Get All My Bookings
+      .addCase(getAllMyBookings.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getAllMyBookings.fulfilled, (state, action) => {
+        state.loading = false;
+        state.bookings = action.payload.myBooking.map(item => item.data);
+      })
+      .addCase(getAllMyBookings.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+
+      // Create Booking
+      .addCase(createBooking.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(createBooking.fulfilled, (state) => {
+        state.loading = false;
+      })
+      .addCase(createBooking.rejected, (state, action) => {
+        state.loading = false;
         state.error = action.payload as string;
       });
   },
