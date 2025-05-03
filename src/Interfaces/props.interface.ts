@@ -22,7 +22,7 @@ export type TableActionProps = {
 
 export type TableDataProps = {
     loading: boolean;
-    items: (Room | Booking | User | RoomFacility)[]; // Define the array of items
+    items: (Room | Booking | User | RoomFacility |Ad)[]; // Define the array of items
     page: number;
     size: number;
     handleChangePage: (
@@ -36,7 +36,7 @@ export type TableDataProps = {
     rowsPerPageOptions: number[];
     labelRowsPerPage: string;
     columns: string[];
-    renderRow: (item: Room | Booking | User | RoomFacility, index: number) => React.ReactNode; // Correctly type renderRow
+    renderRow: (item: Room | Booking | User | RoomFacility |Ad, index: number) => React.ReactNode; // Correctly type renderRow
   };
   
 export type HeaderProps = {

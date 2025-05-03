@@ -45,7 +45,7 @@ export default function TableActions({ handleDeleteItem, item, route ,handleEdit
     if ('roomNumber' in item) {
       if(item.roomNumber)handleDeleteItem(item._id, item.roomNumber);
     } else if ('user' in item) {
-      if(item.user)handleDeleteItem(item._id, item.user.userName);
+      if (item.user && item.user.userName) handleDeleteItem(item._id, item.user.userName);
     }
     else if ('name' in item) {
       if(item.name)handleDeleteItem(item._id, item.name);
