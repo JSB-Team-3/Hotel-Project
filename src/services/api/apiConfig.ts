@@ -54,8 +54,7 @@ export const ADMIN_ADS_URLS = {
   DELETE_AD: (id: string) => `/admin/ads/${id}`,
   UPDATE_AD: (id: string) => `/admin/ads/${id}`,
 };
-
-
+// po0rtal
 
 
 
@@ -134,3 +133,11 @@ export const PORTAL_FAVORITE_ROOMS_URLS = {
   GET_FAVORITE_ROOMS: `portal/favorite-rooms`,
   DELETE_FAVORITE_ROOM: (id: string) => `portal/favorite-rooms/${id}`,
 };
+export const Portal_ROOMS_URLS = {
+  GET_ALL_PORTAL_ROOMS: `/portal/rooms/available`,
+};
+export const fAVOURITES_URLS={
+  GET_FAVOURITE_ROOMS:`/portal/favorite-rooms`,
+  ADD_TO_FAVOURITE:`portal/favorite-rooms`,
+  DELETE_FAVOURITE:(roomId:string)=>`portal/favorite-rooms/${roomId}`,
+}

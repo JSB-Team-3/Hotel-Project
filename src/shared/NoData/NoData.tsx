@@ -1,14 +1,46 @@
-import noDataImg from '../../../assets/nodata.png'
+import React from 'react';
+import { Box, Typography, Container } from '@mui/material';
+import noDataImg from '../../assets/nodata.png';
+
 const NoData = () => {
   return (
-    <div className="nodata-container text-center d-flex flex-column align-items-center justify-content-center py-5">
-        <div>
-            <img src={noDataImg } className='w-75' alt="" />
-        </div>
-        <h5 className='w-100 pt-3'>No Data !</h5>
-        <p className='text-muted w-75 px-3'>are you sure you want to delete this item ? if you are sure just click on delete it</p>
-    </div>
-  )
-}
+    <Container maxWidth="sm">
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          textAlign: 'center',
+          py: 5
+        }}
+      >
+        <Box sx={{ mb: 2 }}>
+          <img 
+            src={noDataImg} 
+            alt="No data available" 
+            style={{ 
+              width: '200px',
+              height: '160px',
+              objectFit: 'contain'
+            }} 
+          />
+        </Box>
+        
+        <Typography 
+          variant="h5" 
+          component="h5"
+          sx={{ 
+            pt: 3,
+            width: '100%',
+            fontWeight: 'bold'
+          }}
+        >
+          No Data!
+        </Typography>
+      </Box>
+    </Container>
+  );
+};
 
-export default NoData
+export default NoData;

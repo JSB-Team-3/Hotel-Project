@@ -7,7 +7,8 @@ import bookingsReducers from "../booking/bookingsSlice";
 import adsReducers from "../ads/adsSlice";
 import usersReducers from "../users/userSlice";
 import chartReducer from "../chart/chartSlice";
-import themeReducer from '../slices/themeSlice'
+import themeReducer from '../slices/themeSlice';
+import favouriteReducer from '../favourites/favouritesSlice'
 
 
 export const store = configureStore({
@@ -20,6 +21,7 @@ export const store = configureStore({
     users: usersReducers,
     chart: chartReducer,
     theme: themeReducer,
+    favourites:favouriteReducer,
   },
 });
 

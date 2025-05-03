@@ -29,6 +29,9 @@ const UserLayout = React.lazy(() => import('./shared/UserLayout/UserLayout'));
 
 
 
+const Explore = React.lazy(() => import('./modules/UserModules/Explore/Explore'));
+const Favourites = React.lazy(() => import('./modules/UserModules/Favourites/Favourites'));
+
 const App: React.FC = () => { 
 const routes = createBrowserRouter([
   {
@@ -57,9 +60,11 @@ const routes = createBrowserRouter([
         {path:"facilities",element:<FacilitiesList/>},
       ]
     },
-    {path:"user" ,element:<UserLayout/>,errorElement:<NotFound/>,
+    {path:"home" ,element:<UserLayout/>,errorElement:<NotFound/>,
       children:[
       {index:true,element:<LandingPage/>},
+      {path:'explore',element:<Explore/>},
+      {path:'favourites',element:<Favourites/>},
     ]
     }
 ])

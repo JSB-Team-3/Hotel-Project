@@ -58,4 +58,14 @@ export type changePassProp = {
     open:boolean,
     setOpen:Dispatch<SetStateAction<boolean>>
 }
+export type PaginationCompProps = {
+    count: number;
+    page: number;
+    setPage: Dispatch<SetStateAction<number>>;
+    size: number;
+  } 
+  export type RoomCardProps = {
+    room: Room;
+    handleFav?: (roomId: string) => void;
+  }
 

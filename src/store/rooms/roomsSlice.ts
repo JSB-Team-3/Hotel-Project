@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RoomsState } from "../../Interfaces/rooms.interface";
-import { createRoom, deleteRoom, getAllRooms, getRoomDetails, updateRoom } from "./roomsThunk";
+import { createRoom, deleteRoom, getAllRooms, getAllRoomsPortal, getRoomDetails, updateRoom } from "./roomsThunk";
 
 
 const initialState: RoomsState = {
@@ -96,8 +96,22 @@ const roomsSlice = createSlice({
       .addCase(getAllRooms.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
-      });
-  },
+      })
+  // Get All Rooms Portal
+  .addCase(getAllRoomsPortal.pending, (state) => {
+    state.loading = true;
+    state.error = null;
+  })
+  .addCase(getAllRoomsPortal.fulfilled, (state, action) => {
+    state.loading = false;
+    state.rooms = action.payload?.data?.rooms;
+    state.totalCount = action.payload?.data?.totalCount;
+  })
+  .addCase(getAllRoomsPortal.rejected, (state, action) => {
+    state.loading = false;
+    state.error = action.payload as string;
+  });  
+},
 });
 
 export const { clearRoomDetails, clearRoomsError } = roomsSlice.actions;
