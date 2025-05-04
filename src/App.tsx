@@ -76,6 +76,7 @@ const routes = createBrowserRouter([
       {path:"rooms/:roomId",element:<RoomDetails/>},
       {path:'explore',element:<Explore/>},
       {path:'favourites',element:<Favourites/>},
+      {path:'user-booking',element:<UserBookings/>},
     ]
     }
 ])

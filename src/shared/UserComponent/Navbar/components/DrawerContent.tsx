@@ -105,7 +105,6 @@ export const DrawerContent = React.memo(
           sx={{
             py: 1,
             flexGrow: 1,
-            overflowY: 'auto',
             '&::-webkit-scrollbar': {
               width: '6px',
             },
