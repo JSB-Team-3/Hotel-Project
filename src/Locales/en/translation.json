@@ -151,7 +151,7 @@
     "darkMode": "Switch to Dark Mode",
     "lightMode": "Switch to Light Mode",
     "toggleLabel": "Toggle theme"
-  }
+  },
   "landing_page": {
     "Forget Busy Work, Start Next Vacation": "Forget Busy Work, Start Next Vacation",
     "We provide what you need to enjoy your holiday with family. Time to make another memorable moments.": "We provide what you need to enjoy your holiday with family. Time to make another memorable moments.",
@@ -327,5 +327,11 @@
   "removeSuccess": "Room removed from favorites successfully!",
   "removeFailed": "Failed to remove room from favorites",
   "loginFirst": "Please login first to add this room to your favorites"
+},
+"room": {
+  "per_night": "per night",
+  "add_to_favorites": "Add to favorites",
+  "show_details": "Show details",
+   "explore": "Explore"
 }
 }

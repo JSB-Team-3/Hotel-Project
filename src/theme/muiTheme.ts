@@ -1,4 +1,3 @@
-// muiTheme.ts
 import { createTheme, PaletteMode, Theme } from '@mui/material';
 import { getTokens } from './token';
 
@@ -6,28 +5,21 @@ export const getMuiTheme = (mode: PaletteMode, direction: 'ltr' | 'rtl' = 'ltr')
   const tokens = getTokens(mode);
 
   return createTheme({
-    direction, // dynamic direction for RTL/LTR support
+    direction,
     palette: {
       mode,
-      primary: { 
+      primary: {
         main: tokens.primary,
         light: tokens.primaryLight,
         dark: tokens.primaryDark
       },
-      secondary: { 
+      secondary: {
         main: tokens.secondary,
         light: tokens.secondaryLight,
         dark: tokens.secondaryDark
       },
       error: {
         main: tokens.errorMain
-      primary: { main: tokens.primary },
-      secondary: { main: tokens.secondary },
-      commentFormTitle: {
-        main: '#3f51b5' // fallback or custom
-      },
-      sendButtonHover: {
-        main: '#5c6bc0' // fallback or custom
       },
       background: {
         default: tokens.background.default,
@@ -36,8 +28,11 @@ export const getMuiTheme = (mode: PaletteMode, direction: 'ltr' | 'rtl' = 'ltr')
       text: {
         primary: tokens.text.primary,
         secondary: tokens.text.secondary,
-      }
+      },
+      // You can extend this properly with module augmentation if needed
+      // custom keys like commentFormTitle/sendButtonHover are NOT allowed here unless extended
     },
+    // Instead, define custom tokens here under a custom key
     custom: {
       blueMain: tokens.blueMain,
       liteMain: tokens.liteMain,
@@ -46,49 +41,22 @@ export const getMuiTheme = (mode: PaletteMode, direction: 'ltr' | 'rtl' = 'ltr')
       inactiveBreadcrumb: tokens.inactiveBreadcrumb,
       darkblue: tokens.darkblue,
       errorMain: tokens.errorMain,
+      commentFormTitle: '#3f51b5',
+      sendButtonHover: '#5c6bc0',
     },
     typography: {
       fontFamily: 'Poppins, sans-serif',
-      h1: {
-        fontWeight: 700,
-        color: tokens.text.primary
-      },
-      h2: {
-        fontWeight: 700,
-        color: tokens.text.primary
-      },
-      h3: {
-        fontWeight: 600,
-        color: tokens.text.primary
-      },
-      h4: {
-        fontWeight: 600,
-        color: tokens.text.primary
-      },
-      h5: {
-        fontWeight: 600,
-        color: tokens.text.primary
-      },
-      h6: {
-        fontWeight: 600,
-        color: tokens.text.primary
-      },
-      subtitle1: {
-        fontWeight: 500,
-      },
-      subtitle2: {
-        fontWeight: 500,
-      },
-      body1: {
-        fontSize: '1rem',
-      },
-      body2: {
-        fontSize: '0.875rem',
-      },
-      button: {
-        textTransform: 'none',
-        fontWeight: 600,
-      }
+      h1: { fontWeight: 700, color: tokens.text.primary },
+      h2: { fontWeight: 700, color: tokens.text.primary },
+      h3: { fontWeight: 600, color: tokens.text.primary },
+      h4: { fontWeight: 600, color: tokens.text.primary },
+      h5: { fontWeight: 600, color: tokens.text.primary },
+      h6: { fontWeight: 600, color: tokens.text.primary },
+      subtitle1: { fontWeight: 500 },
+      subtitle2: { fontWeight: 500 },
+      body1: { fontSize: '1rem' },
+      body2: { fontSize: '0.875rem' },
+      button: { textTransform: 'none', fontWeight: 600 },
     },
     shape: {
       borderRadius: 8,

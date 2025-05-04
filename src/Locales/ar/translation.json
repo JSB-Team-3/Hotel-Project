@@ -148,7 +148,7 @@
     "darkMode": "التحويل إلى الوضع المظلم",
     "lightMode": "التحويل إلى الوضع الفاتح",
     "toggleLabel": "التبديل بين الوضعين"
-  }
+  },
   "landing_page": {
     "Forget Busy Work,Start Next Vacation": "انسَ العمل المُرهِق، وابدأ إجازتك القادمة",
     "We provide what you need to enjoy your holiday with family.Time to make another memorable moments.": "نوفر لكم كل ما تحتاجونه للاستمتاع بعطلتكم مع العائلة. حان الوقت للحظات لا تُنسى.",
@@ -324,6 +324,12 @@
   "PENDING":"قيد الانتظار",
   "upcoming stays":"الإقامات القادمة",
   "Of total bookings":"من إجمالي الحجوزات"
+},
+"room":{
+  "per_night":"بالليلة",
+  "add_to_favorites":"اضافة للمفضلة",
+  "show_details":"اظهار التفاصيل",
+  "explore":"استكشاف"
 }
 
 }

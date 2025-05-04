@@ -10,8 +10,8 @@ declare module '@mui/material/styles' {
     inactiveBreadcrumb: string;
     darkblue: string;
     errorMain: string;
-
-
+    commentFormTitle?: string;
+    sendButtonHover?: string;
   }
 
   interface Theme {
