@@ -45,7 +45,11 @@ const routes = createBrowserRouter([
       { path: "verify-account", element: <VerifyAccount /> },
 
     ]},
-    { path:'dashboard', element:<ProtectedRoute><MasterLayout/></ProtectedRoute>,
+    { path:'dashboard', element:  (
+      <ProtectedRoute allowedRoles={['admin']}>
+        <MasterLayout />
+      </ProtectedRoute>
+    ),
       errorElement:<NotFound/>,
       children:[
         {index:true,element:<Dashboard/>},
@@ -58,7 +62,13 @@ const routes = createBrowserRouter([
         {path:"facilities",element:<FacilitiesList/>},
       ]
     },
-    {path:"home" ,element:<UserLayout/>,errorElement:<NotFound/>,
+    {path:"home" ,
+      element: (
+        <ProtectedRoute allowedRoles={['user', 'admin']}>
+          <UserLayout />
+        </ProtectedRoute>
+      ),
+      errorElement:<NotFound/>,
       children:[
       {index:true,element:<LandingPage/>},
       {path:"rooms/:roomId",element:<RoomDetails/>},
