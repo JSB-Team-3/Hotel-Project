@@ -271,6 +271,26 @@
   "noReviewsSubtitle": "كن أول من يكتب مراجعة ويشارك تجربته."
 },
 
+
+  "explore": {
+    "link": "استكشاف",
+    "title": "استكشاف جميع الغرف",
+    "subtitle": "جميع الغرف",
+    "getMessage": "فشل في جلب جميع الغرف"
+  },
+  "favourite": {
+    "link": "المفضلة",
+    "title": "غرفك المفضلة",
+    "subtitle": "غرفك",
+    "getMessage": "فشل في جلب الغرف المفضلة",
+    "addSuccess": "تمت إضافة الغرفة إلى المفضلة بنجاح!",
+    "addFailed": "فشل في إضافة الغرفة إلى المفضلة",
+    "removeSuccess": "تمت إزالة الغرفة من المفضلة بنجاح!",
+    "removeFailed": "فشل في إزالة الغرفة من المفضلة",
+    "loginFirst": "يرجى تسجيل الدخول أولاً لإضافة هذه الغرفة إلى المفضلة"
+  }
+}
+
 "userBooking":{
   "My Bookings": "حجوزاتي",
   "View and manage all your current and past bookings in one place": "عرض وإدارة جميع حجوزاتك الحالية والماضية في مكان واحد",
@@ -285,4 +305,4 @@
   "Of total bookings":"من إجمالي الحجوزات"
 }
 
-}
+
