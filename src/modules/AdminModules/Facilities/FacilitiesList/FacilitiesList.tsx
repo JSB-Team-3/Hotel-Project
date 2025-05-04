@@ -18,8 +18,11 @@ import TableActions from "../../../../shared/TableActions/TableActions";
 import Header from "../../../../shared/Header/Header";
 import BasicModal from "../../../../shared/BasicModal/BasicModal";
 import EditModal from "../../../../shared/EditModal/EditModal";
+import { Ad } from "../../../../Interfaces/ads.interfaces";
+import { useTranslation } from "react-i18next";
 
 export default function FacilitiesList() {
+  const { t } = useTranslation();
   const [itemToDeleteId, setItemToDeleteId] = useState<string>("");
   const [itemToDeleteName, setItemToDeleteName] = useState<string>("");
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
@@ -54,7 +57,7 @@ export default function FacilitiesList() {
         })
       ).unwrap();
     } catch (err) {
-      enqueueSnackbar((err as string) || "failed to get all facilities", {
+      enqueueSnackbar((err as string) || t('facilities.failedToGet'), {
         variant: "error",
       });
     }
@@ -80,17 +83,17 @@ export default function FacilitiesList() {
       getAllFacilitiesList();
       setItemToDeleteId("");
       setItemToDeleteName("");
-      enqueueSnackbar(response?.message || "Facility deleted successfully", {
+      enqueueSnackbar(response?.message || t('facilities.deleteSuccess'), {
         variant: "success",
       });
     } catch (err) {
-      enqueueSnackbar((err as string) || "failed to delete facility", {
+      enqueueSnackbar((err as string) || t('facilities.failedToDelete'), {
         variant: "error",
       });
     }
   };
 
-  const renderRow = (item: Room | Booking | User | RoomFacility) => {
+  const renderRow = (item: Room | Booking | User | RoomFacility|Ad) => {
     if ("name" in item) {
       return (
         <StyledTableRow key={item?._id} >
@@ -136,7 +139,7 @@ export default function FacilitiesList() {
   return (
     <Box>
       <Header
-        title="Room Facilities"
+        title={t('facilities.title')}
         route=""
         onAddClick={() => setShowCustomModal(true)}
       />
@@ -149,8 +152,8 @@ export default function FacilitiesList() {
         handleChangeRowsPerPage={handleChangeRowsPerPage}
         totalCount={totalCount}
         rowsPerPageOptions={[5, 10, 25]}
-        labelRowsPerPage="Facilities per Page:"
-        columns={["Facility Name", "createdAt", ""]}
+        labelRowsPerPage={t('facilities.perPage')}
+        columns={[t('facilities.name'), t('facilities.createdAt'), ""]}
         renderRow={renderRow}
       />
       <DeleteConfirmation
@@ -159,11 +162,11 @@ export default function FacilitiesList() {
           setShowDeleteModal(false);
         }}
         confirm={ConfirmDelete}
-        message={`Delete This Facility: ${itemToDeleteName}`}
+        message={t('facilities.deleteConfirmation', { name: itemToDeleteName })}
         loading={deleteLoading}
       />
       <BasicModal
-      getAllFacilitiesList={getAllFacilitiesList}
+        getAllFacilitiesList={getAllFacilitiesList}
         open={showCustomModal}
         handleClose={() => setShowCustomModal(false)}
       />

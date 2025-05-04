@@ -1,7 +1,9 @@
 import { Room } from "./rooms.interface";
 
 export interface adPayload {
-    title: string;
+  discount: number;
+  isActive:boolean;
+  room:string
   }
   export type updateAdPayload = {
       id: string;
@@ -18,7 +20,7 @@ export interface adPayload {
     };
     export type AdsState = {
       ads: Ad[];  
-      adDetails: Ad | null;
+      adDetails: Ad |null ;
       loading: boolean;
       error: string | null;
       deleteLoading: boolean;

@@ -222,7 +222,15 @@
     "double bed": "سرير مزدوج",
     "sofa": "أريكة",
     "car": "سيارة",
-    "news": "أخبار"
+    "news": "أخبار",
+    "title": "مرافق الغرف",
+    "failedToGet": "فشل في الحصول على جميع المرافق",
+    "failedToDelete": "فشل في حذف المرفق",
+    "deleteSuccess": "تم حذف المرفق بنجاح",
+    "name": "اسم المرفق",
+    "createdAt": "تاريخ الإنشاء",
+    "perPage": "المرافق في الصفحة:",
+    "deleteConfirmation": "حذف هذا المرفق: {{name}}"
   },
   "comment_form": {
   "title": "أضف تعليقك",
@@ -310,6 +318,94 @@
     "removeFailed": "فشل في إزالة الغرفة من المفضلة",
     "loginFirst": "يرجى تسجيل الدخول أولاً لإضافة هذه الغرفة إلى المفضلة"
   },
+  "bookings": {
+    "title": "الحجوزات",
+    "perPage": "حجوزات في الصفحة:",
+    "failedToGet": "فشل في الحصول على كافة الحجوزات",
+    "deletedSuccess": "تم حذف الحجز بنجاح",
+    "failedToDelete": "فشل في حذف الحجز",
+    "noRoom": "لا توجد غرفة مخصصة",
+    "unknown": "غير معروف",
+    "deleteConfirmation": "حذف هذا الحجز {{number}}",
+    "columns": {
+      "roomNumber": "رقم الغرفة",
+      "startDate": "تاريخ البداية",
+      "endDate": "تاريخ النهاية",
+      "totalPrice": "السعر الإجمالي",
+      "userName": "اسم المستخدم",
+      "status": "الحالة"
+    }
+  },
+    "rooms": {
+    "title": "الغرف",
+    "perPage": "غرف في الصفحة:",
+    "failedToGet": "فشل في الحصول على كافة الغرف",
+    "deletedSuccess": "تم حذف الغرفة بنجاح",
+    "failedToDelete": "فشل في حذف الغرفة",
+    "deleteConfirmation": "حذف هذه الغرفة {{number}}",
+    "columns": {
+      "roomNumber": "رقم الغرفة",
+      "image": "الصورة",
+      "price": "السعر",
+      "discount": "الخصم",
+      "capacity": "السعة",
+      "facilities": "المرافق"
+    }
+  },
+  "users": {
+    "title": "المستخدمين",
+    "perPage": "مستخدمين في الصفحة:",
+    "failedToGet": "فشل في الحصول على كافة المستخدمين",
+    "verified": "تم التحقق",
+    "notVerified": "لم يتم التحقق",
+    "columns": {
+      "username": "اسم المستخدم",
+      "image": "الصورة",
+      "email": "البريد الإلكتروني",
+      "phoneNumber": "رقم الهاتف",
+      "country": "البلد",
+      "role": "الدور",
+      "status": "الحالة"
+    }
+  },
+  "ads": {
+    "title": "الإعلانات",
+    "failedToGet": "فشل في الحصول على الإعلانات",
+    "failedToDelete": "فشل في حذف الإعلان",
+    "deleteSuccess": "تم حذف الإعلان بنجاح",
+    "noRoomAssigned": "لا توجد غرفة معينة",
+    "active": "نشط",
+    "inactive": "غير نشط",
+    "roomNumber": "رقم الغرفة",
+    "price": "السعر",
+    "discount": "الخصم",
+    "capacity": "السعة",
+    "status": "الحالة",
+    "bookingPerPage": "الحجوزات في الصفحة:",
+    "deleteConfirmation": "حذف هذا الإعلان في {{roomNumber}}",
+    "createAd": "إنشاء إعلان",
+    "updateAd": "تحديث الإعلان",
+    "room": "الغرفة",
+    "roomRequired": "الغرفة مطلوبة",
+    "discountRequired": "الخصم مطلوب",
+    "discountMin": "أقل خصم هو 0٪",
+    "discountMax": "أقصى خصم هو 100٪",
+    "successMessage": "تم حفظ الإعلان بنجاح"
+  },
+  "header": {
+    "tableDetails": "",
+    "checkAllDetails": "يمكنك التحقق من جميع التفاصيل",
+    "addNewAd": "إضافة إعلان جديد",
+    "addNewFacility": "إضافة مرفق جديد",
+    "addNewRoom": "إضافة غرفة جديدة"
+  },
+  "tableActions": {
+    "view": "عرض",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "actions": "إجراءات"
+  },
+
 
 
 "userBooking":{

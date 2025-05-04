@@ -13,17 +13,23 @@ import { Booking } from '../../../Interfaces/bookings.interfaces';
 import { User } from '../../../Interfaces/user.interface';
 import { deleteAd, getAds } from '../../../store/ads/adsthunk';
 import { Ad } from '../../../Interfaces/ads.interfaces';
+import { RoomFacility } from '../../../Interfaces/facilities.interface';
+import { useTranslation } from 'react-i18next';
+import AdsData from './AdsData';
 
 export default function Ads() {
+  const { t } = useTranslation();
   const [itemToDeleteId, setItemToDeleteId] = useState<string>('');
   const [itemToDeleteNumber, setItemToDeleteNumber] = useState<string>('');
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
+  const [showEditModal, setShowEditModal] = useState<boolean>(false);
+  const [adId, setAdId] = useState<string>('');
   // Pagination state
   const [page, setPage] = useState<number>(0);
   const [size, setSize] = useState<number>(5);  
   const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch<AppDispatch>();
-  const { loading, ads, deleteLoading,totalCount } = useSelector((state: RootState) => ({
+  const { loading, ads, deleteLoading, totalCount } = useSelector((state: RootState) => ({
     loading: state.ads.loading,
     ads: state.ads.ads,
     deleteLoading: state.ads.deleteLoading,
@@ -38,7 +44,7 @@ export default function Ads() {
              size: size 
            })).unwrap();
     } catch (err) {
-      enqueueSnackbar(err as string || 'failed to get all Ads', { variant: 'error' });
+      enqueueSnackbar(err as string || t('ads.failedToGet'), { variant: 'error' });
     }
   };
 
@@ -46,6 +52,10 @@ export default function Ads() {
     setItemToDeleteId(itemId);
     setItemToDeleteNumber(itemNumber);
     setShowDeleteModal(true);
+  };
+  const handleEditItem = (item: Ad) => {
+    setAdId(item?._id);
+    setShowEditModal(true);
   };
 
   const ConfirmDelete = async () => {
@@ -55,27 +65,27 @@ export default function Ads() {
       getAllAdsList();
       setItemToDeleteId('');
       setItemToDeleteNumber('');
-      enqueueSnackbar(response?.message || 'Ad deleted successfully', { variant: 'success' });
+      enqueueSnackbar(response?.message || t('ads.deleteSuccess'), { variant: 'success' });
     } catch (err) {
-      enqueueSnackbar(err as string || 'failed to delete Ad', { variant: 'error' });
+      enqueueSnackbar(err as string || t('ads.failedToDelete'), { variant: 'error' });
     }
   };
-  const renderRow = (item: Room | Booking | User | Ad) => {
+  const renderRow = (item: Room | Booking | User | Ad |RoomFacility) => {
     if ('isActive' in item && 'room' in item ) {
       const ad = item as Ad;
       return (
         <StyledTableRow key={ad?._id}>
           <StyledTableCell component="th" scope="row">
-            {ad?.room?.roomNumber || "No room assigned"}
+            {ad?.room?.roomNumber || t('ads.noRoomAssigned')}
           </StyledTableCell>
            <StyledTableCell>{ad?.room?.price}</StyledTableCell>
                 <StyledTableCell>{ad?.room?.discount}</StyledTableCell>
                 <StyledTableCell>{ad?.room?.capacity}</StyledTableCell>
                 <StyledTableCell style={{ color: ad?.isActive ? 'green' : 'red' }}>
-                    {ad?.isActive ? 'Active' : 'Inactive'}
+                    {ad?.isActive ? t('ads.active') : t('ads.inactive')}
                 </StyledTableCell>
           <StyledTableCell>
-            <TableActions handleDeleteItem={handleDeleteItem} item={ad} route={''} />
+            <TableActions handleDeleteItem={handleDeleteItem} handleEditAd={handleEditItem} item={ad} route={''} />
           </StyledTableCell>
         </StyledTableRow>
       );
@@ -102,28 +112,39 @@ export default function Ads() {
   }, [page, size]); 
   return (
     <Box>
-      <Header title='Ads' route='' />
+      <Header title={t('ads.title')} route='' getAllAdsList={getAllAdsList} />
      <DataTable
-     loading={loading}
-     items={ads}
+      loading={loading}
+      items={ads}
       page={page}
       size={size}
       handleChangePage={handleChangePage}
       handleChangeRowsPerPage={handleChangeRowsPerPage}
       totalCount={totalCount}
       rowsPerPageOptions={[5, 10, 25]}
-      labelRowsPerPage="booking per Page:"
-      columns={['Room Number', 'Price', 'Discount', 'Capacity', 'status', '']} 
-      renderRow = {renderRow}
-
-
+      labelRowsPerPage={t('ads.bookingPerPage')}
+      columns={[
+        t('ads.roomNumber'), 
+        t('ads.price'), 
+        t('ads.discount'), 
+        t('ads.capacity'), 
+        t('ads.status'), 
+        ''
+      ]} 
+      renderRow={renderRow}
      />
         <DeleteConfirmation
           open={showDeleteModal}
           handleClose={() => { setShowDeleteModal(false) }}
           confirm={ConfirmDelete}
-          message={`Delete This Ad in ${itemToDeleteNumber}`}
+          message={t('ads.deleteConfirmation', { roomNumber: itemToDeleteNumber })}
           loading={deleteLoading}
+        />
+        <AdsData  
+        open={showEditModal}
+        handleClose={setShowEditModal}
+        id={adId}
+        getAllAdsList={getAllAdsList}
         />
     </Box>
   );

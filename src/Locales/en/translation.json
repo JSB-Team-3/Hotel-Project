@@ -224,7 +224,15 @@
   "double bed": "Double Bed",
   "sofa": "Sofa",
   "car": "Car",
-  "news": "News"
+  "news": "News",
+  "title": "Room Facilities",
+  "failedToGet": "Failed to get all facilities",
+  "failedToDelete": "Failed to delete facility",
+  "deleteSuccess": "Facility deleted successfully",
+  "name": "Facility Name",
+  "createdAt": "Created At",
+  "perPage": "Facilities per Page:",
+  "deleteConfirmation": "Delete This Facility: {{name}}"
 },
 "comment_form": {
   "title": "Add Your Comment",
@@ -350,5 +358,94 @@
   "kickstart": "We kickstart your lovely holiday",
   "memorable": "instantly and memorable.",
   "rights": "All rights reserved • Staycation"
-}
+},
+
+"bookings": {
+  "title": "Bookings",
+  "perPage": "Bookings per page:",
+  "failedToGet": "Failed to get all bookings",
+  "deletedSuccess": "Booking deleted successfully",
+  "failedToDelete": "Failed to delete booking",
+  "noRoom": "No room assigned",
+  "unknown": "Unknown",
+  "deleteConfirmation": "Delete This Booking {{number}}",
+  "columns": {
+    "roomNumber": "Room Number",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "totalPrice": "Total Price",
+    "userName": "User Name",
+    "status": "Status"
+  }
+},
+   "rooms": {
+    "title": "Rooms",
+    "perPage": "Rooms per Page:",
+    "failedToGet": "Failed to get all rooms",
+    "deletedSuccess": "Room deleted successfully",
+    "failedToDelete": "Failed to delete room",
+    "deleteConfirmation": "Delete This Room {{number}}",
+    "columns": {
+      "roomNumber": "Room Number",
+      "image": "Image",
+      "price": "Price",
+      "discount": "Discount",
+      "capacity": "Capacity",
+      "facilities": "Facilities"
+    }
+  },
+  "users": {
+    "title": "Users",
+    "perPage": "Users per Page:",
+    "failedToGet": "Failed to get all users",
+    "verified": "Verified",
+    "notVerified": "Not Verified",
+    "columns": {
+      "username": "Username",
+      "image": "Image",
+      "email": "Email",
+      "phoneNumber": "Phone Number",
+      "country": "Country",
+      "role": "Role",
+      "status": "Status"
+    }
+  },
+  "ads": {
+    "title": "Ads",
+    "failedToGet": "Failed to get all Ads",
+    "failedToDelete": "Failed to delete Ad",
+    "deleteSuccess": "Ad deleted successfully",
+    "noRoomAssigned": "No room assigned",
+    "active": "Active",
+    "inactive": "Inactive",
+    "roomNumber": "Room Number",
+    "price": "Price",
+    "discount": "Discount",
+    "capacity": "Capacity",
+    "status": "Status",
+    "bookingPerPage": "Bookings per Page:",
+    "deleteConfirmation": "Delete This Ad in {{roomNumber}}",
+    "createAd": "Create Advertisement",
+    "updateAd": "Update Advertisement",
+    "room": "Room",
+    "roomRequired": "Room is required",
+    "discountRequired": "Discount is required",
+    "discountMin": "Minimum discount is 0%",
+    "discountMax": "Maximum discount is 100%",
+    "successMessage": "Advertisement saved successfully"
+  },
+  "header": {
+    "tableDetails": "Table Details",
+    "checkAllDetails": "You can check all details",
+    "addNewAd": "Add New Ad",
+    "addNewFacility": "Add New Facility",
+    "addNewRoom": "Add New Room"
+  },
+  "tableActions": {
+    "view": "View",
+    "edit": "Edit",
+    "delete": "Delete",
+    "actions": "Actions"
+  }
+
 }
