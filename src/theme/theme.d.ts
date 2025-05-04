@@ -7,6 +7,8 @@ declare module '@mui/material/styles' {
     liteMain: string;
     primaryLight: string;
     darkblue: string;
+    errorMain: string;
+
 
   }
 

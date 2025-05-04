@@ -1,36 +1,50 @@
 // muiTheme.ts
-import { createTheme } from '@mui/material/styles';
-import { PaletteMode, ThemeOptions } from '@mui/material';
-
-// Define the color tokens for both light and dark themes
+import { PaletteMode } from '@mui/material';
+// Define the color tokens for both light and dark themes with added custom colors
 export const getTokens = (mode: PaletteMode) => ({
   ...(mode === 'light'
     ? {
-        primary: '#1976d2', // Light primary color (blue)
-        primaryLight: '#4791db', // Light primary hover color
+        // Base theme colors
+        primary: '#3252DF', // Blue from original code
+        primaryLight: '#5172DF', // Light primary (from gradient)
         primaryLightActive: '#f0f7ff',
-        primaryDark: '#1565c0', // Darker blue for focus
-        secondary: '#9c27b0', // Purple
-        secondaryLight: '#ba68c8', // Lighter secondary hover
-        secondaryDark: '#7b1fa2',
-        blueMain:"#3061c8",
-        liteMain:"#fff",
-        darkblue:"#152C5B",
-        background: { default: '#f5f5f5', paper: '#ffffff'}, // Light background colors
-        text: { primary: '#000', secondary: '#555' }, // Dark text on light mode
+        primaryDark: '#2540B8', // Darker blue for focus
+        secondary: '#FF498B', // Pink from original code
+        secondaryLight: '#FF6B9D', // Lighter secondary (from gradient)
+        secondaryDark: '#E13570',
+        
+        // Custom colors from original code
+        blueMain: "#3252DF",
+        liteMain: "#fff",
+        darkblue: "#152C5B",
+        
+        // Additional custom colors
+        errorMain: "#FF498B", // Using secondary as error for consistency
+        
+        // Background and text colors
+        background: { default: '#f5f5f5', paper: '#ffffff'},
+        text: { primary: '#152C5B', secondary: '#757575' },
       }
     : {
-        primary: '#90caf9', // Dark primary color (blue)
-        primaryLight: '#c6d9f1', // Lighter primary hover color
-        primaryLightActive: '#c6d9f1',
-        primaryDark: '#42a5f5', // Darker blue for focus
-        secondary: '#ce93d8', // Light purple
-        secondaryLight: '#f1b6ff', // Lighter secondary hover
-        secondaryDark: '#9c64a6',
-        blueMain:"#3061c8",
-        liteMain:"#fff",
-        darkblue:"#fff",
-        background: { default: '#121212', paper: '#1e1e1e' }, // Dark background colors
-        text: { primary: '#fff', secondary: '#aaa' }, // Light text on dark mode
+        // Dark mode colors
+        primary: '#5172DF', // Lighter blue for dark mode
+        primaryLight: '#7290FF',
+        primaryLightActive: '#323B60',
+        primaryDark: '#3252DF',
+        secondary: '#FF6B9D', // Lighter pink for dark mode
+        secondaryLight: '#FF8EB7',
+        secondaryDark: '#FF498B',
+        
+        // Custom colors in dark mode
+        blueMain: "#5172DF",
+        liteMain: "#fff",
+        darkblue: "#fff", // Text is white in dark mode
+        
+        // Additional custom colors
+        errorMain: "#FF6B9D",
+        
+        // Background and text colors
+        background: { default: '#121212', paper: '#1E1E1E' },
+        text: { primary: '#fff', secondary: '#B0B0B0' },
       }),
 });
