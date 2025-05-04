@@ -45,41 +45,40 @@ const routes = createBrowserRouter([
       { path: "forget-password", element: <ForgetPass /> },
       { path: "reset-password", element: <ResetPass /> },
       { path: "verify-account", element: <VerifyAccount /> },
-    ],
-  },
-  {
-    path: "dashboard",
-    element: (
-      <ProtectedRoute>
+
+    ]},
+    { path:'dashboard', element:  (
+      <ProtectedRoute allowedRoles={['admin']}>
         <MasterLayout />
       </ProtectedRoute>
     ),
-    errorElement: <NotFound />,
-    children: [
-      { index: true, element: <Dashboard /> },
-      { path: "rooms", element: <RoomsList /> },
-      { path: "room-data/new-Rooms", element: <RoomsData /> },
-      { path: "room-data/:roomId", element: <RoomsData /> },
-      { path: "bookings", element: <BookingList /> },
-      { path: "users", element: <UsersList /> },
-      { path: "ads", element: <Ads /> },
-      { path: "facilities", element: <FacilitiesList /> },
-    ],
-  },
-  {
-    path: "home",
-    element: <UserLayout />,
-    errorElement: <NotFound />,
-    children: [
-      { index: true, element: <LandingPage /> },
-      { path: "rooms/:roomId", element: <RoomDetails /> },
-      { path: "explore", element: <Explore /> },
-      { path: "favourites", element: <Favourites /> },
-      { path: "user-bookings", element: <UserBookings /> },
-    ],
-  },
-]);
-
+      errorElement:<NotFound/>,
+      children:[
+        {index:true,element:<Dashboard/>},
+        {path:"rooms",element:<RoomsList/>},
+        {path:"room-data/new-Rooms",element:<RoomsData/>},
+        {path:"room-data/:roomId",element:<RoomsData/>},
+        {path:"bookings",element:<BookingList/>},
+        {path:"users",element:<UsersList/>},
+        {path:"ads",element:<Ads/>},
+        {path:"facilities",element:<FacilitiesList/>},
+      ]
+    },
+    {path:"home" ,
+      element: (
+        <ProtectedRoute allowedRoles={['user', 'admin']}>
+          <UserLayout />
+        </ProtectedRoute>
+      ),
+      errorElement:<NotFound/>,
+      children:[
+      {index:true,element:<LandingPage/>},
+      {path:"rooms/:roomId",element:<RoomDetails/>},
+      {path:'explore',element:<Explore/>},
+      {path:'favourites',element:<Favourites/>},
+    ]
+    }
+])
 
   return (
     <Suspense fallback={<Spiner height='100vh'/>}>
