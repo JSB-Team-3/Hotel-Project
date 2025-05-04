@@ -376,6 +376,12 @@
     "addNewAd": "إضافة إعلان جديد",
     "addNewFacility": "إضافة مرفق جديد",
     "addNewRoom": "إضافة غرفة جديدة"
+  },
+  "tableActions": {
+    "view": "عرض",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "actions": "إجراءات"
   }
   }
 

@@ -376,6 +376,12 @@
     "addNewAd": "Add New Ad",
     "addNewFacility": "Add New Facility",
     "addNewRoom": "Add New Room"
+  },
+  "tableActions": {
+    "view": "View",
+    "edit": "Edit",
+    "delete": "Delete",
+    "actions": "Actions"
   }
 
 }
