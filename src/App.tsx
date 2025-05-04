@@ -8,7 +8,7 @@ import ProtectedRoute from './shared/ProtectedRoute/ProtectedRoute';
 import Ads from './modules/AdminModules/Ads/Ads'
 import AuthLayout from './shared/AuthLayout/AuthLayout';
 import FacilitiesList from './modules/AdminModules/Facilities/FacilitiesList/FacilitiesList';
-import Spiner from './shared/Spinner/Spiner';
+import LoadingScreen from './shared/LoadingScreen/LoadingScreen';
 
 
 
@@ -81,7 +81,7 @@ const routes = createBrowserRouter([
 ])
 
   return (
-    <Suspense fallback={<Spiner height='100vh'/>}>
+    <Suspense fallback={<LoadingScreen/>}>
       <RouterProvider router={routes} />
     </Suspense>
   );

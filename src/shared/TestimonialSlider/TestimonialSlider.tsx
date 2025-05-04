@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css, keyframes } from "@emotion/react";
 import React, { useState, useEffect, useCallback, useMemo } from "react";
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Grid, Typography, useTheme } from "@mui/material";
 import img2 from "../../assets/images/image 3 (1).png";
 import img3 from "../../assets/images/Family Photos in Rob Wallace Park.jpeg";
 import img4 from "../../assets/images/men outfit ideas friends pic.jpeg";
@@ -23,7 +23,7 @@ const fadeIn = keyframes`
 
 const ReviewSlider = () => {
   const { t } = useTranslation();
-
+  const theme= useTheme();
   const reviews = useMemo(
     () => [
       {
@@ -89,7 +89,7 @@ const ReviewSlider = () => {
       mt={10}
       sx={{ width: "100%", maxWidth: "1200px", margin: "auto" }}
     >
-      <Grid item xs={12} md={6}>
+      <Grid  size={{ xs: 12, md: 6 }}>
         <Box
           component="img"
           src={img}
@@ -111,9 +111,7 @@ const ReviewSlider = () => {
       </Grid>
 
       <Grid
-        item
-        xs={12}
-        md={6}
+         size={{ xs: 12, md: 6 }}
         css={
           animate &&
           css`
@@ -150,6 +148,32 @@ const ReviewSlider = () => {
         </Typography>
 
         <Grid container alignItems="center" spacing={2} mb={2}>
+      { theme.direction === "rtl"&&  <>  <ArrowForwardIcon
+            onClick={nextReview}
+            sx={{
+              fontSize: "2rem",
+              width: "3rem",
+              height: "3rem",
+              border: "4px solid blue",
+              color: "blue",
+              borderRadius: "50%",
+              cursor: "pointer",
+            }}
+          /> <ArrowBackIcon
+            onClick={prevReview}
+            sx={{
+              fontSize: "2rem",
+              width: "3rem",
+              height: "3rem",
+              border: "4px solid blue",
+              color: "blue",
+              borderRadius: "50%",
+              cursor: "pointer",
+            }}
+          />
+        </>}
+
+          { theme.direction === "ltr"&&  <> 
           <ArrowBackIcon
             onClick={prevReview}
             sx={{
@@ -173,7 +197,8 @@ const ReviewSlider = () => {
               borderRadius: "50%",
               cursor: "pointer",
             }}
-          />
+          /></>}
+
         </Grid>
       </Grid>
     </Grid>

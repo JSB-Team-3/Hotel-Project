@@ -151,7 +151,7 @@
     "darkMode": "Switch to Dark Mode",
     "lightMode": "Switch to Light Mode",
     "toggleLabel": "Toggle theme"
-  }
+  },
   "landing_page": {
     "Forget Busy Work, Start Next Vacation": "Forget Busy Work, Start Next Vacation",
     "We provide what you need to enjoy your holiday with family. Time to make another memorable moments.": "We provide what you need to enjoy your holiday with family. Time to make another memorable moments.",
@@ -336,6 +336,30 @@
   "removeFailed": "Failed to remove room from favorites",
   "loginFirst": "Please login first to add this room to your favorites"
 },
+"room": {
+  "per_night": "per night",
+  "add_to_favorites": "Add to favorites",
+  "show_details": "Show details",
+   "explore": "Explore"
+},
+"footer": {
+  "for_beginners": "For Beginners",
+  "new_account": "New Account",
+  "start_booking": "Start Booking a Room",
+  "use_payments": "Use Payments",
+  "explore_us": "Explore Us",
+  "careers": "Our Careers",
+  "privacy": "Privacy",
+  "terms": "Terms & Conditions",
+  "connect_us": "Connect Us",
+  "email": "support@staycation.id",
+  "phone": "021 - 2208 - 1996",
+  "address": "Staycation, Kemang, Jakarta",
+  "kickstart": "We kickstart your lovely holiday",
+  "memorable": "instantly and memorable.",
+  "rights": "All rights reserved • Staycation"
+},
+
 "bookings": {
   "title": "Bookings",
   "perPage": "Bookings per page:",

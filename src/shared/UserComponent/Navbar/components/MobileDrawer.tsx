@@ -13,6 +13,8 @@ interface MobileDrawerProps {
   pages: any[];
   isActive: (path: string) => boolean;
   handleLogout: () => void;
+  handleNavigateToHome:()=>void;
+
 }
 
 export const MobileDrawer = React.memo(
@@ -25,6 +27,8 @@ export const MobileDrawer = React.memo(
     pages,
     isActive,
     handleLogout,
+    handleNavigateToHome
+
   }: MobileDrawerProps) => {
     if (!drawerOpen) return null;
 
@@ -78,6 +82,8 @@ export const MobileDrawer = React.memo(
             isActive={isActive}
             closeDrawer={closeDrawer}
             handleLogout={handleLogout}
+            handleNavigateToHome={ handleNavigateToHome}
+
           />
         </Box>
       </AnimatePresence>

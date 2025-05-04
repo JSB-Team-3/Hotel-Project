@@ -1,25 +1,27 @@
 import * as React from 'react';
 import { Avatar, Box, Button, IconButton, List, Typography, alpha, useTheme } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import { Logo } from './Logo';
+import { Logo } from '../../Logo/Logo';
 import { DrawerItem } from './DrawerItem';
 import { AuthButtons } from './AuthButtons';
 import { PageType } from '../constant';
 import ThemeToggle from '../../../ThemeToggle';
 import LanguageSwitcher from '../../../LanguageSwithcer';
 import { useTranslation } from 'react-i18next';
+import { User } from '../../../../Interfaces/user.interface';
 
 interface DrawerContentProps {
   isLoggedIn: boolean;
-  userProfile: any;
+  userProfile: User;
   pages: PageType[];
   isActive: (path: string) => boolean;
   closeDrawer: () => void;
   handleLogout: () => void;
+  handleNavigateToHome?: () => void;
 }
 
 export const DrawerContent = React.memo(
-  ({ isLoggedIn, userProfile, pages, isActive, closeDrawer, handleLogout }: DrawerContentProps) => {
+  ({ isLoggedIn, userProfile, pages, isActive, closeDrawer, handleLogout,handleNavigateToHome }: DrawerContentProps) => {
     const theme = useTheme();
     const { t } = useTranslation();
 
@@ -48,7 +50,7 @@ export const DrawerContent = React.memo(
           }}
         >
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-            <Logo blueMainColor='#ffffff' liteMainColor='#ffffff' />
+            <Logo navigateToHome={handleNavigateToHome} blueMainColor="#ffffff" liteMainColor="#ffffff" />
             <Box sx={{ display: 'flex', gap: 1 }}>
               <ThemeToggle />
               <LanguageSwitcher />
