@@ -333,5 +333,22 @@
   "add_to_favorites": "Add to favorites",
   "show_details": "Show details",
    "explore": "Explore"
+},
+"footer": {
+  "for_beginners": "For Beginners",
+  "new_account": "New Account",
+  "start_booking": "Start Booking a Room",
+  "use_payments": "Use Payments",
+  "explore_us": "Explore Us",
+  "careers": "Our Careers",
+  "privacy": "Privacy",
+  "terms": "Terms & Conditions",
+  "connect_us": "Connect Us",
+  "email": "support@staycation.id",
+  "phone": "021 - 2208 - 1996",
+  "address": "Staycation, Kemang, Jakarta",
+  "kickstart": "We kickstart your lovely holiday",
+  "memorable": "instantly and memorable.",
+  "rights": "All rights reserved • Staycation"
 }
 }

@@ -330,6 +330,23 @@
   "add_to_favorites":"اضافة للمفضلة",
   "show_details":"اظهار التفاصيل",
   "explore":"استكشاف"
+},
+"footer": {
+  "for_beginners": "للمبتدئين",
+  "new_account": "إنشاء حساب جديد",
+  "start_booking": "ابدأ حجز غرفة",
+  "use_payments": "استخدام المدفوعات",
+  "explore_us": "استكشفنا",
+  "careers": "وظائفنا",
+  "privacy": "الخصوصية",
+  "terms": "الشروط والأحكام",
+  "connect_us": "تواصل معنا",
+  "email": "support@staycation.id",
+  "phone": "٠٢١-٢٢٠٨-١٩٩٦",
+  "address": "ستايكيشن، كيمانج، جاكرتا",
+  "kickstart": "نُفجّر عطلتك الجمالية",
+  "memorable": "ولحظات لا تُنسى",
+  "rights": "جميع الحقوق محفوظة • ستايكيشن"
 }
 
 }

@@ -50,6 +50,9 @@ export const useNavbarState = () => {
     dispatch(logout());
   }, [closeDrawer, handleMenuClose, navigate, dispatch]);
 
+  const handleNavigateToHome =React.useCallback( () => {
+    navigate('/home');
+  }, [navigate]);
   // Control document body overflow when drawer is open
   React.useEffect(() => {
     document.body.style.overflow = drawerOpen ? 'hidden' : 'unset';
@@ -70,6 +73,7 @@ export const useNavbarState = () => {
     handleMenuOpen,
     handleMenuClose,
     handleLogout,
-    goToFavorites
+    goToFavorites,
+    handleNavigateToHome
   };
 };

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
 import { Box, Typography, useTheme } from '@mui/material';
 import AdbIcon from '@mui/icons-material/Adb';
 
@@ -7,12 +6,18 @@ interface LogoProps {
   blueMainColor?: string;
   liteMainColor?: string;
   darkblueColor?: string;
+  navigateToHome?: () => void;
 }
 
-export const Logo: React.FC<LogoProps> = React.memo(({ blueMainColor, liteMainColor, darkblueColor }) => {
+export const Logo: React.FC<LogoProps> = React.memo(({ 
+  blueMainColor, 
+  liteMainColor, 
+  darkblueColor,
+  navigateToHome 
+}) => {
   const theme = useTheme();
   const isDark = theme.palette.mode === 'dark';
-
+                
   // Use provided colors or fallback to the default theme colors
   const blueMain = blueMainColor || theme.custom.blueMain;
   const liteMain = liteMainColor || theme.custom.liteMain;
@@ -23,13 +28,14 @@ export const Logo: React.FC<LogoProps> = React.memo(({ blueMainColor, liteMainCo
       <AdbIcon sx={{ mr: 1, color: blueMain }} />
       <Typography 
         variant="h6" 
-        component={RouterLink} 
-        to="/" 
+        component="div" 
+        onClick={navigateToHome}
         sx={{
           fontWeight: 700,
           textDecoration: 'none',
+          cursor: navigateToHome ? 'pointer' : 'default',
           '&:hover': {
-            opacity: 0.8,
+            opacity: navigateToHome ? 0.8 : 1,
             transition: 'opacity 0.2s ease'
           }
         }}

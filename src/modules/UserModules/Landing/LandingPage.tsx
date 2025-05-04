@@ -42,6 +42,8 @@ const LandingPage: React.FC = () => {
     const getAdsProduct = async () => {
       try {
         const response = await privateAxiosInstance.get(PORTAL_ADS_URLS.GET_ADS);
+        console.log(response.data.data.ads, "ads");
+        
         setAds(response.data.data.ads);
       } catch (error) {
         console.log(error);
@@ -53,6 +55,8 @@ const LandingPage: React.FC = () => {
         const response = await privateAxiosInstance.get(
           PORTAL_ROOMS_URLS.GET_ALL_ROOMS_ALL
         );
+        console.log(response.data.data.rooms, "rooms");
+        
         setRooms(response.data.data.rooms);
       } catch (error) {
         console.log(error);
@@ -73,7 +77,7 @@ const LandingPage: React.FC = () => {
       <Container maxWidth="xl">
         <Grid
           container
-          spacing={isSmallScreen? 0:isMobile? 1:isLargeScreen? 10:25}
+          gap={isSmallScreen? 0:isMobile? 1:isLargeScreen?10:0}
           alignItems="center"
           direction={{ xs: "column-reverse", md: "row" }}
           justifyContent="center"
@@ -141,6 +145,7 @@ const LandingPage: React.FC = () => {
                   price={addsGroup[0]?.room?.price || 0}
                   width="100%"
                   height={{ xs: 300, md: 400 }}
+                  id={addsGroup[0]?._id}
                 />
               )}
             </Box>
@@ -160,6 +165,7 @@ const LandingPage: React.FC = () => {
                     price={ad?.room?.price || 0}
                     width="100%"
                     height={{ xs: 150, sm: 190 }}
+                    id={ad?._id}
                   />
                 </Box>
               ))}
@@ -212,6 +218,7 @@ const LandingPage: React.FC = () => {
                     price={item.room?.price || item.price || 0}
                     width="100%"
                     height={215}
+                    id={item._id}
                   />
                 </Grid>
               ))}

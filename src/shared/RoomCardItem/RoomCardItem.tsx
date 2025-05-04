@@ -3,6 +3,7 @@ import { Grid, Box, Typography, IconButton, useTheme } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Visibility from "@mui/icons-material/Visibility";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 type RoomCardItemProps = {
   image: string;
@@ -10,6 +11,7 @@ type RoomCardItemProps = {
   price: number;
   width?: string | number;
   height?: string | number | { xs?: number; sm?: number; md?: number; lg?: number; xl?: number };
+  id?: string
 };
 
 export default function RoomCardItem({
@@ -18,11 +20,19 @@ export default function RoomCardItem({
   price,
   width,
   height,
+  id
 }: RoomCardItemProps) {
   const { t } = useTranslation();
   const theme = useTheme();
   const isRtl = theme.direction === "rtl";
+  const navigate =useNavigate();
 
+  const goToRoomDetails = (id:string) => {
+    navigate(`rooms/${id}`);
+  }
+  const gotToFavorites = () => {
+    navigate("/home/favourites");
+  }
   return (
     <Grid size={ { xs: 12 }}>
       <Box
@@ -116,6 +126,7 @@ export default function RoomCardItem({
         >
           <IconButton
             aria-label={t("room.add_to_favorites")}
+            onClick={gotToFavorites}
             sx={{
               color: "white",
               "&:hover": {
@@ -128,6 +139,7 @@ export default function RoomCardItem({
           </IconButton>
           <IconButton
             aria-label={t("room.show_details")}
+            onClick={()=>id&&goToRoomDetails(id)}
             sx={{
               color: "white",
               "&:hover": {
