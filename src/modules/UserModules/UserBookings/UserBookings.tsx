@@ -30,14 +30,9 @@ import { privateAxiosInstance } from "../../../services/api/apiInstance";
 import { useTranslation } from "react-i18next";
 
 // Types
-interface User {
-  _id: string;
-  userName: string;
-}
-
 interface Room {
   _id: string;
-  roomNumber: string;
+  roomNumber?: string; // Make roomNumber optional as it might not be in the response
 }
 
 interface Booking {
@@ -45,8 +40,10 @@ interface Booking {
   startDate: string;
   endDate: string;
   totalPrice: number;
-  user: User;
-  room: Room;
+  user: {
+    _id: string;
+  };
+  room: string | Room; // Can be either a string ID or a Room object
   status: "pending" | "completed";
   createdAt: string;
   updatedAt: string;
@@ -57,7 +54,7 @@ interface BookingResponse {
   success: boolean;
   message: string;
   data: {
-    booking: Booking[];
+    myBooking: Booking[];
     totalCount: number;
   };
 }
@@ -85,18 +82,6 @@ const StyledCard = styled(Card)(({ theme }) => ({
   },
 }));
 
-const StyledCardSecondary = styled(StyledCard)(({ theme }) => ({
-  "&::before": {
-    backgroundColor: "#2E7D32",
-  },
-}));
-
-const StyledCardTertiary = styled(StyledCard)(({ theme }) => ({
-  "&::before": {
-    backgroundColor: "#ED6C02",
-  },
-}));
-
 interface StyledChipProps {
   status: "pending" | "completed";
 }
@@ -117,8 +102,6 @@ const formatDate = (dateString: string): string => {
   });
 };
 
-
-
 // Main component
 const UserBookings: React.FC = () => {
   const [bookings, setBookings] = useState<Booking[]>([]);
@@ -126,6 +109,10 @@ const UserBookings: React.FC = () => {
   const [page, setPage] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(5);
   const [totalCount, setTotalCount] = useState<number>(0);
+  const [username, setUsername] = useState<string>(""); // Store the current user's username
+  const [roomDetails, setRoomDetails] = useState<Record<string, Room>>({});
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchBookings = async (): Promise<void> => {
@@ -141,8 +128,17 @@ const UserBookings: React.FC = () => {
         );
 
         if (response.data.success) {
-          setBookings(response.data.data.booking);
+          setBookings(response.data.data.myBooking); // Updated to match the API response
           setTotalCount(response.data.data.totalCount);
+
+          // Fetch room details for all bookings
+          const roomIds = response.data.data.myBooking.map(
+            (booking) => booking.room
+          );
+          await fetchRoomDetails(roomIds);
+
+          // Fetch current user details if needed
+          fetchUserDetails();
         }
       } catch (error) {
         console.error("Error fetching bookings:", error);
@@ -153,6 +149,9 @@ const UserBookings: React.FC = () => {
 
     fetchBookings();
   }, [page, rowsPerPage]);
+
+
+  
 
   const handleChangePage = (_event: unknown, newPage: number): void => {
     setPage(newPage);
@@ -165,8 +164,7 @@ const UserBookings: React.FC = () => {
     setPage(0);
   };
 
-    const { t } = useTranslation();
-
+  
 
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
@@ -494,13 +492,15 @@ const UserBookings: React.FC = () => {
                             color: "#2E7D32",
                           }}
                         >
-                          {(
-                            (bookings.filter(
-                              (booking) => booking.status === "completed"
-                            ).length /
-                              totalCount) *
-                            100
-                          ).toFixed(0)}
+                          {totalCount > 0
+                            ? (
+                                (bookings.filter(
+                                  (booking) => booking.status === "completed"
+                                ).length /
+                                  totalCount) *
+                                100
+                              ).toFixed(0)
+                            : 0}
                           %
                         </Typography>
                       </Box>
@@ -645,13 +645,15 @@ const UserBookings: React.FC = () => {
                             color: "#ED6C02",
                           }}
                         >
-                          {(
-                            (bookings.filter(
-                              (booking) => booking.status === "pending"
-                            ).length /
-                              totalCount) *
-                            100
-                          ).toFixed(0)}
+                          {totalCount > 0
+                            ? (
+                                (bookings.filter(
+                                  (booking) => booking.status === "pending"
+                                ).length /
+                                  totalCount) *
+                                100
+                              ).toFixed(0)
+                            : 0}
                           %
                         </Typography>
                       </Box>
@@ -662,7 +664,7 @@ const UserBookings: React.FC = () => {
             </Grid>
           </Box>
 
-          {/* Bookings Table (Remains Unchanged) */}
+          {/* Bookings Table (Updated) */}
           <TableContainer
             component={Paper}
             sx={{
@@ -675,22 +677,16 @@ const UserBookings: React.FC = () => {
               <TableHead sx={{ bgcolor: "primary.main" }}>
                 <TableRow>
                   <TableCell sx={{ color: "white", fontWeight: "bold" }}>
-                    User
+                    {t("Total Price")}
                   </TableCell>
                   <TableCell sx={{ color: "white", fontWeight: "bold" }}>
-                    Room
+                    {t("Start Date")}
                   </TableCell>
                   <TableCell sx={{ color: "white", fontWeight: "bold" }}>
-                    Total Price
+                    {t("End Date")}
                   </TableCell>
                   <TableCell sx={{ color: "white", fontWeight: "bold" }}>
-                    Start Date
-                  </TableCell>
-                  <TableCell sx={{ color: "white", fontWeight: "bold" }}>
-                    End Date
-                  </TableCell>
-                  <TableCell sx={{ color: "white", fontWeight: "bold" }}>
-                    Status
+                    {t("Status")}
                   </TableCell>
                 </TableRow>
               </TableHead>
@@ -707,32 +703,6 @@ const UserBookings: React.FC = () => {
                   >
                     <TableCell>
                       <Box display="flex" alignItems="center">
-                        <Avatar
-                          sx={{
-                            bgcolor: "primary.light",
-                            mr: 1,
-                            width: 32,
-                            height: 32,
-                          }}
-                        >
-                          {booking.user.userName.charAt(0).toUpperCase()}
-                        </Avatar>
-                        <Typography variant="body1">
-                          {booking.user.userName}
-                        </Typography>
-                      </Box>
-                    </TableCell>
-                    <TableCell>
-                      <Box display="flex" alignItems="center">
-                        <MeetingRoomIcon
-                          sx={{ mr: 1, color: "text.secondary" }}
-                          fontSize="small"
-                        />
-                        {booking?.room?.roomNumber}
-                      </Box>
-                    </TableCell>
-                    <TableCell>
-                      <Box display="flex" alignItems="center">
                         <AttachMoneyIcon
                           sx={{ mr: 1, color: "success.main" }}
                           fontSize="small"
@@ -747,9 +717,7 @@ const UserBookings: React.FC = () => {
                                 : "text.secondary",
                           }}
                         >
-                          {booking.totalPrice > 0
-                            ? `${booking.totalPrice.toLocaleString()} `
-                            : "Not specified"}
+                            {booking.totalPrice.toLocaleString()} 
                         </Typography>
                       </Box>
                     </TableCell>
@@ -775,8 +743,8 @@ const UserBookings: React.FC = () => {
                       <StyledChip
                         label={
                           booking.status === "completed"
-                            ? "Completed"
-                            : "Pending"
+                            ? t("Completed")
+                            : t("Pending")
                         }
                         status={booking.status}
                         icon={
@@ -800,9 +768,9 @@ const UserBookings: React.FC = () => {
               page={page}
               onPageChange={handleChangePage}
               onRowsPerPageChange={handleChangeRowsPerPage}
-              labelRowsPerPage="Rows per page:"
+              labelRowsPerPage={t("Rows per page:")}
               labelDisplayedRows={({ from, to, count }) =>
-                `${from}-${to} of ${count}`
+                `${from}-${to} ${t("of")} ${count}`
               }
             />
           </TableContainer>

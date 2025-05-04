@@ -143,7 +143,7 @@ export const BOOKING_URLS = {
   GET_ALL_MY_BOOKINGS: `/portal/booking/my`,
   PAY_BOOKING: (id: string) => `/portal/booking/${id}/pay`,
   CREATE_BOOKING: `/portal/booking`,
-  GET_USER_BOKING: `/admin/booking?page=1&size=10`,
+  GET_USER_BOKING: `/portal/booking/my`,
 };
 
 export const REVIEWS_URLS = {
