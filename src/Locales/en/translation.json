@@ -271,6 +271,24 @@
   "noReviewsTitle": "No Reviews Yet",
   "noReviewsSubtitle": "Be the first to write a review and share your experience."
 },
+
+"userBooking": {
+  "My Bookings": "My Bookings",
+  "View and manage all your current and past bookings in one place": "View and manage all your current and past bookings in one place",
+  "TOTAL BOOKINGS": "TOTAL BOOKINGS",
+  "bookings": "bookings",
+  "Last updated": "Last updated",
+  "COMPLETED": "COMPLETED",
+  "successful stays": "successful stays",
+  "Success rate": "Success rate",
+  "PENDING": "PENDING",
+  "upcoming stays": "upcoming stays",
+  "Of total bookings": "Of total bookings"
+},
+
+
+
+
 "explore":{
   "link": "Explore",
   "title":"Explore ALL Rooms",

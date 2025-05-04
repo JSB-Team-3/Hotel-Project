@@ -271,6 +271,7 @@
   "noReviewsSubtitle": "كن أول من يكتب مراجعة ويشارك تجربته."
 },
 
+
   "explore": {
     "link": "استكشاف",
     "title": "استكشاف جميع الغرف",
@@ -287,8 +288,21 @@
     "removeSuccess": "تمت إزالة الغرفة من المفضلة بنجاح!",
     "removeFailed": "فشل في إزالة الغرفة من المفضلة",
     "loginFirst": "يرجى تسجيل الدخول أولاً لإضافة هذه الغرفة إلى المفضلة"
-  }
+  },
+
+
+"userBooking":{
+  "My Bookings": "حجوزاتي",
+  "View and manage all your current and past bookings in one place": "عرض وإدارة جميع حجوزاتك الحالية والماضية في مكان واحد",
+  "TOTAL BOOKINGS": "اجمالي الحجوزات",
+  "bookings": "الحجوزات",
+  "Last updated": "اخر تحديث",
+  "COMPLETED": "مكتمل",
+  "successful stays": "إقامات ناجحة",
+  "Success rate":"معدل النجاح",
+  "PENDING":"قيد الانتظار",
+  "upcoming stays":"الإقامات القادمة",
+  "Of total bookings":"من إجمالي الحجوزات"
 }
 
-
-
+}

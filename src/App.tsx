@@ -29,6 +29,8 @@ const UserLayout = React.lazy(() => import('./shared/UserLayout/UserLayout'));
 const RoomDetails = React.lazy(() => import('./modules/UserModules/RoomDetails/RoomDetails'));
 const Explore = React.lazy(() => import('./modules/UserModules/Explore/Explore'));
 const Favourites = React.lazy(() => import('./modules/UserModules/Favourites/Favourites'));
+const UserBookings = React.lazy(()=> import('./modules/UserModules/UserBookings/UserBookings'))
+
 
 const App: React.FC = () => { 
 const routes = createBrowserRouter([
@@ -43,30 +45,40 @@ const routes = createBrowserRouter([
       { path: "forget-password", element: <ForgetPass /> },
       { path: "reset-password", element: <ResetPass /> },
       { path: "verify-account", element: <VerifyAccount /> },
-
-    ]},
-    { path:'dashboard', element:<ProtectedRoute><MasterLayout/></ProtectedRoute>,
-      errorElement:<NotFound/>,
-      children:[
-        {index:true,element:<Dashboard/>},
-        {path:"rooms",element:<RoomsList/>},
-        {path:"room-data/new-Rooms",element:<RoomsData/>},
-        {path:"room-data/:roomId",element:<RoomsData/>},
-        {path:"bookings",element:<BookingList/>},
-        {path:"users",element:<UsersList/>},
-        {path:"ads",element:<Ads/>},
-        {path:"facilities",element:<FacilitiesList/>},
-      ]
-    },
-    {path:"home" ,element:<UserLayout/>,errorElement:<NotFound/>,
-      children:[
-      {index:true,element:<LandingPage/>},
-      {path:"rooms/:roomId",element:<RoomDetails/>},
-      {path:'explore',element:<Explore/>},
-      {path:'favourites',element:<Favourites/>},
-    ]
-    }
-])
+    ],
+  },
+  {
+    path: "dashboard",
+    element: (
+      <ProtectedRoute>
+        <MasterLayout />
+      </ProtectedRoute>
+    ),
+    errorElement: <NotFound />,
+    children: [
+      { index: true, element: <Dashboard /> },
+      { path: "rooms", element: <RoomsList /> },
+      { path: "room-data/new-Rooms", element: <RoomsData /> },
+      { path: "room-data/:roomId", element: <RoomsData /> },
+      { path: "bookings", element: <BookingList /> },
+      { path: "users", element: <UsersList /> },
+      { path: "ads", element: <Ads /> },
+      { path: "facilities", element: <FacilitiesList /> },
+    ],
+  },
+  {
+    path: "home",
+    element: <UserLayout />,
+    errorElement: <NotFound />,
+    children: [
+      { index: true, element: <LandingPage /> },
+      { path: "rooms/:roomId", element: <RoomDetails /> },
+      { path: "explore", element: <Explore /> },
+      { path: "favourites", element: <Favourites /> },
+      { path: "user-bookings", element: <UserBookings /> },
+    ],
+  },
+]);
 
 
   return (
