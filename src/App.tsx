@@ -29,6 +29,8 @@ const UserLayout = React.lazy(() => import('./shared/UserLayout/UserLayout'));
 const RoomDetails = React.lazy(() => import('./modules/UserModules/RoomDetails/RoomDetails'));
 const Explore = React.lazy(() => import('./modules/UserModules/Explore/Explore'));
 const Favourites = React.lazy(() => import('./modules/UserModules/Favourites/Favourites'));
+const UserBookings = React.lazy(()=> import('./modules/UserModules/UserBookings/UserBookings'))
+
 
 const App: React.FC = () => { 
 const routes = createBrowserRouter([
@@ -77,7 +79,6 @@ const routes = createBrowserRouter([
     ]
     }
 ])
-
 
   return (
     <Suspense fallback={<Spiner height='100vh'/>}>

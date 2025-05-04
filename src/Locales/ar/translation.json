@@ -128,6 +128,27 @@
     "description": "بحثنا في كل مكان ولكن لم نعثر على الصفحة المطلوبة.",
     "returnToDashboard": "العودة إلى لوحة التحكم"
   },
+  "user-navbar": {
+    "home": "الرئيسية",
+    "explore": "استكشاف",
+    "blog": "مدونة",
+    "help": "مساعدة",
+    "users": "المستخدمين",
+    "settings": "الإعدادات",
+    "logout": "تسجيل الخروج",
+    "login": {
+      "title": "تسجيل الدخول"
+    },
+    "signup": {
+      "title": "التسجيل"
+    },
+    "favorites":  "المفضلات"  
+  },
+  "theme": {
+    "darkMode": "التحويل إلى الوضع المظلم",
+    "lightMode": "التحويل إلى الوضع الفاتح",
+    "toggleLabel": "التبديل بين الوضعين"
+  }
   "landing_page": {
     "Forget Busy Work,Start Next Vacation": "انسَ العمل المُرهِق، وابدأ إجازتك القادمة",
     "We provide what you need to enjoy your holiday with family.Time to make another memorable moments.": "نوفر لكم كل ما تحتاجونه للاستمتاع بعطلتكم مع العائلة. حان الوقت للحظات لا تُنسى.",
@@ -271,6 +292,7 @@
   "noReviewsSubtitle": "كن أول من يكتب مراجعة ويشارك تجربته."
 },
 
+
   "explore": {
     "link": "استكشاف",
     "title": "استكشاف جميع الغرف",
@@ -287,8 +309,21 @@
     "removeSuccess": "تمت إزالة الغرفة من المفضلة بنجاح!",
     "removeFailed": "فشل في إزالة الغرفة من المفضلة",
     "loginFirst": "يرجى تسجيل الدخول أولاً لإضافة هذه الغرفة إلى المفضلة"
-  }
+  },
+
+
+"userBooking":{
+  "My Bookings": "حجوزاتي",
+  "View and manage all your current and past bookings in one place": "عرض وإدارة جميع حجوزاتك الحالية والماضية في مكان واحد",
+  "TOTAL BOOKINGS": "اجمالي الحجوزات",
+  "bookings": "الحجوزات",
+  "Last updated": "اخر تحديث",
+  "COMPLETED": "مكتمل",
+  "successful stays": "إقامات ناجحة",
+  "Success rate":"معدل النجاح",
+  "PENDING":"قيد الانتظار",
+  "upcoming stays":"الإقامات القادمة",
+  "Of total bookings":"من إجمالي الحجوزات"
 }
 
-
-
+}

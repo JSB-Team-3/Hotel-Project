@@ -139,10 +139,11 @@ export const User_Room_URLS = {
 };
 
 export const BOOKING_URLS = {
-GET_USER_BOOKINGS:`/portal/booking`,
-GET_ALL_MY_BOOKINGS:`/portal/booking/my`,
-PAY_BOOKING:(id:string,)=>`/portal/booking/${id}/pay`,
-CREATE_BOOKING:`/portal/booking`,
+  GET_USER_BOOKINGS: `/portal/booking`,
+  GET_ALL_MY_BOOKINGS: `/portal/booking/my`,
+  PAY_BOOKING: (id: string) => `/portal/booking/${id}/pay`,
+  CREATE_BOOKING: `/portal/booking`,
+  GET_USER_BOKING: `/portal/booking/my`,
 };
 
 export const REVIEWS_URLS = {

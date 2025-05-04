@@ -28,24 +28,24 @@ const ReviewSlider = () => {
     () => [
       {
         id: 1,
-        name: t("Angga, Product Designer"),
+        name: t("landing_page.Angga, Product Designer"),
         text: t(
-          "What a great trip with my family and I should try again next time soon ..."
+          "landing_page.What a great trip with my family and I should try again next time soon ..."
         ),
         rating: 5,
         img: img2,
       },
       {
         id: 2,
-        name: t("Salma, Software Engineer"),
-        text: t("Amazing service and comfortable rooms!"),
+        name: t("landing_page.Salma, Software Engineer"),
+        text: t("landing_page.Amazing service and comfortable rooms!"),
         rating: 4,
         img: img3,
       },
       {
         id: 3,
-        name: t("Mohamed, Frontend Dev"),
-        text: t("Unforgettable experience, really worth it."),
+        name: t("landing_page.Mohamed, Frontend Dev"),
+        text: t("landing_page.Unforgettable experience, really worth it."),
         rating: 5,
         img: img4,
       },
@@ -133,7 +133,7 @@ const ReviewSlider = () => {
           fontWeight="600"
           mb={3}
         >
-          {t("Happy Family")}
+          {t("landing_page.Happy Family")}
         </Typography>
 
         <Grid container alignItems="center" spacing={1} mb={2}>
