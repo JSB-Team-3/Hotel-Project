@@ -13,6 +13,7 @@ import { deleteBooking, getAllBookings, } from '../../../store/booking/bookingsT
 import { Booking } from '../../../Interfaces/bookings.interfaces';
 import { User } from '../../../Interfaces/user.interface';
 import { RoomFacility } from '../../../Interfaces/facilities.interface';
+import { useTranslation } from 'react-i18next';
 
 export default function BookingList() {
   const [itemToDeleteId, setItemToDeleteId] = useState<string>('');
@@ -21,6 +22,7 @@ export default function BookingList() {
   const [page, setPage] = useState<number>(0);
   const [size, setSize] = useState<number>(5);
 
+  const { t } = useTranslation();
   const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch<AppDispatch>();
 
@@ -43,9 +45,9 @@ export default function BookingList() {
         size,
       })).unwrap();
     } catch (err) {
-      enqueueSnackbar((err as string) || 'Failed to get all bookings', { variant: 'error' });
+      enqueueSnackbar((err as string) || t('bookings.failedToGet'), { variant: 'error' });
     }
-  }, [dispatch, page, size, enqueueSnackbar]);
+  }, [dispatch, page, size, enqueueSnackbar, t]);
 
   useEffect(() => {
     getAllBookingsList();
@@ -60,15 +62,15 @@ export default function BookingList() {
   const ConfirmDelete = useCallback(async () => {
     try {
       const response = await dispatch(deleteBooking(itemToDeleteId)).unwrap();
-      enqueueSnackbar(response?.message || 'Booking deleted successfully', { variant: 'success' });
+      enqueueSnackbar(response?.message || t('bookings.deletedSuccess'), { variant: 'success' });
       setShowDeleteModal(false);
       setItemToDeleteId('');
       setItemToDeleteNumber('');
       getAllBookingsList();
     } catch (err) {
-      enqueueSnackbar((err as string) || 'Failed to delete booking', { variant: 'error' });
+      enqueueSnackbar((err as string) || t('bookings.failedToDelete'), { variant: 'error' });
     }
-  }, [dispatch, itemToDeleteId, enqueueSnackbar, getAllBookingsList]);
+  }, [dispatch, itemToDeleteId, enqueueSnackbar, getAllBookingsList, t]);
 
   const renderRow = (item: Room | Booking | User | RoomFacility): React.ReactNode => {
     // Type guard to check if the item is a Booking
@@ -77,7 +79,7 @@ export default function BookingList() {
       return (
         <StyledTableRow key={item?._id} >
           <StyledTableCell component="th" scope="row">
-            {item.room?.roomNumber || "No room assigned"}
+            {item.room?.roomNumber || t('bookings.noRoom')}
           </StyledTableCell>
           <StyledTableCell>
             {item.startDate ? new Date(item.startDate).toLocaleDateString() : "-"}
@@ -86,7 +88,7 @@ export default function BookingList() {
             {item.endDate ? new Date(item.endDate).toLocaleDateString() : "-"}
           </StyledTableCell>
           <StyledTableCell>{item.totalPrice}</StyledTableCell>
-          <StyledTableCell>{item.user?.userName || "Unknown"}</StyledTableCell>
+          <StyledTableCell>{item.user?.userName || t('bookings.unknown')}</StyledTableCell>
           <StyledTableCell>{item.status}</StyledTableCell>
           <StyledTableCell>
             <TableActions handleDeleteItem={handleDeleteItem} item={item} route={''} />
@@ -98,8 +100,6 @@ export default function BookingList() {
 
     return null; // Handle other types such as Room, User, etc.
   }
-
-
 
   const handleChangePage = useCallback(
     (_: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
@@ -118,7 +118,7 @@ export default function BookingList() {
 
   return (
     <Box>
-      <Header title="Booking" route="" />
+      <Header title={t('bookings.title')} route="" />
       <DataTable
         loading={loading}
         items={bookings}
@@ -128,15 +128,23 @@ export default function BookingList() {
         handleChangeRowsPerPage={handleChangeRowsPerPage}
         totalCount={totalCount}
         rowsPerPageOptions={[5, 10, 25]}
-        labelRowsPerPage="Booking per page:"
-        columns={['Room Number', 'Start Date', 'End Date', 'Total Price', 'User Name', 'Status', '']}
+        labelRowsPerPage={t('bookings.perPage')}
+        columns={[
+          t('bookings.columns.roomNumber'),
+          t('bookings.columns.startDate'),
+          t('bookings.columns.endDate'),
+          t('bookings.columns.totalPrice'),
+          t('bookings.columns.userName'),
+          t('bookings.columns.status'),
+          ''
+        ]}
         renderRow={renderRow}
       />
       <DeleteConfirmation
         open={showDeleteModal}
         handleClose={() => setShowDeleteModal(false)}
         confirm={ConfirmDelete}
-        message={`Delete This Booking ${itemToDeleteNumber}`}
+        message={t('bookings.deleteConfirmation', { number: itemToDeleteNumber })}
         loading={deleteLoading}
       />
     </Box>

@@ -28,14 +28,14 @@ const adsSlice = createSlice({
     builder
       // Create Ad
       .addCase(createAd.pending, (state) => {
-        state.loading = true;
+        state.deleteLoading = true;
         state.error = null;
       })
       .addCase(createAd.fulfilled, (state) => {
-        state.loading = false;
+        state.deleteLoading = false;
       })
       .addCase(createAd.rejected, (state, action) => {
-        state.loading = false;
+        state.deleteLoading = false;
         state.error = action.payload as string;
       })
 
@@ -56,15 +56,17 @@ const adsSlice = createSlice({
 
       // Get Ad Details
       .addCase(getAdDetails.pending, (state) => {
-        state.loading = true;
+        state.deleteLoading = true;
         state.error = null;
       })
       .addCase(getAdDetails.fulfilled, (state, action) => {
-        state.loading = false;
-        state.adDetails = action.payload;
+        state.deleteLoading = false;
+        state.adDetails = action.payload.data?.ads;
+        console.log(action.payload.data?.ads);
+        
       })
       .addCase(getAdDetails.rejected, (state, action) => {
-        state.loading = false;
+        state.deleteLoading = false;
         state.error = action.payload as string;
       })
 
@@ -83,14 +85,14 @@ const adsSlice = createSlice({
 
       // Update Ad
       .addCase(updateAd.pending, (state) => {
-        state.loading = true;
+        state.deleteLoading = true;
         state.error = null;
       })
       .addCase(updateAd.fulfilled, (state) => {
-        state.loading = false;
+        state.deleteLoading = false;
       })
       .addCase(updateAd.rejected, (state, action) => {
-        state.loading = false;
+        state.deleteLoading = false;
         state.error = action.payload as string;
       });
   },
