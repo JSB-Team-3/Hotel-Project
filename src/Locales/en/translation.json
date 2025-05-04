@@ -130,6 +130,28 @@
     "description": "We've searched everywhere but couldn't find the page you requested.",
     "returnToDashboard": "Return to Dashboard"
   },
+
+  "user-navbar": {
+    "home": "Home",
+    "explore": "Explore",
+    "blog": "Blog",
+    "help": "Help",
+    "users": "Users",
+    "settings": "Settings",
+    "logout": "Logout",
+    "login": {
+      "title": "Login"
+    },
+    "signup": {
+      "title": "Sign Up"
+    },
+    "favorites:": "Favorites"
+  },
+  "theme": {
+    "darkMode": "Switch to Dark Mode",
+    "lightMode": "Switch to Light Mode",
+    "toggleLabel": "Toggle theme"
+  }
   "landing_page": {
     "Forget Busy Work, Start Next Vacation": "Forget Busy Work, Start Next Vacation",
     "We provide what you need to enjoy your holiday with family. Time to make another memorable moments.": "We provide what you need to enjoy your holiday with family. Time to make another memorable moments.",

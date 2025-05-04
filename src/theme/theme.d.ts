@@ -9,6 +9,8 @@ declare module '@mui/material/styles' {
     activeBreadcrumb: string;
     inactiveBreadcrumb: string;
     darkblue: string;
+    errorMain: string;
+
 
   }
 

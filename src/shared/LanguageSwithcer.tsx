@@ -1,11 +1,14 @@
 import React, { memo, useState } from 'react';
-import { Menu, MenuItem, IconButton, Typography, Box, Fade, Tooltip, Divider, ListItemIcon, Chip } from '@mui/material';
-import { useTranslation } from 'react-i18next';
-import { changeLanguage } from '../Locales/i18n';
+import {
+  Menu, MenuItem, IconButton, Typography, Box, Fade,
+  Tooltip, Divider, ListItemIcon, Chip, useMediaQuery
+} from '@mui/material';
 import { useTheme } from '@mui/material/styles';
+import { useTranslation } from 'react-i18next';
 import LanguageIcon from '@mui/icons-material/Language';
 import CheckIcon from '@mui/icons-material/Check';
 import TranslateIcon from '@mui/icons-material/Translate';
+import { changeLanguage } from '../Locales/i18n';
 
 // Extended language data with flag codes
 const languages = [
@@ -18,12 +21,14 @@ const regions = {
 };
 
 interface LanguageSelectorProps {
-  color?: string;  
+  color?: 'inherit' | 'default' | 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning';
 }
 
-const LanguageSelector: React.FC<LanguageSelectorProps> = ({ color }) => {
+const LanguageSelector: React.FC<LanguageSelectorProps> = ({ color = 'inherit' }) => {
   const { t, i18n } = useTranslation();
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -40,7 +45,6 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({ color }) => {
     handleClose();
   };
 
-  // Find current language data
   const currentLanguage = languages.find(lang => lang.code === i18n.language) || languages[0];
 
   return (
@@ -48,42 +52,42 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({ color }) => {
       <Tooltip title={t("language.select")} arrow>
         <IconButton
           onClick={handleMenu}
-          size="medium"
+          size={isMobile ? 'small' : 'medium'}
+          color={color}
           aria-controls={open ? "language-menu" : undefined}
           aria-haspopup="true"
           aria-expanded={open ? "true" : undefined}
           sx={{
             position: 'relative',
-            color: color || theme.palette.text.primary,  // Use the passed color or default to theme text primary
             backgroundColor: open
-              ? theme.palette.mode === 'dark' 
-                ? 'rgba(255, 255, 255, 0.05)' 
-                : 'rgba(0, 0, 0, 0.04)' 
+              ? theme.palette.mode === 'dark'
+                ? 'rgba(255, 255, 255, 0.05)'
+                : 'rgba(0, 0, 0, 0.04)'
               : 'transparent',
             borderRadius: '50%',
             transition: 'all 0.2s ease',
             '&:hover': {
-              backgroundColor: theme.palette.mode === 'dark' 
-                ? 'rgba(255, 255, 255, 0.08)' 
+              backgroundColor: theme.palette.mode === 'dark'
+                ? 'rgba(255, 255, 255, 0.08)'
                 : 'rgba(0, 0, 0, 0.08)',
             },
           }}
         >
-          <LanguageIcon />
+          <LanguageIcon fontSize={isMobile ? 'small' : 'medium'} />
           <Box
             sx={{
               position: "absolute",
               top: 0,
               right: 0,
-              width: 16,
-              height: 16,
+              width: isMobile ? 14 : 16,
+              height: isMobile ? 14 : 16,
               borderRadius: "50%",
               backgroundColor: theme.palette.background.paper,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               boxShadow: "0 1px 3px rgba(0,0,0,0.2)",
-              fontSize: "0.6rem",
+              fontSize: isMobile ? "0.5rem" : "0.6rem",
             }}
           >
             {currentLanguage.flag}
@@ -96,7 +100,6 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({ color }) => {
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
-        onClick={handleClose}
         TransitionComponent={Fade}
         PaperProps={{
           elevation: 5,
@@ -116,11 +119,8 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({ color }) => {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <Box sx={{ px: 2, pb: 1, pt: 1.5, display: "flex", alignItems: "center" }}>
-          <TranslateIcon
-            fontSize="small"
-            sx={{ mr: 1, color: theme.palette.text.secondary }}
-          />
-          <Typography variant="subtitle2" color="text.secondary" fontWeight="500">
+          <TranslateIcon fontSize="small" sx={{ mr: 1, color: theme.palette.text.secondary }} />
+          <Typography variant="subtitle2" color="text.secondary" fontWeight="500" noWrap>
             {t("language.select")}
           </Typography>
         </Box>
@@ -153,12 +153,11 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({ color }) => {
           <ListItemIcon sx={{ fontSize: "1.4rem", minWidth: 36 }}>
             {currentLanguage.flag}
           </ListItemIcon>
-          <Typography variant="body2">{currentLanguage.label}</Typography>
+          <Typography variant="body2" noWrap>{currentLanguage.label}</Typography>
         </MenuItem>
 
         <Divider sx={{ my: 1 }} />
 
-        {/* Render languages by region */}
         {Object.entries(regions).map(([region, langCodes]) => (
           <Box key={region}>
             <Typography
@@ -195,16 +194,12 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({ color }) => {
                     <ListItemIcon sx={{ fontSize: "1.4rem", minWidth: 36 }}>
                       {lang.flag}
                     </ListItemIcon>
-                    <Typography variant="body2">{lang.label}</Typography>
+                    <Typography variant="body2" noWrap>{lang.label}</Typography>
                   </MenuItem>
                 );
               }
               return null;
             })}
-
-            {region !== Object.keys(regions)[Object.keys(regions).length - 1] && (
-              <Divider sx={{ my: 1 }} />
-            )}
           </Box>
         ))}
       </Menu>
