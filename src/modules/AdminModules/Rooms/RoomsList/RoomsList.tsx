@@ -37,7 +37,6 @@ export default function RoomsList() {
   shallowEqual);
 
   const getAllRoomsList = async () => {
-    console.log('get');
     
     try {
       await dispatch(getAllRooms({ 

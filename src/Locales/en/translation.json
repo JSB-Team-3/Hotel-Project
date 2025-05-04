@@ -360,7 +360,15 @@
     "capacity": "Capacity",
     "status": "Status",
     "bookingPerPage": "Bookings per Page:",
-    "deleteConfirmation": "Delete This Ad in {{roomNumber}}"
+    "deleteConfirmation": "Delete This Ad in {{roomNumber}}",
+    "createAd": "Create Advertisement",
+    "updateAd": "Update Advertisement",
+    "room": "Room",
+    "roomRequired": "Room is required",
+    "discountRequired": "Discount is required",
+    "discountMin": "Minimum discount is 0%",
+    "discountMax": "Maximum discount is 100%",
+    "successMessage": "Advertisement saved successfully"
   },
   "header": {
     "tableDetails": "Table Details",

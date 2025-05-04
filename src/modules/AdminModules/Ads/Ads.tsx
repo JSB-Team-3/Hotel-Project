@@ -15,12 +15,15 @@ import { deleteAd, getAds } from '../../../store/ads/adsthunk';
 import { Ad } from '../../../Interfaces/ads.interfaces';
 import { RoomFacility } from '../../../Interfaces/facilities.interface';
 import { useTranslation } from 'react-i18next';
+import AdsData from './AdsData';
 
 export default function Ads() {
   const { t } = useTranslation();
   const [itemToDeleteId, setItemToDeleteId] = useState<string>('');
   const [itemToDeleteNumber, setItemToDeleteNumber] = useState<string>('');
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
+  const [showEditModal, setShowEditModal] = useState<boolean>(false);
+  const [adId, setAdId] = useState<string>('');
   // Pagination state
   const [page, setPage] = useState<number>(0);
   const [size, setSize] = useState<number>(5);  
@@ -50,6 +53,10 @@ export default function Ads() {
     setItemToDeleteNumber(itemNumber);
     setShowDeleteModal(true);
   };
+  const handleEditItem = (item: Ad) => {
+    setAdId(item?._id);
+    setShowEditModal(true);
+  };
 
   const ConfirmDelete = async () => {
     try {
@@ -78,7 +85,7 @@ export default function Ads() {
                     {ad?.isActive ? t('ads.active') : t('ads.inactive')}
                 </StyledTableCell>
           <StyledTableCell>
-            <TableActions handleDeleteItem={handleDeleteItem} item={ad} route={''} />
+            <TableActions handleDeleteItem={handleDeleteItem} handleEditAd={handleEditItem} item={ad} route={''} />
           </StyledTableCell>
         </StyledTableRow>
       );
@@ -105,7 +112,7 @@ export default function Ads() {
   }, [page, size]); 
   return (
     <Box>
-      <Header title={t('ads.title')} route='' />
+      <Header title={t('ads.title')} route='' getAllAdsList={getAllAdsList} />
      <DataTable
       loading={loading}
       items={ads}
@@ -132,6 +139,12 @@ export default function Ads() {
           confirm={ConfirmDelete}
           message={t('ads.deleteConfirmation', { roomNumber: itemToDeleteNumber })}
           loading={deleteLoading}
+        />
+        <AdsData  
+        open={showEditModal}
+        handleClose={setShowEditModal}
+        id={adId}
+        getAllAdsList={getAllAdsList}
         />
     </Box>
   );

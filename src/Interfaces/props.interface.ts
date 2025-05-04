@@ -18,6 +18,7 @@ export type TableActionProps = {
   handleDeleteItem: (itemId: string, itemNumber: string) => void;
   route: string;
   handleEditItem?: (item: RoomFacility) => void;
+  handleEditAd?: (item: Ad) => void;
 };
 
 export type TableDataProps = {
@@ -43,6 +44,7 @@ export type HeaderProps = {
     title:string,
     route:string,
     onAddClick?: () => void;
+    getAllAdsList?: () => Promise<void>;
 }
 
 
@@ -67,5 +69,11 @@ export type PaginationCompProps = {
   export type RoomCardProps = {
     room: Room;
     handleFav?: (roomId: string) => void;
+  } 
+  export type AdsDataProps = {
+    id:string;
+    open:boolean;
+  handleClose: (val: boolean) => void;
+  getAllAdsList: () => Promise<void>;
   }
 

@@ -10,15 +10,15 @@ import { useTheme } from '@mui/material/styles';
 import ViewDataModal from '../ViewDataModal/ViewDataModal'; // Assuming this is a lazy-loaded modal
 import { TableActionProps } from '../../Interfaces/props.interface';
 import { RoomFacility } from '../../Interfaces/facilities.interface';
+import { Ad } from '../../Interfaces/ads.interfaces';
 
 
-export default function TableActions({ handleDeleteItem, item, route ,handleEditItem }: TableActionProps) {
+export default function TableActions({ handleDeleteItem, item, route, handleEditItem, handleEditAd }: TableActionProps) {
   const theme = useTheme();
-  
   // Memoize state variables to avoid unnecessary renders
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [openviewModal, setViewOpen] = useState(false);
-  
+
   const open = Boolean(anchorEl);
 
 
@@ -35,7 +35,7 @@ export default function TableActions({ handleDeleteItem, item, route ,handleEdit
     handleClose();
   }, []);
 
-                
+
   const handleView = useCallback(() => {
     setViewOpen(true);
   }, []);
@@ -43,12 +43,12 @@ export default function TableActions({ handleDeleteItem, item, route ,handleEdit
   const handleDelete = useCallback(() => {
     handleClose();
     if ('roomNumber' in item) {
-      if(item.roomNumber)handleDeleteItem(item._id, item.roomNumber);
+      if (item.roomNumber) handleDeleteItem(item._id, item.roomNumber);
     } else if ('user' in item) {
       if (item.user && item.user.userName) handleDeleteItem(item._id, item.user.userName);
     }
     else if ('name' in item) {
-      if(item.name)handleDeleteItem(item._id, item.name);
+      if (item.name) handleDeleteItem(item._id, item.name);
     }
   }, [handleClose, item, handleDeleteItem]);
 
@@ -132,7 +132,24 @@ export default function TableActions({ handleDeleteItem, item, route ,handleEdit
               <ListItemText primary="Edit" />
             </MenuItem>
           )}
-          
+          {handleEditAd && (
+            <MenuItem
+              onClick={() => {
+                handleEditAd(item as Ad);
+                handleClose();
+              }}
+              sx={{
+                '&:hover': {
+                  backgroundColor: theme.palette.action.hover,
+                },
+              }}
+            >
+              <ListItemIcon>
+                <EditIcon sx={{ color: '#203FC7' }} />
+              </ListItemIcon>
+              <ListItemText primary="Edit" />
+            </MenuItem>
+          )}
           {'email' in item || (
             <MenuItem
               onClick={handleDelete}

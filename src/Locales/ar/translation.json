@@ -360,7 +360,15 @@
     "capacity": "السعة",
     "status": "الحالة",
     "bookingPerPage": "الحجوزات في الصفحة:",
-    "deleteConfirmation": "حذف هذا الإعلان في {{roomNumber}}"
+    "deleteConfirmation": "حذف هذا الإعلان في {{roomNumber}}",
+    "createAd": "إنشاء إعلان",
+    "updateAd": "تحديث الإعلان",
+    "room": "الغرفة",
+    "roomRequired": "الغرفة مطلوبة",
+    "discountRequired": "الخصم مطلوب",
+    "discountMin": "أقل خصم هو 0٪",
+    "discountMax": "أقصى خصم هو 100٪",
+    "successMessage": "تم حفظ الإعلان بنجاح"
   },
   "header": {
     "tableDetails": "",

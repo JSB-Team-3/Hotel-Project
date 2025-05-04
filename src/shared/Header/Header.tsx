@@ -2,11 +2,13 @@ import { Box, Button, Typography, useTheme } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { HeaderProps } from '../../Interfaces/props.interface';
 import { useTranslation } from 'react-i18next';
+import { useState } from 'react';
+import AdsData from '../../modules/AdminModules/Ads/AdsData';
 
-export default function Header({ title, route, onAddClick }: HeaderProps) {
+export default function Header({ title, route, onAddClick,getAllAdsList }: HeaderProps) {
   const theme = useTheme();
   const { t } = useTranslation();
-
+  const [open,setOpen] =useState<boolean>(false)
   return (
     <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
       <Box>
@@ -18,7 +20,8 @@ export default function Header({ title, route, onAddClick }: HeaderProps) {
         </Box>
       </Box>
       {title === t('ads.title') && (
-        <Button  
+        <Button 
+        onClick={()=> {setOpen(true)}} 
           variant='contained' 
           sx={{ backgroundColor: "#203FC7", color: 'white', fontWeight: 'bold', paddingInline: '30px' }}
         >
@@ -43,6 +46,7 @@ export default function Header({ title, route, onAddClick }: HeaderProps) {
           {t('header.addNewRoom')}
         </Button>
       )}
+      {getAllAdsList &&<AdsData getAllAdsList={getAllAdsList} open={open} handleClose={()=>setOpen(false)} id=""/>}
     </Box>
   );
 }
