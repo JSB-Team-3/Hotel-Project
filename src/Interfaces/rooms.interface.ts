@@ -49,3 +49,19 @@ export type UpdateRoomPayload = {
     updatedAt?: string;
   }
   
+  export interface RoomDetailsData{
+    _id: string;
+    roomNumber: string;
+    images: string[];
+    capacity: number;
+    price: number;
+    discount: number;
+    facilities: Facility[];
+    createdBy: {
+      _id: string;
+      userName: string;
+    };
+    createdAt: string;
+    updatedAt: string;
+  }
+  

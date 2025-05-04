@@ -6,6 +6,8 @@ declare module '@mui/material/styles' {
     blueMain: string;
     liteMain: string;
     primaryLight: string;
+    activeBreadcrumb: string;
+    inactiveBreadcrumb: string;
     darkblue: string;
     errorMain: string;
 
@@ -24,4 +26,17 @@ declare module '@mui/material/styles' {
     default: string;
     paper: string;
   }
+
+  interface Palette {
+    commentFormTitle?: PaletteColor;
+    sendButtonHover?: PaletteColor;
+  }
+
+  interface PaletteOptions {
+    commentFormTitle?: PaletteColorOptions;
+    sendButtonHover?: PaletteColorOptions;
+  }
+  
 }
+
+

@@ -26,8 +26,8 @@
   },
   "login": {
     "title": "تسجيل الدخول إلى روم هوم",
-    "no_account" : "ليس لديك حساب؟",
-     "error_message": "فشل تسجيل الدخول. يرجى التحقق من بيانات الاعتماد الخاصة بك والمحاولة مرة أخرى.",
+    "no_account": "ليس لديك حساب؟",
+    "error_message": "فشل تسجيل الدخول. يرجى التحقق من بيانات الاعتماد الخاصة بك والمحاولة مرة أخرى.",
     "success_message": "تم تسجيل الدخول بنجاح! جارٍ التوجيه إلى لوحة التحكم..."
   },
   "signup": {
@@ -65,7 +65,7 @@
     "drag_drop_supported": "أو اسحب وأفلت الصورة هنا",
     "file_too_large": "الملف كبير جدًا. الحجم الأقصى هو {{size}} ميغابايت",
     "subtitle": "منازل فريدة مثلك.",
-    "otp":"رمز التحقق",
+    "otp": "رمز التحقق",
     "oldPassword": "كلمة المرور الحالية",
     "newPassword": "كلمة المرور الجديدة",
     "confirmPassword": "تأكيد كلمة المرور",
@@ -83,47 +83,45 @@
     "close": "إغلاق",
     "back": "رجوع",
     "next": "التالي",
-    "deleteConfirmation":"هل أنت متأكد أنك تريد حذف هذا العنصر؟",
+    "deleteConfirmation": "هل أنت متأكد أنك تريد حذف هذا العنصر؟",
     "logout": "تسجيل الخروج",
-     "search": "بحث...",
-  "settings": "الإعدادات"
+    "search": "بحث...",
+    "settings": "الإعدادات"
   },
   "language": {
     "select": "اختيار اللغة",
     "current": "اللغة الحالية"
   },
-    "password": {
-      "changeButton": "تغيير كلمة المرور",
-      "modalTitle": "تغيير كلمة المرور",
-      "modalDescription": "هل أنت مستعد لتعيين كلمة مرور جديدة؟",
-      "successMessage": "تم تحديث كلمة المرور بنجاح!"
-    },
-    "sidebar": {
-      "home": "الرئيسية",
-      "users": "المستخدمين",
-      "rooms": "الغرف",
-      "ads": "الإعلانات",
-      "bookings": "الحجوزات",
-      "facilities": "المرافق",
-      "change_password": "تغيير كلمة المرور"
-    },
-    "status": {
-  "pending": "قيد الانتظار",
-  "completed": "مكتمل"
-},
-"roles": {
-  "user": "مستخدم",
-  "admin": "مشرف",
-  "users":"المستخدمين"
-},
-"totalUsers": "إجمالي المستخدمين"
-,
+  "password": {
+    "changeButton": "تغيير كلمة المرور",
+    "modalTitle": "تغيير كلمة المرور",
+    "modalDescription": "هل أنت مستعد لتعيين كلمة مرور جديدة؟",
+    "successMessage": "تم تحديث كلمة المرور بنجاح!"
+  },
+  "sidebar": {
+    "home": "الرئيسية",
+    "users": "المستخدمين",
+    "rooms": "الغرف",
+    "ads": "الإعلانات",
+    "bookings": "الحجوزات",
+    "facilities": "المرافق",
+    "change_password": "تغيير كلمة المرور"
+  },
+  "status": {
+    "pending": "قيد الانتظار",
+    "completed": "مكتمل"
+  },
+  "roles": {
+    "user": "مستخدم",
+    "admin": "مشرف",
+    "users": "المستخدمين"
+  },
+  "totalUsers": "إجمالي المستخدمين",
   "dashboard": {
     "rooms": "الغرف",
     "facilities": "المرافق",
     "ads": "الإعلانات"
-  
-},
+  },
   "notFound": {
     "oops": "عذرًا!",
     "pageNotFound": "الصفحة غير موجودة",
@@ -151,5 +149,168 @@
     "lightMode": "التحويل إلى الوضع الفاتح",
     "toggleLabel": "التبديل بين الوضعين"
   }
+  "landing_page": {
+    "Forget Busy Work,Start Next Vacation": "انسَ العمل المُرهِق، وابدأ إجازتك القادمة",
+    "We provide what you need to enjoy your holiday with family.Time to make another memorable moments.": "نوفر لكم كل ما تحتاجونه للاستمتاع بعطلتكم مع العائلة. حان الوقت للحظات لا تُنسى.",
+    "Start Date": "تاريخ البدء",
+    "End Date": " تاريخ الانتهاء",
+    "Capacity":"سعه",
+    "Houses with beauty backyard": "منازل ذات حديقة خلفية جميلة",
+    "Hotels with large living room": "فنادق ذات غرفة معيشة كبيرة",
+    "ads": "الإعلانات",
+    "Happy Family": "عائله سعيده",
+    "Amazing service and comfortable rooms!": "خدمة رائعة وغرف مريحة!",
+    "Salma, Software Engineer": "سلمى، مهندسة برمجيات",
+    "Unforgettable experience, really worth it.": "تجربة لا تنسى، تستحق ذلك حقًا.",
+    "Mohamed, Frontend Dev": "محمد، مطور واجهة المستخدم",
+    "What a great trip with my family and I should try again next time soon ...": "لقد كانت رحلة رائعة مع عائلتي ويجب أن أحاول مرة أخرى في المرة القادمة قريبًا ...",
+    "Angga, Product Designer": "أنجا، مصمم المنتجات",
+    "more":"اكثر"
+  },
 
+  "booking": {
+  "start_booking": "ابدأ الحجز",
+  "per_night": "لكل ليلة",
+  "off": "خصم",
+  "pick_date": "اختر تاريخًا",
+  "select_dates": "اختر التواريخ",
+  "select_dates_tooltip": "انقر لاختيار التواريخ",
+  "open_calendar": "افتح التقويم",
+  "guests": "النزلاء",
+  "increase_guest": "زيادة عدد النزلاء",
+  "decrease_guest": "تقليل عدد النزلاء",
+  "night": "ليلة",
+  "guest": "نزيل",
+  "you_will_pay": "سوف تدفع",
+  "per": "لكل",
+  "person": "شخص",
+  "continue": "متابعة الحجز",
+  "select_date_range": "يرجى اختيار نطاق زمني.",
+  "end_date_error": "يجب أن يكون تاريخ الانتهاء بعد تاريخ البدء.",
+  "success": "تم الحجز بنجاح!",
+  "error": "حدث خطأ أثناء إنشاء الحجز.",
+  "select_both_dates": "يرجى اختيار تاريخ البدء والانتهاء.",
+  "capacity_full": "السعة ممتلئة.",
+  "min_guests": "تحتاج إلى نزيل واحد على الأقل.",
+  "user_only": "فقط المستخدمين العاديين يمكنهم تنفيذ هذا الإجراء.",
+  "admin": "أنت مسؤول، لكن غير مصرح لك."
+},
+"room_details": {
+    "title": "تفاصيل الغرفة",
+    "paragraph1": "التكنو البسيط هو نوع فرعي من موسيقى التكنو يتميز بجمالية مبسطة تعتمد على التكرار والتطور الهادئ. يُعتقد أن التكنو البسيط تم تطويره في أوائل التسعينات على يد المنتجَين من ديترويت، روبرت هود ودانيال بيل.",
+    "paragraph2": "شهدت هذه الاتجاهات زوال موسيقى التكنو الممزوجة بروح السول التي كانت تُميز صوت ديترويت الأصلي. أشار روبرت هود إلى أنه هو ودانيال بيل أدركا أن هناك شيئًا مفقودًا من التكنو في عصر ما بعد الحفلات الصاخبة.",
+    "paragraph3": "التصميم هو خطة أو مواصفات لإنشاء كائن أو نظام، أو لتنفيذ نشاط أو عملية، أو نتيجة هذه الخطة في شكل نموذج أولي أو منتج أو عملية. الوكالة الوطنية للتصميم: تمكين سنغافورة من استخدام التصميم للنمو الاقتصادي وتحسين جودة الحياة.",
+    "what_this_place_offers": "ماذا يقدم هذا المكان",
+    "invalid_room_id": "معرف الغرفة غير صالح",
+    "fetch_error": "فشل في جلب تفاصيل الغرفة",
+    "loction": "الموقع"
+
+  },
+  "facilities": {
+    "wifi": "واي فاي",
+    "tv": "تلفاز",
+    "air conditioning": "تكييف هواء",
+    "ac": "تكييف",
+    "kitchen": "مطبخ",
+    "parking": "موقف سيارات",
+    "car parking": "موقف سيارات",
+    "security": "أمان",
+    "bathroom": "حمام",
+    "bathtub": "حوض استحمام",
+    "bed": "سرير",
+    "single bed": "سرير فردي",
+    "double bed": "سرير مزدوج",
+    "sofa": "أريكة",
+    "car": "سيارة",
+    "news": "أخبار"
+  },
+  "comment_form": {
+  "title": "أضف تعليقك",
+  "placeholder": "اطرح سؤالًا أو شارك أفكارك...",
+  "send": "إرسال",
+  "comment_required": "التعليق مطلوب",
+  "comment_min_length": "يجب ألا يقل التعليق عن 3 أحرف"
+},
+"commentSection": {
+  "title": "الأسئلة والتعليقات",
+  "addSuccess": "تمت إضافة التعليق بنجاح!",
+  "addFailed": "فشل في إضافة التعليق",
+  "updateSuccess": "تم تحديث التعليق بنجاح!",
+  "updateFailed": "فشل في تحديث التعليق",
+  "deleteSuccess": "تم حذف التعليق بنجاح!",
+  "deleteFailed": "فشل في حذف التعليق",
+  "loadFailed": "فشل في تحميل التعليقات",
+  "showMore": "عرض المزيد من التعليقات (متبقي {{count}})",
+  "showLess": "عرض أقل",
+  "noComments": "لا توجد تعليقات بعد. كن أول من يشارك برأيه!"
+},
+"time": {
+  "justNow": "الآن",
+  "minutesAgo": "منذ {{count}} دقيقة",
+  "hoursAgo": "منذ {{count}} ساعة",
+  "daysAgo": "منذ {{count}} يوم",
+  "daysAgo_plural": "منذ {{count}} أيام"
+},
+"comment_item":{
+  "actions": "الاجراءات",
+  "edit": "تعديل",
+  "delete": "حذف",
+  "save": "حفظ",
+  "cancel": "الغاء",
+  "seeMore": "اظهار المزيد",
+  "seeLess": "اظهار اقل"
+},
+"date_paker":{
+   "confirm_dates": "تاكيد التاريخات"
+},
+"comment_tab":{
+    "reviews": "التقييمات",
+  "comments": "التعليقات"
+},
+"reviewForm": {
+  "title": "شارك تجربتك",
+  "yourRating": "تقييمك",
+  "yourReview": "مراجعتك",
+  "placeholder": "شارك أفكارك حول هذا المكان...",
+  "submit": "إرسال المراجعة",
+  "submitting": "جارٍ إرسال المراجعة...",
+  "ratingRequired": "التقييم مطلوب",
+  "reviewRequired": "محتوى المراجعة مطلوب",
+  "reviewMinLength": "يجب أن تتكون المراجعة من 5 أحرف على الأقل"
+},
+"reviewItem": {
+  "anonymous": "مجهول",
+  "topReview": "أفضل مراجعة",
+  "readMore": "قراءة المزيد",
+  "showLess": "إظهار أقل"
+},
+"review": {
+  "successMessage": "تم إرسال مراجعتك بنجاح!",
+  "recentReviews": "أحدث المراجعات",
+  "seeMore": "رؤية المزيد من المراجعات",
+  "noReviewsTitle": "لا توجد مراجعات بعد",
+  "noReviewsSubtitle": "كن أول من يكتب مراجعة ويشارك تجربته."
+},
+
+
+  "explore": {
+    "link": "استكشاف",
+    "title": "استكشاف جميع الغرف",
+    "subtitle": "جميع الغرف",
+    "getMessage": "فشل في جلب جميع الغرف"
+  },
+  "favourite": {
+    "link": "المفضلة",
+    "title": "غرفك المفضلة",
+    "subtitle": "غرفك",
+    "getMessage": "فشل في جلب الغرف المفضلة",
+    "addSuccess": "تمت إضافة الغرفة إلى المفضلة بنجاح!",
+    "addFailed": "فشل في إضافة الغرفة إلى المفضلة",
+    "removeSuccess": "تمت إزالة الغرفة من المفضلة بنجاح!",
+    "removeFailed": "فشل في إزالة الغرفة من المفضلة",
+    "loginFirst": "يرجى تسجيل الدخول أولاً لإضافة هذه الغرفة إلى المفضلة"
+  }
 }
+
+
+

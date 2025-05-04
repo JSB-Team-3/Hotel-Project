@@ -88,6 +88,7 @@
     "logout": "Logout",
     "search": "Search...",
     "settings": "Settings"
+
   },
   "language": {
     "select": "Select Language",
@@ -151,4 +152,162 @@
     "lightMode": "Switch to Light Mode",
     "toggleLabel": "Toggle theme"
   }
+  "landing_page": {
+    "Forget Busy Work, Start Next Vacation": "Forget Busy Work, Start Next Vacation",
+    "We provide what you need to enjoy your holiday with family. Time to make another memorable moments.": "We provide what you need to enjoy your holiday with family. Time to make another memorable moments.",
+    "Start Date": "Start Date",
+    "End Date": "End Date",
+    "Capacity": "Capacity",
+    "Houses with beauty backyard": "Houses with beauty backyard",
+    "Hotels with large living room": "Hotels with large living room",
+    "ads": "ads",
+    "Happy Family": "Happy Family",
+    "Amazing service and comfortable rooms!": "Amazing service and comfortable rooms!",
+    "Salma, Software Engineer": "Salma, Software Engineer",
+    "Unforgettable experience, really worth it.": "Unforgettable experience, really worth it.",
+    "Mohamed, Frontend Dev": "Mohamed, Frontend Dev",
+    "What a great trip with my family and I should try again next time soon ...": "What a great trip with my family and I should try again next time soon ...",
+    "Angga, Product Designer": "Angga, Product Designer",
+    "more":"more"
+  },
+
+  "booking": {
+  "start_booking": "Start Booking",
+  "per_night": "per night",
+  "off": "Off",
+  "pick_date": "Pick a Date",
+  "select_dates": "Select Dates",
+  "select_dates_tooltip": "Click to select dates",
+  "open_calendar": "Open calendar",
+  "guests": "Guests",
+  "increase_guest": "Increase guest",
+  "decrease_guest": "Decrease guest",
+  "night": "night",
+  "guest": "guest",
+  "you_will_pay": "You will pay",
+  "per": "per",
+  "person": "person",
+  "continue": "Continue Booking",
+  "select_date_range": "Please select a date range.",
+  "end_date_error": "End date must be after start date.",
+  "success": "Booking successful!",
+  "error": "An error occurred while creating the booking.",
+  "select_both_dates": "Please select start and end dates.",
+  "capacity_full": "Capacity is full.",
+  "min_guests": "You need at least one guest.",
+  "user_only": "Only regular users can perform this action.",
+  "admin": "You are an admin, not authorized."
+},
+"room_details": {
+  "title": "Room Details",
+  "paragraph1": "Minimal techno is a minimalist subgenre of techno music. It is characterized by a stripped-down aesthetic that exploits the use of repetition and understated development. Minimal techno is thought to have been originally developed in the early 1990s by Detroit-based producers Robert Hood and Daniel Bell.",
+    "paragraph2": "Such trends saw the demise of the soul-infused techno that typified the original Detroit sound. Robert Hood has noted that he and Daniel Bell both realized something was missing from techno in the post-rave era.",
+    "paragraph3": "Design is a plan or specification for the construction of an object or system or for the implementation of an activity or process, or the result of that plan or specification in the form of a prototype, product or process. The national agency for design: enabling Singapore to use design for economic growth and to make lives better.",
+  "what_this_place_offers": "What this place offers",
+  "invalid_room_id": "Invalid room ID",
+  "fetch_error": "Failed to fetch room details",
+  "loction": "Location"
+},
+"facilities": {
+  "wifi": "Wi-Fi",
+  "tv": "TV",
+  "air conditioning": "Air Conditioning",
+  "ac": "AC",
+  "kitchen": "Kitchen",
+  "parking": "Parking",
+  "car parking": "Car Parking",
+  "security": "Security",
+  "bathroom": "Bathroom",
+  "bathtub": "Bathtub",
+  "bed": "Bed",
+  "single bed": "Single Bed",
+  "double bed": "Double Bed",
+  "sofa": "Sofa",
+  "car": "Car",
+  "news": "News"
+},
+"comment_form": {
+  "title": "Add Your Comment",
+  "placeholder": "Ask a question or share your thoughts...",
+  "send": "Send",
+  "comment_required": "Comment is required",
+  "comment_min_length": "Comment must be at least 3 characters"
+},
+"commentSection":{
+  "title": "Questions & Comments",
+  "addSuccess": "Comment added successfully!",
+  "addFailed": "Failed to add comment",
+  "updateSuccess": "Comment updated successfully!",
+  "updateFailed": "Failed to update comment",
+  "deleteSuccess": "Comment deleted successfully!",
+  "deleteFailed": "Failed to delete comment",
+  "loadFailed": "Failed to load comments",
+  "showMore": "Show More Comments ({{count}} remaining)",
+  "showLess": "Show Less",
+  "noComments": "No comments yet. Be the first to share your thoughts!"
+},
+"time": {
+  "justNow": "Just now",
+  "minutesAgo": "{{count}} min ago",
+  "hoursAgo": "{{count}} hr ago",
+  "daysAgo": "{{count}} day ago",
+  "daysAgo_plural": "{{count}} days ago"
+},
+"comment_item":{
+  "actions": "Actions",
+  "edit": "Edit",
+  "delete": "Delete",
+  "save": "Save",
+  "cancel": "Cancel",
+  "seeMore": "See more",
+  "seeLess": "See less"
+},
+"date_paker":{
+   "confirm_dates": "Confirm Dates"
+},
+"comment_tab":{
+    "reviews": "Reviews",
+  "comments": "Comments"
+},
+"reviewForm": {
+  "title": "Share Your Experience",
+  "yourRating": "Your Rating",
+  "yourReview": "Your Review",
+  "placeholder": "Share your thoughts about this place...",
+  "submit": "Submit Review",
+  "submitting": "Submitting...",
+  "ratingRequired": "Rating is required",
+  "reviewRequired": "Review message is required",
+  "reviewMinLength": "Review must be at least 5 characters"
+},
+"reviewItem": {
+  "anonymous": "Anonymous",
+  "topReview": "Top Review",
+  "readMore": "Read More",
+  "showLess": "Show Less"
+},
+"review": {
+  "successMessage": "Your review has been submitted successfully!",
+  "recentReviews": "Recent Reviews",
+  "seeMore": "See more reviews",
+  "noReviewsTitle": "No Reviews Yet",
+  "noReviewsSubtitle": "Be the first to write a review and share your experience."
+},
+"explore":{
+  "link": "Explore",
+  "title":"Explore ALL Rooms",
+  "subtitle":"All Rooms",
+  "getMessage":"failed to get all rooms"
+},
+"favourite":{
+  "link": "Favourites",
+  "title":"Your Favorites",
+  "subtitle":"Your Rooms",
+  "getMessage":"failed to get all favourite rooms",
+  "addSuccess": "Room added to favorites successfully!",
+  "addFailed": "Failed to add room to favorites",
+  "removeSuccess": "Room removed from favorites successfully!",
+  "removeFailed": "Failed to remove room from favorites",
+  "loginFirst": "Please login first to add this room to your favorites"
+}
 }

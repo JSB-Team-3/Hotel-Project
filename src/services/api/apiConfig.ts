@@ -56,6 +56,107 @@ export const ADMIN_ADS_URLS = {
 };
 // po0rtal
 
+
+
+
+// ========== PORTAL AUTH ==========
+
+// export const PORTAL_AUTH_URLS = {
+//   LOGIN: `portal/users/login`,
+//   REGISTER: `portal/users`,
+//   FORGET_PASSWORD: `portal/users/forgot-password`,
+//   CHANGE_PASSWORD: `portal/users/change-password`,
+//   RESET_PASSWORD: `portal/users/reset-password`,
+// };
+
+// ========== PORTAL USERS ==========
+
+export const PORTAL_USERS_URLS = {
+  GET_USER_PROFILE: (id: string) => `portal/users/${id}`,
+  GOOGLE_AUTH: `portal/users/auth/google`,
+  FACEBOOK_AUTH: `portal/users/auth/facebook`,
+};
+
+// ========== PORTAL ROOMS ==========
+
+export const PORTAL_ROOMS_URLS = {
+  GET_ALL_ROOMS_ALL: `portal/rooms/available`,
+  GET_ALL_ROOMS: (page: string, size: string) =>
+    `portal/rooms/available?page=${page}&size=${size}`,
+  GET_ROOM_DETAILS: (num: string) => `portal/rooms/${num}`,
+  FILTER_ROOMS: (
+    startDate: string,
+    endDate: string,
+    capacity: string,
+    page: string,
+    size: string
+  ) =>
+    `portal/rooms/available?startDate=${startDate}&endDate=${endDate}&capacity=${capacity}&page=${page}&size=${size}`,
+};
+
+// ========== PORTAL BOOKING ==========
+
+export const PORTAL_BOOKING_URLS = {
+  CREATE_BOOKING: `portal/booking`,
+  GET_BOOKING_DETAILS: (id: string) => `portal/booking/${id}`,
+  GET_MY_BOOKINGS: `portal/booking/my`,
+};
+
+// ========== PORTAL PAYMENT ==========
+
+export const PORTAL_PAYMENT_URLS = {
+  PAY_BOOKING: (bookingId: string) => `portal/booking/${bookingId}/pay`,
+};
+
+// ========== PORTAL ADS ==========
+
+export const PORTAL_ADS_URLS = {
+  GET_ADS: `portal/ads`,
+  GET_AD_DETAILS: (id: string) => `portal/ads/${id}`,
+};
+
+// ========== PORTAL ROOM COMMENTS ==========
+
+export const PORTAL_ROOM_COMMENTS_URLS = {
+  CREATE_COMMENT: `portal/room-comments`,
+};
+
+// ========== PORTAL ROOM REVIEWS ==========
+
+export const PORTAL_ROOM_REVIEWS_URLS = {
+  CREATE_REVIEW: `portal/room-reviews`,
+};
+
+// ========== PORTAL FAVORITE ROOMS ==========
+
+export const PORTAL_FAVORITE_ROOMS_URLS = {
+  GET_FAVORITE_ROOMS: `portal/favorite-rooms`,
+  DELETE_FAVORITE_ROOM: (id: string) => `portal/favorite-rooms/${id}`,
+}
+export const User_Room_URLS = {
+  GET_USER_ROOMS:(page: number, size: number, startDate: string, endDate: string)=>`/portal/rooms/available?page=${page}&size=${size}&startDate=${startDate}&endDate=${endDate}` ,
+  GET_USER_ROOM_DETAILS: (id: string) => `/portal/rooms/${id}`,
+};
+
+export const BOOKING_URLS = {
+GET_USER_BOOKINGS:`/portal/booking`,
+GET_ALL_MY_BOOKINGS:`/portal/booking/my`,
+PAY_BOOKING:(id:string,)=>`/portal/booking/${id}/pay`,
+CREATE_BOOKING:`/portal/booking`,
+};
+
+export const REVIEWS_URLS = {
+GET_USER_REVIEWS:(id:string,)=>`/portal/room-reviews/${id}`,
+CREATE_REVIEW:`/portal/room-reviews`,
+UPDATE_REVIEW:(id:string,)=>`/portal/room-reviews/${id}`,
+};
+
+export const COMMENTS_URLS = {
+  GET_USER_COMMENTS:(id:string,)=>`/portal/room-comments/${id}`,
+  CREATE_COMMENT:`/portal/room-comments`,
+  UPDATE_COMMENT:(id:string,)=>`/portal/room-comments/${id}`,
+  DELETE_COMMENT:(id:string,)=>`/portal/room-comments/${id}`,
+};
 export const Portal_ROOMS_URLS = {
   GET_ALL_PORTAL_ROOMS: `/portal/rooms/available`,
 };

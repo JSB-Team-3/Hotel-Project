@@ -20,15 +20,13 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ open }) => {
   const [userMenuAnchor, setUserMenuAnchor] = useState<null | HTMLElement>(null);
 
-  const { t, i18n } = useTranslation();
-  const dir = i18n.dir();
-
+  const { t} = useTranslation();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const isUserMenuOpen = Boolean(userMenuAnchor);
   const store = useSelector((state: RootState) => state.auth);
   const userName = store.user?.userName || 'User';
-  const userImage = store.userProfile.profileImage ? `${imgURL}${store.userProfile.profileImage}` : '/images/avatar.png';
+  const userImage = store?.userProfile?.profileImage ? `${imgURL}${store.userProfile.profileImage}` : '/images/avatar.png';
   const userEmail = store.userProfile.email || '';
 
   const handleUserMenuOpen = useCallback((e: React.MouseEvent<HTMLElement>) => {
@@ -78,7 +76,7 @@ const Navbar: React.FC<NavbarProps> = ({ open }) => {
             >
               <Avatar
                 alt="User"
-                src={`${imgURL}${store.userProfile.profileImage}`}
+                src={userImage}
                 sx={{
                   width: isMobile ? 28 : 32,
                   height: isMobile ? 28 : 32,

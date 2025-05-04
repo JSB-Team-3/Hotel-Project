@@ -21,6 +21,13 @@ export const getMuiTheme = (mode: PaletteMode, direction: 'ltr' | 'rtl' = 'ltr')
       },
       error: {
         main: tokens.errorMain
+      primary: { main: tokens.primary },
+      secondary: { main: tokens.secondary },
+      commentFormTitle: {
+        main: '#3f51b5' // fallback or custom
+      },
+      sendButtonHover: {
+        main: '#5c6bc0' // fallback or custom
       },
       background: {
         default: tokens.background.default,
@@ -35,6 +42,8 @@ export const getMuiTheme = (mode: PaletteMode, direction: 'ltr' | 'rtl' = 'ltr')
       blueMain: tokens.blueMain,
       liteMain: tokens.liteMain,
       primaryLight: tokens.primaryLightActive,
+      activeBreadcrumb: tokens.activeBreadcrumb,
+      inactiveBreadcrumb: tokens.inactiveBreadcrumb,
       darkblue: tokens.darkblue,
       errorMain: tokens.errorMain,
     },
