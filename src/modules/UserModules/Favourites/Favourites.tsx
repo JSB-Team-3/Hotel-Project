@@ -1,5 +1,4 @@
 import { Grid } from '@mui/material'
-import ThemeToggle from '../../../shared/ThemeToggle'
 import RoomCard from '../../../shared/RoomCard/RoomCard';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../../store/auth/AuthConfig';
@@ -47,7 +46,6 @@ export default function Favourites() {
     }, []);
     return (
         <>
-            <ThemeToggle />
             <PortalHeader title={t('favourite.title')} subTitle={t('favourite.subtitle')} links={breadCrumbsLinks} />
             <Grid container spacing={2} sx={{ padding: '0 20px', marginBottom: '20px' }}>
                 {loading || deleteLoading
