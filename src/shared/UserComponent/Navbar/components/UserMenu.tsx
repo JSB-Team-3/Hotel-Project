@@ -6,6 +6,8 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { useTranslation } from 'react-i18next';
 import { RootState } from '../../../../store/auth/AuthConfig';
 import { useAppSelector } from '../../../../hooks/Hook';
+import ChangePass from '../../../../modules/AdminModules/Authentication/ChangePass/ChangePass';
+import LockIcon from '@mui/icons-material/Lock';
 
 interface UserMenuProps {
   anchorEl: HTMLElement | null;
@@ -17,8 +19,10 @@ export const UserMenu = React.memo(({ anchorEl, handleClose, handleLogout }: Use
   const { userProfile } = useAppSelector((state: RootState) => state.auth);
   const theme = useTheme();
   const { t } = useTranslation();
+  const [openChange, setOpenChange] = React.useState(false);
   
   return (
+    <>
     <Menu
       anchorEl={anchorEl}
       open={Boolean(anchorEl)}
@@ -79,8 +83,16 @@ export const UserMenu = React.memo(({ anchorEl, handleClose, handleLogout }: Use
         <ListItemText primary={t('user-navbar.settings')} />
       </MenuItem>
       
+      <MenuItem 
+        onClick={() => {setOpenChange(true); handleClose();}} 
+        sx={{ '&:hover': { backgroundColor: alpha(theme.custom.blueMain, 0.05) } }}
+      >
+        <ListItemIcon>
+          <LockIcon fontSize="small" color="primary" />
+        </ListItemIcon>
+        <ListItemText primary={t('sidebar.change_password')} />
+      </MenuItem>
       <Divider />
-      
       <MenuItem 
         onClick={handleLogout} 
         sx={{ '&:hover': { backgroundColor: alpha(theme.palette.error.main, 0.05) } }}
@@ -91,5 +103,10 @@ export const UserMenu = React.memo(({ anchorEl, handleClose, handleLogout }: Use
         <ListItemText primary={t('user-navbar.logout')} sx={{ color: 'error.main' }} />
       </MenuItem>
     </Menu>
+    <ChangePass
+      open={openChange}
+      setOpen={() => setOpenChange(false)}/>
+    </>
+
   );
 });

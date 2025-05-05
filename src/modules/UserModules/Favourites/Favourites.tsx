@@ -49,7 +49,7 @@ export default function Favourites() {
         <>
             <ThemeToggle />
             <PortalHeader title={t('favourite.title')} subTitle={t('favourite.subtitle')} links={breadCrumbsLinks} />
-            <Grid container spacing={2}>
+            <Grid container spacing={2} sx={{ padding: '0 20px', marginBottom: '20px' }}>
                 {loading || deleteLoading
                     ? [1, 2, 3, 4].map((_, index) => (
                         <CardSkeleton key={index} />

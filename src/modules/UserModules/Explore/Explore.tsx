@@ -16,7 +16,7 @@ import { useTranslation } from 'react-i18next';
 export default function Explore() {
   const addToFav = useAddToFavorite();
   const [page, setPage] = useState<number>(1);
-  const [size] = useState<number>(6);
+  const [size] = useState<number>(9);
   const dispatch = useDispatch<AppDispatch>();
   const { loading, rooms, totalCount } = useSelector((state: RootState) => ({
     loading: state.rooms.loading,
