@@ -287,5 +287,20 @@
   "removeSuccess": "Room removed from favorites successfully!",
   "removeFailed": "Failed to remove room from favorites",
   "loginFirst": "Please login first to add this room to your favorites"
-}
+},
+
+  "checkout": {
+    "title": "Checkout",
+    "summary": "Booking Summary",
+    "roomDetails": "Room Details",
+    "totalPrice": "Total Price",
+    "paymentMethod": "Payment Method",
+    "creditCard": "Credit Card",
+    "paypal": "PayPal",
+    "confirmBooking": "Confirm Booking",
+    "bookingSuccess": "Booking successful!",
+    "bookingError": "An error occurred while processing your booking.",
+    "paymentSuccess": "Payment successful!",
+    "paymentError": "An error occurred while processing your payment."
+  }
 }
