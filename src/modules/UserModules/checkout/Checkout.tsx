@@ -2,7 +2,7 @@ import React, { useState, FormEvent } from 'react';
 import { useStripe, useElements, CardElement, AddressElement } from '@stripe/react-stripe-js';
 import { StripeCardElement } from '@stripe/stripe-js';
 import { useNavigate, useParams } from 'react-router-dom';
-import paymentImage from '../assets/images/payment.png';
+import paymentImage from '../../../assets/images/payment.png';
 import { 
   Box, 
   Typography, 
@@ -15,10 +15,10 @@ import {
   StepLabel,
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { privateAxiosInstance } from '../services/api/apiInstance';
-import { PORTAL_PAYMENT_URLS } from '../services/api/apiConfig';
+import { privateAxiosInstance } from '../../../services/api/apiInstance';
+import { PORTAL_PAYMENT_URLS } from '../../../services/api/apiConfig';
 import { useSnackbar } from "notistack";
-import RoomBreadcrumbs from '../shared/UserComponent/Breadcrumb/Breadcrumb';
+import RoomBreadcrumbs from '../../../shared/UserComponent/Breadcrumb/Breadcrumb';
 
 
 const Checkout = () => {
