@@ -8,11 +8,10 @@ import Ads from './modules/AdminModules/Ads/Ads';
 import AuthLayout from './shared/AuthLayout/AuthLayout';
 import FacilitiesList from './modules/AdminModules/Facilities/FacilitiesList/FacilitiesList';
 import Spiner from './shared/Spinner/Spiner';
-import Checkout from './checkout/checkout';
-import LoadingScreen from './shared/LoadingScreen/LoadingScreen';
 
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
+import Checkout from './checkout/Checkout';
 
 // تحميل Stripe
 const stripePromise = loadStripe('pk_test_51OTjURBQWp069pqTmqhKZHNNd3kMf9TTynJtLJQIJDOSYcGM7xz3DabzCzE7bTxvuYMY0IX96OHBjsysHEKIrwCK006Mu7mKw8');
@@ -35,7 +34,7 @@ const Explore = React.lazy(() => import('./modules/UserModules/Explore/Explore')
 const Favourites = React.lazy(() => import('./modules/UserModules/Favourites/Favourites'));
 const UserBookings = React.lazy(()=> import('./modules/UserModules/UserBookings/UserBookings'))
 
-
+const App: React.FC = () => { 
 const routes = createBrowserRouter([
   {
     path: "",
@@ -79,7 +78,7 @@ const routes = createBrowserRouter([
       {path:'explore',element:<Explore/>},
       {path:'favourites',element:<Favourites/>},
       {path:'user-booking',element:<UserBookings/>},
-      { path: "checkout", element: <Checkout /> }, // هنا يظهر بشكل صحيح بعد التغليف بـ <Elements>
+      { path: "checkout/:id", element: <Checkout /> }, // هنا يظهر بشكل صحيح بعد التغليف بـ <Elements>
     ]
     }
 ])

@@ -1,17 +1,19 @@
 import React, { useState, FormEvent } from 'react';
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 import { StripeCardElement } from '@stripe/stripe-js';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { Box, Typography, Button, Alert, CircularProgress, Paper } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import { privateAxiosInstance } from '../services/api/apiInstance';
+import { PORTAL_PAYMENT_URLS } from '../services/api/apiConfig';
 
 const Checkout: React.FC = () => {
   const { t } = useTranslation();
   const stripe = useStripe();
   const elements = useElements();
   const navigate = useNavigate();
-
+  const {id: bookingId} = useParams<{ id: string }>();
   const [isLoading, setIsLoading] = useState(false);
   const [paymentStatus, setPaymentStatus] = useState<'success' | 'error' | null>(null);
   const [errorMessage, setErrorMessage] = useState('');
@@ -19,27 +21,8 @@ const Checkout: React.FC = () => {
 
   const payBooking = async (bookingId: string, tokenId: string) => {
     try {
-      // عنوان API المحدد - تم تعيينه على https://upskilling-egypt.com:3000
-      const baseUrl = 'https://upskilling-egypt.com:3000';
-      const apiUrl = `${baseUrl}/api/bookings/pay`;
-      
-      console.log('إرسال طلب الدفع إلى:', apiUrl);
-      
-      const response = await axios.post(apiUrl, { 
-        bookingId, 
-        tokenId 
-      }, {
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        timeout: 10000 // مهلة 10 ثوانٍ
-      });
-      
-      if (!response.data || response.status !== 200) {
-        throw new Error(t('checkout.invalidResponse'));
-      }
-      
-      return response.data;
+      const response = privateAxiosInstance.post(PORTAL_PAYMENT_URLS.PAY_BOOKING(bookingId),{token:tokenId})
+    
     } catch (error: any) {
       console.error('تفاصيل خطأ الدفع:', error);
       if (error.response) {
@@ -87,7 +70,6 @@ const Checkout: React.FC = () => {
       console.log('Token created successfully:', token.id);
       
       // Then process the payment with the token
-      const bookingId = '6812404566a988e02212298';
       const paymentResult = await payBooking(bookingId, token.id);
       
       console.log('Payment successful:', paymentResult);
