@@ -1,40 +1,75 @@
 import React, { useState, FormEvent } from 'react';
-import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
+import { useStripe, useElements, CardElement, AddressElement } from '@stripe/react-stripe-js';
 import { StripeCardElement } from '@stripe/stripe-js';
 import { useNavigate, useParams } from 'react-router-dom';
-import axios from 'axios';
-import { Box, Typography, Button, Alert, CircularProgress, Paper } from '@mui/material';
+import paymentImage from '../assets/images/payment.png';
+import { 
+  Box, 
+  Typography, 
+  Button, 
+  Alert, 
+  CircularProgress, 
+  Paper,
+  Stepper,
+  Step,
+  StepLabel,
+} from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { privateAxiosInstance } from '../services/api/apiInstance';
 import { PORTAL_PAYMENT_URLS } from '../services/api/apiConfig';
+import { useSnackbar } from "notistack";
+import RoomBreadcrumbs from '../shared/UserComponent/Breadcrumb/Breadcrumb';
 
-const Checkout: React.FC = () => {
+
+const Checkout = () => {
+    const { enqueueSnackbar } = useSnackbar();
   const { t } = useTranslation();
   const stripe = useStripe();
   const elements = useElements();
   const navigate = useNavigate();
-  const {id: bookingId} = useParams<{ id: string }>();
+  const { id: bookingId } = useParams<{ id: string }>();
+  
+  const [activeStep, setActiveStep] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [paymentStatus, setPaymentStatus] = useState<'success' | 'error' | null>(null);
   const [errorMessage, setErrorMessage] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
+  const breadCrumbsLinks = [
+    { label: t('sidebar.home'), to: '/home' },
+    { label: t('checkout.title'), to: `/home/rooms/${bookingId}` },
+  ];
+  const steps = [
+    t('checkout.steps.address', 'Billing Address'),
+    t('checkout.steps.payment', 'Payment Details'),
+    t('checkout.steps.confirmation', 'Confirmation')
+  ];
+
+  const handleNext = () => {
+    setActiveStep((prevStep) => prevStep + 1);
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevStep) => prevStep - 1);
+  };
 
   const payBooking = async (bookingId: string, tokenId: string) => {
     try {
-      const response = privateAxiosInstance.post(PORTAL_PAYMENT_URLS.PAY_BOOKING(bookingId),{token:tokenId})
-    
-    } catch (error: any) {
-      console.error('تفاصيل خطأ الدفع:', error);
-      if (error.response) {
-        console.error('بيانات الاستجابة:', error.response.data);
-        console.error('حالة الاستجابة:', error.response.status);
+      const response = await privateAxiosInstance.post(
+        PORTAL_PAYMENT_URLS.PAY_BOOKING(bookingId),
+        { token: tokenId }
+      );
+      return response.data;
+    } catch (error: unknown) {
+      if (error instanceof Error && error.message) {
+        throw new Error(error.message);
+      } else {
+        throw new Error(t('checkout.paymentError'));
       }
-      throw new Error(error.response?.data?.message || t('checkout.paymentError'));
     }
   };
 
   const submitPaymentHandler = async (e: FormEvent) => {
     e.preventDefault();
+    
     if (!stripe || !elements) {
       setErrorMessage(t('checkout.stripeNotLoaded'));
       setPaymentStatus('error');
@@ -50,11 +85,9 @@ const Checkout: React.FC = () => {
 
     setIsLoading(true);
     setErrorMessage('');
-    setSuccessMessage('');
     setPaymentStatus(null);
 
     try {
-      // First, create the token
       const { token, error } = await stripe.createToken(cardElement as StripeCardElement);
       
       if (error) {
@@ -69,25 +102,68 @@ const Checkout: React.FC = () => {
 
       console.log('Token created successfully:', token.id);
       
-      // Then process the payment with the token
-      const paymentResult = await payBooking(bookingId, token.id);
+      if(bookingId){
+        const paymentResult = await payBooking(bookingId, token.id);
+        
+        console.log('Payment successful:', paymentResult);
+        
+        setPaymentStatus('success');
+      enqueueSnackbar(t("checkout.paymentSuccess"), { variant: "success" });
       
-      console.log('Payment successful:', paymentResult);
-      
-      setPaymentStatus('success');
-      setSuccessMessage(t('checkout.paymentSuccess'));
-
-      setTimeout(() => {
-        navigate('/booking-confirmation', {
-          state: { bookingReference: bookingId },
-        });
-      }, 2500);
-    } catch (err: any) {
-      console.error('Payment processing error:', err);
+    }
+      handleNext(); // Move to confirmation step
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        console.error('Payment processing error:', err);
+        setErrorMessage(err.message);
+      } else {
+        console.error('Unexpected error:', err);
+        setErrorMessage(t('checkout.paymentError'));
+      }
       setPaymentStatus('error');
-      setErrorMessage(err.message || t('checkout.paymentError'));
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const renderStepContent = (step: number) => {
+    switch (step) {
+      case 0:
+        return (
+          <Box sx={{ mb: 2}}>
+            <Typography variant="subtitle1" gutterBottom>
+              {t('checkout.cardAddress')}
+            </Typography>
+            <Paper variant="outlined" sx={{ p: 2 }}>
+              <AddressElement options={{mode: "billing"}} />
+            </Paper>
+          </Box>
+        );
+      case 1:
+        return (
+          <Box sx={{ mb: 2}}>
+            <Typography variant="subtitle1" gutterBottom>
+              {t('checkout.cardDetails')}
+            </Typography>
+            <Paper variant="outlined" sx={{ p: 2 }}>
+              <CardElement id="card-element" />
+            </Paper>
+          </Box>
+        );
+      case 2:
+        return (
+          <Box sx={{ textAlign: 'center', py: 4 }}>
+            <Typography variant="h6" gutterBottom>
+              {t('checkout.thankYou', 'Thank you for your payment!')}
+            </Typography>
+            <Typography variant="body1">
+              {t('checkout.processingOrder', 'Your order is being processed.')}
+            </Typography>
+            <Box component='img' src={paymentImage} sx={{width:"362px", height:"330px"} }/>
+          </Box>
+        );
+      default:
+        return <Box>Unknown step</Box>;
     }
   };
 
@@ -95,52 +171,78 @@ const Checkout: React.FC = () => {
     <Box
       component="section"
       sx={{
-        maxWidth: 500,
         mx: 'auto',
         mt: 4,
         p: 3,
-        borderRadius: 2,
-        boxShadow: 3,
-        bgcolor: '#fff',
+        
       }}
     >
-      <Typography variant="h5" gutterBottom>
-        {t('checkout.title')}
+    
+          <Typography variant="h5" gutterBottom sx={{ mb: 3, textAlign:"center" }}>
+        {t('checkout.Payment')}
       </Typography>
+      <RoomBreadcrumbs links={breadCrumbsLinks} />
 
-      {paymentStatus === 'success' && (
-        <Alert severity="success" sx={{ mb: 2 }}>
-          {successMessage}
-        </Alert>
-      )}
+      <Stepper activeStep={activeStep} alternativeLabel sx={{ mb: 4, maxWidth:'500px',m:"auto", direction:"ltr" }}>
+
+        {steps.map((label) => (
+          <Step key={label}>
+            <StepLabel>{label}</StepLabel>
+          </Step>
+        ))}
+      </Stepper>
 
       {paymentStatus === 'error' && (
         <Alert severity="error" sx={{ mb: 2 }}>
           {errorMessage}
         </Alert>
       )}
-
-      <form onSubmit={submitPaymentHandler}>
-        <Box sx={{ mb: 2 }}>
-          <Typography variant="subtitle1" gutterBottom>
-            {t('checkout.cardDetails')}
-          </Typography>
-          <Paper variant="outlined" sx={{ p: 2 }}>
-            <CardElement id="card-element" />
-          </Paper>
+  <Box sx={{maxWidth:'600px',m:'auto'}}>
+      <form onSubmit={activeStep === 1 ? submitPaymentHandler : undefined} >
+        {renderStepContent(activeStep)}
+        
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 3 }}>
+          <Button
+            variant="outlined"
+            disabled={activeStep === 0 || activeStep === 2}
+            onClick={handleBack}
+          >
+            {t('checkout.back', 'Back')}
+          </Button>
+          
+          {activeStep === 0 && (
+            <Button
+              variant="contained"
+              onClick={handleNext}
+            >
+              {t('checkout.next', 'Next')}
+            </Button>
+          )}
+          
+          {activeStep === 1 && (
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              disabled={!stripe || isLoading}
+            >
+              {isLoading ? 
+                <CircularProgress size={24} color="inherit" /> : 
+                t('checkout.confirmBooking', 'Confirm & Pay')}
+            </Button>
+          )}
+          
+          {activeStep === 2 && (
+            <Button
+              variant="contained"
+              onClick={() => navigate('/home/user-booking')}
+            >
+              {t('checkout.goToYourBooking', 'Go to your Booking')}
+            </Button>
+          )}
         </Box>
-
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          color="primary"
-          disabled={!stripe || isLoading}
-          sx={{ py: 1.5 }}
-        >
-          {isLoading ? <CircularProgress size={24} color="inherit" /> : t('checkout.confirmBooking')}
-        </Button>
       </form>
+    </Box>
     </Box>
   );
 };

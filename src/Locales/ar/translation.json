@@ -319,7 +319,25 @@
     "loginFirst": "يرجى تسجيل الدخول أولاً لإضافة هذه الغرفة إلى المفضلة"
   },
   "checkout": {
-    "title": "إتمام الحجز",
+    "title": "الدفع",
+    "steps": {
+      "address": "عنوان الفاتورة",
+      "payment": "تفاصيل الدفع",
+      "confirmation": "تأكيد"
+    },
+    "cardAddress": "عنوان الفاتورة",
+    "cardDetails": "تفاصيل البطاقة",
+    "thankYou": "شكرًا لك على الدفع!",
+    "processingOrder": "يتم الآن معالجة طلبك.",
+    "Payment": "الدفع",
+    "back": "السابق",
+    "next": "التالي",
+    "goToYourBooking": "اذهب إلى حجوزاتك",
+    "paymentSuccess": "تم الدفع بنجاح!",
+    "paymentError": "حدث خطأ أثناء معالجة الدفع.",
+    "stripeNotLoaded": "لم يتم تحميل Stripe بعد.",
+    "cardElementMissing": "عنصر البطاقة غير موجود.",
+    "tokenError": "فشل إنشاء الرمز. يرجى المحاولة مرة أخرى.",
     "subtitle": "تفاصيل الحجز",
     "roomDetails": "تفاصيل الغرفة",
     "bookingDetails": "تفاصيل الحجز",
@@ -329,7 +347,6 @@
     "paymentMethod": "طريقة الدفع",
     "creditCard": "بطاقة ائتمان",
     "debitCard": "بطاقة خصم",
-    "paymentSuccess": "تمت معالجة الدفع بنجاح!",
     "paymentFailed": "فشل في معالجة الدفع. يرجى المحاولة مرة أخرى.",
     "bookingSuccess": "تم حجز الغرفة بنجاح!",
     "bookingFailed": "فشل في إتمام الحجز. يرجى المحاولة مرة أخرى."
