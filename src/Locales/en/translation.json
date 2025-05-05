@@ -88,7 +88,6 @@
     "logout": "Logout",
     "search": "Search...",
     "settings": "Settings"
-
   },
   "language": {
     "select": "Select Language",
@@ -130,7 +129,6 @@
     "description": "We've searched everywhere but couldn't find the page you requested.",
     "returnToDashboard": "Return to Dashboard"
   },
-
   "user-navbar": {
     "home": "Home",
     "explore": "Explore",
@@ -168,232 +166,240 @@
     "Mohamed, Frontend Dev": "Mohamed, Frontend Dev",
     "What a great trip with my family and I should try again next time soon ...": "What a great trip with my family and I should try again next time soon ...",
     "Angga, Product Designer": "Angga, Product Designer",
-    "more":"more"
+    "more": "more"
   },
-
   "booking": {
-  "start_booking": "Start Booking",
-  "per_night": "per night",
-  "off": "Off",
-  "pick_date": "Pick a Date",
-  "select_dates": "Select Dates",
-  "select_dates_tooltip": "Click to select dates",
-  "open_calendar": "Open calendar",
-  "guests": "Guests",
-  "increase_guest": "Increase guest",
-  "decrease_guest": "Decrease guest",
-  "night": "night",
-  "guest": "guest",
-  "you_will_pay": "You will pay",
-  "per": "per",
-  "person": "person",
-  "continue": "Continue Booking",
-  "select_date_range": "Please select a date range.",
-  "end_date_error": "End date must be after start date.",
-  "success": "Booking successful!",
-  "error": "An error occurred while creating the booking.",
-  "select_both_dates": "Please select start and end dates.",
-  "capacity_full": "Capacity is full.",
-  "min_guests": "You need at least one guest.",
-  "user_only": "Only regular users can perform this action.",
-  "admin": "You are an admin, not authorized."
-},
-"room_details": {
-  "title": "Room Details",
-  "paragraph1": "Minimal techno is a minimalist subgenre of techno music. It is characterized by a stripped-down aesthetic that exploits the use of repetition and understated development. Minimal techno is thought to have been originally developed in the early 1990s by Detroit-based producers Robert Hood and Daniel Bell.",
+    "start_booking": "Start Booking",
+    "per_night": "per night",
+    "off": "Off",
+    "pick_date": "Pick a Date",
+    "select_dates": "Select Dates",
+    "select_dates_tooltip": "Click to select dates",
+    "open_calendar": "Open calendar",
+    "guests": "Guests",
+    "increase_guest": "Increase guest",
+    "decrease_guest": "Decrease guest",
+    "night": "night",
+    "guest": "guest",
+    "you_will_pay": "You will pay",
+    "per": "per",
+    "person": "person",
+    "continue": "Continue Booking",
+    "select_date_range": "Please select a date range.",
+    "end_date_error": "End date must be after start date.",
+    "success": "Booking successful!",
+    "error": "An error occurred while creating the booking.",
+    "select_both_dates": "Please select start and end dates.",
+    "capacity_full": "Capacity is full.",
+    "min_guests": "You need at least one guest.",
+    "user_only": "Only regular users can perform this action.",
+    "admin": "You are an admin, not authorized."
+  },
+  "room_details": {
+    "title": "Room Details",
+    "paragraph1": "Minimal techno is a minimalist subgenre of techno music. It is characterized by a stripped-down aesthetic that exploits the use of repetition and understated development. Minimal techno is thought to have been originally developed in the early 1990s by Detroit-based producers Robert Hood and Daniel Bell.",
     "paragraph2": "Such trends saw the demise of the soul-infused techno that typified the original Detroit sound. Robert Hood has noted that he and Daniel Bell both realized something was missing from techno in the post-rave era.",
     "paragraph3": "Design is a plan or specification for the construction of an object or system or for the implementation of an activity or process, or the result of that plan or specification in the form of a prototype, product or process. The national agency for design: enabling Singapore to use design for economic growth and to make lives better.",
-  "what_this_place_offers": "What this place offers",
-  "invalid_room_id": "Invalid room ID",
-  "fetch_error": "Failed to fetch room details",
-  "loction": "Location"
-},
-"facilities": {
-  "wifi": "Wi-Fi",
-  "tv": "TV",
-  "air conditioning": "Air Conditioning",
-  "ac": "AC",
-  "kitchen": "Kitchen",
-  "parking": "Parking",
-  "car parking": "Car Parking",
-  "security": "Security",
-  "bathroom": "Bathroom",
-  "bathtub": "Bathtub",
-  "bed": "Bed",
-  "single bed": "Single Bed",
-  "double bed": "Double Bed",
-  "sofa": "Sofa",
-  "car": "Car",
-  "news": "News",
-  "title": "Room Facilities",
-  "failedToGet": "Failed to get all facilities",
-  "failedToDelete": "Failed to delete facility",
-  "deleteSuccess": "Facility deleted successfully",
-  "name": "Facility Name",
-  "createdAt": "Created At",
-  "perPage": "Facilities per Page:",
-  "deleteConfirmation": "Delete This Facility: {{name}}"
-},
-"comment_form": {
-  "title": "Add Your Comment",
-  "placeholder": "Ask a question or share your thoughts...",
-  "send": "Send",
-  "comment_required": "Comment is required",
-  "comment_min_length": "Comment must be at least 3 characters"
-},
-"commentSection":{
-  "title": "Questions & Comments",
-  "addSuccess": "Comment added successfully!",
-  "addFailed": "Failed to add comment",
-  "updateSuccess": "Comment updated successfully!",
-  "updateFailed": "Failed to update comment",
-  "deleteSuccess": "Comment deleted successfully!",
-  "deleteFailed": "Failed to delete comment",
-  "loadFailed": "Failed to load comments",
-  "showMore": "Show More Comments ({{count}} remaining)",
-  "showLess": "Show Less",
-  "noComments": "No comments yet. Be the first to share your thoughts!"
-},
-"time": {
-  "justNow": "Just now",
-  "minutesAgo": "{{count}} min ago",
-  "hoursAgo": "{{count}} hr ago",
-  "daysAgo": "{{count}} day ago",
-  "daysAgo_plural": "{{count}} days ago"
-},
-"comment_item":{
-  "actions": "Actions",
-  "edit": "Edit",
-  "delete": "Delete",
-  "save": "Save",
-  "cancel": "Cancel",
-  "seeMore": "See more",
-  "seeLess": "See less"
-},
-"date_paker":{
-   "confirm_dates": "Confirm Dates"
-},
-"comment_tab":{
+    "what_this_place_offers": "What this place offers",
+    "invalid_room_id": "Invalid room ID",
+    "fetch_error": "Failed to fetch room details",
+    "loction": "Location"
+  },
+  "facilities": {
+    "wifi": "Wi-Fi",
+    "tv": "TV",
+    "air conditioning": "Air Conditioning",
+    "ac": "AC",
+    "kitchen": "Kitchen",
+    "parking": "Parking",
+    "car parking": "Car Parking",
+    "security": "Security",
+    "bathroom": "Bathroom",
+    "bathtub": "Bathtub",
+    "bed": "Bed",
+    "single bed": "Single Bed",
+    "double bed": "Double Bed",
+    "sofa": "Sofa",
+    "car": "Car",
+    "news": "News",
+    "title": "Room Facilities",
+    "failedToGet": "Failed to get all facilities",
+    "failedToDelete": "Failed to delete facility",
+    "deleteSuccess": "Facility deleted successfully",
+    "name": "Facility Name",
+    "createdAt": "Created At",
+    "perPage": "Facilities per Page:",
+    "deleteConfirmation": "Delete This Facility: {{name}}"
+  },
+  "comment_form": {
+    "title": "Add Your Comment",
+    "placeholder": "Ask a question or share your thoughts...",
+    "send": "Send",
+    "comment_required": "Comment is required",
+    "comment_min_length": "Comment must be at least 3 characters"
+  },
+  "commentSection": {
+    "title": "Questions & Comments",
+    "addSuccess": "Comment added successfully!",
+    "addFailed": "Failed to add comment",
+    "updateSuccess": "Comment updated successfully!",
+    "updateFailed": "Failed to update comment",
+    "deleteSuccess": "Comment deleted successfully!",
+    "deleteFailed": "Failed to delete comment",
+    "loadFailed": "Failed to load comments",
+    "showMore": "Show More Comments ({{count}} remaining)",
+    "showLess": "Show Less",
+    "noComments": "No comments yet. Be the first to share your thoughts!"
+  },
+  "time": {
+    "justNow": "Just now",
+    "minutesAgo": "{{count}} min ago",
+    "hoursAgo": "{{count}} hr ago",
+    "daysAgo": "{{count}} day ago",
+    "daysAgo_plural": "{{count}} days ago"
+  },
+  "comment_item": {
+    "actions": "Actions",
+    "edit": "Edit",
+    "delete": "Delete",
+    "save": "Save",
+    "cancel": "Cancel",
+    "seeMore": "See more",
+    "seeLess": "See less"
+  },
+  "date_paker": {
+    "confirm_dates": "Confirm Dates"
+  },
+  "comment_tab": {
     "reviews": "Reviews",
-  "comments": "Comments"
-},
-"reviewForm": {
-  "title": "Share Your Experience",
-  "yourRating": "Your Rating",
-  "yourReview": "Your Review",
-  "placeholder": "Share your thoughts about this place...",
-  "submit": "Submit Review",
-  "submitting": "Submitting...",
-  "ratingRequired": "Rating is required",
-  "reviewRequired": "Review message is required",
-  "reviewMinLength": "Review must be at least 5 characters"
-},
-"reviewItem": {
-  "anonymous": "Anonymous",
-  "topReview": "Top Review",
-  "readMore": "Read More",
-  "showLess": "Show Less"
-},
-"review": {
-  "successMessage": "Your review has been submitted successfully!",
-  "recentReviews": "Recent Reviews",
-  "seeMore": "See more reviews",
-  "noReviewsTitle": "No Reviews Yet",
-  "noReviewsSubtitle": "Be the first to write a review and share your experience."
-},
-
-"userBooking": {
-  "My Bookings": "My Bookings",
-  "View and manage all your current and past bookings in one place": "View and manage all your current and past bookings in one place",
-  "TOTAL BOOKINGS": "TOTAL BOOKINGS",
-  "bookings": "bookings",
-  "Last updated": "Last updated",
-  "COMPLETED": "COMPLETED",
-  "successful stays": "successful stays",
-  "Success rate": "Success rate",
-  "PENDING": "PENDING",
-  "upcoming stays": "upcoming stays",
-  "Of total bookings": "Of total bookings"
-},
-
-
-
-
-"explore":{
-  "link": "Explore",
-  "title":"Explore ALL Rooms",
-  "subtitle":"All Rooms",
-  "getMessage":"failed to get all rooms"
-},
-"favourite":{
-  "link": "Favourites",
-  "title":"Your Favorites",
-  "subtitle":"Your Rooms",
-  "getMessage":"failed to get all favourite rooms",
-  "addSuccess": "Room added to favorites successfully!",
-  "addFailed": "Failed to add room to favorites",
-  "removeSuccess": "Room removed from favorites successfully!",
-  "removeFailed": "Failed to remove room from favorites",
-  "loginFirst": "Please login first to add this room to your favorites"
-},
-
+    "comments": "Comments"
+  },
+  "reviewForm": {
+    "title": "Share Your Experience",
+    "yourRating": "Your Rating",
+    "yourReview": "Your Review",
+    "placeholder": "Share your thoughts about this place...",
+    "submit": "Submit Review",
+    "submitting": "Submitting...",
+    "ratingRequired": "Rating is required",
+    "reviewRequired": "Review message is required",
+    "reviewMinLength": "Review must be at least 5 characters"
+  },
+  "reviewItem": {
+    "anonymous": "Anonymous",
+    "topReview": "Top Review",
+    "readMore": "Read More",
+    "showLess": "Show Less"
+  },
+  "review": {
+    "successMessage": "Your review has been submitted successfully!",
+    "recentReviews": "Recent Reviews",
+    "seeMore": "See more reviews",
+    "noReviewsTitle": "No Reviews Yet",
+    "noReviewsSubtitle": "Be the first to write a review and share your experience."
+  },
+  "userBooking": {
+    "My Bookings": "My Bookings",
+    "View and manage all your current and past bookings in one place": "View and manage all your current and past bookings in one place",
+    "TOTAL BOOKINGS": "TOTAL BOOKINGS",
+    "bookings": "bookings",
+    "Last updated": "Last updated",
+    "COMPLETED": "COMPLETED",
+    "successful stays": "successful stays",
+    "Success rate": "Success rate",
+    "PENDING": "PENDING",
+    "upcoming stays": "upcoming stays",
+    "Of total bookings": "Of total bookings"
+  },
+  "explore": {
+    "link": "Explore",
+    "title": "Explore ALL Rooms",
+    "subtitle": "All Rooms",
+    "getMessage": "failed to get all rooms"
+  },
+  "favourite": {
+    "link": "Favourites",
+    "title": "Your Favorites",
+    "subtitle": "Your Rooms",
+    "getMessage": "failed to get all favourite rooms",
+    "addSuccess": "Room added to favorites successfully!",
+    "addFailed": "Failed to add room to favorites",
+    "removeSuccess": "Room removed from favorites successfully!",
+    "removeFailed": "Failed to remove room from favorites",
+    "loginFirst": "Please login first to add this room to your favorites"
+  },
   "checkout": {
     "title": "Checkout",
+    "steps": {
+      "address": "Billing Address",
+      "payment": "Payment Details",
+      "confirmation": "Confirmation"
+    },
+    "cardAddress": "Billing Address",
+    "cardDetails": "Card Details",
+    "thankYou": "Thank you for your payment!",
+    "processingOrder": "Your order is being processed.",
+    "Payment": "Payment",
+    "back": "Back",
+    "next": "Next",
+    "confirmBooking": "Confirm & Pay",
+    "goToYourBooking": "Go to your Booking",
+    "paymentSuccess": "Payment was successful!",
+    "paymentError": "An error occurred while processing the payment.",
+    "stripeNotLoaded": "Stripe has not been loaded yet.",
+    "cardElementMissing": "Card element is missing.",
+    "tokenError": "Token creation failed. Please try again.",
     "summary": "Booking Summary",
     "roomDetails": "Room Details",
     "totalPrice": "Total Price",
     "paymentMethod": "Payment Method",
     "creditCard": "Credit Card",
-    "paypal": "PayPal",
-    "confirmBooking": "Confirm Booking",
     "bookingSuccess": "Booking successful!",
-    "bookingError": "An error occurred while processing your booking.",
-    "paymentSuccess": "Payment successful!",
-    "paymentError": "An error occurred while processing your payment."
+    "paypal": "PayPal",
+    "bookingError": "An error occurred while processing your booking."
   },
-"room": {
-  "per_night": "per night",
-  "add_to_favorites": "Add to favorites",
-  "show_details": "Show details",
-   "explore": "Explore"
-},
-"footer": {
-  "for_beginners": "For Beginners",
-  "new_account": "New Account",
-  "start_booking": "Start Booking a Room",
-  "use_payments": "Use Payments",
-  "explore_us": "Explore Us",
-  "careers": "Our Careers",
-  "privacy": "Privacy",
-  "terms": "Terms & Conditions",
-  "connect_us": "Connect Us",
-  "email": "support@staycation.id",
-  "phone": "021 - 2208 - 1996",
-  "address": "Staycation, Kemang, Jakarta",
-  "kickstart": "We kickstart your lovely holiday",
-  "memorable": "instantly and memorable.",
-  "rights": "All rights reserved • Staycation"
-},
-
-"bookings": {
-  "title": "Bookings",
-  "perPage": "Bookings per page:",
-  "failedToGet": "Failed to get all bookings",
-  "deletedSuccess": "Booking deleted successfully",
-  "failedToDelete": "Failed to delete booking",
-  "noRoom": "No room assigned",
-  "unknown": "Unknown",
-  "deleteConfirmation": "Delete This Booking {{number}}",
-  "columns": {
-    "roomNumber": "Room Number",
-    "startDate": "Start Date",
-    "endDate": "End Date",
-    "totalPrice": "Total Price",
-    "userName": "User Name",
-    "status": "Status"
-  }
-},
-   "rooms": {
+  "room": {
+    "per_night": "per night",
+    "add_to_favorites": "Add to favorites",
+    "show_details": "Show details",
+    "explore": "Explore"
+  },
+  "footer": {
+    "for_beginners": "For Beginners",
+    "new_account": "New Account",
+    "start_booking": "Start Booking a Room",
+    "use_payments": "Use Payments",
+    "explore_us": "Explore Us",
+    "careers": "Our Careers",
+    "privacy": "Privacy",
+    "terms": "Terms & Conditions",
+    "connect_us": "Connect Us",
+    "email": "support@staycation.id",
+    "phone": "021 - 2208 - 1996",
+    "address": "Staycation, Kemang, Jakarta",
+    "kickstart": "We kickstart your lovely holiday",
+    "memorable": "instantly and memorable.",
+    "rights": "All rights reserved • Staycation"
+  },
+  "bookings": {
+    "title": "Bookings",
+    "perPage": "Bookings per page:",
+    "failedToGet": "Failed to get all bookings",
+    "deletedSuccess": "Booking deleted successfully",
+    "failedToDelete": "Failed to delete booking",
+    "noRoom": "No room assigned",
+    "unknown": "Unknown",
+    "deleteConfirmation": "Delete This Booking {{number}}",
+    "columns": {
+      "roomNumber": "Room Number",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "totalPrice": "Total Price",
+      "userName": "User Name",
+      "status": "Status"
+    }
+  },
+  "rooms": {
     "title": "Rooms",
     "perPage": "Rooms per Page:",
     "failedToGet": "Failed to get all rooms",
@@ -462,5 +468,4 @@
     "delete": "Delete",
     "actions": "Actions"
   }
-
 }
