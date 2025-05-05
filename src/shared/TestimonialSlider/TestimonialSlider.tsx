@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css, keyframes } from "@emotion/react";
 import React, { useState, useEffect, useCallback, useMemo } from "react";
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Grid, Typography, useTheme } from "@mui/material";
 import img2 from "../../assets/images/image 3 (1).png";
 import img3 from "../../assets/images/Family Photos in Rob Wallace Park.jpeg";
 import img4 from "../../assets/images/men outfit ideas friends pic.jpeg";
@@ -23,29 +23,29 @@ const fadeIn = keyframes`
 
 const ReviewSlider = () => {
   const { t } = useTranslation();
-
+  const theme= useTheme();
   const reviews = useMemo(
     () => [
       {
         id: 1,
-        name: t("Angga, Product Designer"),
+        name: t("landing_page.Angga, Product Designer"),
         text: t(
-          "What a great trip with my family and I should try again next time soon ..."
+          "landing_page.What a great trip with my family and I should try again next time soon ..."
         ),
         rating: 5,
         img: img2,
       },
       {
         id: 2,
-        name: t("Salma, Software Engineer"),
-        text: t("Amazing service and comfortable rooms!"),
+        name: t("landing_page.Salma, Software Engineer"),
+        text: t("landing_page.Amazing service and comfortable rooms!"),
         rating: 4,
         img: img3,
       },
       {
         id: 3,
-        name: t("Mohamed, Frontend Dev"),
-        text: t("Unforgettable experience, really worth it."),
+        name: t("landing_page.Mohamed, Frontend Dev"),
+        text: t("landing_page.Unforgettable experience, really worth it."),
         rating: 5,
         img: img4,
       },
@@ -89,7 +89,7 @@ const ReviewSlider = () => {
       mt={10}
       sx={{ width: "100%", maxWidth: "1200px", margin: "auto" }}
     >
-      <Grid item xs={12} md={6}>
+      <Grid  size={{ xs: 12, md: 6 }}>
         <Box
           component="img"
           src={img}
@@ -111,9 +111,7 @@ const ReviewSlider = () => {
       </Grid>
 
       <Grid
-        item
-        xs={12}
-        md={6}
+         size={{ xs: 12, md: 6 }}
         css={
           animate &&
           css`
@@ -133,7 +131,7 @@ const ReviewSlider = () => {
           fontWeight="600"
           mb={3}
         >
-          {t("Happy Family")}
+          {t("landing_page.Happy Family")}
         </Typography>
 
         <Grid container alignItems="center" spacing={1} mb={2}>
@@ -150,6 +148,32 @@ const ReviewSlider = () => {
         </Typography>
 
         <Grid container alignItems="center" spacing={2} mb={2}>
+      { theme.direction === "rtl"&&  <>  <ArrowForwardIcon
+            onClick={nextReview}
+            sx={{
+              fontSize: "2rem",
+              width: "3rem",
+              height: "3rem",
+              border: "4px solid blue",
+              color: "blue",
+              borderRadius: "50%",
+              cursor: "pointer",
+            }}
+          /> <ArrowBackIcon
+            onClick={prevReview}
+            sx={{
+              fontSize: "2rem",
+              width: "3rem",
+              height: "3rem",
+              border: "4px solid blue",
+              color: "blue",
+              borderRadius: "50%",
+              cursor: "pointer",
+            }}
+          />
+        </>}
+
+          { theme.direction === "ltr"&&  <> 
           <ArrowBackIcon
             onClick={prevReview}
             sx={{
@@ -173,7 +197,8 @@ const ReviewSlider = () => {
               borderRadius: "50%",
               cursor: "pointer",
             }}
-          />
+          /></>}
+
         </Grid>
       </Grid>
     </Grid>

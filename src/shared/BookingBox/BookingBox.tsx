@@ -5,6 +5,7 @@ import {
   IconButton,
   Button,
   InputAdornment,
+  useTheme,
 } from "@mui/material";
 import React, { useState } from "react";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
@@ -21,11 +22,13 @@ const BookingBox: React.FC = () => {
   const isFormValid = startDate !== "" && endDate !== "";
 
   const navigate = useNavigate();
+  const { t } = useTranslation();
+  const theme = useTheme();
 
   const calendarAdornment = (
     <Box
       sx={{
-        backgroundColor: "#152C5B",
+        backgroundColor: theme.palette.primary.dark,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -38,37 +41,29 @@ const BookingBox: React.FC = () => {
   );
 
   const handleExploreClick = () => {
-    navigate("/explor", {
+    navigate("/home/explore", {
       state: { capacity },
     });
   };
 
-  const { t } = useTranslation();
-
   return (
-    <Box
-      sx={{
-        width: "100%", 
-        margin: 0, 
-        marginTop:"3rem"
-      }}
-    >
+    <Box sx={{ width: "100%", mt: 6 }}>
       <Box
         sx={{
-          borderRadius: "16px",
-          backgroundColor: "#fff",
+          borderRadius: 2,
+          bgcolor: theme.palette.background.paper,
           width: "100%",
-          padding: 0, 
-          margin: 0, 
+          p: { xs: 2, sm: 3 },
           boxSizing: "border-box",
+          boxShadow: theme.shadows[2],
         }}
       >
         {/* Date Inputs */}
-        <Box display="flex" flexDirection={{ xs: "column", sm: "row" }} gap={2}>
+        <Box display="flex" flexDirection={{xs:"row" ,sm: "column", lg: "row" }} gap={2}>
           {/* Start Date */}
           <Box flex={1}>
-            <Typography mb={1} fontWeight="600" color="#152C5B">
-              {t("Start Date")}
+            <Typography mb={1} fontWeight="600" color="primary.main">
+              {t("landing_page.Start Date")}
             </Typography>
             <TextField
               fullWidth
@@ -83,15 +78,19 @@ const BookingBox: React.FC = () => {
                 ),
               }}
               sx={{
-                height: "56px",
-              }}
+
+                "& .MuiBox-root":{
+                  py:1,
+                  borderRadius:1
+                }
+              }}    
             />
           </Box>
 
           {/* End Date */}
           <Box flex={1}>
-            <Typography mb={1} fontWeight="600" color="#152C5B">
-              {t("End Date")}
+            <Typography mb={1} fontWeight="600" color="primary.main">
+              {t("landing_page.End Date")}
             </Typography>
             <TextField
               fullWidth
@@ -100,41 +99,44 @@ const BookingBox: React.FC = () => {
               onChange={(e) => setEndDate(e.target.value)}
               InputProps={{
                 startAdornment: (
-                  <InputAdornment position="start">
+                  <InputAdornment position="start" >
                     {calendarAdornment}
                   </InputAdornment>
                 ),
               }}
               sx={{
-                height: "56px",
-              }}
+                "& .MuiBox-root":{
+                  py:1,
+                  borderRadius:1
+                }
+              }}  
             />
           </Box>
         </Box>
 
         {/* Capacity */}
-        <Box mt={4} width="100%">
-          <Typography variant="subtitle1" mb={1}>
-            {t("Capacity")}
+        <Box mt={4}>
+          <Typography variant="subtitle1" mb={1} color="text.primary">
+            {t("landing_page.Capacity")}
           </Typography>
           <Box
             display="flex"
             alignItems="center"
-            width="100%"
             sx={{
-              backgroundColor: "#f5f5f5",
+              bgcolor: theme.palette.action.hover,
+              borderRadius: 1,
+              height: 40,
               overflow: "hidden",
-              height: "40px",
             }}
           >
             <IconButton
               sx={{
-                backgroundColor: "#f44336",
+                bgcolor: theme.palette.error.main,
                 color: "#fff",
-                borderRadius: "5px",
                 height: "100%",
                 px: 3,
-                "&:hover": { backgroundColor: "#d32f2f" },
+                borderRadius: 0,
+                "&:hover": { bgcolor: theme.palette.error.dark },
               }}
               onClick={() => capacity > 1 && setCapacity(capacity - 1)}
             >
@@ -147,12 +149,12 @@ const BookingBox: React.FC = () => {
 
             <IconButton
               sx={{
-                backgroundColor: "#4CAF50",
+                bgcolor: theme.palette.success.main,
                 color: "#fff",
-                borderRadius: "5px",
                 height: "100%",
                 px: 3,
-                "&:hover": { backgroundColor: "#388e3c" },
+                borderRadius: 0,
+                "&:hover": { bgcolor: theme.palette.success.dark },
               }}
               onClick={() => setCapacity(capacity + 1)}
             >
@@ -164,16 +166,17 @@ const BookingBox: React.FC = () => {
         {/* Explore Button */}
         <Box mt={4}>
           <Button
-            variant="contained"
             fullWidth
+            variant="contained"
             disabled={!isFormValid}
             sx={{
-              backgroundColor: "#152C5B",
-              "&:hover": { backgroundColor: "#0f1e3e" },
+              bgcolor: theme.palette.primary.main,
+              "&:hover": { bgcolor: theme.palette.primary.dark },
+              py: 1.5,
             }}
             onClick={handleExploreClick}
           >
-            Explore
+            {t("room.explore")}
           </Button>
         </Box>
       </Box>

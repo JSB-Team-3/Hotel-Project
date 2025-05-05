@@ -47,7 +47,7 @@ export const deleteAd = createAsyncThunk('ads/delete', async (id: string, thunkA
 export const updateAd = createAsyncThunk('ads/update', async (payload: updateAdPayload, thunkAPI) => {
   const { id, data } = payload;
   try {
-    const response = await privateAxiosInstance.post(ADMIN_ADS_URLS.UPDATE_AD(id), data);
+    const response = await privateAxiosInstance.put(ADMIN_ADS_URLS.UPDATE_AD(id), data);
     return response.data;
   } catch (err) {
     return thunkAPI.rejectWithValue(handleThunkError(err, 'Failed to update ad'));

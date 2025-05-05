@@ -18,11 +18,12 @@ export type TableActionProps = {
   handleDeleteItem: (itemId: string, itemNumber: string) => void;
   route: string;
   handleEditItem?: (item: RoomFacility) => void;
+  handleEditAd?: (item: Ad) => void;
 };
 
 export type TableDataProps = {
     loading: boolean;
-    items: (Room | Booking | User | RoomFacility)[]; // Define the array of items
+    items: (Room | Booking | User | RoomFacility |Ad)[]; // Define the array of items
     page: number;
     size: number;
     handleChangePage: (
@@ -36,13 +37,14 @@ export type TableDataProps = {
     rowsPerPageOptions: number[];
     labelRowsPerPage: string;
     columns: string[];
-    renderRow: (item: Room | Booking | User | RoomFacility, index: number) => React.ReactNode; // Correctly type renderRow
+    renderRow: (item: Room | Booking | User | RoomFacility |Ad, index: number) => React.ReactNode; // Correctly type renderRow
   };
   
 export type HeaderProps = {
     title:string,
     route:string,
     onAddClick?: () => void;
+    getAllAdsList?: () => Promise<void>;
 }
 
 
@@ -67,5 +69,11 @@ export type PaginationCompProps = {
   export type RoomCardProps = {
     room: Room;
     handleFav?: (roomId: string) => void;
+  } 
+  export type AdsDataProps = {
+    id:string;
+    open:boolean;
+  handleClose: (val: boolean) => void;
+  getAllAdsList: () => Promise<void>;
   }
 

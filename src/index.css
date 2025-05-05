@@ -29,3 +29,6 @@ body{
   width: 100%;
   max-width: 600px;
 }
+html[dir="rtl"] #table-actions-menu .MuiPopover-paper {
+  left: -78vw !important;
+}

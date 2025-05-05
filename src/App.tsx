@@ -9,6 +9,7 @@ import AuthLayout from './shared/AuthLayout/AuthLayout';
 import FacilitiesList from './modules/AdminModules/Facilities/FacilitiesList/FacilitiesList';
 import Spiner from './shared/Spinner/Spiner';
 import Checkout from './checkout/checkout';
+import LoadingScreen from './shared/LoadingScreen/LoadingScreen';
 
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
@@ -32,6 +33,8 @@ const UserLayout = React.lazy(() => import('./shared/UserLayout/UserLayout'));
 const RoomDetails = React.lazy(() => import('./modules/UserModules/RoomDetails/RoomDetails'));
 const Explore = React.lazy(() => import('./modules/UserModules/Explore/Explore'));
 const Favourites = React.lazy(() => import('./modules/UserModules/Favourites/Favourites'));
+const UserBookings = React.lazy(()=> import('./modules/UserModules/UserBookings/UserBookings'))
+
 
 const routes = createBrowserRouter([
   {
@@ -45,40 +48,44 @@ const routes = createBrowserRouter([
       { path: "forget-password", element: <ForgetPass /> },
       { path: "reset-password", element: <ResetPass /> },
       { path: "verify-account", element: <VerifyAccount /> },
-    ],
-  },
-  {
-    path: 'dashboard',
-    element: <ProtectedRoute><MasterLayout /></ProtectedRoute>,
-    errorElement: <NotFound />,
-    children: [
-      { index: true, element: <Dashboard /> },
-      { path: "rooms", element: <RoomsList /> },
-      { path: "room-data/new-Rooms", element: <RoomsData /> },
-      { path: "room-data/:roomId", element: <RoomsData /> },
-      { path: "bookings", element: <BookingList /> },
-      { path: "users", element: <UsersList /> },
-      { path: "ads", element: <Ads /> },
-      { path: "facilities", element: <FacilitiesList /> },
-    ],
-  },
-  {
-    path: "home",
-    element: <UserLayout />,
-    errorElement: <NotFound />,
-    children: [
-      { index: true, element: <LandingPage /> },
-      { path: "rooms/:roomId", element: <RoomDetails /> },
-      { path: "explore", element: <Explore /> },
-      { path: "favourites", element: <Favourites /> },
+    ]},
+    { path:'dashboard', element:  (
+      <ProtectedRoute allowedRoles={['admin']}>
+        <MasterLayout />
+      </ProtectedRoute>
+    ),
+      errorElement:<NotFound/>,
+      children:[
+        {index:true,element:<Dashboard/>},
+        {path:"rooms",element:<RoomsList/>},
+        {path:"room-data/new-Rooms",element:<RoomsData/>},
+        {path:"room-data/:roomId",element:<RoomsData/>},
+        {path:"bookings",element:<BookingList/>},
+        {path:"users",element:<UsersList/>},
+        {path:"ads",element:<Ads/>},
+        {path:"facilities",element:<FacilitiesList/>},
+      ]
+    },
+    {path:"home" ,
+      element: (
+        <ProtectedRoute allowedRoles={['user', 'admin']}>
+          <UserLayout />
+        </ProtectedRoute>
+      ),
+      errorElement:<NotFound/>,
+      children:[
+      {index:true,element:<LandingPage/>},
+      {path:"rooms/:roomId",element:<RoomDetails/>},
+      {path:'explore',element:<Explore/>},
+      {path:'favourites',element:<Favourites/>},
+      {path:'user-booking',element:<UserBookings/>},
       { path: "checkout", element: <Checkout /> }, // هنا يظهر بشكل صحيح بعد التغليف بـ <Elements>
-    ],
-  }
-]);
+    ]
+    }
+])
 
-const App: React.FC = () => {
   return (
-    <Elements stripe={stripePromise}>
+      <Elements stripe={stripePromise}>
       <Suspense fallback={<Spiner height='100vh' />}>
         <RouterProvider router={routes} />
       </Suspense>

@@ -13,20 +13,24 @@ import { getAllUsers } from '../../../store/users/usersThunk';
 import { User } from '../../../Interfaces/user.interface';
 import OptimizedImage from '../../../shared/OptimizedImage/OptimizedImage';
 import { RoomFacility } from '../../../Interfaces/facilities.interface';
+import { useTranslation } from 'react-i18next';
 
 export default function UsersList() {
-
   // Pagination state
   const [page, setPage] = useState<number>(0);
   const [size, setSize] = useState<number>(5);
+  
+  const { t } = useTranslation();
   const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch<AppDispatch>();
+  
   const { loading, users, totalCount } = useSelector((state: RootState) => ({
     loading: state.users.loading,
     users: state.users.users,
     totalCount: state.users.totalCount,
   }),
     shallowEqual);
+    
   const getAllUsersList = async () => {
     console.log('get');
 
@@ -36,15 +40,13 @@ export default function UsersList() {
         size: size
       })).unwrap();
     } catch (err) {
-      enqueueSnackbar(err as string || 'failed to get all Booking', { variant: 'error' });
+      enqueueSnackbar(err as string || t('users.failedToGet'), { variant: 'error' });
     }
   };
-
 
   const renderRow = (item: Room | Booking | User | RoomFacility) => {
     console.log('row');
     if ('userName' in item) {
-
       return (
         <StyledTableRow key={item?._id} >
           <StyledTableCell component="th" scope="row">
@@ -53,12 +55,13 @@ export default function UsersList() {
           <StyledTableCell>
             <Box>
               <OptimizedImage src={item.profileImage} width='60px' />
-            </Box>          </StyledTableCell>
+            </Box>
+          </StyledTableCell>
           <StyledTableCell>{item.email}</StyledTableCell>
           <StyledTableCell>{item.phoneNumber}</StyledTableCell>
           <StyledTableCell>{item.country}</StyledTableCell>
           <StyledTableCell>{item.role}</StyledTableCell>
-          <StyledTableCell>{item.verified ? 'Verified' : 'Not Verified'}</StyledTableCell>
+          <StyledTableCell>{item.verified ? t('users.verified') : t('users.notVerified')}</StyledTableCell>
           <StyledTableCell>
             <TableActions handleDeleteItem={noopDeleteHandler} item={item} route={''} />
           </StyledTableCell>
@@ -68,6 +71,7 @@ export default function UsersList() {
 
     return null;
   };
+  
   // Pagination handlers
   const handleChangePage = (
     _: React.MouseEvent<HTMLButtonElement> | null,
@@ -82,14 +86,17 @@ export default function UsersList() {
     setSize(parseInt(event.target.value, 10));
     setPage(0);
   };
+  
   const noopDeleteHandler = () => {
   };
+  
   useEffect(() => {
     getAllUsersList();
   }, [page, size]);
+  
   return (
     <Box>
-      <Header title='Users' route='' />
+      <Header title={t('users.title')} route='' />
       <DataTable
         loading={loading}
         items={users}
@@ -99,12 +106,19 @@ export default function UsersList() {
         handleChangeRowsPerPage={handleChangeRowsPerPage}
         totalCount={totalCount}
         rowsPerPageOptions={[5, 10, 25]}
-        labelRowsPerPage="booking per Page:"
-        columns={['Username', 'Image', 'Email ', 'Phone Number', 'country', 'Role', 'status', '']}
+        labelRowsPerPage={t('users.perPage')}
+        columns={[
+          t('users.columns.username'),
+          t('users.columns.image'),
+          t('users.columns.email'), 
+          t('users.columns.phoneNumber'),
+          t('users.columns.country'),
+          t('users.columns.role'),
+          t('users.columns.status'),
+          ''
+        ]}
         renderRow={renderRow}
       />
     </Box>
   );
 }
-
-
