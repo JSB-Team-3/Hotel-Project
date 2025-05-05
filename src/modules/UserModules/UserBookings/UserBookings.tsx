@@ -65,34 +65,13 @@ interface BookingResponse {
   };
 }
 
-// Styled components
-const StyledCard = styled(Card)(({ theme }) => ({
-  borderRadius: "16px",
-  boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
-  transition: "all 0.3s ease",
-  position: "relative",
-  overflow: "hidden",
-  border: "none",
-  "&:hover": {
-    transform: "translateY(-5px)",
-    boxShadow: "0 8px 25px rgba(0,0,0,0.12)",
-  },
-  "&::before": {
-    content: '""',
-    position: "absolute",
-    top: 0,
-    left: 0,
-    width: "4px",
-    height: "100%",
-    backgroundColor: theme.palette.primary.main,
-  },
-}));
+
 
 interface StyledChipProps {
   status: "pending" | "completed";
 }
 
-const StyledChip = styled(Chip)<StyledChipProps>(({ theme, status }) => ({
+const StyledChip = styled(Chip)<StyledChipProps>(({ status }) => ({
   fontWeight: "bold",
   backgroundColor: status === "completed" ? "#E7F6E7" : "#FFF8E6",
   color: status === "completed" ? "#2E7D32" : "#ED6C02",
@@ -238,7 +217,7 @@ const UserBookings: React.FC = () => {
           <Box sx={{ mb: 6 }}>
             <Grid container spacing={3} justifyContent="center">
               {/* Total Bookings Card */}
-              <Grid item xs={12} md={4}>
+              <Grid size={{ xs: 12, md: 4 }}>
                 <Card
                   sx={{
                     position: "relative",
@@ -377,7 +356,7 @@ const UserBookings: React.FC = () => {
               </Grid>
 
               {/* Completed Bookings Card */}
-              <Grid item xs={12} md={4}>
+              <Grid size={{ xs: 12, md: 4 }}>
                 <Card
                   sx={{
                     position: "relative",
@@ -532,7 +511,7 @@ const UserBookings: React.FC = () => {
               </Grid>
 
               {/* Pending Bookings Card */}
-              <Grid item xs={12} md={4}>
+              <Grid size={{ xs: 12, md: 4 }}>
                 <Card
                   sx={{
                     position: "relative",
@@ -780,6 +759,7 @@ const UserBookings: React.FC = () => {
                 status="pending"
                 icon={<PendingIcon />}
                 sx={{
+                  paddingInline:"5px",
                   cursor: "pointer",
                   "&:hover": {
                     boxShadow: "0 2px 8px rgba(237, 108, 2, 0.25)",
@@ -809,12 +789,12 @@ const UserBookings: React.FC = () => {
               <StyledChip
                 label={t("pay")}
                 status="completed"
-                icon={<PaymentsIcon />}
+                icon={<PaymentsIcon/>}
                 sx={{
+                  paddingInline:"5px",
                   cursor: "pointer",
-                  "&:hover": {
-                    boxShadow: "0 2px 8px rgba(115, 237, 2, 0.25)",
-                    transform: "translateY(-2px)",
+                  "& .MuiChip-icon": {
+                    color: "success.main" // Using theme color for better visibility in both light/dark modes
                   },
                   transition: "all 0.2s",
                 }}
