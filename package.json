@@ -20,6 +20,8 @@
     "@mui/system": "^7.0.2",
     "@mui/x-charts": "^8.0.0",
     "@reduxjs/toolkit": "^2.6.1",
+    "@stripe/react-stripe-js": "^3.7.0",
+    "@stripe/stripe-js": "^7.3.0",
     "@types/swiper": "^5.4.3",
     "axios": "^1.8.4",
     "date-fns": "^4.1.0",

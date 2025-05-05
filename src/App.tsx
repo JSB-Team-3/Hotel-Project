@@ -1,19 +1,23 @@
-
 import React, { Suspense } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import MasterLayout from './shared/MasterLayout/MasterLayout';
 import NotFound from './shared/NotFound/NotFound';
-import './App.css'
+import './App.css';
 import ProtectedRoute from './shared/ProtectedRoute/ProtectedRoute';
-import Ads from './modules/AdminModules/Ads/Ads'
+import Ads from './modules/AdminModules/Ads/Ads';
 import AuthLayout from './shared/AuthLayout/AuthLayout';
 import FacilitiesList from './modules/AdminModules/Facilities/FacilitiesList/FacilitiesList';
+import Spiner from './shared/Spinner/Spiner';
+import Checkout from './checkout/checkout';
 import LoadingScreen from './shared/LoadingScreen/LoadingScreen';
 
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 
+// تحميل Stripe
+const stripePromise = loadStripe('pk_test_51OTjURBQWp069pqTmqhKZHNNd3kMf9TTynJtLJQIJDOSYcGM7xz3DabzCzE7bTxvuYMY0IX96OHBjsysHEKIrwCK006Mu7mKw8');
 
-
-// Lazy-load your components
+// Lazy-load components
 const Login = React.lazy(() => import('./modules/AdminModules/Authentication/Login/Login'));
 const Register = React.lazy(() => import('./modules/AdminModules/Authentication/Register/Register'));
 const ForgetPass = React.lazy(() => import('./modules/AdminModules/Authentication/ForgetPass/ForgetPass'));
@@ -32,7 +36,6 @@ const Favourites = React.lazy(() => import('./modules/UserModules/Favourites/Fav
 const UserBookings = React.lazy(()=> import('./modules/UserModules/UserBookings/UserBookings'))
 
 
-const App: React.FC = () => { 
 const routes = createBrowserRouter([
   {
     path: "",
@@ -45,7 +48,6 @@ const routes = createBrowserRouter([
       { path: "forget-password", element: <ForgetPass /> },
       { path: "reset-password", element: <ResetPass /> },
       { path: "verify-account", element: <VerifyAccount /> },
-
     ]},
     { path:'dashboard', element:  (
       <ProtectedRoute allowedRoles={['admin']}>
@@ -77,14 +79,17 @@ const routes = createBrowserRouter([
       {path:'explore',element:<Explore/>},
       {path:'favourites',element:<Favourites/>},
       {path:'user-booking',element:<UserBookings/>},
+      { path: "checkout", element: <Checkout /> }, // هنا يظهر بشكل صحيح بعد التغليف بـ <Elements>
     ]
     }
 ])
 
   return (
-    <Suspense fallback={<LoadingScreen/>}>
-      <RouterProvider router={routes} />
-    </Suspense>
+      <Elements stripe={stripePromise}>
+      <Suspense fallback={<Spiner height='100vh' />}>
+        <RouterProvider router={routes} />
+      </Suspense>
+    </Elements>
   );
 };
 

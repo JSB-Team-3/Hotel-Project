@@ -318,6 +318,23 @@
     "removeFailed": "فشل في إزالة الغرفة من المفضلة",
     "loginFirst": "يرجى تسجيل الدخول أولاً لإضافة هذه الغرفة إلى المفضلة"
   },
+  "checkout": {
+    "title": "إتمام الحجز",
+    "subtitle": "تفاصيل الحجز",
+    "roomDetails": "تفاصيل الغرفة",
+    "bookingDetails": "تفاصيل الحجز",
+    "paymentDetails": "تفاصيل الدفع",
+    "totalPrice": "السعر الإجمالي",
+    "confirmBooking": "تأكيد الحجز",
+    "paymentMethod": "طريقة الدفع",
+    "creditCard": "بطاقة ائتمان",
+    "debitCard": "بطاقة خصم",
+    "paymentSuccess": "تمت معالجة الدفع بنجاح!",
+    "paymentFailed": "فشل في معالجة الدفع. يرجى المحاولة مرة أخرى.",
+    "bookingSuccess": "تم حجز الغرفة بنجاح!",
+    "bookingFailed": "فشل في إتمام الحجز. يرجى المحاولة مرة أخرى."
+  },
+
   "bookings": {
     "title": "الحجوزات",
     "perPage": "حجوزات في الصفحة:",
