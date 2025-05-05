@@ -134,7 +134,7 @@
   "user-navbar": {
     "home": "Home",
     "explore": "Explore",
-    "blog": "Blog",
+    "userBookings": "My Bookings",
     "help": "Help",
     "users": "Users",
     "settings": "Settings",
@@ -153,8 +153,8 @@
     "toggleLabel": "Toggle theme"
   },
   "landing_page": {
-    "Forget Busy Work, Start Next Vacation": "Forget Busy Work, Start Next Vacation",
-    "We provide what you need to enjoy your holiday with family. Time to make another memorable moments.": "We provide what you need to enjoy your holiday with family. Time to make another memorable moments.",
+    "Forget Busy Work,Start Next Vacation": "Forget Busy Work, Start Next Vacation",
+    "We provide what you need to enjoy your holiday with family.Time to make another memorable moments.": "we provide what you need to enjoy your holiday with family.Time to make another memorable moments.",
     "Start Date": "Start Date",
     "End Date": "End Date",
     "Capacity": "Capacity",

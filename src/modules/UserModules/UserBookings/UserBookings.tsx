@@ -16,8 +16,9 @@ import {
   Paper,
   TablePagination,
   CircularProgress,
-  Avatar,
+  Link,
 } from "@mui/material";
+import PaymentsIcon from '@mui/icons-material/Payments';
 import { styled } from "@mui/material/styles";
 import { baseURL, BOOKING_URLS } from "../../../services/api/apiConfig";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
@@ -28,11 +29,16 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import PendingIcon from "@mui/icons-material/Pending";
 import { privateAxiosInstance } from "../../../services/api/apiInstance";
 import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../../store/auth/AuthConfig";
+import { getRoomsDetails } from "../../../store/rooms/roomsThunk";
+import { useSnackbar } from "notistack";
+import { Link as RouterLink } from "react-router-dom";
 
 // Types
 interface Room {
   _id: string;
-  roomNumber?: string; // Make roomNumber optional as it might not be in the response
+  roomNumber: string;
 }
 
 interface Booking {
@@ -43,7 +49,7 @@ interface Booking {
   user: {
     _id: string;
   };
-  room: string | Room; // Can be either a string ID or a Room object
+  room: string;
   status: "pending" | "completed";
   createdAt: string;
   updatedAt: string;
@@ -109,10 +115,10 @@ const UserBookings: React.FC = () => {
   const [page, setPage] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(5);
   const [totalCount, setTotalCount] = useState<number>(0);
-  const [username, setUsername] = useState<string>(""); // Store the current user's username
   const [roomDetails, setRoomDetails] = useState<Record<string, Room>>({});
-
+  const dispatch = useDispatch<AppDispatch>();
   const { t } = useTranslation();
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     const fetchBookings = async (): Promise<void> => {
@@ -128,30 +134,30 @@ const UserBookings: React.FC = () => {
         );
 
         if (response.data.success) {
-          setBookings(response.data.data.myBooking); // Updated to match the API response
+          setBookings(response.data.data.myBooking);
           setTotalCount(response.data.data.totalCount);
 
           // Fetch room details for all bookings
           const roomIds = response.data.data.myBooking.map(
             (booking) => booking.room
           );
-          await fetchRoomDetails(roomIds);
-
-          // Fetch current user details if needed
-          fetchUserDetails();
+          
+          // Fetch room details for each unique room ID
+          const uniqueRoomIds = [...new Set(roomIds)];
+          for (const roomId of uniqueRoomIds) {
+            await fetchRoomDetails(roomId);
+          }
         }
       } catch (error) {
         console.error("Error fetching bookings:", error);
+        enqueueSnackbar(t("userBooking.error_fetching_bookings"), { variant: "error" });
       } finally {
         setLoading(false);
       }
     };
 
     fetchBookings();
-  }, [page, rowsPerPage]);
-
-
-  
+  }, [page, rowsPerPage, dispatch, enqueueSnackbar, t]);
 
   const handleChangePage = (_event: unknown, newPage: number): void => {
     setPage(newPage);
@@ -164,7 +170,23 @@ const UserBookings: React.FC = () => {
     setPage(0);
   };
 
-  
+  const fetchRoomDetails = async (roomId: string): Promise<void> => {
+    try {
+      const { data } = await dispatch(getRoomsDetails(roomId)).unwrap();
+      if (!data?.room) throw new Error(t("room_details.fetch_error"));
+      
+      // Update roomDetails state with the new room data
+      setRoomDetails(prevDetails => ({
+        ...prevDetails,
+        [roomId]: data.room
+      }));
+    } catch (error) {
+      enqueueSnackbar(
+        (error as Error).message || t("room_details.fetch_error"),
+        { variant: "error" }
+      );
+    }
+  };
 
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
@@ -191,13 +213,13 @@ const UserBookings: React.FC = () => {
             },
           }}
         >
-          {t("My Bookings")}
+          {t("userBooking.My Bookings")}
         </Typography>
         <Typography
           variant="subtitle1"
           sx={{ mt: 2, color: "text.secondary", maxWidth: "600px", mx: "auto" }}
         >
-          {t("View and manage all your current and past bookings in one place")}
+          {t("userBooking.View and manage all your current and past bookings in one place")}
         </Typography>
       </Box>
 
@@ -288,7 +310,7 @@ const UserBookings: React.FC = () => {
                           letterSpacing: "0.5px",
                         }}
                       >
-                        {t("TOTAL BOOKINGS")}
+                        {t("userBooking.TOTAL BOOKINGS")}
                       </Typography>
                     </Box>
 
@@ -318,7 +340,7 @@ const UserBookings: React.FC = () => {
                           fontWeight: 500,
                         }}
                       >
-                        {t("bookings")}
+                        {t("userBooking.bookings")}
                       </Typography>
                     </Box>
 
@@ -347,7 +369,7 @@ const UserBookings: React.FC = () => {
                             mr: 1,
                           }}
                         />
-                        {t("Last updated")}: {new Date().toLocaleDateString()}
+                        {t("userBooking.Last updated")}: {new Date().toLocaleDateString()}
                       </Typography>
                     </Box>
                   </CardContent>
@@ -414,7 +436,7 @@ const UserBookings: React.FC = () => {
                           letterSpacing: "0.5px",
                         }}
                       >
-                        {t("COMPLETED")}
+                        {t("userBooking.COMPLETED")}
                       </Typography>
                     </Box>
 
@@ -447,7 +469,7 @@ const UserBookings: React.FC = () => {
                           fontWeight: 500,
                         }}
                       >
-                        {t("successful stays")}
+                        {t("userBooking.successful stays")}
                       </Typography>
                     </Box>
 
@@ -483,7 +505,7 @@ const UserBookings: React.FC = () => {
                               mr: 1,
                             }}
                           />
-                          {t("Success rate")}
+                          {t("userBooking.Success rate")}
                         </Typography>
                         <Typography
                           variant="caption"
@@ -567,7 +589,7 @@ const UserBookings: React.FC = () => {
                           letterSpacing: "0.5px",
                         }}
                       >
-                        {t("PENDING")}
+                        {t("userBooking.PENDING")}
                       </Typography>
                     </Box>
 
@@ -600,7 +622,7 @@ const UserBookings: React.FC = () => {
                           fontWeight: 500,
                         }}
                       >
-                        {t("upcoming stays")}
+                        {t("userBooking.upcoming stays")}
                       </Typography>
                     </Box>
 
@@ -636,7 +658,7 @@ const UserBookings: React.FC = () => {
                               mr: 1,
                             }}
                           />
-                          {t("Of total bookings")}
+                          {t("userBooking.Of total bookings")}
                         </Typography>
                         <Typography
                           variant="caption"
@@ -673,93 +695,136 @@ const UserBookings: React.FC = () => {
               boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
             }}
           >
-            <Table>
-              <TableHead sx={{ bgcolor: "primary.main" }}>
-                <TableRow>
-                  <TableCell sx={{ color: "white", fontWeight: "bold" }}>
-                    {t("Total Price")}
-                  </TableCell>
-                  <TableCell sx={{ color: "white", fontWeight: "bold" }}>
-                    {t("Start Date")}
-                  </TableCell>
-                  <TableCell sx={{ color: "white", fontWeight: "bold" }}>
-                    {t("End Date")}
-                  </TableCell>
-                  <TableCell sx={{ color: "white", fontWeight: "bold" }}>
-                    {t("Status")}
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {bookings.map((booking) => (
-                  <TableRow
-                    key={booking._id}
-                    sx={{
-                      "&:hover": {
-                        bgcolor: "rgba(0, 0, 0, 0.04)",
-                      },
-                      transition: "background-color 0.3s",
-                    }}
-                  >
-                    <TableCell>
-                      <Box display="flex" alignItems="center">
-                        <AttachMoneyIcon
-                          sx={{ mr: 1, color: "success.main" }}
-                          fontSize="small"
-                        />
-                        <Typography
-                          variant="body1"
-                          sx={{
-                            fontWeight: "bold",
-                            color:
-                              booking.totalPrice > 0
-                                ? "success.main"
-                                : "text.secondary",
-                          }}
-                        >
-                            {booking.totalPrice.toLocaleString()} 
-                        </Typography>
-                      </Box>
-                    </TableCell>
-                    <TableCell>
-                      <Box display="flex" alignItems="center">
-                        <CalendarTodayIcon
-                          sx={{ mr: 1, color: "text.secondary" }}
-                          fontSize="small"
-                        />
-                        {formatDate(booking.startDate)}
-                      </Box>
-                    </TableCell>
-                    <TableCell>
-                      <Box display="flex" alignItems="center">
-                        <CalendarTodayIcon
-                          sx={{ mr: 1, color: "text.secondary" }}
-                          fontSize="small"
-                        />
-                        {formatDate(booking.endDate)}
-                      </Box>
-                    </TableCell>
-                    <TableCell>
-                      <StyledChip
-                        label={
-                          booking.status === "completed"
-                            ? t("Completed")
-                            : t("Pending")
-                        }
-                        status={booking.status}
-                        icon={
-                          booking.status === "completed" ? (
-                            <CheckCircleIcon />
-                          ) : (
-                            <PendingIcon />
-                          )
-                        }
-                      />
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+           <Table>
+  <TableHead sx={{ bgcolor: "primary.main" }}>
+    <TableRow>
+      <TableCell sx={{ color: "white", fontWeight: "bold", textAlign: "center" }}>
+        {t("Room")}
+      </TableCell>
+      <TableCell sx={{ color: "white", fontWeight: "bold", textAlign: "center" }}>
+        {t("Total Price")}
+      </TableCell>
+      <TableCell sx={{ color: "white", fontWeight: "bold", textAlign: "center" }}>
+        {t("Start Date")}
+      </TableCell>
+      <TableCell sx={{ color: "white", fontWeight: "bold", textAlign: "center" }}>
+        {t("End Date")}
+      </TableCell>
+      <TableCell sx={{ color: "white", fontWeight: "bold", textAlign: "center" }}>
+        {t("Status")}
+      </TableCell>
+      <TableCell sx={{ color: "white", fontWeight: "bold", textAlign: "center" }}>
+      </TableCell>
+    </TableRow>
+  </TableHead>
+  <TableBody>
+    {bookings.map((booking) => (
+      <TableRow
+        key={booking._id}
+        sx={{
+          "&:hover": {
+            bgcolor: "rgba(0, 0, 0, 0.04)",
+          },
+          transition: "background-color 0.3s",
+        }}
+      >
+        <TableCell sx={{ textAlign: "center" }}>
+          <Box display="flex" alignItems="center" justifyContent="center">
+            <MeetingRoomIcon
+              sx={{ mr: 1, color: "primary.main" }}
+              fontSize="small"
+            />
+            <Typography variant="body1">
+              {roomDetails[booking.room]?.roomNumber || t("Loading...")}
+            </Typography>
+          </Box>
+        </TableCell>
+        <TableCell sx={{ textAlign: "center" }}>
+          <Box display="flex" alignItems="center" justifyContent="center">
+            <AttachMoneyIcon
+              sx={{ mr: 1, color: "" }}
+              fontSize="small"
+            />
+            <Typography
+              variant="body1"
+              sx={{
+                fontWeight: "bold",
+              }}
+            >
+              {Math.abs(booking.totalPrice).toLocaleString()}
+            </Typography>
+          </Box>
+        </TableCell>
+        <TableCell sx={{ textAlign: "center" }}>
+          <Box display="flex" alignItems="center" justifyContent="center">
+            <CalendarTodayIcon
+              sx={{ mr: 1, color: "text.secondary" }}
+              fontSize="small"
+            />
+            {formatDate(booking.startDate)}
+          </Box>
+        </TableCell>
+        <TableCell sx={{ textAlign: "center" }}>
+          <Box display="flex" alignItems="center" justifyContent="center">
+            <CalendarTodayIcon
+              sx={{ mr: 1, color: "text.secondary" }}
+              fontSize="small"
+            />
+            {formatDate(booking.endDate)}
+          </Box>
+        </TableCell>
+        <TableCell sx={{ textAlign: "center" }}>
+          {booking.status === "pending" ? (
+              <StyledChip
+                label={t("Pending")}
+                status="pending"
+                icon={<PendingIcon />}
+                sx={{
+                  cursor: "pointer",
+                  "&:hover": {
+                    boxShadow: "0 2px 8px rgba(237, 108, 2, 0.25)",
+                    transform: "translateY(-2px)",
+                  },
+                  transition: "all 0.2s",
+                }}
+              />
+          ) : (
+            <StyledChip
+              label={t("Completed")}
+              status="completed"
+              icon={<CheckCircleIcon />}
+            />
+          )}
+        </TableCell>
+        <TableCell sx={{ textAlign: "center" }}>
+          {booking.status === "pending" &&
+            <Link
+              component={RouterLink}
+              to={`/home/checkout/${booking._id}`}
+              sx={{
+                textDecoration: "none",
+                display: "inline-block",
+              }}
+            >
+              <StyledChip
+                label={t("pay")}
+                status="completed"
+                icon={<PaymentsIcon />}
+                sx={{
+                  cursor: "pointer",
+                  "&:hover": {
+                    boxShadow: "0 2px 8px rgba(115, 237, 2, 0.25)",
+                    transform: "translateY(-2px)",
+                  },
+                  transition: "all 0.2s",
+                }}
+              />
+            </Link>}
+        </TableCell>
+      </TableRow>
+    ))}
+  </TableBody>
+</Table>
             <TablePagination
               rowsPerPageOptions={[5, 10, 25]}
               component="div"

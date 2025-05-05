@@ -25,8 +25,9 @@ const favouritesSlice = createSlice({
         state.addLoading = true;
         state.error = null;
       })
-      .addCase(addToFavourite.fulfilled, (state) => {
+      .addCase(addToFavourite.fulfilled, (state,action) => {
         state.addLoading = false;
+        state.totalCount=action.payload?.data?.favoriteRooms?.[0]?.rooms?.length 
       })
       .addCase(addToFavourite.rejected, (state, action) => {
         state.addLoading = false;
@@ -40,9 +41,8 @@ const favouritesSlice = createSlice({
       })
       .addCase(deleteFavourite.fulfilled, (state, action) => {
         state.deleteLoading = false;
-
         const deletedRoomId = action.meta.arg; // This will be the roomId you passed
-
+        state.totalCount=action.payload?.data?.favoriteRooms?.[0]?.rooms?.length 
         // Filter it out from state.rooms
         state.rooms = state.rooms.filter(room => room._id !== deletedRoomId);
 

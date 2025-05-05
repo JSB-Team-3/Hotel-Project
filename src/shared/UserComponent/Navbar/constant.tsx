@@ -15,8 +15,8 @@ export interface PageType {
 
 export const getPages = (t: TFunction): PageType[] => [
   { name: t('user-navbar.home'), path: '/home', icon: <HomeIcon />, translationKey: 'user-navbar.home' },
-  { name: t('user-navbar.explore'), path: '/explore', icon: <ExploreIcon />, translationKey: 'user-navbar.explore' },
-  { name: t('user-navbar.blog'), path: '/blog', icon: <ArticleIcon />, translationKey: 'user-navbar.blog' },
+  { name: t('user-navbar.explore'), path: '/home/explore', icon: <ExploreIcon />, translationKey: 'user-navbar.explore' },
+  { name: t('user-navbar.userBookings'), path: '/home/user-booking', icon: <ArticleIcon />, translationKey: 'user-navbar.userBookings' },
   { name: t('user-navbar.help'), path: '/help', icon: <HelpIcon />, translationKey: 'user-navbar.help' }
 ];
 

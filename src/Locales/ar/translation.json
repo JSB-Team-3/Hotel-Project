@@ -131,7 +131,7 @@
   "user-navbar": {
     "home": "الرئيسية",
     "explore": "استكشاف",
-    "blog": "مدونة",
+    "userBookings": "حجوزاتي",
     "help": "مساعدة",
     "users": "المستخدمين",
     "settings": "الإعدادات",
@@ -405,8 +405,6 @@
     "delete": "حذف",
     "actions": "إجراءات"
   },
-
-
 
 "userBooking":{
   "My Bookings": "حجوزاتي",

@@ -73,18 +73,17 @@ const LandingPage: React.FC = () => {
   const secondroomsGroup = rooms.slice(4, 8);
 
   return (
-    <Box sx={{ py: 6 }}>
-      <Container maxWidth="xl">
+    <Box>
         <Grid
           container
-          gap={isSmallScreen? 0:isMobile? 1:isLargeScreen?10:0}
+          // gap={isSmallScreen? 0:isMobile? 1:isLargeScreen?1:0}
           alignItems="center"
           direction={{ xs: "column-reverse", md: "row" }}
           justifyContent="center"
         >
           <Grid size={{ xs: 12,  md: 6 }}>
             <Typography
-              variant="h4"
+              variant="h3"
               gutterBottom
               fontSize={50}
               color={primaryColor}
@@ -92,7 +91,6 @@ const LandingPage: React.FC = () => {
               fontWeight={600}
               maxWidth="600px"
               sx={{mx:{xs:"auto",md:0}}}
-              textAlign="center"
             >
               {t("landing_page.Forget Busy Work,Start Next Vacation")}
             </Typography>
@@ -227,7 +225,6 @@ const LandingPage: React.FC = () => {
         ))}
 
         <TestimonialSlider />
-      </Container>
     </Box>
   );
 };
