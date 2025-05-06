@@ -5,7 +5,7 @@ import { Grid, Typography, Link } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import TextInput from '../../../../shared/Form/TextInput';
 import FormButton from '../../../../shared/Form/FormButton';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
 import { useValidation } from '../../../../hooks/useValidation';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
@@ -21,6 +21,8 @@ const Login = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { EMAIL_VALIDATION, PASSWORD_VALIDATION } = useValidation();
   const navigate = useNavigate();
+  const location=useLocation();
+  const redirectPath = location.state?.from || '/home';
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<LoginFormInputs>({ mode: 'onChange' });
 
 
@@ -35,7 +37,7 @@ const Login = () => {
       if (data.user.role === 'admin') {
         navigate('/dashboard');
       } else if (data.user.role === 'user') {
-        navigate('/');
+        navigate(redirectPath);
       }
     
   } catch (error) {

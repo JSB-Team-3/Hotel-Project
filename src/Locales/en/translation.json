@@ -193,7 +193,7 @@
     "select_both_dates": "Please select start and end dates.",
     "capacity_full": "Capacity is full.",
     "min_guests": "You need at least one guest.",
-    "user_only": "Only regular users can perform this action.",
+    "user_only": "You should login first.",
     "admin": "You are an admin, not authorized."
   },
   "room_details": {

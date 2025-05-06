@@ -10,7 +10,7 @@ import { createBooking } from '../../../store/booking/bookingsThunk';
 import { useAppDispatch, useAppSelector } from '../../../hooks/Hook';
 import { RootState } from '../../../store/auth/AuthConfig';
 import { enqueueSnackbar } from 'notistack';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@mui/material/styles';
 
@@ -32,7 +32,6 @@ const BookingCard: React.FC<BookingCardProps> = ({
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const theme = useTheme();  
- 
   const discountedPrice = useMemo(() => price * (1 - discount / 100), [price, discount]);
 
   const { totalCost, nights } = useMemo(() => {
@@ -54,11 +53,9 @@ const BookingCard: React.FC<BookingCardProps> = ({
   }, [dates, discountedPrice, personCount]);
 
   const handleBooking = useCallback(async () => {
-    if(user?.role !== 'user') {
+    if(!user) {
       enqueueSnackbar(t('booking.user_only'), { variant: 'warning' });
-      return
-    }else if(user?.role === 'admin') {
-      enqueueSnackbar(t('booking.admin'), { variant: 'warning' });
+      navigate('/auth/login', { state: { from: location.pathname }, replace: true });
       return
     }
     if (!dates.startDate || !dates.endDate) {
@@ -87,7 +84,7 @@ const BookingCard: React.FC<BookingCardProps> = ({
       console.error('Booking error:', error);
       enqueueSnackbar(t('booking.error'), { variant: 'error' });
     }
-  }, [dates, roomId, totalCost, dispatch, navigate, t,user?.role]);
+  }, [dates, roomId, totalCost, dispatch, navigate, t,user]);
 
   const handleConfirmDates = useCallback(() => {
     if (dates.startDate && dates.endDate) {
@@ -232,7 +229,7 @@ const BookingCard: React.FC<BookingCardProps> = ({
           <Typography variant="body2" color="text.secondary">
             {t('booking.you_will_pay')}
           </Typography>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center',gap:1 }}>
             {discount > 0 && (
               <Typography variant="body2" sx={{ mr: 1 }}>
                 <Box component="del" sx={{ color: '#9ca3af' }}>
@@ -240,8 +237,8 @@ const BookingCard: React.FC<BookingCardProps> = ({
                 </Box>
               </Typography>
             )}
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <Typography variant="body2" sx={{ color: theme.palette.primary.main, fontWeight: 'bold' }}>${totalCost}</Typography>
+            <Box sx={{ display: 'flex', alignItems: 'center',me: 1 }}>
+              <Typography variant="body2" sx={{ color: theme.palette.primary.main, fontWeight: 'bold' }}>${totalCost.toFixed(2)}</Typography>
               <Typography variant="body2" color="text.secondary" sx={{ mx: 1 }}>
                 {t('booking.per')}
               </Typography>
