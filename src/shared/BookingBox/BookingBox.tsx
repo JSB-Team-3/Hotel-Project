@@ -59,7 +59,7 @@ const BookingBox: React.FC = () => {
         }}
       >
         {/* Date Inputs */}
-        <Box display="flex" flexDirection={{xs:"row" ,sm: "column", lg: "row" }} gap={2}>
+        <Box display="flex" flexDirection={{xs:"column" ,sm: "column", lg: "row" }} gap={2}>
           {/* Start Date */}
           <Box flex={1}>
             <Typography mb={1} fontWeight="600" color="primary.main">
