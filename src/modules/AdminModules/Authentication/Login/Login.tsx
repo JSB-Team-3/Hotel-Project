@@ -85,7 +85,7 @@ return (
       </Grid>
       <Box sx={{textAlign:'end'}}>
         <Link component={RouterLink} to="/auth/forget-password" underline="hover" color="#4D4D4D">
-        {t('forget_password.label')}?
+        {t('forget_password.title')}
       </Link>
       </Box>
 
