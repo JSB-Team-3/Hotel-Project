@@ -22,7 +22,7 @@ const Login = () => {
   const { EMAIL_VALIDATION, PASSWORD_VALIDATION } = useValidation();
   const navigate = useNavigate();
   const location=useLocation();
-  const redirectPath = location.state?.from || '/home';
+  const redirectPath = location.state?.from || '/';
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<LoginFormInputs>({ mode: 'onChange' });
 
 
