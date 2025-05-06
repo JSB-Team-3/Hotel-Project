@@ -28,13 +28,22 @@ const Login = () => {
 
   const onSubmit = async (formData: LoginFormInputs) => {
     try {
-      const { data } = await dispatch(loginThunk(formData)).unwrap();
-
-      await dispatch(getUserProfile(data?.user?._id)).unwrap();
+   
+          // First, login and get the user data
+           const { data } = await dispatch(loginThunk(formData)).unwrap();
+      
+           if (!data?.user?._id) {
+             throw new Error(t('login.user_not_found'));
+           }
+           
+           // Then fetch the user profile
+           const profileData = await dispatch(getUserProfile(data?.user?._id)).unwrap();
+           console.log(profileData,"profileData");
+           
 
       enqueueSnackbar(t('login.success_message'), { variant: 'success' })
       // user just logged in
-      if (data.user.role === 'admin') {
+      if ( profileData?.data?.user.role === 'admin') {
         navigate('/dashboard');
       } else if (data.user.role === 'user') {
         navigate(redirectPath);

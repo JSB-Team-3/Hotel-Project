@@ -101,8 +101,8 @@ const UserBookings: React.FC = () => {
   const { t } = useTranslation();
   const { enqueueSnackbar } = useSnackbar();
   const breadCrumbsLinks = [
-    { label: t('sidebar.home'), to: '/home' },
-    { label: t('userBooking.My Bookings'), to: `/home/user-booking` },
+    { label: t('sidebar.home'), to: '/' },
+    { label: t('userBooking.My Bookings'), to: `/user-booking` },
   ];
 
   useEffect(() => {

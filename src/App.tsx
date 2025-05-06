@@ -71,7 +71,7 @@ const routes = createBrowserRouter([
       {path:'explore',element:<Explore/>},
       {path:'favourites',element:<Favourites/>},
       {path:'user-booking',element:<UserBookings/>},
-      { path: "checkout/:id", element: <StripeElement /> }, // هنا يظهر بشكل صحيح بعد التغليف بـ <Elements>
+      { path: "checkout/:id", element: <StripeElement /> },
     ]
     }
 ])

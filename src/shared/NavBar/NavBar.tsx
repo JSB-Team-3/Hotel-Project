@@ -12,6 +12,9 @@ import { RootState } from '../../store/auth/AuthConfig';
 import { imgURL } from '../../services/api/apiConfig';
 import UserMenuItem from './UserMenuItem';  
 import { StyledAppBar } from './ StyledAppBar';
+import { useNavigate } from 'react-router-dom';
+import { logout } from '../../store/auth/AuthSlice';
+import { useAppDispatch } from '../../hooks/Hook';
 
 interface NavbarProps {
   open: boolean;
@@ -27,7 +30,9 @@ const Navbar: React.FC<NavbarProps> = ({ open }) => {
   const store = useSelector((state: RootState) => state.auth);
   const userName = store.user?.userName || 'User';
   const userImage = store?.userProfile?.profileImage ? `${imgURL}${store.userProfile.profileImage}` : '/images/avatar.png';
-  const userEmail = store.userProfile.email || '';
+  const userEmail = store.userProfile?.email || '';
+  const navigate=useNavigate();
+  const dispatch=useAppDispatch();
 
   const handleUserMenuOpen = useCallback((e: React.MouseEvent<HTMLElement>) => {
     setUserMenuAnchor(e.currentTarget);
@@ -41,10 +46,14 @@ const Navbar: React.FC<NavbarProps> = ({ open }) => {
     handleUserMenuClose();
   }, [handleUserMenuClose]);
 
-  const handleLogout = useCallback(() => {
-    handleUserMenuClose();
-  }, [handleUserMenuClose]);
+  
 
+  const handleLogout = React.useCallback(() => {
+    handleUserMenuClose();
+    navigate('/');
+    dispatch(logout());
+  }, [ handleUserMenuClose, navigate, dispatch])
+ 
   return (
     <StyledAppBar position="fixed" open={open} elevation={0}>
       <Toolbar sx={{ justifyContent: 'space-between', p: 1 }}>
@@ -86,11 +95,10 @@ const Navbar: React.FC<NavbarProps> = ({ open }) => {
               />
               <Typography
                 variant="body1"
-                sx={{ fontWeight: 500, color: 'text.primary', userSelect: 'none' }}
-              >
-                {t('welcome ')} <Typography component="span" sx={{ fontWeight: 700 }}>{userName}</Typography>
+                sx={{ fontWeight: 500,direction:"ltr" ,color: 'text.primary', userSelect: 'none',display:"flex",gap:4} }
+              >  <Typography component="span" sx={{display:{xs:"none",sm:"block"}}}>{t('welcome ')}</Typography>
+                 <Typography component="span" sx={{ fontWeight: 700 }}>{userName}</Typography>
               </Typography>
-              {/* Added angle icon that changes based on menu state */}
               {isUserMenuOpen ? (
                 <KeyboardArrowUpIcon fontSize="small" sx={{ color: 'text.secondary' }} />
               ) : (

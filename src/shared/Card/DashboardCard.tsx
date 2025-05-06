@@ -4,6 +4,8 @@ import {
   CardContent,
   Typography,
   Box,
+  useMediaQuery,
+  useTheme,
 
 } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -12,7 +14,8 @@ import { useTranslation } from 'react-i18next';
 
 const DashboardCard: React.FC<DashbordCardProps> = ({ count, label, icon }) => {
   const { t } = useTranslation();
-
+  const theme=useTheme();
+  const isMobile=useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <Card
       sx={{
@@ -20,7 +23,7 @@ const DashboardCard: React.FC<DashbordCardProps> = ({ count, label, icon }) => {
         alignItems: 'center',
         justifyContent: 'space-between',
         p: 2,
-        width: 300,
+        width:isMobile?220: 300,
         height: 130,
         borderRadius: 2,
         bgcolor: '#121212',
