@@ -19,7 +19,7 @@ import {
   Link,
 } from "@mui/material";
 import PaymentsIcon from '@mui/icons-material/Payments';
-import { styled } from "@mui/material/styles";
+import { styled, useTheme } from "@mui/material/styles";
 import { baseURL, BOOKING_URLS } from "../../../services/api/apiConfig";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
@@ -90,6 +90,7 @@ const formatDate = (dateString: string): string => {
 
 // Main component
 const UserBookings: React.FC = () => {
+           const theme = useTheme();
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [page, setPage] = useState<number>(0);
@@ -231,8 +232,6 @@ const UserBookings: React.FC = () => {
                     boxShadow: "0 10px 30px rgba(0, 0, 0, 0.08)",
                     transition:
                       "all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1)",
-                    background:
-                      "linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)",
                     "&:hover": {
                       transform: "translateY(-8px)",
                       boxShadow: "0 15px 35px rgba(0, 0, 0, 0.12)",
@@ -267,7 +266,7 @@ const UserBookings: React.FC = () => {
                     }}
                   />
 
-                  <CardContent sx={{ p: 3, position: "relative", zIndex: 2 }}>
+                  <CardContent sx={{ p: 3, position: "relative", zIndex: 2, backgroundColor:theme.custom.primaryCard}}>
                     <Box display="flex" alignItems="center" mb={3}>
                       <Box
                         sx={{
@@ -370,8 +369,6 @@ const UserBookings: React.FC = () => {
                     boxShadow: "0 10px 30px rgba(46, 125, 50, 0.08)",
                     transition:
                       "all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1)",
-                    background:
-                      "linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)",
                     "&:hover": {
                       transform: "translateY(-8px)",
                       boxShadow: "0 15px 35px rgba(46, 125, 50, 0.12)",
@@ -386,14 +383,14 @@ const UserBookings: React.FC = () => {
                       right: -20,
                       width: 120,
                       height: 120,
-                      borderRadius: "50%",
                       background:
-                        "linear-gradient(45deg, rgba(46, 125, 50, 0.1) 0%, rgba(46, 125, 50, 0.05) 100%)",
+                        "linear-gradient(45deg, rgba(135, 237, 2, 0.1) 0%, rgba(68, 237, 2, 0.05) 100%)",
+                      borderRadius: "50%",
                       zIndex: 1,
                     }}
                   />
 
-                  <CardContent sx={{ p: 3, position: "relative", zIndex: 2 }}>
+                  <CardContent sx={{ p: 3, position: "relative", zIndex: 2, backgroundColor:theme.custom.primaryCard }}>
                     <Box display="flex" alignItems="center" mb={3}>
                       <Box
                         sx={{
@@ -401,7 +398,7 @@ const UserBookings: React.FC = () => {
                           height: 56,
                           borderRadius: "12px",
                           background:
-                            "linear-gradient(135deg, rgba(46, 125, 50, 0.2) 0%, rgba(46, 125, 50, 0.1) 100%)",
+                            "linear-gradient(135deg, rgba(46, 125, 50, 0.32) 0%, rgba(46, 125, 50, 0.1) 100%)",
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
@@ -548,7 +545,7 @@ const UserBookings: React.FC = () => {
                     }}
                   />
 
-                  <CardContent sx={{ p: 3, position: "relative", zIndex: 2 }}>
+                  <CardContent sx={{ p: 3, position: "relative", zIndex: 2 ,backgroundColor:theme.custom.primaryCard }}>
                     <Box display="flex" alignItems="center" mb={3}>
                       <Box
                         sx={{
@@ -680,7 +677,7 @@ const UserBookings: React.FC = () => {
             }}
           >
            <Table>
-  <TableHead sx={{ bgcolor: "primary.main" }}>
+  <TableHead sx={{ bgcolor: theme.custom.tableBg}}>
     <TableRow>
       <TableCell sx={{ color: "white", fontWeight: "bold", textAlign: "center" }}>
         {t("Room")}
