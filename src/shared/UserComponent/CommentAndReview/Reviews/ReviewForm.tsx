@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { ReviewFormInputs } from '../../../../Interfaces/CommentAndReview.interface';
 import { ErrorMessage, StyledTextField, SubmitButton } from '../Style';
 import { RootState } from '../../../../store/auth/AuthConfig';
+import { useSnackbar } from 'notistack';
 
 interface ReviewFormProps {
   onSubmit: SubmitHandler<ReviewFormInputs>;
@@ -16,6 +17,9 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ onSubmit }) => {
   const theme = useTheme();
   const { t } = useTranslation();
   const { loading } = useSelector((state: RootState) => state.reviews);
+    const role = useSelector((state: RootState) => state.auth.user?.role);
+    const { enqueueSnackbar } = useSnackbar();
+  
 
   const {
     control,
@@ -29,6 +33,10 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ onSubmit }) => {
 
   const handleFormSubmit = useCallback<SubmitHandler<ReviewFormInputs>>(
     async (data) => {
+      if (role !== 'user') {
+        enqueueSnackbar(t('booking.user_only'), { variant: 'error' });
+        return;
+      }
       await onSubmit(data);
       reset({ rating: 4, review: '' });
     },

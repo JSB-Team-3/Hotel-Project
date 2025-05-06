@@ -8,7 +8,6 @@ import Ads from './modules/AdminModules/Ads/Ads';
 import AuthLayout from './shared/AuthLayout/AuthLayout';
 import FacilitiesList from './modules/AdminModules/Facilities/FacilitiesList/FacilitiesList';
 import LoadingScreen from './shared/LoadingScreen/LoadingScreen';
-import StripeElement from './modules/UserModules/checkout/StripeElement';
 
 // Lazy-load components
 const Login = React.lazy(() => import('./modules/AdminModules/Authentication/Login/Login'));
@@ -27,6 +26,7 @@ const RoomDetails = React.lazy(() => import('./modules/UserModules/RoomDetails/R
 const Explore = React.lazy(() => import('./modules/UserModules/Explore/Explore'));
 const Favourites = React.lazy(() => import('./modules/UserModules/Favourites/Favourites'));
 const UserBookings = React.lazy(()=> import('./modules/UserModules/UserBookings/UserBookings'))
+const StripeElement = React.lazy(()=> import('./modules/UserModules/checkout/StripeElement'))
 
 const App: React.FC = () => { 
 const routes = createBrowserRouter([

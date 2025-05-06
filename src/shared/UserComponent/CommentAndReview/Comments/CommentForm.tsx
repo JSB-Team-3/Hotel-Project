@@ -7,6 +7,9 @@ import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { CommentFormInputs } from '../../../../Interfaces/CommentAndReview.interface';
 import { ErrorMessage, StyledTextField, SubmitButton } from '../Style';
 import { useTranslation } from 'react-i18next';
+import { useSnackbar } from 'notistack';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../../store/auth/AuthConfig';
 
 interface CommentFormProps {
   onSubmit: SubmitHandler<CommentFormInputs>;
@@ -16,7 +19,8 @@ interface CommentFormProps {
 const CommentForm: React.FC<CommentFormProps> = ({ onSubmit, isSubmitting = false }) => {
   const theme = useTheme();
   const { t } = useTranslation();
-
+  const role = useSelector((state: RootState) => state.auth.user?.role);
+  const { enqueueSnackbar } = useSnackbar();
   const {
     control,
     handleSubmit,
@@ -31,6 +35,10 @@ const CommentForm: React.FC<CommentFormProps> = ({ onSubmit, isSubmitting = fals
 
   const handleFormSubmit = useCallback<SubmitHandler<CommentFormInputs>>(
     async (data) => {
+      if (role !== 'user') {
+        enqueueSnackbar(t('booking.user_only'), { variant: 'error' });
+        return;
+      }
       await onSubmit(data);
       reset({ comment: '' });
     },
