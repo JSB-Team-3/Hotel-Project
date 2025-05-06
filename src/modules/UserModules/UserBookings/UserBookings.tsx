@@ -266,7 +266,7 @@ const UserBookings: React.FC = () => {
                     }}
                   />
 
-                  <CardContent sx={{ p: 3, position: "relative", zIndex: 2, backgroundColor:theme.custom.primaryCard}}>
+                  <CardContent sx={{ p: 3, position: "relative", zIndex: 2, backgroundColor:theme.custom.primaryCard }}>
                     <Box display="flex" alignItems="center" mb={3}>
                       <Box
                         sx={{
@@ -522,8 +522,6 @@ const UserBookings: React.FC = () => {
                     boxShadow: "0 10px 30px rgba(237, 108, 2, 0.08)",
                     transition:
                       "all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1)",
-                    background:
-                      "linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)",
                     "&:hover": {
                       transform: "translateY(-8px)",
                       boxShadow: "0 15px 35px rgba(237, 108, 2, 0.12)",
@@ -545,7 +543,7 @@ const UserBookings: React.FC = () => {
                     }}
                   />
 
-                  <CardContent sx={{ p: 3, position: "relative", zIndex: 2 ,backgroundColor:theme.custom.primaryCard }}>
+                  <CardContent sx={{ p: 3, position: "relative", zIndex: 2 , backgroundColor:theme.custom.primaryCard }}>
                     <Box display="flex" alignItems="center" mb={3}>
                       <Box
                         sx={{
