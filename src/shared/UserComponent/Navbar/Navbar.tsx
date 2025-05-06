@@ -52,6 +52,7 @@ const Navbar = () => {
     goToFavorites,
     handleNavigateToHome
   } = useNavbarState();
+  
 
   return (
     <>

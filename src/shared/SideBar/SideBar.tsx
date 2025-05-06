@@ -23,6 +23,8 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { useTranslation } from 'react-i18next';
 import LockIcon from '@mui/icons-material/Lock';
 import ChangePass from '../../modules/AdminModules/Authentication/ChangePass/ChangePass';
+import { useAppDispatch } from '../../hooks/Hook';
+import { logout } from '../../store/auth/AuthSlice';
 
 interface SidebarProps {
   open: boolean;
@@ -33,6 +35,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, toggleSidebar }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const location = useLocation();
   const { t } = useTranslation();
   const [openChange, setOpenChange] = useState(false);
@@ -42,14 +45,12 @@ const Sidebar: React.FC<SidebarProps> = ({ open, toggleSidebar }) => {
     if (isMobile && open) {
       toggleSidebar();
     }
-  }, [isMobile, location, open, toggleSidebar]);
+  }, [isMobile, location]);
 
-  const handleLogout = () => {
+const handleLogout = React.useCallback(() => {
     navigate('/');
-    localStorage.removeItem('token');
-    localStorage.removeItem('user-profile')
-    localStorage.removeItem('user')
-  };
+    dispatch(logout());
+  }, [ navigate, dispatch])
 
   const anchor = theme.direction === 'rtl' ? 'right' : 'left';
 

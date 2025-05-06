@@ -20,7 +20,7 @@ export default function ProtectedRoute({ children, allowedRoles = [] , isPublic 
   }  
 
   if (!token) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/" />;
   }
 
   // Check if user role is allowed for this route

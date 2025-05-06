@@ -19,7 +19,7 @@ const UserRoleChart: React.FC<UserRingChartProps> = ({ title, data }) => {
   return (
     <Box
       width="100%"
-      maxWidth={300}
+      maxWidth={250}
       mx="auto"
       p={2}
       borderRadius={2}

@@ -34,8 +34,8 @@ const Checkout = () => {
   const [paymentStatus, setPaymentStatus] = useState<'success' | 'error' | null>(null);
   const [errorMessage, setErrorMessage] = useState('');
   const breadCrumbsLinks = [
-    { label: t('sidebar.home'), to: '/home' },
-    { label: t('checkout.title'), to: `/home/rooms/${bookingId}` },
+    { label: t('sidebar.home'), to: '/' },
+    { label: t('checkout.title'), to: `/rooms/${bookingId}` },
   ];
   const steps = [
     t('checkout.steps.address', 'Billing Address'),
@@ -235,7 +235,7 @@ const Checkout = () => {
           {activeStep === 2 && (
             <Button
               variant="contained"
-              onClick={() => navigate('/home/user-booking')}
+              onClick={() => navigate('/user-booking')}
             >
               {t('checkout.goToYourBooking', 'Go to your Booking')}
             </Button>
