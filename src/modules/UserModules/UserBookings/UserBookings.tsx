@@ -34,6 +34,7 @@ import { AppDispatch } from "../../../store/auth/AuthConfig";
 import { getRoomsDetails } from "../../../store/rooms/roomsThunk";
 import { useSnackbar } from "notistack";
 import { Link as RouterLink } from "react-router-dom";
+import RoomBreadcrumbs from "../../../shared/UserComponent/Breadcrumb/Breadcrumb";
 
 // Types
 interface Room {
@@ -98,6 +99,10 @@ const UserBookings: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { t } = useTranslation();
   const { enqueueSnackbar } = useSnackbar();
+  const breadCrumbsLinks = [
+    { label: t('sidebar.home'), to: '/home' },
+    { label: t('userBooking.My Bookings'), to: `/home/user-booking` },
+  ];
 
   useEffect(() => {
     const fetchBookings = async (): Promise<void> => {
@@ -201,7 +206,7 @@ const UserBookings: React.FC = () => {
           {t("userBooking.View and manage all your current and past bookings in one place")}
         </Typography>
       </Box>
-
+      <RoomBreadcrumbs links={breadCrumbsLinks} />
       {loading ? (
         <Box
           display="flex"
@@ -670,7 +675,7 @@ const UserBookings: React.FC = () => {
             component={Paper}
             sx={{
               borderRadius: 2,
-              overflow: "hidden",
+              overflow: "auto",
               boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
             }}
           >

@@ -7,15 +7,9 @@ import ProtectedRoute from './shared/ProtectedRoute/ProtectedRoute';
 import Ads from './modules/AdminModules/Ads/Ads';
 import AuthLayout from './shared/AuthLayout/AuthLayout';
 import FacilitiesList from './modules/AdminModules/Facilities/FacilitiesList/FacilitiesList';
-
-
-import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
-import Checkout from './checkout/Checkout';
 import LoadingScreen from './shared/LoadingScreen/LoadingScreen';
-
-// تحميل Stripe
-const stripePromise = loadStripe('pk_test_51OTjURBQWp069pqTmqhKZHNNd3kMf9TTynJtLJQIJDOSYcGM7xz3DabzCzE7bTxvuYMY0IX96OHBjsysHEKIrwCK006Mu7mKw8');
+import Spiner from './shared/Spinner/Spiner';
+import StripeElement from './modules/UserModules/checkout/StripeElement';
 
 // Lazy-load components
 const Login = React.lazy(() => import('./modules/AdminModules/Authentication/Login/Login'));
@@ -78,17 +72,15 @@ const routes = createBrowserRouter([
       {path:'explore',element:<Explore/>},
       {path:'favourites',element:<Favourites/>},
       {path:'user-booking',element:<UserBookings/>},
-      { path: "checkout/:id", element: <Checkout /> }, // هنا يظهر بشكل صحيح بعد التغليف بـ <Elements>
+      { path: "checkout/:id", element: <StripeElement /> }, // هنا يظهر بشكل صحيح بعد التغليف بـ <Elements>
     ]
     }
 ])
 
   return (
-      <Elements stripe={stripePromise}>
       <Suspense fallback={<LoadingScreen />}>
         <RouterProvider router={routes} />
       </Suspense>
-    </Elements>
   );
 };
 

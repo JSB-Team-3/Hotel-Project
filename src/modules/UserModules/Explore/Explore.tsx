@@ -1,5 +1,4 @@
 import { Grid } from '@mui/material'
-import ThemeToggle from '../../../shared/ThemeToggle'
 import RoomCard from '../../../shared/RoomCard/RoomCard';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../../store/auth/AuthConfig';
@@ -46,7 +45,6 @@ export default function Explore() {
   }, [page, size]);
   return (
     <>
-      <ThemeToggle />
       <PortalHeader title={t('explore.title')} subTitle={t('explore.subtitle')} links={breadCrumbsLinks} />
       <Grid container spacing={2}>
         {loading
