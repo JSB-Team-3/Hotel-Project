@@ -3,6 +3,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import Visibility from '@mui/icons-material/Visibility';
 import nodata from '../../assets/images/noimg.jpg';
 import { RoomCardProps } from '../../Interfaces/props.interface';
+import { Link } from 'react-router-dom';
 export default function RoomCard({room ,handleFav}:RoomCardProps) {
   return (
       <Grid size={{ xs: 12, md: 4, lg: 3 }}>
