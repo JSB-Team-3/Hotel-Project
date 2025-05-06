@@ -193,7 +193,7 @@ const Checkout = () => {
       </Stepper>
 
       {paymentStatus === 'error' && (
-        <Alert severity="error" sx={{ mb: 2 }}>
+        <Alert severity="error" sx={{ mb: 2 ,maxWidth:'600px',m:"auto" }}>
           {errorMessage}
         </Alert>
       )}

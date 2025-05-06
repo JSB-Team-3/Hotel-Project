@@ -62,15 +62,6 @@ export const getMuiTheme = (mode: PaletteMode, direction: 'ltr' | 'rtl' = 'ltr')
       borderRadius: 8,
     },
     components: {
-      MuiCssBaseline: {
-        styleOverrides: {
-          body: {
-            backgroundColor: tokens.background.default,
-            color: tokens.text.primary,
-            transition: 'background-color 0.3s, color 0.3s',
-          },
-        },
-      },
       MuiButton: {
         styleOverrides: {
           root: {

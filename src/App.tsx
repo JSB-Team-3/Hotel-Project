@@ -8,7 +8,6 @@ import Ads from './modules/AdminModules/Ads/Ads';
 import AuthLayout from './shared/AuthLayout/AuthLayout';
 import FacilitiesList from './modules/AdminModules/Facilities/FacilitiesList/FacilitiesList';
 import LoadingScreen from './shared/LoadingScreen/LoadingScreen';
-import Spiner from './shared/Spinner/Spiner';
 import StripeElement from './modules/UserModules/checkout/StripeElement';
 
 // Lazy-load components
