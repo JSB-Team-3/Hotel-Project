@@ -12,6 +12,8 @@ declare module '@mui/material/styles' {
     errorMain: string;
     commentFormTitle?: string;
     sendButtonHover?: string;
+    primaryCard:string,
+    tableBg:string
   }
 
   interface Theme {

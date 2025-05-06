@@ -34,6 +34,8 @@ export const getMuiTheme = (mode: PaletteMode, direction: 'ltr' | 'rtl' = 'ltr')
     },
     // Instead, define custom tokens here under a custom key
     custom: {
+      primaryCard:tokens.primaryCard,
+      tableBg:tokens.tableBg,
       blueMain: tokens.blueMain,
       liteMain: tokens.liteMain,
       primaryLight: tokens.primaryLightActive,

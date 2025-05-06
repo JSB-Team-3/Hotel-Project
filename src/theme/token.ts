@@ -7,6 +7,8 @@ export const getTokens = (mode: PaletteMode) => ({
         // Base theme colors
         primary: '#3252DF', // Blue from original code
         primaryLight: '#5172DF', // Light primary (from gradient)
+        primaryCard: '#fff',
+        tableBg:"#3252DF",
         primaryLightActive: '#f0f7ff',
         primaryDark: '#2540B8', // Darker blue for focus
         secondary: '#FF498B', // Pink from original code
@@ -30,6 +32,8 @@ export const getTokens = (mode: PaletteMode) => ({
         // Dark mode colors
         primary: '#5172DF', // Lighter blue for dark mode
         primaryLight: '#7290FF',
+        primaryCard:'#09AFF',
+        tableBg:"#09AFF",
         primaryLightActive: '#323B60',
         primaryDark: '#3252DF',
         secondary: '#FF6B9D', // Lighter pink for dark mode
