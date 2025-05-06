@@ -64,6 +64,7 @@ export const AppThemeProvider = ({ children }: { children: React.ReactNode }) =>
     getMuiTheme(mode, languageDirection), 
     [mode, languageDirection]
   );
+  
 
   return (
     <MuiThemeProvider theme={theme}>

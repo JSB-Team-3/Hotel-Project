@@ -22,6 +22,8 @@ import ReviewSkeleton from '../../Skelletons/ReviewSkelleton';
 import { EmptyState } from '../Style';
 import { RateReview as RateReviewIcon } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
+import { useAppSelector } from '../../../../hooks/Hook';
+import NoContent from '../NoContent';
 
 interface ReviewProps {
   roomId: string;
@@ -33,16 +35,17 @@ const Review: React.FC<ReviewProps> = ({ roomId }) => {
   const { t } = useTranslation();
   const theme = useTheme();
   const [visibleCount, setVisibleCount] = useState(3);
+  const {user}=useAppSelector((state:RootState) => state.auth);
 
   const { reviews, loading, reviewCreated, error } = useSelector(
     (state: RootState) => state.reviews
   );
 
   useEffect(() => {
-    if (roomId) {
+    if (roomId&&user) {
       dispatch(getUserReviews(roomId));
     }
-  }, [dispatch, roomId]);
+  }, [dispatch, roomId, user]);
 
   useEffect(() => {
     if (reviewCreated) {
@@ -87,75 +90,89 @@ const Review: React.FC<ReviewProps> = ({ roomId }) => {
     <>
       <ReviewForm onSubmit={handleSubmit} />
 
-      {reviews.length > 0 || loading ? (
-        <Box sx={{ mt: 4 }}>
-          <Divider sx={{ mt: 2,mb:4 }} />
-            
-          <Typography
-            variant="h6"
-            sx={{ mb: 3.5, mt: 2, fontWeight: 500, color: theme.palette.text.primary , display: 'flex', alignItems: 'center',gap: 1}}
-          >
-            {t('review.recentReviews')}
-            <Box component="span"
-                      sx={{
-                        backgroundColor: theme.palette.primary.main,
-                        color: theme.palette.common.white,
-                        borderRadius: '50%',
-                        width: 24,
-                        height: 24,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        fontSize: '0.8rem',
-                        ml: 1,
-                        fontWeight: 700,
-                      }}
-                    >
-            {reviews.length > 0 && ` ${reviews.length}`}
-            </Box>
-          </Typography>
-
-          <List disablePadding>
-            {loading && !reviews.length ? (
-              Array.from({ length: 3 }).map((_, index) => (
-                <ListItem key={`skeleton-${index}`} disableGutters sx={{ px: 0, py: 1 }}>
-                  <ReviewSkeleton />
-                </ListItem>
-              ))
-            ) : reviews.length > 0 ? (
-              displayedReviews.map((review) => (
-                <ListItem key={review._id} disableGutters sx={{ px: 0, py: 1 }}>
-                  <ReviewItem review={review} />
-                </ListItem>
-              ))
-            ) : (
-              <EmptyReviewState />
-            )}
-          </List>
-
-          {hasHighRatedReviews && visibleCount < reviews.length && (
-            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
-              <Typography
-                variant="button"
-                color="primary"
-                sx={{
-                  cursor: 'pointer',
-                  fontWeight: 500,
-                  '&:hover': { textDecoration: 'underline' },
-                }}
-                onClick={handleShowMore}
-              >
-                {t('review.seeMore')}
-              </Typography>
-            </Box>
-          )}
+    {user ? (
+  reviews.length > 0 || loading ? (
+    <Box sx={{ mt: 4 }}>
+      <Divider sx={{ mt: 2, mb: 4 }} />
+        
+      <Typography
+        variant="h6"
+        sx={{ mb: 3.5, mt: 2, fontWeight: 500, color: theme.palette.text.primary, display: 'flex', alignItems: 'center', gap: 1 }}
+      >
+        {t('review.recentReviews')}
+        <Box component="span"
+          sx={{
+            backgroundColor: theme.palette.primary.main,
+            color: theme.palette.common.white,
+            borderRadius: '50%',
+            width: 24,
+            height: 24,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '0.8rem',
+            ml: 1,
+            fontWeight: 700,
+          }}
+        >
+          {reviews.length > 0 && ` ${reviews.length}`}
         </Box>
-      ) : (
-        <Box sx={{ mt: 4 }}>
-          <Divider sx={{ my: 2 }} />
+      </Typography>
+
+      <List disablePadding>
+        {loading && !reviews.length ? (
+          Array.from({ length: 3 }).map((_, index) => (
+            <ListItem key={`skeleton-${index}`} disableGutters sx={{ px: 0, py: 1 }}>
+              <ReviewSkeleton />
+            </ListItem>
+          ))
+        ) : reviews.length > 0 ? (
+          displayedReviews.map((review) => (
+            <ListItem key={review._id} disableGutters sx={{ px: 0, py: 1 }}>
+              <ReviewItem review={review} />
+            </ListItem>
+          ))
+        ) : (
           <EmptyReviewState />
+
+        )}
+      </List>
+
+      {hasHighRatedReviews && visibleCount < reviews.length && (
+        <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+          <Typography
+            variant="button"
+            color="primary"
+            sx={{
+              cursor: 'pointer',
+              fontWeight: 500,
+              '&:hover': { textDecoration: 'underline' },
+            }}
+            onClick={handleShowMore}
+          >
+            {t('review.seeMore')}
+          </Typography>
         </Box>
       )}
+    </Box>
+  ) : (
+    <EmptyReviewState />
+
+  )
+) : (
+  <Box >
+  <Divider sx={{ mt: 4, mb: 5 }} />
+  <Box sx={{ mt: 10 }}>
+    <NoContent 
+      type="reviews"
+      message={t('auth.loginRequired')}
+      subMessage={t('auth.loginToSeeReviews')}
+      variant="card"
+      showIcon={true}
+    />
+  </Box>
+</Box>
+)}
     </>
   );
 };

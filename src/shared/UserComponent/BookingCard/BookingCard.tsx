@@ -54,10 +54,10 @@ const BookingCard: React.FC<BookingCardProps> = ({
   }, [dates, discountedPrice, personCount]);
 
   const handleBooking = useCallback(async () => {
-    if(user.role !== 'user') {
+    if(user?.role !== 'user') {
       enqueueSnackbar(t('booking.user_only'), { variant: 'warning' });
       return
-    }else if(user.role === 'admin') {
+    }else if(user?.role === 'admin') {
       enqueueSnackbar(t('booking.admin'), { variant: 'warning' });
       return
     }
@@ -87,7 +87,7 @@ const BookingCard: React.FC<BookingCardProps> = ({
       console.error('Booking error:', error);
       enqueueSnackbar(t('booking.error'), { variant: 'error' });
     }
-  }, [dates, roomId, totalCost, dispatch, navigate, t,user.role]);
+  }, [dates, roomId, totalCost, dispatch, navigate, t,user?.role]);
 
   const handleConfirmDates = useCallback(() => {
     if (dates.startDate && dates.endDate) {
