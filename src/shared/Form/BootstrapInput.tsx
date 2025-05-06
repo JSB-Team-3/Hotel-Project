@@ -1,4 +1,5 @@
 import { InputBase, styled, alpha } from '@mui/material';
+import { margin } from '@mui/system';
 
 const BootstrapInput = styled(InputBase)(({ theme, error }) => ({
   'label + &': {
@@ -12,6 +13,7 @@ const BootstrapInput = styled(InputBase)(({ theme, error }) => ({
     fontSize: 16,
     width: '100%',
     padding: '10px 12px',
+    margin:"10px 0px",
     transition: theme.transitions.create([
       'border-color',
       'box-shadow',
