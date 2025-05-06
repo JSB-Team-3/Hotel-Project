@@ -3,15 +3,15 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import Visibility from '@mui/icons-material/Visibility';
 import nodata from '../../assets/images/noimg.jpg';
 import { RoomCardProps } from '../../Interfaces/props.interface';
-import { Link } from 'react-router-dom';
 export default function RoomCard({room ,handleFav}:RoomCardProps) {
   return (
       <Grid size={{ xs: 12, md: 4, lg: 3 }}>
         <Box
           sx={{
+            direction:"ltr",
             position: 'relative',
             width: '100%',
-            height: '215px',
+            // height: '215px',
             borderRadius: '15px',
             overflow: 'hidden',
             '&:hover .hover-overlay': {
@@ -44,10 +44,10 @@ export default function RoomCard({room ,handleFav}:RoomCardProps) {
             src={room?.images?.[0] || nodata} 
             sx={{
               width: '100%',
-            //   height: '215px',
+              height: '215px',
               borderRadius: '15px', 
               objectFit: 'cover',
-              transform:'scale(1)',
+              transform:'scale(1.1)',
               transition:'transform 0.8s ease',
             }}
           />
@@ -102,9 +102,7 @@ export default function RoomCard({room ,handleFav}:RoomCardProps) {
             >
               <FavoriteIcon />
             </IconButton>
-            <IconButton
-            component={Link}
-            to={`/home/rooms/${room._id}`} 
+            <IconButton 
               aria-label="show details"
               sx={{ 
                 color: 'white',
