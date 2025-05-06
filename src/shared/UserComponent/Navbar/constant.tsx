@@ -3,7 +3,6 @@ import * as React from 'react';
 import HomeIcon from '@mui/icons-material/Home';
 import ExploreIcon from '@mui/icons-material/Explore';
 import ArticleIcon from '@mui/icons-material/Article';
-import HelpIcon from '@mui/icons-material/Help';
 import { TFunction } from 'i18next';
 
 export interface PageType {

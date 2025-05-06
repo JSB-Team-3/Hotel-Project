@@ -20,6 +20,7 @@ import { enqueueSnackbar } from 'notistack';
 import { setUpdateLoading } from '../../../../store/comments/commentSlice';
 import CommentSkeleton from '../../Skelletons/CommentSkeleton';
 import { useTranslation } from 'react-i18next';
+import NoContent from '../NoContent';
 
 interface CommentProps {
   roomId: string;
@@ -34,7 +35,7 @@ const Comment: React.FC<CommentProps> = ({ roomId }) => {
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [displayCount, setDisplayCount] = useState(3); // Start with 3 visible comments
   const [commentLoading, setCommentLoading] = useState(false);
-
+  const {user} = useSelector((state: RootState) => state.auth);
   const fetchComments = useCallback(async () => {
     if (!roomId) return;
     setCommentLoading(true);
@@ -49,8 +50,10 @@ const Comment: React.FC<CommentProps> = ({ roomId }) => {
   }, [dispatch, roomId, t]);
 
   useEffect(() => {
-    fetchComments();
-  }, [fetchComments]);
+    if(user){
+      fetchComments();
+    }
+  }, [fetchComments, user]);
 
   const handleSubmit = useCallback(
     async (data: CommentFormInputs) => {
@@ -117,6 +120,8 @@ const Comment: React.FC<CommentProps> = ({ roomId }) => {
   const visibleComments = comments.slice(0, displayCount);
   const hasMoreComments = comments.length > displayCount;
 
+ 
+
   return (
     <Box sx={{ mt: 3 }}>
       <CommentForm onSubmit={handleSubmit} isSubmitting={isSubmitting} />
@@ -168,74 +173,83 @@ const Comment: React.FC<CommentProps> = ({ roomId }) => {
         )}
       </Typography>
 
-      {comments.length > 0 ? (
-        <Fade in timeout={500}>
-          <Box>
-            <List disablePadding sx={{ width: '100%' }}>
-              {visibleComments.map((comment: CommentResponse) => (
-                <ListItem key={comment._id} disableGutters sx={{ px: 0, py: 1 }}>
-                  <Box sx={{ width: '100%' }}>
-                    <CommentItem
-                      comment={comment}
-                      onUpdate={handleUpdateComment}
-                      onDelete={handleDeleteComment}
-                      isDeleting={deletingId === comment._id}
-                      updateLoadingId={updateLoadingId}
-                      loading={loading}
-                    />
-                  </Box>
-                </ListItem>
-              ))}
-            </List>
-
-            {comments.length > 3 && (
-              <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
-                {hasMoreComments ? (
-                  <Button
-                    variant="outlined"
-                    color="primary"
-                    onClick={handleShowMore}
-                    sx={{
-                      borderRadius: 2,
-                      textTransform: 'none',
-                      '&:hover': { backgroundColor: theme.palette.action.hover },
-                    }}
-                  >
-                    {t('commentSection.showMore', { count: comments.length - displayCount })}
-                  </Button>
-                ) : (
-                  <Button
-                    variant="text"
-                    color="primary"
-                    onClick={handleShowLess}
-                    sx={{
-                      borderRadius: 2,
-                      textTransform: 'none',
-                      '&:hover': { backgroundColor: theme.palette.action.hover },
-                    }}
-                  >
-                    {t('commentSection.showLess')}
-                  </Button>
-                )}
+      {user ? (
+  comments.length > 0 ? (
+    <Fade in timeout={500}>
+      <Box>
+        <List disablePadding sx={{ width: '100%' }}>
+          {visibleComments.map((comment: CommentResponse) => (
+            <ListItem key={comment._id} disableGutters sx={{ px: 0, py: 1 }}>
+              <Box sx={{ width: '100%' }}>
+                <CommentItem
+                  comment={comment}
+                  onUpdate={handleUpdateComment}
+                  onDelete={handleDeleteComment}
+                  isDeleting={deletingId === comment._id}
+                  updateLoadingId={updateLoadingId}
+                  loading={loading}
+                />
               </Box>
+            </ListItem>
+          ))}
+        </List>
+
+        {comments.length > 3 && (
+          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+            {hasMoreComments ? (
+              <Button
+                variant="outlined"
+                color="primary"
+                onClick={handleShowMore}
+                sx={{
+                  borderRadius: 2,
+                  textTransform: 'none',
+                  '&:hover': { backgroundColor: theme.palette.action.hover },
+                }}
+              >
+                {t('commentSection.showMore', { count: comments.length - displayCount })}
+              </Button>
+            ) : (
+              <Button
+                variant="text"
+                color="primary"
+                onClick={handleShowLess}
+                sx={{
+                  borderRadius: 2,
+                  textTransform: 'none',
+                  '&:hover': { backgroundColor: theme.palette.action.hover },
+                }}
+              >
+                {t('commentSection.showLess')}
+              </Button>
             )}
           </Box>
-        </Fade>
-      ) : (
-        <Box
-          sx={{
-            textAlign: 'center',
-            py: 4,
-            color: theme.palette.text.secondary,
-            bgcolor: theme.palette.background.paper,
-            borderRadius: 2,
-            p: 4,
-            width: '100%',
-          }}
-        >
-          <Typography variant="body1">{t('commentSection.noComments')}</Typography>
-        </Box>
-      )}
+        )}
+      </Box>
+    </Fade>
+  ) : (
+    <Box
+    sx={{
+      textAlign: 'center',
+      py: 4,
+      color: theme.palette.text.secondary,
+      bgcolor: theme.palette.background.paper,
+      borderRadius: 2,
+      p: 4,
+      width: '100%',
+    }}
+  >
+    <Typography variant="body1">{t('commentSection.noComments')}</Typography>
+  </Box>
+  )
+) : (
+  <NoContent 
+    type="comments" 
+    message={t('auth.loginRequired')}
+    subMessage={t('auth.loginToViewComments')}
+    variant="card"
+  />
+)}
     </Box>
   );
 };

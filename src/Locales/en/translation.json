@@ -468,5 +468,12 @@
     "edit": "Edit",
     "delete": "Delete",
     "actions": "Actions"
+  },
+  "auth":{
+    "loginToViewComments":"Login to view comments",
+    "loginRequired":"Login required",
+    "loginToSeeReviews":"Login to see reviews"
   }
-}
+
+
+  }
