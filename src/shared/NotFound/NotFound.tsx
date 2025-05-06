@@ -5,30 +5,30 @@ import { Box, Container, Grid, Typography, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import ExploreIcon from '@mui/icons-material/Explore';
 import { useTranslation } from 'react-i18next'; // ADD THIS
-import {
-  NotFoundPageContainer,
-  Overlay,
-  CircleDecoration,
-  DotGrid,
-  ContentContainer,
-  LogoContainer,
-  ContentBox,
-  ErrorImage,
-  BlueButton,
+import {NotFoundPageContainer,Overlay,CircleDecoration,DotGrid,
+  ContentContainer,LogoContainer,ContentBox,ErrorImage,BlueButton,
   GradientHeading,
 } from './NotFound.style';
 
 import logo from '../../assets/nodata.png';
 import error from '../../assets/error.png';
+import { RootState } from '../../store/auth/AuthConfig';
+import { useAppSelector } from '../../hooks/Hook';
 
 const NotFound: React.FC = () => {
   const navigate = useNavigate();
   const { t } = useTranslation(); // ADD THIS
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-
-  const handleBackToHome = () => navigate('/dashboard');
-
+  const{user}=useAppSelector((state:RootState) => state.auth)
+  const handleBack = () => {
+    if (user.role === 'admin') {
+      navigate('/dashboard') 
+      } else if (user.role === 'user') {
+      navigate('/');
+    }
+  };
+  
   return (
     <NotFoundPageContainer>
       <Overlay />
@@ -69,7 +69,7 @@ const NotFound: React.FC = () => {
                 </Typography>
 
                 <BlueButton
-                  onClick={handleBackToHome}
+                  onClick={handleBack}
                   variant="contained"
                   size={isMobile ? 'medium' : 'large'}
                   endIcon={<ExploreIcon />}

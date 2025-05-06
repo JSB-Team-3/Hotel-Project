@@ -104,7 +104,7 @@ export default function RoomCard({room ,handleFav}:RoomCardProps) {
             </IconButton>
             <IconButton
             component={Link}
-            to={`/home/rooms/${room._id}`} 
+            to={`/rooms/${room._id}`} 
               aria-label="show details"
               sx={{ 
                 color: 'white',

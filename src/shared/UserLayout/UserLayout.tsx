@@ -9,9 +9,9 @@ const UserLayout = () => {
   
 
   return (
-    <Box  sx={{display:'flex' , flexDirection:'column',minHeight:'100vh'}}>
+    <Box  sx={{display:'flex' , flexDirection:'column',minHeight:'100vh' }}>
     <Navbar/>
-    <Container   sx={{marginTop:"70px", marginBottom:"70px"}}> 
+    <Container   sx={{marginTop:"90px", marginBottom:"70px",transition:0,}}> 
      <Outlet />
     </Container>
     <Footer/>

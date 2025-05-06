@@ -37,7 +37,7 @@ export type BookingState = {
   totalCount: number;
 }
 export interface BookingItem {
- data:Booking
+ booking:Booking
 }
 
 export interface GetAllMyBookingsResponse {

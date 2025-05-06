@@ -32,7 +32,7 @@ const BookingCard: React.FC<BookingCardProps> = ({
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const theme = useTheme();  
-
+ 
   const discountedPrice = useMemo(() => price * (1 - discount / 100), [price, discount]);
 
   const { totalCost, nights } = useMemo(() => {
@@ -79,9 +79,10 @@ const BookingCard: React.FC<BookingCardProps> = ({
     };
 
     try {
-       await dispatch(createBooking(bookingData)).unwrap();
+       const {booking} = await dispatch(createBooking(bookingData)).unwrap();
+       
       enqueueSnackbar(t('booking.success'), { variant: 'success' });
-      navigate('home/checkout');
+      navigate(`/checkout/${booking._id}`);
     } catch (error) {
       console.error('Booking error:', error);
       enqueueSnackbar(t('booking.error'), { variant: 'error' });

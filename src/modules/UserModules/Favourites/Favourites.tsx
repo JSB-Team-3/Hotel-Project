@@ -39,8 +39,8 @@ export default function Favourites() {
         }
     }
     const breadCrumbsLinks = [
-        { label: t('sidebar.home'), to: '/home' },
-        { label: t('favourite.link'), to: `/home/favourites` },
+        { label: t('sidebar.home'), to: '/' },
+        { label: t('favourite.link'), to: `/favourites` },
     ];
     useEffect(() => {
         getAllFavourites();

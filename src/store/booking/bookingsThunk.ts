@@ -66,7 +66,7 @@ export const createBooking = createAsyncThunk<BookingItem, BookingData>(
         BOOKING_URLS.CREATE_BOOKING,
         bookingData
       );
-      return response.data.booking as BookingItem;
+      return response.data.data as BookingItem;
     } catch (err) {
       console.log(err, 'err');
       

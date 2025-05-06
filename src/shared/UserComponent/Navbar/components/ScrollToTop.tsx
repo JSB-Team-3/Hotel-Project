@@ -1,44 +1,87 @@
 import * as React from 'react';
-import { Box, Fab, Slide, useScrollTrigger, useTheme } from '@mui/material';
+import { Box, Fab, Zoom, useScrollTrigger } from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-
 export const ScrollToTop = React.memo(() => {
-  const trigger = useScrollTrigger({ threshold: 300 });
-  const theme = useTheme();
-
+  // Use a custom scroll trigger implementation for better performance
+  const [trigger, setTrigger] = React.useState(false);
+  
+  // Use throttled scroll event for more responsive appearance
+  React.useEffect(() => {
+    let ticking = false;
+    let lastKnownScrollPosition = 0;
+    
+    const handleScroll = () => {
+      lastKnownScrollPosition = window.scrollY;
+      
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setTrigger(lastKnownScrollPosition > 300);
+          ticking = false;
+        });
+        
+        ticking = true;
+      }
+    };
+    
+    // Check initial scroll position
+    setTrigger(window.scrollY > 300);
+    
+    // Use passive event listener for better performance
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+  
+  // Memoize the scroll handler to prevent unnecessary re-renders
   const scrollToTop = React.useCallback(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Use requestAnimationFrame for smoother animation
+    requestAnimationFrame(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
   }, []);
 
   return (
-    <Slide in={trigger} direction="up">
+    <Zoom in={trigger}>
       <Box 
-        onClick={scrollToTop} 
+        role="presentation"
+        onClick={scrollToTop}
+        aria-label="scroll to top"
         sx={{ 
           position: 'fixed', 
-          bottom: 16, 
-          right: 16, 
-          zIndex: 1000 
+          bottom: { xs: 12, sm: 16, md: 20 }, 
+          right: { xs: 12, sm: 16, md: 20 }, 
+          zIndex: 1000
         }}
       >
         <Fab 
           color="primary" 
-          size="medium" 
+          size="medium"
           aria-label="scroll to top"
           sx={{
-            color: theme.palette.mode === 'dark' ? theme.palette.common.white : theme.palette.common.white,
-            background: theme.palette.mode === 'dark' 
-              ? `linear-gradient(45deg, ${theme.palette.primary.dark} 30%, ${theme.palette.primary.main} 90%)` 
-              : `linear-gradient(45deg, ${theme.custom.blueMain} 30%, ${theme.palette.primary.light} 90%)`,
+            boxShadow: '0 2px 12px rgba(0, 0, 0, 0.15)',
+            background: 'linear-gradient(45deg, #3252df 30%, #5b84ff 90%)',
+            color: '#ffffff',
+            transition: 'all 0.3s ease',
             '&:hover': {
-              boxShadow: '0 4px 8px rgba(50, 82, 223, 0.4)',
-              transform: 'translateY(-1px)'
+              boxShadow: '0 4px 16px rgba(50, 82, 223, 0.45)',
+              transform: 'translateY(-2px) scale(1.05)'
             },
+            '&:active': {
+              transform: 'translateY(0) scale(0.98)'
+            }
           }}
         >
           <KeyboardArrowUpIcon />
         </Fab>
       </Box>
-    </Slide>
+    </Zoom>
   );
 });
+
+// Ensure displayName is set for React DevTools
+ScrollToTop.displayName = 'ScrollToTop';

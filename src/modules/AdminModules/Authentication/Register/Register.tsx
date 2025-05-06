@@ -22,7 +22,7 @@ const Register = () => {
 
       <Typography variant="body1" sx={{ maxWidth: 300, mb: 2 }}>
         {t('register.already_have_account')}{' '}
-        <Link component={RouterLink} to="/login" underline="hover" color="red">
+        <Link component={RouterLink} to="/auth/login" underline="hover" color="red">
           {t('register.login_here')}
         </Link>
       </Typography>

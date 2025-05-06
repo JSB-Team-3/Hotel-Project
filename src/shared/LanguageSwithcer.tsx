@@ -21,7 +21,7 @@ const regions = {
 };
 
 interface LanguageSelectorProps {
-  color?: 'inherit' | 'default' | 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning';
+  color?: 'inherit' | 'default' | 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning'
 }
 
 const LanguageSelector: React.FC<LanguageSelectorProps> = ({ color = 'inherit' }) => {

@@ -38,8 +38,8 @@ export default function Explore() {
     }
   };
   const breadCrumbsLinks = [
-    { label: t('sidebar.home'), to: '/home' },
-    { label: t('explore.link'), to: `/home/explore` },
+    { label: t('sidebar.home'), to: '' },
+    { label: t('explore.link'), to: `/explore` },
   ];
   useEffect(() => {
     getAllRoomsList();

@@ -41,7 +41,7 @@ const BookingBox: React.FC = () => {
   );
 
   const handleExploreClick = () => {
-    navigate("/home/explore", {
+    navigate("/explore", {
       state: { capacity },
     });
   };

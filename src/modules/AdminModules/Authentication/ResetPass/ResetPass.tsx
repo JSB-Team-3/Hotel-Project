@@ -4,6 +4,7 @@ import {
   Button,
   Alert,
   CircularProgress,
+  Link,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -57,7 +58,7 @@ const ResetPass: React.FC = () => {
       });
       reset();
       setTimeout(() => {
-        navigate("/login");
+        navigate("/auth/login");
       });
     } catch (err) {
       enqueueSnackbar(err as string, { variant: "error" });
@@ -85,14 +86,14 @@ const ResetPass: React.FC = () => {
 
         <Typography variant="body1" sx={{ maxWidth: 300, mb: 2 }}>
           {t("register.already_have_account")}{" "}
-          <RouterLink
+          <Link
             component={RouterLink}
-            to="/login"
+            to="/auth/login"
             underline="hover"
             color="red"
           >
             {t("register.login_here")}
-          </RouterLink>
+          </Link>
         </Typography>
 
         {successMessage && (

@@ -37,16 +37,16 @@ export type UpdateRoomPayload = {
   }
 
   export interface RoomDataProps {
-    _id?: string;
-    roomNumber?: string;
-    images?: string[];
-    capacity?: number;
-    price?: number;
-    discount?: number;
-    facilities?: { _id: string; name: string }[];
-    createdBy?: { userName: string };
-    createdAt?: string;
-    updatedAt?: string;
+    _id: string;
+    roomNumber: string;
+    price: number;
+    capacity: number;
+    discount: number;
+    facilities: string[];
+    createdBy: string;
+    images: string[];
+    createdAt: string;
+    updatedAt: string;
   }
   
   export interface RoomDetailsData{

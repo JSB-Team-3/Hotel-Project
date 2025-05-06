@@ -11,7 +11,7 @@ export const AuthButtons = React.memo(() => {
     <Box sx={{ display: 'flex', gap: 1, justifyContent: 'end' }}>
       <Button
         component={RouterLink}
-        to="/login"
+        to="/auth/login"
         variant="outlined"
         size="small"
         sx={{
@@ -24,12 +24,12 @@ export const AuthButtons = React.memo(() => {
           }
         }}
       >
-        {t('user-navbar.login.login')}
+        {t('user-navbar.login.title')}
       </Button>
       
       <Button
         component={RouterLink}
-        to="/signup"
+        to="/auth/register"
         variant="contained"
         size="small"
         sx={{

@@ -4,6 +4,7 @@ import { DateRange, RangeKeyDict } from 'react-date-range';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 import { useTranslation } from 'react-i18next';
+import { getDateRangePickerStyles } from './DateRangePickerStyles';
 
 interface DateRangePickerProps {
   startDate: Date | null;
@@ -20,7 +21,8 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
 }) => {
   const { t } = useTranslation();
   const theme = useTheme(); // Access the MUI theme
-
+  const isDarkMode = theme.palette.mode === 'dark';
+  const styles = getDateRangePickerStyles(theme);
   const handleSelectDateRange = useCallback(
     (ranges: RangeKeyDict) => {
       const { startDate, endDate } = ranges.selection;
@@ -29,8 +31,9 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
     [setDates]
   );
 
+
   return (
-    <Box mt={2}>
+    <Box sx={styles.wrapper} >
       <DateRange
         ranges={[{ startDate: startDate ?? new Date(), endDate: endDate ?? new Date(), key: 'selection' }]}
         onChange={handleSelectDateRange}
@@ -41,13 +44,19 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
         fullWidth
         sx={{
           mt: 2,
-          backgroundColor: theme.palette.primary.main, // Use the primary color from the theme
-          color: theme.palette.getContrastText(theme.palette.primary.main), // Get contrast text for the button based on the theme
+          backgroundColor: isDarkMode ? '#4361ee' : theme.palette.primary.main,
+          color: '#ffffff',
+          fontWeight: 'bold',
+          padding: '10px 0',
+          borderRadius: '8px',
+          boxShadow: isDarkMode ? '0 4px 14px rgba(67, 97, 238, 0.5)' : 'none',
+          transition: 'all 0.3s ease',
           '&:hover': {
-            backgroundColor: theme.palette.primary.dark, // Use darker shade on hover for better contrast
+            backgroundColor: isDarkMode ? '#3b56d9' : theme.palette.primary.dark,
+            boxShadow: isDarkMode ? '0 6px 18px rgba(67, 97, 238, 0.6)' : 'none',
           },
         }}
-        variant="outlined"
+        variant="contained"
       >
         {t('date_paker.confirm_dates')}
       </Button>
