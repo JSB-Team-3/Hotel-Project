@@ -42,10 +42,10 @@ const Sidebar: React.FC<SidebarProps> = ({ open, toggleSidebar }) => {
     if (isMobile && open) {
       toggleSidebar();
     }
-  }, [isMobile, location]);
+  }, [isMobile, location, open, toggleSidebar]);
 
   const handleLogout = () => {
-    navigate('/login');
+    navigate('/');
     localStorage.removeItem('token');
     localStorage.removeItem('user-profile')
     localStorage.removeItem('user')

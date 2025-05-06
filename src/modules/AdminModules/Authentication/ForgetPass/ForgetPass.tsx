@@ -48,7 +48,7 @@ const ForgetPass: React.FC = () => {
       });
       reset();
       setTimeout(() => {
-        navigate("/reset-password");
+        navigate("/auth/reset-password");
       });
     } catch (err) {
       enqueueSnackbar(err as string, { variant: "error" });
@@ -71,7 +71,7 @@ const ForgetPass: React.FC = () => {
           {t("register.already_have_account")}{" "}
           <Link
             component={RouterLink}
-            to="/login"
+            to="/auth/login"
             underline="hover"
             color="red"
           >

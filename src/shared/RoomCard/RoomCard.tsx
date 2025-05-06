@@ -102,7 +102,9 @@ export default function RoomCard({room ,handleFav}:RoomCardProps) {
             >
               <FavoriteIcon />
             </IconButton>
-            <IconButton 
+            <IconButton
+            component={Link}
+            to={`/rooms/${room._id}`} 
               aria-label="show details"
               sx={{ 
                 color: 'white',

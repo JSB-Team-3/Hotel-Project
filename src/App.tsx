@@ -7,10 +7,9 @@ import ProtectedRoute from './shared/ProtectedRoute/ProtectedRoute';
 import Ads from './modules/AdminModules/Ads/Ads';
 import AuthLayout from './shared/AuthLayout/AuthLayout';
 import FacilitiesList from './modules/AdminModules/Facilities/FacilitiesList/FacilitiesList';
+import LoadingScreen from './shared/LoadingScreen/LoadingScreen';
 import Spiner from './shared/Spinner/Spiner';
 import StripeElement from './modules/UserModules/checkout/StripeElement';
-
-// تحميل Stripe
 
 // Lazy-load components
 const Login = React.lazy(() => import('./modules/AdminModules/Authentication/Login/Login'));
@@ -32,12 +31,11 @@ const UserBookings = React.lazy(()=> import('./modules/UserModules/UserBookings/
 
 const App: React.FC = () => { 
 const routes = createBrowserRouter([
-  {
-    path: "",
+{
+    path: "auth",
     element: <AuthLayout />,
     errorElement: <NotFound />,
     children: [
-      { index: true, element: <Login /> },
       { path: "login", element: <Login /> },
       { path: "register", element: <Register /> },
       { path: "forget-password", element: <ForgetPass /> },
@@ -45,7 +43,7 @@ const routes = createBrowserRouter([
       { path: "verify-account", element: <VerifyAccount /> },
     ]},
     { path:'dashboard', element:  (
-      <ProtectedRoute allowedRoles={['admin']}>
+      <ProtectedRoute isPublic={false} allowedRoles={['admin']}>
         <MasterLayout />
       </ProtectedRoute>
     ),
@@ -61,9 +59,9 @@ const routes = createBrowserRouter([
         {path:"facilities",element:<FacilitiesList/>},
       ]
     },
-    {path:"home" ,
+    {path:"" ,
       element: (
-        <ProtectedRoute allowedRoles={['user', 'admin']}>
+        <ProtectedRoute isPublic={true}>
           <UserLayout />
         </ProtectedRoute>
       ),
@@ -80,7 +78,7 @@ const routes = createBrowserRouter([
 ])
 
   return (
-      <Suspense fallback={<Spiner height='100vh' />}>
+      <Suspense fallback={<LoadingScreen />}>
         <RouterProvider router={routes} />
       </Suspense>
   );

@@ -1,26 +1,21 @@
 import { Outlet } from 'react-router-dom'
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import { Typography, useTheme } from '@mui/material';
+import { Typography} from '@mui/material';
 import RightAuthLayout from '../RightAuthLayout/RightAuthLayout';
 import ThemeToggle from '../ThemeToggle';
 import LanguageSwitcher from '../LanguageSwithcer';
+import { Logo } from '../UserComponent/Logo/Logo';
 const AuthLayout = () => {
-  const theme = useTheme();
   return (
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
           <Grid size={{ xs: 12, md: 6 }}>
-            <Box >
+            <Box sx={{display:'flex', alignItems:"center",gap:1}} >
+                <Logo/>
               <Typography variant="h1" sx={{ fontSize: 26, fontWeight: 'medium', paddingInlineStart:  '20px',marginInlineEnd:5 }}>
-                <Box component="span" sx={{ color: '#152C5B' }}>
-                  stay
-                </Box>
-                <Box component="span" sx={{ color: '#3252DF' }}>
-                  cation.
-                </Box> 
-              <ThemeToggle />
-              <LanguageSwitcher color={theme.palette.text.primary} />
+              <ThemeToggle color='primary' />
+              <LanguageSwitcher color={"primary"} />
               </Typography>
 
             </Box>

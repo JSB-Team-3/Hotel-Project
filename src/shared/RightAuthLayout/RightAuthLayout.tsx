@@ -12,27 +12,27 @@ const RightAuthLayout = () => {
 
   const { mainImg, title } = useMemo(() => {
     switch (pathname) {
-      case '/login':
+      case '/auth/login':
         return {
           mainImg: signInImg,
           title: t('login.title') // Using the translation key
         };
-      case '/register':
+      case '/auth/register':
         return {
           mainImg: signUpImg,
           title: t('register.heading') // Using the translation key
         };
-      case '/verify-account':
+      case '/auth/verify-account':
         return {
           mainImg: signUpImg,
           title: t('verify_account.title') // Using the translation key
         };
-      case '/forget-password':
+      case '/auth/forget-password':
         return {
           mainImg: forgetPassImg,
           title: t('forget_password.title') // Using the translation key
         };
-      case '/reset-password':
+      case '/auth/reset-password':
         return {
           mainImg: forgetPassImg,
           title: t('reset_password.title') // Using the translation key

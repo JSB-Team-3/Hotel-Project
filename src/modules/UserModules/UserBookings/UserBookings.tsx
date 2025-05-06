@@ -785,7 +785,7 @@ const UserBookings: React.FC = () => {
           {booking.status === "pending" &&
             <Link
               component={RouterLink}
-              to={`/home/checkout/${booking._id}`}
+              to={`/checkout/${booking._id}`}
               sx={{
                 textDecoration: "none",
                 display: "inline-block",

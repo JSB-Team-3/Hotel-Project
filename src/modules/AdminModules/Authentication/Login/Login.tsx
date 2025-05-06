@@ -35,7 +35,7 @@ const Login = () => {
       if (data.user.role === 'admin') {
         navigate('/dashboard');
       } else if (data.user.role === 'user') {
-        navigate('/home');
+        navigate('/');
       }
     
   } catch (error) {
@@ -54,7 +54,7 @@ return (
 
     <Typography variant="body1" sx={{ maxWidth: 300, mb: 2 }}>
       {t('login.no_account')}{' '}
-      <Link component={RouterLink} to="/register" underline="hover" color="red">
+      <Link component={RouterLink} to="/auth/register" underline="hover" color="red">
         {t('signup.title')}
       </Link>
     </Typography>
@@ -81,6 +81,11 @@ return (
           errors={errors}
         />
       </Grid>
+      <Box sx={{textAlign:'end'}}>
+        <Link component={RouterLink} to="/auth/forget-password" underline="hover" color="#4D4D4D">
+        {t('forget_password.label')}?
+      </Link>
+      </Box>
 
       <FormButton isSubmitting={isSubmitting} color="primary" name={t('login.login')} />
     </form>

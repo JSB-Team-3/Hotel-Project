@@ -165,7 +165,10 @@
     "Mohamed, Frontend Dev": "محمد، مطور واجهة المستخدم",
     "What a great trip with my family and I should try again next time soon ...": "لقد كانت رحلة رائعة مع عائلتي ويجب أن أحاول مرة أخرى في المرة القادمة قريبًا ...",
     "Angga, Product Designer": "أنجا، مصمم المنتجات",
-    "more":"اكثر"
+    "more":"اكثر",
+    "most_popular": "الإعلانات الأكثر شيوعًا"
+
+
   },
 
   "booking": {

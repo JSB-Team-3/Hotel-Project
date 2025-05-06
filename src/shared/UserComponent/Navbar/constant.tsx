@@ -14,60 +14,20 @@ export interface PageType {
 }
 
 export const getPages = (t: TFunction): PageType[] => [
-  { name: t('user-navbar.home'), path: '/home', icon: <HomeIcon />, translationKey: 'user-navbar.home' },
-  { name: t('user-navbar.explore'), path: '/home/explore', icon: <ExploreIcon />, translationKey: 'user-navbar.explore' },
-  { name: t('user-navbar.userBookings'), path: '/home/user-booking', icon: <ArticleIcon />, translationKey: 'user-navbar.userBookings' },
-  { name: t('user-navbar.help'), path: '/help', icon: <HelpIcon />, translationKey: 'user-navbar.help' }
+  { name: t('user-navbar.home'), path: '/', icon: <HomeIcon />, translationKey: 'user-navbar.home' },
+  { name: t('user-navbar.explore'), path: '/explore', icon: <ExploreIcon />, translationKey: 'user-navbar.explore' },
+  { name: t('user-navbar.userBookings'), path: '/user-booking', icon: <ArticleIcon />, translationKey: 'user-navbar.userBookings' },
 ];
 
-// Animation variants
-export const drawerVariants = {
-  closed: {
-    x: '100%',
-    transition: {
-      duration: 0.3,
-      ease: [0.32, 0.72, 0, 1] // Smooth cubic bezier for closing
-    }
-  },
-  open: {
-    x: 0,
-    transition: {
-      duration: 0.25,
-      ease: [0.32, 0, 0.67, 0] // Snappy cubic bezier for opening
-    }
-  }
+// These constants are no longer needed as we're using MUI transitions
+export const DRAWER_TRANSITION_DURATION = {
+  enter: 250,  // Opening duration in ms
+  exit: 300    // Closing duration in ms
 };
 
-export const listItemVariants = {
-  closed: {
-    opacity: 0,
-    x: 15,
-    transition: {
-      duration: 0.15 // Faster exit animation
-    }
-  },
-  open: (i: number) => ({
-    opacity: 1,
-    x: 0,
-    transition: {
-      delay: i * 0.1, // Reduced stagger delay
-      duration: 0.25,
-      ease: "easeOut"
-    }
-  })
+export const DRAWER_TRANSITION_EASING = {
+  enter: 'cubic-bezier(0.32, 0, 0.67, 0)',  // Snappy cubic bezier for opening
+  exit: 'cubic-bezier(0.32, 0.72, 0, 1)'    // Smooth cubic bezier for closing
 };
 
-export const backdropVariants = {
-  closed: {
-    opacity: 0,
-    transition: {
-      duration: 0.25
-    }
-  },
-  open: {
-    opacity: 1,
-    transition: {
-      duration: 0.2
-    }
-  }
-};
+export const ITEM_STAGGER_DELAY = 100; // Delay between list items animating in ms

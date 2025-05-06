@@ -43,18 +43,18 @@ export const useNavbarState = () => {
   }, []);
    
   const goToFavorites= React.useCallback(() => {
-    navigate('/home/favourites');
+    navigate('/favourites');
   },[navigate]);
 
   const handleLogout = React.useCallback(() => {
     closeDrawer();
     handleMenuClose();
-    navigate('/home');
+    navigate('/');
     dispatch(logout());
   }, [closeDrawer, handleMenuClose, navigate, dispatch]);
 
   const handleNavigateToHome =React.useCallback( () => {
-    navigate('/home');
+    navigate('/');
   }, [navigate]);
     const getAllFavourites = async () => {
           try {
@@ -63,14 +63,21 @@ export const useNavbarState = () => {
               enqueueSnackbar(err as string || t('favourite.getMessage'), { variant: 'error' });
           }
       };
+
       React.useEffect(() => {
-        getAllFavourites();
-      }, [favoriteCount, dispatch]);
+        if(user){
+          getAllFavourites();
+        }
+      }, [favoriteCount, dispatch,user]);
   // Control document body overflow when drawer is open
   React.useEffect(() => {
     document.body.style.overflow = drawerOpen ? 'hidden' : 'unset';
     return () => { document.body.style.overflow = 'unset'; };
   }, [drawerOpen]);
+
+  React.useEffect(()=>{
+   
+  },[userProfile]);
 
   return {
     isLoggedIn,

@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { ListItem, ListItemIcon, ListItemText, alpha, useTheme } from '@mui/material';
-import { motion } from 'framer-motion';
-import { PageType, listItemVariants } from '../constant';
+import { ListItem, ListItemIcon, ListItemText, alpha, useTheme, Box } from '@mui/material';
+import { PageType } from '../constant';
 import { useTranslation } from 'react-i18next';
 
 interface DrawerItemProps {
@@ -15,14 +14,26 @@ interface DrawerItemProps {
 export const DrawerItem = React.memo(({ page, index, isActive, closeDrawer }: DrawerItemProps) => {
   const theme = useTheme();
   const { t } = useTranslation();
+  
+  // Replace Framer Motion animation with CSS
+  const [isVisible, setIsVisible] = React.useState(false);
+  
+  React.useEffect(() => {
+    // Add staggered animation delay based on index
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, index * 300);
+    
+    return () => clearTimeout(timer);
+  }, [index]);
 
   return (
-    <motion.div
-      custom={index}
-      variants={listItemVariants}
-      initial="closed"
-      animate="open"
-      exit="closed"
+    <Box
+      sx={{
+        opacity: isVisible ? 1 : 0,
+        transform: isVisible ? 'translateX(0)' : 'translateX(15px)',
+        transition: `opacity 0.25s ease, transform 0.25s ease`,
+      }}
     >
       <ListItem
         component={RouterLink}
@@ -52,6 +63,6 @@ export const DrawerItem = React.memo(({ page, index, isActive, closeDrawer }: Dr
           primaryTypographyProps={{ fontWeight: isActive(page.path) ? 600 : 500 }}
         />
       </ListItem>
-    </motion.div>
+    </Box>
   );
 });

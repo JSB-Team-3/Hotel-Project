@@ -56,8 +56,8 @@ const RoomDetails: React.FC = () => {
   const { t } = useTranslation();
 
   const breadCrumbsLinks = [
-    { label: t('sidebar.home'), to: '/home' },
-    { label: t('room_details.title'), to: `/home/rooms/${roomId}` },
+    { label: t('sidebar.home'), to: '/' },
+    { label: t('room_details.title'), to: `/rooms/${roomId}` },
   ];
 
   useEffect(() => {

@@ -143,7 +143,7 @@
     "signup": {
       "title": "Sign Up"
     },
-    "favorites:": "Favorites"
+    "favorites": "Favorites"
   },
   "theme": {
     "darkMode": "Switch to Dark Mode",
@@ -166,7 +166,8 @@
     "Mohamed, Frontend Dev": "Mohamed, Frontend Dev",
     "What a great trip with my family and I should try again next time soon ...": "What a great trip with my family and I should try again next time soon ...",
     "Angga, Product Designer": "Angga, Product Designer",
-    "more": "more"
+    "more":"more",
+    "most_popular": "Most Popular Ads"
   },
   "booking": {
     "start_booking": "Start Booking",

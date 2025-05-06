@@ -32,8 +32,6 @@ import { Logo } from '../Logo/Logo';
 
 const Navbar = () => {
   const theme = useTheme();
-  const [isScrolled, setIsScrolled] = React.useState(false); // State to track scroll position
-  const [isVisible, setIsVisible] = React.useState(true);
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const scrolled = useScrollTrigger({ threshold: 50 });
   const { t } = useTranslation();
@@ -53,7 +51,6 @@ const Navbar = () => {
     handleLogout,
     goToFavorites,
     handleNavigateToHome
-
   } = useNavbarState();
 
   return (
@@ -68,7 +65,7 @@ const Navbar = () => {
             backdropFilter: 'blur(10px)',
             boxShadow: scrolled ? '0 2px 10px rgba(0,0,0,0.1)' : 'none',
             transition: 'box-shadow 0.3s ease',
-            transform: isVisible ? 'translateY(0)' : 'translateY(-100%)',
+            transform: 'translateY(0)' ,
           }}
         >
           <Container maxWidth="xl">
