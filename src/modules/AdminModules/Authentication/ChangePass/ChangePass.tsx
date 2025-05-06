@@ -117,6 +117,7 @@ const ChangePass = ({ open, setOpen }: changePassProp) => {
               validation={PASSWORD_VALIDATION}
               type="password"
               errors={errors}
+              placeholder={t('form.oldPassword')}
             />
             <TextInput<ChangePasswordData>
               name="newPassword"
@@ -126,6 +127,7 @@ const ChangePass = ({ open, setOpen }: changePassProp) => {
               validation={PASSWORD_VALIDATION}
               type="password"
               errors={errors}
+              placeholder={t('form.newPassword')}
             />
             <TextInput<ChangePasswordData>
               name="confirmPassword"

@@ -64,7 +64,7 @@ const ForgetPass: React.FC = () => {
           fontWeight="500"
           marginBottom="2rem"
         >
-          {t("form.forgot_heading")}
+          {t("forget_password.title")}
         </Typography>
 
         <Typography variant="body1" sx={{ maxWidth: 300, mb: 10 }}>
