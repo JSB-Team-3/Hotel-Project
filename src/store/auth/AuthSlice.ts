@@ -25,6 +25,7 @@ const authSlice = createSlice({
     logout: (state) => {
       state.user = null;
       state.token = null;
+      state.userProfile = null;
       // Remove from localStorage on logout
       localStorage.removeItem("token");
       localStorage.removeItem("user");
@@ -42,6 +43,7 @@ const authSlice = createSlice({
         state.loading = false;
         state.user = action.payload.data.user;
         state.token = action.payload.data.token;
+        // Initial userProfile set, will be updated by getUserProfile
         state.error = null;
         // Save to localStorage after login
         localStorage.setItem("token", action.payload.data.token);
@@ -63,6 +65,9 @@ const authSlice = createSlice({
         state.user = action.payload.data.user;
         state.token = action.payload.data.token;
         state.error = null;
+        // Save to localStorage after registration
+        localStorage.setItem("token", action.payload.data.token);
+        localStorage.setItem("user", JSON.stringify(action.payload.data.user));
       })
       .addCase(registerThunk.rejected, (state, action) => {
         state.loading = false;
@@ -119,21 +124,18 @@ const authSlice = createSlice({
       .addCase(getUserProfile.pending, (state) => {
         state.loading = true;
         state.error = null;
-      }
-      )
+      })
       .addCase(getUserProfile.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = action.payload.data.user;
+        state.userProfile = action.payload.data.user; // Changed from state.user to state.userProfile
         state.error = null;
+        // Save userProfile to localStorage
         localStorage.setItem("user-profile", JSON.stringify(action.payload.data.user));
-
-      }
-      )
+      })
       .addCase(getUserProfile.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
-      }
-      );
+      });
   },
 });
 

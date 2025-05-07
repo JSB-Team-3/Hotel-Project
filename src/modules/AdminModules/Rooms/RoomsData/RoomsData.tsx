@@ -1,7 +1,17 @@
 import { RoomPayload, Facility } from '../../../../Interfaces/rooms.interface';
-import { Box, Button, Checkbox, CircularProgress, FormControl, ListItemText, MenuItem, OutlinedInput, Select, SelectChangeEvent } from '@mui/material';
-import TextInput from '../../../../shared/Form/TextInput';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import {
+  Box,
+  Button,
+  Checkbox,
+  CircularProgress,
+  FormControl,
+  ListItemText,
+  MenuItem,
+  OutlinedInput,
+  Select,
+  SelectChangeEvent,
+} from '@mui/material';
+
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
@@ -11,8 +21,11 @@ import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useSnackbar } from 'notistack';
 import { createRoom, getRoomDetails, updateRoom } from '../../../../store/rooms/roomsThunk';
 import { getAllRoomFacilities } from '../../../../store/facilities/facilitiesThunk';
-import FileUpload from '../../../../shared/Form/FileUpload';
 import OptimizedImage from '../../../../shared/OptimizedImage/OptimizedImage';
+import { useNavigate, useParams } from 'react-router-dom';
+import TextInput from '../../../../shared/Form/TextInput';
+import { Link } from 'react-router-dom';
+import FileUpload from '../../../../shared/Form/FileUpload';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -30,10 +43,13 @@ export default function RoomsData() {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const { t } = useTranslation();
   const dispatch = useDispatch<AppDispatch>();
-  const { loading, facilities } = useSelector((state: RootState) => ({
-    loading: state?.rooms?.loading,
-    facilities: state?.facilities?.facilities || [],
-  }), shallowEqual);
+  const { loading, facilities } = useSelector(
+    (state: RootState) => ({
+      loading: state?.rooms?.loading,
+      facilities: state?.facilities?.facilities || [],
+    }),
+    shallowEqual
+  );
   const { REQUIRED_VALIDATION } = useValidation();
   const { enqueueSnackbar } = useSnackbar();
   const [selectedFacilities, setSelectedFacilities] = useState<string[]>([]);
@@ -45,7 +61,7 @@ export default function RoomsData() {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<RoomPayload>({ mode: "onChange" });
+  } = useForm<RoomPayload>({ mode: 'onChange' });
 
   const fetchRoomDetails = useCallback(async () => {
     try {
@@ -74,17 +90,16 @@ export default function RoomsData() {
             }
           });
 
-          Promise.all(imagePromises)
-            .then(files => {
-              const validFiles = files.filter((file): file is File => file !== null);
-              if (validFiles.length > 0) {
-                setSelectedFiles(validFiles);
-              }
-            });
+          Promise.all(imagePromises).then((files) => {
+            const validFiles = files.filter((file): file is File => file !== null);
+            if (validFiles.length > 0) {
+              setSelectedFiles(validFiles);
+            }
+          });
         }
       }
     } catch (err) {
-      enqueueSnackbar(err as string || 'Error fetching room details', { variant: 'error' });
+      enqueueSnackbar((err as string) || 'Error fetching room details', { variant: 'error' });
     }
   }, [dispatch, roomId, reset, enqueueSnackbar]);
 
@@ -104,11 +119,16 @@ export default function RoomsData() {
     }
   }, [isUpdate, fetchRoomDetails, fetchFacilities]);
 
-  const handleFacilitiesChange = useCallback((event: SelectChangeEvent<typeof selectedFacilities>) => {
-    const { target: { value } } = event;
-    const newSelectedFacilities = typeof value === 'string' ? value.split(',') : value;
-    setSelectedFacilities(newSelectedFacilities);
-  }, []);
+  const handleFacilitiesChange = useCallback(
+    (event: SelectChangeEvent<typeof selectedFacilities>) => {
+      const {
+        target: { value },
+      } = event;
+      const newSelectedFacilities = typeof value === 'string' ? value.split(',') : value;
+      setSelectedFacilities(newSelectedFacilities);
+    },
+    []
+  );
   const onSubmit = async (data: RoomPayload) => {
     try {
       const formData = new FormData();
@@ -120,7 +140,7 @@ export default function RoomsData() {
         formData.append('facilities', facilityId);
       });
       if (selectedFiles.length > 0) {
-        selectedFiles.forEach(file => {
+        selectedFiles.forEach((file) => {
           formData.append('imgs', file);
         });
       }
@@ -141,10 +161,10 @@ export default function RoomsData() {
     }
   };
 
-// Memoize facilitiesArray using useMemo
-const facilitiesArray = useMemo(() => {
-  return Array.isArray(facilities) ? facilities : [];
-}, [facilities]);
+  // Memoize facilitiesArray using useMemo
+  const facilitiesArray = useMemo(() => {
+    return Array.isArray(facilities) ? facilities : [];
+  }, [facilities]);
   return (
     <Box
       sx={{ width: '100%', maxWidth: 800, mx: 'auto', p: 3 }}
@@ -158,7 +178,7 @@ const facilitiesArray = useMemo(() => {
         name="roomNumber"
         id="roomNumber"
         register={register}
-        placeholder='Room Number'
+        placeholder="Room Number"
         validation={REQUIRED_VALIDATION('Room Number')}
         type="text"
         errors={errors}
@@ -168,7 +188,7 @@ const facilitiesArray = useMemo(() => {
           name="price"
           id="price"
           register={register}
-          placeholder='Price'
+          placeholder="Price"
           validation={REQUIRED_VALIDATION('Price')}
           type="number"
           errors={errors}
@@ -177,18 +197,29 @@ const facilitiesArray = useMemo(() => {
           name="capacity"
           id="capacity"
           register={register}
-          placeholder='Capacity'
+          placeholder="Capacity"
           validation={REQUIRED_VALIDATION('Capacity')}
           type="number"
           errors={errors}
         />
       </Box>
-      <Box sx={{ display: 'flex', gap: 2, alignItems: "end", mt: 1, mb: 1 }}>
+      <Box
+        sx={{
+          display: 'flex',
+          gap: 2,
+          alignItems: 'center',
+          mt: 1,
+          mb: 1,
+          '& .MuiInputBase-root': {
+            margin: 0,
+          },
+        }}
+      >
         <TextInput<RoomPayload>
           name="discount"
           id="discount"
           register={register}
-          placeholder='Discount'
+          placeholder="Discount"
           validation={REQUIRED_VALIDATION('Discount')}
           type="number"
           errors={errors}
@@ -198,8 +229,8 @@ const facilitiesArray = useMemo(() => {
             displayEmpty
             sx={{
               '& .MuiSelect-select': {
-                padding: '10px'
-              }
+                padding: '10px',
+              },
             }}
             fullWidth
             labelId="facilities-checkbox-label"
@@ -244,23 +275,37 @@ const facilitiesArray = useMemo(() => {
         fieldName="imgs"
       />
       {/* Preview selected images */}
-      <Box sx={{display:"flex",gap:1 ,mt:1}}>
-      {selectedFiles.length > 0 && selectedFiles.map((file, index) => (
-        <OptimizedImage
-          key={index}
-          src={URL.createObjectURL(file)} 
-          alt={`Room image ${index + 1}`}
-          width="80px"
-          height="80px"
-        />
-      ))}
+      <Box sx={{ display: 'flex', gap: 1, mt: 1 }}>
+        {selectedFiles.length > 0 &&
+          selectedFiles.map((file, index) => (
+            <OptimizedImage
+              key={index}
+              src={URL.createObjectURL(file)}
+              alt={`Room image ${index + 1}`}
+              width="80px"
+              height="80px"
+            />
+          ))}
       </Box>
       <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 3, gap: 2 }}>
-        <Button variant="outlined" component={Link} to="/dashboard/rooms">
+        <Button
+          variant="outlined"
+          component={Link}
+          to="/dashboard/rooms"
+          sx={{
+            '&:hover': {
+              color: '#203FC7',
+            },
+          }}
+        >
           {t('common.cancel')}
         </Button>
         <Button type="submit" variant="contained" color="primary">
-          {loading ? <CircularProgress color="inherit" size={24} sx={{ color: 'white' }} /> : t('common.save')}
+          {loading ? (
+            <CircularProgress color="inherit" size={24} sx={{ color: 'white' }} />
+          ) : (
+            t('common.save')
+          )}
         </Button>
       </Box>
     </Box>

@@ -177,7 +177,6 @@ const Navbar = () => {
           closeDrawer={closeDrawer}
           theme={theme}
           isLoggedIn={isLoggedIn}
-          userProfile={userProfile}
           pages={PAGES}
           isActive={isActive}
           handleLogout={handleLogout}
