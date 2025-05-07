@@ -14,7 +14,7 @@ import {
 } from '@mui/material';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ThemeToggle from '../ThemeToggle';
 import LanguageSelector from '../LanguageSwithcer';
 import StyledDrawer from './SidebarStyles';
@@ -36,16 +36,10 @@ const Sidebar: React.FC<SidebarProps> = ({ open, toggleSidebar }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const location = useLocation();
   const { t } = useTranslation();
   const [openChange, setOpenChange] = useState(false);
 
-  // Auto-close sidebar on small screens when route changes
-  useEffect(() => {
-    if (isMobile && open) {
-      toggleSidebar();
-    }
-  }, [isMobile, location]);
+ 
 
 const handleLogout = React.useCallback(() => {
     navigate('/');
@@ -86,7 +80,6 @@ const handleLogout = React.useCallback(() => {
             <ListItemButton
               component={Link}
               to={item.route}
-              onClick={isMobile ? toggleSidebar : undefined}
               sx={{
                 minHeight: 48,
                 justifyContent: open ? 'initial' : 'center',
@@ -114,7 +107,6 @@ const handleLogout = React.useCallback(() => {
           <ListItemButton
             onClick={() => {
               setOpenChange(true);
-              if (isMobile) toggleSidebar();
             }}
             sx={{
               minHeight: 48,
@@ -142,7 +134,6 @@ const handleLogout = React.useCallback(() => {
           <ListItemButton
             onClick={() => {
               handleLogout();
-              if (isMobile) toggleSidebar();
             }}
             sx={{
               minHeight: 48,
@@ -200,7 +191,7 @@ const handleLogout = React.useCallback(() => {
             justifyContent: 'center',
           }}
         >
-          <LanguageSelector color={theme.custom.liteMain} />
+          <LanguageSelector />
         </Box>
       </Box>
       <ChangePass

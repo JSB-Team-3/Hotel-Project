@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { USER_URLS } from "../../services/api/apiConfig";
 import {privateAxiosInstance, puplicAxiosInstance} from '../../services/api/apiInstance'
-import {LoginData, RegisterData, ForgotPasswordData, ResetPasswordData, ChangePasswordData} from './interfaces/authType'
+import {LoginData, ForgotPasswordData, ResetPasswordData, ChangePasswordData} from './interfaces/authType'
 import { handleThunkError } from "../../utilities/handleThunkError";
 
 
@@ -16,7 +16,6 @@ export const login = createAsyncThunk('auth/login', async(data: LoginData, thunk
 
 export const registerThunk = createAsyncThunk('auth/register', async(data: FormData, thunkAPI) =>{
     try{
-
         const Response = await puplicAxiosInstance.post(USER_URLS.REGISTER, data,{headers: {
             'Content-Type': 'multipart/form-data',
           }},)
@@ -54,12 +53,23 @@ export const changePassword = createAsyncThunk('auth/changePass', async(data: Ch
         return thunkAPI.rejectWithValue(handleThunkError(error, 'Failed to change password'));
     }
 })
-export const getUserProfile = createAsyncThunk('auth/getUserProfile', async(id:string, thunkAPI) =>{
-    try{
-        const response = await privateAxiosInstance.get(USER_URLS.USER_PROFILE(id))
-        return response.data
-    }catch (error) {
-        return thunkAPI.rejectWithValue(handleThunkError(error, 'Failed to fetch user profile'));
-    }
-})
 
+export const getUserProfile = createAsyncThunk(
+    'auth/getUserProfile', 
+    async(id: string | undefined = undefined, thunkAPI) => {
+        try {
+            // Get the state to check for user ID if not provided
+            const state: any = thunkAPI.getState();
+            const userId = id || state.auth.user?._id;
+            
+            if (!userId) {
+                return thunkAPI.rejectWithValue('User ID not available');
+            }
+            
+            const response = await privateAxiosInstance.get(USER_URLS.USER_PROFILE(userId));
+            return response.data;
+        } catch (error) {
+            return thunkAPI.rejectWithValue(handleThunkError(error, 'Failed to fetch user profile'));
+        }
+    }
+);

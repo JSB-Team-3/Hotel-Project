@@ -1,13 +1,13 @@
 import * as React from 'react';
-import { Box, Backdrop, Fade, Slide } from '@mui/material';
+import { Box, Backdrop,  Slide } from '@mui/material';
 import { DrawerContent } from './DrawerContent';
+import { useNavbarState } from '../hooks/useNavbarState';
 
 interface MobileDrawerProps {
   drawerOpen: boolean;
   closeDrawer: () => void;
   theme: any;
   isLoggedIn: boolean;
-  userProfile: any;
   pages: any[];
   isActive: (path: string) => boolean;
   handleLogout: () => void;
@@ -20,12 +20,12 @@ export const MobileDrawer = React.memo(
     closeDrawer,
     theme,
     isLoggedIn,
-    userProfile,
     pages,
     isActive,
     handleLogout,
     handleNavigateToHome
   }: MobileDrawerProps) => {
+    const {userProfile}=useNavbarState();
     return (
       <React.Fragment>
         {/* Backdrop with MUI Fade transition */}
